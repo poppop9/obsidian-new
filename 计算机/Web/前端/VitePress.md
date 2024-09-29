@@ -235,9 +235,12 @@ export default {
 <u>多功能侧边栏</u> ： https://vitepress-sidebar.jooy2.com/
 
 
-# ❤️algolia DocSearch
+# ❤️ algolia DocSearch
+https://learnku.com/articles/12400/using-algolia-docsearch-to-easily-realize-document-total-station-search
+
 - 申请免费爬取计划 https://docsearch.algolia.com/apply/
 	- 如果计划未通过，那就自己爬取 https://docsearch.algolia.com/docs/legacy/run-your-own/
+- 创建爬网程序
 - 创建应用
 - 获取 search key，并填写 config.mjs 配置
 ```json
@@ -260,6 +263,49 @@ search: {
 
 
 # ❤ 部署
+## 💛 同步
+将 github 的 B 库，同步到 C 库的某个子文件夹下
+```yml
+# sync-to-vitePress.yml 文件
+name: Sync to C repository subfolder
+
+on:
+  push:
+    branches:
+      - main  # 监听B仓库main分支的更改
+
+jobs:
+  sync:
+    runs-on: ubuntu-22.04
+    steps:
+      # Step 1: 检出 B 仓库的代码
+      - name: Checkout obsidian-new repository
+        uses: actions/checkout@v3
+        
+      # Step 2: 克隆 C 仓库到本地
+      - name: Clone vitePress repository
+        run: |
+          git clone https://${{ secrets.ACCESS_TOKEN }}@github.com/poppop9/vitePress.git
+          cd vitePress
+          git checkout main
+
+      # Step 3: 将 B 仓库的内容复制到 C 仓库的子文件夹
+      - name: Copy B repository to C repository subfolder
+        run: |
+          mkdir -p vitePress/src/notes
+          cp -r $(ls -A | grep -v vitePress) vitePress/src/notes/
+          
+      # Step 4: 提交并推送更改到 C 仓库
+      - name: Commit and Push changes to C repository
+        run: |
+          cd vitePress
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add src/notes
+          git commit -m "Sync from obsidian-new repository" || echo "No changes to commit"
+          git push origin main
+```
+
 https://blog.csdn.net/weixin_42164539/article/details/128761266
 
 <u>部署平台</u> ：
@@ -267,10 +313,6 @@ https://blog.csdn.net/weixin_42164539/article/details/128761266
 	- 构建命令 `npm run docs:build` 
 	- 输出目录 `.vitepress/dist` 
 - https://www.netlify.com/
-
-
-
-
 
 ---
 
