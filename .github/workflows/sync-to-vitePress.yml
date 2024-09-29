@@ -24,7 +24,7 @@ jobs:
       - name: Copy B repository to C repository subfolder
         run: |
           mkdir -p vitePress/src/notes
-          cp -r ./* vitePress/src/notes/
+          cp -r $(ls -A | grep -v vitePress) vitePress/src/notes/
           
       # Step 4: 提交并推送更改到 C 仓库
       - name: Commit and Push changes to C repository
@@ -35,5 +35,3 @@ jobs:
           git add src/notes
           git commit -m "Sync from obsidian-new repository" || echo "No changes to commit"
           git push origin main
-
-
