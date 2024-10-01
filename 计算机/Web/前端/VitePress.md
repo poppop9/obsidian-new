@@ -4,6 +4,7 @@
 
 <u>教学</u> ：
 - https://developer.aliyun.com/article/1487073?spm=a2c6h.14164896.0.0.2fc947c5MpOuep&scm=20140722.S_community@@%E6%96%87%E7%AB%A0@@1487073._.ID_1487073-RL_VitePress%E7%AE%80%E6%98%93%E9%80%9F%E9%80%9F%E4%B8%8A%E6%89%8B%E5%B0%8F%E5%86%8C-LOC_search~UND~community~UND~item-OR_ser-V_3-P0_0
+- https://docs.bugdesigner.cn/docs/Tutorial/vitepress.html
 
 <u>模板市场</u> ：
 - https://www.builtatlightspeed.com/
@@ -234,21 +235,17 @@ export default {
 
 <u>多功能侧边栏</u> ： https://vitepress-sidebar.jooy2.com/
 
-
 # ❤️ algolia DocSearch
-https://learnku.com/articles/12400/using-algolia-docsearch-to-easily-realize-document-total-station-search
-
-- 申请免费爬取计划 https://docsearch.algolia.com/apply/
-	- 如果计划未通过，那就自己爬取 https://docsearch.algolia.com/docs/legacy/run-your-own/
-- 创建爬网程序
-- 创建应用
-- 获取 search key，并填写 config.mjs 配置
+- [申请免费爬取计划](https://docsearch.algolia.com/apply/)
+	- 如果计划未通过，那就[自己爬取](https://docsearch.algolia.com/docs/legacy/run-your-own/)
+- 接受邀请，进入到官方创建好的爬网程序
+- 获取 search key，并填写 config.mjs 配置，[配置详解](https://github.com/vuejs/vitepress/blob/main/types/docsearch.d.ts#L96)
 ```json
 search: {    
 	provider: 'algolia',
 	options: {
-		appId: 'RHX6KGJ4PT',
-		apiKey: '28a8949a0177be5990c043b7233c22e9',
+		appId: 'RHXPT',
+		apiKey: '28a8949a0177be59',
 		indexName: 'vitepress',
 		placeholder: '请输入搜索内容',
 		translations: {
@@ -260,7 +257,7 @@ search: {
 },
 ```
 
-
+- 可以[定义爬取的周期](https://www.algolia.com/doc/tools/crawler/apis/configuration/schedule/)
 
 # ❤ 部署
 ## 💛 同步
