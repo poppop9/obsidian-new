@@ -1,10 +1,9 @@
 <u>插件</u> ：
-- https://chodocs.cn/program/npm-package/
-- https://vitepress.yiov.top/plugin.html#%E8%87%AA%E5%8A%A8%E4%BE%A7%E8%BE%B9%E6%A0%8F
 
 <u>教学</u> ：
 - https://developer.aliyun.com/article/1487073?spm=a2c6h.14164896.0.0.2fc947c5MpOuep&scm=20140722.S_community@@%E6%96%87%E7%AB%A0@@1487073._.ID_1487073-RL_VitePress%E7%AE%80%E6%98%93%E9%80%9F%E9%80%9F%E4%B8%8A%E6%89%8B%E5%B0%8F%E5%86%8C-LOC_search~UND~community~UND~item-OR_ser-V_3-P0_0
 - https://docs.bugdesigner.cn/docs/Tutorial/vitepress.html
+- https://vitepress.yiov.top/
 
 <u>模板市场</u> ：
 - https://www.builtatlightspeed.com/
@@ -177,11 +176,17 @@ export default defineConfig({
 ```
 
 
-
-
 # ❤ 主题
 在 `.vitepress/config.js` 中的 themeConfig 中配置
 
+# ❤️ 配置
+<u>纯净链接</u> ：访问文件时，没有多余的 `.md` 后缀链接
+
+```js
+export default defineConfig({
+	cleanUrls: true, // 纯净链接
+{)
+```
 
 # ❤ 插件
 <u>图片放大</u> ：
@@ -234,6 +239,8 @@ export default {
 ---
 
 <u>多功能侧边栏</u> ： https://vitepress-sidebar.jooy2.com/
+
+pwa ： https://chodocs.cn/program/vitepress-plugin/#%E6%96%87%E6%A1%A3%E6%94%AF%E6%8C%81-pwa
 
 # ❤️ algolia DocSearch
 - [申请免费爬取计划](https://docsearch.algolia.com/apply/)
