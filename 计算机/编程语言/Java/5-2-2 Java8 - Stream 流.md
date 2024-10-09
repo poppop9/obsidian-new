@@ -11,16 +11,13 @@
 # ❤ 生成流
 通过数据源【~~数组、集合、IO 通道、生成器……~~】生成流
 
-## 单列集合 Collection 生成流
+## 集合生成流
 - 直接用集合调用 `stream()` 方法
 
 ```java
 List<String> list = new ArrayList<String>();  
 Stream<String> stringStream = list.stream();  
 ```
-
-## 双列集合 Map 生成流
-无法直接生成流，如果想要处理<u>可以分开获取 key 流，和 value 流</u>；<u>也可以通过 entrySet 获取</u>
 
 ## 数组生成流
 调用 `stream()` 方法
@@ -44,6 +41,17 @@ public static void main(String[] args) {
 public static void main(String[] args) {  
     Stream<String> Stream = Stream.of("greenteck", "wiggles", "hoan"); 
 }
+```
+
+## 迭代器 iterate 生产流
+`iterate(初始值，条件，累加操作)` 
+
+```java
+Stream<Integer> stream = Stream.iterate(1, n -> n < 10, n -> n * 2);
+        stream.forEach(System.out::print);
+
+---
+1248
 ```
 
 # ❤ 中间操作
@@ -307,6 +315,30 @@ List<Integer> processedNumbers = Arrays.asList(1, 2, 3, 4, 5).stream()
 	.peek(n -> System.out.println("Squared number: " + n)) // 调试输出
 	.toList();
 ```
+
+## 处理有序 Stream
+### takeWhile
+`takeWhile` 从一个有序的 Stream 中取出满足条件的所有元素，一旦遇到不满足条件的元素，就会停止处理后续元素
+```java
+Stream.of("a", "b", "c", "de", "f")
+    .takeWhile(s -> s.length() == 1)
+    .forEach(System.out::print); 
+
+---
+abc
+```
+
+### dropWhile
+从一个有序的 Stream 中丢弃满足条件的所有元素，一旦遇到不满足条件的元素，就会开始处理后续元素
+```java
+Stream.of("a", "b", "c", "de", "f")
+    .dropWhile(s -> s.length() == 1)
+    .forEach(System.out::print); 
+
+---
+def
+```
+
 
 
 # ❤ 终结操作

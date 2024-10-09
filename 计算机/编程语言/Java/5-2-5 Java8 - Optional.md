@@ -11,7 +11,8 @@
 		- `Boolean isPresent()` 判断 Optional 中是否有值
 	- **返回结果**
 		- `get()` 返回 Optional 中的对象，如果为 null ，则抛出异常
-		- `orElse(T t)` 如果 Optional 中有值，则返回此值；反之，返回泛型 T
+		- `orElse(T t)` 如果 Optional 中有值，则返回此值；反之，返回泛型 T，~~无论 Optional 是否有值，都会计算一下泛型 T 的结果 ~~
+		- `or(生产接口)` 如果 Optional 为空，则计算生产接口返回备选值，只有在 Optional 为空时才计算备选值
 	- **处理**
 		- `map(处理方法)` 将 Optional 里的对象，转为另一个类型，**不会在 Optional 为空时抛出异常**，当 Optional 未空时，将不会执行处理方法
 		- `ifPresent(处理方法 A)` 如果该 Optional 对象的值存在，则将这个值传递给方法 A

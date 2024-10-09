@@ -44,5 +44,6 @@ public class Arrays extends Object
 > [!hint] 方法 `System.exit(0)` 可以终止java虚拟机的运行 `System。CurrentTimeMillis()` 计算1970年，1月1日与当前时间的差值，单位为 `ms`
 
 ## Object
-
 > [!hint] 方法 `toString()` 在类中创建此方法，可以在打印对象名称时更加的简明 `equals()` 用来比较两个对象【包含字符串】的内容【而不是地址】，在比较对象的内容时，需要在对象所属类里重写 `equals()`，`hashcode()`
+
+- 
