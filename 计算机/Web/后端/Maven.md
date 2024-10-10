@@ -208,6 +208,16 @@ Maven 有三套独立的生命周期，每一套都有若干个阶段。**同一
 	            <groupId>org.springframework.boot</groupId>  
 	            <artifactId>spring-boot-maven-plugin</artifactId>  
 	        </plugin>  
+	        <plugin>  
+	            <groupId>org.apache.maven.plugins</groupId>  
+	            <artifactId>maven-compiler-plugin</artifactId>  
+	            <version>3.13.0</version>  
+	            <configuration>  
+	                <!-- 指定JDK版本 -->  
+	                <source>17</source>  
+	                <target>17</target>  
+	            </configuration>  
+	        </plugin>  
 	    </plugins>  
 	</build>
 </project>
