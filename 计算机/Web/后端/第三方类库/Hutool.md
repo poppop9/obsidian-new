@@ -244,12 +244,17 @@ dateTimes.forEach(System.out::println);
 ```
 
 ## 💛 新 - 日期时间
-<u>格式化</u> ：
-
-- `parse(时间，时间的格式)` 
+<u>格式化，解析</u> ：
+- `LocalDateTime parse(时间字符串，时间格式)` 字符串 -> LocalDateTime
 ```java
 LocalDateTime localDateTime2 = LocalDateTimeUtil.parse("2020-01-23 12:23:56", DatePattern.NORM_DATETIME_FORMATTER);
 ```
+
+- `String format(时间，时间格式)` LocalDateTime -> 字符串
+```java
+LocalDateTimeUtil.format(LocalDateTimeUtil.beginOfDay(LocalDateTime.parse("2024-09-01T00:00:00")), DatePattern.NORM_DATETIME_PATTERN)
+```
+
 
 <u>偏移时间量</u> ：
 

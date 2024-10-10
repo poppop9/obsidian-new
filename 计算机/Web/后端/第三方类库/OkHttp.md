@@ -24,6 +24,7 @@ $$
 	- `build()` 完成构建
 - 发起同步请求，并获取到 **Response 结果** `Response response = client.newCall(request).execute()` **在请求的过程中出现错误，就会进入到 catch 代码块里**
 	- `isSuccessful()` 判断请求是否成功【200 - 299】
+	- `close()` 关闭资源，如果使用了 try resource 结构那就可以不用
 	- `header(name)` 返回 name 的最后一个 value，response.header("Server")
 	- `headers(name)` 以列表形式读取某个 name 的所有 value
 	- `headers()` 获取 Response 对象的头部信息
