@@ -1,18 +1,20 @@
-# 事务管理
+# ❤️ 事务管理
 >[!quote] 事务管理
->与 `Mysql` 中相同，事务是一组操作，要么同时成功，要么同时失败
+> >SpringBoot 中的事务管理与 `Mysql` 中相同，事务是一组操作，要么同时成功，要么同时失败
+> 
+> 接口，类，方法上添加 `@Transactional` ：
+> - <u>接口</u> ：该接口下的所有实现类的所有方法
+> - <u>类</u> ：该类下的所有方法
+> - <u>方法</u>交给 Spring 进行事务管理
 
-在接口，类，方法上添加 `@Transactional` ，将<u>接口</u>【该接口下的所有实现类的所有方法】，<u>类</u>【该类下的所有方法】，<u>方法</u>交给 Spring 进行事务管理
-
->[!warning] 事务管理一般添加在 `Service 层`，用于处理多个数据操作
+>[!hint] 事务管理 的底层是 AOP
 
 ```java
 @Service
-public class DancerService implements com.example.service.DancerService {
+public class DancerService {
     @Autowired
     private DancerMapper DancerMapper;
 
-    @Override
     @Transactional
     public void DeleteDanceType(Integer id) {
 	    // 删除舞种表
@@ -24,8 +26,8 @@ public class DancerService implements com.example.service.DancerService {
 }
 ```
 
-## rollbackFor
->事务管理默认只在 `RuntimeException 运行时异常` 出现时才事务回滚，我们可以使用 `rollbackFor` 来指定什么异常需要回滚
+## 💛 rollbackFor
+事务管理默认只在 `RuntimeException 运行时异常` 出现时才事务回滚，我们可以使用 `rollbackFor` 来指定什么异常需要回滚
 
 ```java
 @Override
@@ -35,20 +37,18 @@ public void DeleteDanceType(Integer id) {
 }
 ```
 
-## propagation
->用于指定<u>当事务嵌套了</u>，该如何处理事务
+## 💛 propagation
+用于指定<u>当事务嵌套了</u>，该如何处理事务
 
-| 传播属性             | 描述                                     |
-| ---------------- | -------------------------------------- |
-| **REQUIRED**【默认】 | 如果当前没有事务，则新建一个事务；如果已经存在一个事务中，则加入到这个事务中 |
-| SUPPORTS         | 如果当前存在事务，则加入该事务；如果没有，就以非事务方式执行         |
-| MANDATORY        | 强制要求存在一个事务，否则抛出异常                      |
-| **REQUIRES_NEW** | 新建一个事务，如果当前存在事务，则挂起该事务                 |
-| NOT_SUPPORTED    | 以非事务方式执行操作，如果当前存在事务，则挂起该事务             |
-| NEVER            | 以非事务方式执行操作，如果当前存在事务，则抛出异常              |
-| NESTED           | 如果当前存在事务，则在嵌套事务内执行；如果没有，就新建一个事务        |
+- `REQUIRED` ~~默认~~ 如果当前没有事务，则新建一个事务；如果已经存在一个事务中，则加入到这个事务中
+- `SUPPORTS` 如果当前存在事务，则加入该事务；如果没有，就以非事务方式执行
+- `MANDATORY` 强制要求存在一个事务，否则抛出异常
+- `REQUIRES_NEW` 新建一个事务，如果当前存在事务，则挂起该事务
+- `NOT_SUPPORTED` 以非事务方式执行操作，如果当前存在事务，则挂起该事务
+- `NEVER`  以非事务方式执行操作，如果当前存在事务，则抛出异常
+- `NESTED` 如果当前存在事务，则在嵌套事务内执行；如果没有，就新建一个事务
 
-### REQUIRED
+### 💙 REQUIRED
 ```java
 @Transactional
 public void workA (){
@@ -66,7 +66,7 @@ public void workA (){
 
 ![500](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202402291623087.png)
 
-### REQUIRES_NEW
+### 💙 REQUIRES_NEW
 ```java
 @Transactional(propagation = Propagation.REQUIRES_NEW)
 public void workA (){
@@ -84,7 +84,20 @@ public void workA (){
 
 ![900](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202402291632083.png)
 
->[!hint] 事务管理 的底层就是 AOP
+## 💛 readOnly
+`readOnly = true` 标识了该事务中只执行读取操作，不进行任何修改或写入操作
+
+---
+
+<u>优点</u> ：
+- **避免脏检查**：普通事务会跟踪实体的状态变化，而只读事务假设事务内不会有数据修改，所以也不会跟踪实体的状态变化，从而减少开销，~~但是你如果在只读事务中执行了写操作，那 Spring 还是会抛异常~~
+- **节省资源**：由于不进行脏检查，所以也不会保存实体的快照信息，也不用执行快照的比较操作，所以节省资源
+- **提高并发性**：
+	- 普通事务会加入读锁，写锁
+	- 只读事务既无读锁，也无写锁
+
+<u>缺点</u> ：
+- 只读事务也是事务，一个事务就会占用一个数据库连接资源，~~如果如何这个方法的执行时间很长，那就不推荐设置为只读事务~~
 
 # ❤️ AOP
 >[!quote] AOP
@@ -99,7 +112,8 @@ public void workA (){
 ![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403021349901.png)
 
 ### 连接点
->可以被 AOP 控制的所有方法，在 AOP 类中可以使用连接点获取<u>相关信息</u>【目标对象的类名，方法名，方法参数……】
+>[!quote] 连接点
+>连接点 是可以被 AOP 控制的所有方法，在 AOP 类中可以使用连接点获取<u>相关信息</u>【目标对象的类名，方法名，方法参数……】
 
 - 对于 `@Around`，连接点对象为 `ProceedingJoinPoint`
 ```java
@@ -119,7 +133,8 @@ joinPoint.getSignature().getName(); 方法名
 joinPoint.proceed() 的返回值，就是源方法的返回值
 
 ### 切入点
->被 AOP 声明为要控制的方法
+>[!quote] 切入点
+>切入点 是被 AOP 声明为要控制的方法
 
 #### 表达式
 - `execution((方法修饰符) 返回值 包名.类名.方法名(方法参数) (throws 异常))`
@@ -150,6 +165,7 @@ joinPoint.proceed() 的返回值，就是源方法的返回值
 >[!warning] 后 4 种方法无需考虑目标方法的执行
 
 ### 切面
+>[!quote] 切面
 >切面 = 切入点 + 通知
 
 ## 引入依赖
