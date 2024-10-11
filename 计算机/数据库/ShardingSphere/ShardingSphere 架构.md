@@ -4,8 +4,13 @@ ShardingSphere 包括：
 <dependency>
 	<groupId>org.apache.shardingsphere</groupId>
 	<artifactId>shardingsphere-jdbc</artifactId>
-	<version>5.4.1</version>
-	<type>pom</type>
+	<version>5.5.0</version>
+	<exclusions>
+		<exclusion>
+			<groupId>org.apache.shardingsphere</groupId>
+			<artifactId>shardingsphere-test-util</artifactId>
+		</exclusion>
+	</exclusions>
 </dependency>
 ```
 

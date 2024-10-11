@@ -7,7 +7,7 @@ ShardingSphere-JDBC 的 YAML 配置文件组成 ：
 - 规则
 - 属性配置
 
-# 逻辑数据库
+# ❤️ 逻辑数据库
 ![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/20240928150157.png)
 
 ```yml
@@ -15,7 +15,7 @@ ShardingSphere-JDBC 的 YAML 配置文件组成 ：
 databaseName: logic_db
 ```
 
-# 运行模式
+# ❤️ 运行模式
 <u>单机模式</u> ：
 ```yml
 mode:
@@ -55,24 +55,26 @@ mode:
       operationTimeoutMilliseconds: 500
 ```
 
-# 数据源
+# ❤️ 数据源
 ```yml
 # 数据源配置
 dataSources:
   ds_0:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/ds_0
     username: root
     password: root
   ds_1:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/ds_1
     username: root
     password: root
 ```
 
-# 规则
-## 数据分片
+# ❤️ 规则
+## 💛 数据分片
 - `databaseStrategy` 分库策略
 	- none ~~默认~~，不分片
 	- standard 单分片键的标准分片场景
@@ -91,7 +93,72 @@ dataSources:
 	- auditorNames 审计算法
 	- allowHintDisable 
 
+```yml
+# 规则配置
+rules:
+  - !SHARDING  # 数据分片
+    tables:
+      t_order: # 逻辑表名
+        actualDataNodes: ds_${0..1}.t_order_${0..1}  # 实际的数据表的位置
+        # 分表策略
+        tableStrategy:
+          standard:
+            shardingColumn: order_id
+            shardingAlgorithmName: t_order_inline
+      t_order_item:
+        actualDataNodes: ds_${0..1}.t_order_item_${0..1}
+        tableStrategy:
+          standard:
+            shardingColumn: order_id
+            shardingAlgorithmName: t_order_item_inline
+    defaultShardingColumn: account_id
+    bindingTables:
+      - t_order,t_order_item
+    defaultDatabaseStrategy:
+      standard:
+        shardingColumn: user_id
+        shardingAlgorithmName: database_inline
+    defaultTableStrategy:
+      none:
+    shardingAlgorithms:
+      database_inline:
+        type: INLINE
+        props:
+          algorithm-expression: ds_${user_id % 2}
+      t_order_inline:
+        type: INLINE
+        props:
+          algorithm-expression: t_order_${order_id % 2}
+      t_order_item_inline:
+        type: INLINE
+        props:
+          algorithm-expression: t_order_item_${order_id % 2}
+      t_account_inline:
+        type: INLINE
+        props:
+          algorithm-expression: t_account_${account_id % 2}
+    keyGenerators:
+      snowflake:
+        type: SNOWFLAKE
+    auditors:
+      sharding_key_required_auditor:
+        type: DML_SHARDING_CONDITIONS
+```
 
+>[!warning] ShardingSphere-JDBC 的 数据源 YAML 配置文件是不能被 Spring 读取的，因为语法会报错，只能通过配置类来读取创建数据源
+
+```java
+@Configuration
+public class ShardingDataSourceConfig {
+    @Bean
+    public static DataSource createShardingDataSource() throws IOException, SQLException {
+        // 获取 YAML 配置文件
+        File yamlFile = new File(ShardingDataSourceConfig.class.getResource("/application-sharding-databases-tables.yml").getFile());
+        // 创建数据源
+        return YamlShardingSphereDataSourceFactory.createDataSource(yamlFile);
+    }
+}
+```
 
 
 
