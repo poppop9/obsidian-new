@@ -442,7 +442,6 @@ public static void main(String[] args) {
 
 ## reduce
 - `reduce(初始值，累加器)` 必须保证初始值，和累加器的数据类型一致
-
 ```java
 List<String> props = List.of("profile=native", "debug=true", "logging=warn", "interval=500");
 Map<String, String> map = props.stream()
