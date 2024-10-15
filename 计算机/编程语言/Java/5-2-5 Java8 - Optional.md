@@ -8,7 +8,8 @@
 	- `empty()` 返回空的 Optional 对象
 - 非静态方法
 	- **判断**
-		- `Boolean isPresent()` 判断 Optional 中是否有值
+		- `Boolean isPresent()` 判断 Optional 中是否有值\
+		- `Boolean isEmpty()` 判断 Optional 中是否无值
 	- **返回结果**
 		- `get()` 返回 Optional 中的对象，如果为 null ，则抛出异常
 		- `orElse(T t)` 如果 Optional 中有值，则返回此值；反之，返回泛型 T，~~无论 Optional 是否有值，都会计算一下泛型 T 的结果 ~~

@@ -57,6 +57,29 @@ public void sendMail(String to, String subject, String text) {
 - `setSubject()` 邮件标题
 - `setText()` 正文内容
 
+## HTML 数据
+```java
+@Resource
+private JavaMailSender emailSender;
+
+/**
+ * 发送邮件
+ */
+public void sendEmail(String subject) throws Exception {
+	MimeMessage message = emailSender.createMimeMessage();
+	MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+
+	// 设置发送信息
+	messageHelper.setFrom(from);
+	messageHelper.setTo("……");
+	messageHelper.setSubject(subject);
+	messageHelper.setText("html 字符串", true);
+
+	emailSender.send(message);
+}
+```
+
+
 ## 复杂数据 MimeMessage
 - `MimeMessage` 富内容邮件信息，~~图片，HTML，附件~~
 
