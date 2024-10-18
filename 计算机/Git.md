@@ -10,11 +10,15 @@
 
 ## 配置相关命令
 - **查看配置信息**
-	- 查看所有配置 `$ git config --list`
-	- 查看某个配置 `$ git config user.name`
-- **编辑配置文件** `$ git config -e` 
+	- 查看所有配置 `git config --list`
+	- 查看某个配置 `git config user.name`
+- **编辑配置文件** `git config -e` 
 
 >[!hint] 有时候会看到重复的变量名，意味着它们来自不同的配置文件
+
+---
+
+<u>允许拉取 非加密的 http 协议仓库</u> ：`git config --global http.sslVerify false`
 
 ---
 
@@ -68,8 +72,8 @@ $ git config --global merge.tool vimdiff
 > - 当执行 `git checkout .` ，或者 `git checkout -- <file>` 时，会用暂存区全部，或指定的文件替换工作区的文件
 > - 当执行 `git checkout HEAD .` ，或者 `git checkout HEAD <file>` 时，会用 HEAD 指向的 master 分支中的全部，或者部分文件替换暂存区和以及工作区中的文件
 
-# 创建仓库
-## git init
+# ❤️ 创建仓库
+## 💛 git init
 >`git init` 会在 `.git 目录` 【包含了资源的所有元数据】中初始化一个 <u>Git 仓库</u>【在指定目录下】
 
 - `git init` 在当前目录下创建
@@ -79,10 +83,10 @@ $ git config --global merge.tool vimdiff
 >- 在 Linux 系统中，`commit` 的提交说明使用单引号 ' 
 >- Windows 系统，`commit` 的提交说明使用双引号 "
 
-## git clone
->>在本地仓库上创建一个远程仓库的完整副本
->- `git clone 仓库地址` 
->- `git clone 仓库地址 指定目录` 拷贝到指定的目录
+## 💛 git clone
+在本地仓库上创建一个远程仓库的完整副本
+- `git clone 仓库地址` 
+- `git clone 仓库地址 指定目录` 拷贝到指定的目录
 
 ```bash
 $ git clone git://github.com/schacon/grit.git
@@ -90,6 +94,8 @@ $ git clone git://github.com/schacon/grit.git
 # mygrit 是项目的目录名称
 $ git clone git://github.com/schacon/grit.git mygrit
 ```
+
+[部分 clone](https://youwu.today/blog/git-sparse-checkout-for-partial-repository-clone/#%E6%96%B9%E6%B3%954---git-%E7%9A%84%E5%8E%9F%E7%94%9F%E6%94%AF%E6%8C%81-sparse-checkout)
 
 # 基本操作
 ![650](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403211938641.png)

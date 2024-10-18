@@ -75,6 +75,8 @@ dataSources:
 
 # ❤️ 规则
 ## 💛 数据分片
+https://shardingsphere.apache.org/document/current/cn/dev-manual/sharding/#shardingalgorithm
+
 - `tables` 
 	- `databaseStrategy` 分库策略
 		- none ~~不指定则为默认~~，不分片
@@ -99,6 +101,75 @@ dataSources:
 - `bindingTables` 绑定表【~~绑定前提是这些表的分片字段是相同的~~】，将多张表进行绑定路由，这样多表联查时少了很多种可能性【~~比如 order 表，和 user 表绑定，就会有 order_1 对应 user_1，order_2 对应 user_2，多表联查时对应到 order_1 的数据就会去找 user-1，而不是找 user 的所有物理表~~】
 - `shardingAlgorithms` 给分片算法名定义实际的分片策略
 
+---
+
+<u>自定义分布</u> ：默认是均匀分布，也就是 A 库有 2 张表，B 库也有 2 张表
+```yml
+tables:
+  t_order:
+    actualDataNodes: db0.t_order0, db0.t_order1, db1.t_order2, db1.t_order3, db1.t_order4
+
+---
+db0
+  ├── t_order0
+  └── t_order1
+db1
+  ├── t_order2
+  ├── t_order3
+  └── t_order4
+```
+
+<u>多字段作为分片键</u> ：
+```yml
+tableStrategy:
+  complex:
+	shardingColumn: your_column1,your_column2
+	shardingAlgorithmName: t_order_item_inline
+
+t_order_item_inline:
+  type: INLINE
+  props:
+    algorithm-expression: t_order_item_${(your_column1 + your_column2) % 2}
+	algorithm-expression: t_order_item_${hashCode(your_column1 + your_column2) % 2}
+```
+
+<u>预定义的分片算法大全</u> ：ShardingSphere 已经定义好了一些常用的分片算法
+- `type` 
+	- MOD
+	- HASH_MOD
+	- BOUNDARY_RANGE
+	- VOLUME_RANGE
+	- AUTO_INTERVAL
+	- INTERVAL
+	- CLASS_BASED
+	- INLINE
+	- COMPLEX_INLINE
+	- HINT_INLINE
+
+```yml
+tableStrategy:
+  standard:
+	shardingColumn: your_sharding_column
+	shardingAlgorithmName: mod
+
+# 分片算法定义
+shardingAlgorithms:
+  mod:
+	type: MOD
+	props:
+	  sharding-count: 10
+  hash_mod:
+    type: HASH_MOD
+    props:
+      sharding-count: 10
+
+
+
+
+```
+
+---
+
 ```yml
 # 规则配置
 rules:
@@ -111,6 +182,9 @@ rules:
           standard:
             shardingColumn: order_id
             shardingAlgorithmName: t_order_inline
+		keyGenerateStrategy:
+          column: order_id
+          keyGeneratorName: snowflake
       t_order_item:
         actualDataNodes: ds_${0..1}.t_order_item_${0..1}
         tableStrategy:
@@ -152,6 +226,8 @@ rules:
     keyGenerators:
       snowflake:
         type: SNOWFLAKE
+        props:  
+		  worker-id: 1
     auditors:
       sharding_key_required_auditor:
         type: DML_SHARDING_CONDITIONS

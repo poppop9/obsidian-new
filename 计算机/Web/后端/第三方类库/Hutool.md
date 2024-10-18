@@ -5,6 +5,8 @@
     <artifactId>hutool-all</artifactId>
     <version>5.8.32</version>
 </dependency>
+
+implementation group: 'cn.hutool', name: 'hutool-all', version: '5.8.32'
 ```
 
 对文件、流、加密解密、转码、正则、线程、XML等 JDK 方法进行封装
