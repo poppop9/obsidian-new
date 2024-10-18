@@ -61,7 +61,7 @@ com.example.spring_aop.controller.HelloController@65af05b2
 com.example.spring_aop.controller.HelloController@65af05b2
 ```
 
-## 在非 Spring 中管理的类中注入 Bean
+## 非 IOC 管理类中注入 Bean
 - 添加一个 SpringContextUtil 工具类 ：借助 ApplicationContext 的 getBean 功能，再利用 Java 的静态方法，就可以实现无需注解即可注入
 ```java
 package app.xlog.ggbond.strategy.utils;
