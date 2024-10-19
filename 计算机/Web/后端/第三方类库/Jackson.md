@@ -33,7 +33,7 @@ $$
 >objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 > ```
 
-## 💛 反序列化：JSON -> Java 对象
+## 💛 反序列化：JSON -> Bean
 ### JSON 字符串 -> Java 对象
 ```java
 // Car 类
@@ -140,7 +140,7 @@ String jsonObject = "{\"brand\":\"ford\", \"doors\":5}";
 Map<String, Object> jsonMap = objectMapper.readValue(jsonObject, new TypeReference<Map<String,Object>>(){});
 ```
 
-## 💛 序列化：Java 对象 -> JSON
+## 💛 序列化：Bean -> JSON
 - `writeValue()` 
 - `writeValueAsString()` 将生成的 JSON 作为 `String` 返回
 - `writeValueAsBytes()` 将生成的 JSON 作为字节数组返回
@@ -187,6 +187,11 @@ System.out.println(json);
 > String output2 = objectMapper.writeValueAsString(transaction);
 > System.out.println(output2);
 > ```
+
+## 💛 Bean -> ObjectNode
+```java
+ObjectNode objectNode = new ObjectMapper().convertValue(item, ObjectNode.class)
+```
 
 # ❤ JsonNode 树模型
 >[!quote] 树模型
@@ -341,6 +346,30 @@ System.out.println(objectNode.toPrettyString());
   }
 }
 ```
+
+---
+
+- `setAll(ObjectNode)` 直接 set 一个 ObjectNode 对象，这样不会像 putPOJO 一样多一层 Key，如果遇到 Key 相同就会覆盖
+- `putAll(ObjectNode)` 作用与 setAll 相同，只是遇到 Key 相同就跳过
+```java
+ObjectNode objectNode = new ObjectMapper().createObjectNode();
+ObjectNode childNode = new ObjectMapper().createObjectNode();
+childNode.put("name", "Java");
+childNode.put("age", "123");
+
+objectNode.put("address", "abc");
+objectNode.setAll(childNode);
+
+System.out.println(objectNode.toPrettyString());
+
+---
+{
+  "address" : "abc",
+  "name" : "Java",
+  "age" : "123"
+}
+```
+
 ## 删除
 ```java
 objectNode.remove("Math");

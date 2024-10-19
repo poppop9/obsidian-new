@@ -135,6 +135,7 @@ t_order_item_inline:
 
 <u>预定义的分片算法大全</u> ：ShardingSphere 已经定义好了一些常用的分片算法
 - `type` 
+	- INLINE
 	- MOD
 	- HASH_MOD
 	- BOUNDARY_RANGE
@@ -142,18 +143,23 @@ t_order_item_inline:
 	- AUTO_INTERVAL
 	- INTERVAL
 	- CLASS_BASED
-	- INLINE
 	- COMPLEX_INLINE
 	- HINT_INLINE
 
 ```yml
-tableStrategy:
-  standard:
-	shardingColumn: your_sharding_column
-	shardingAlgorithmName: mod
+tables:  
+  t_order:
+	tableStrategy:
+	  standard:
+		shardingColumn: your_sharding_column
+		shardingAlgorithmName: mod
 
 # 分片算法定义
 shardingAlgorithms:
+  inline:
+	type: INLINE
+	props:
+	  algorithm-expression: t_order_${id % 2}
   mod:
 	type: MOD
 	props:
@@ -162,10 +168,6 @@ shardingAlgorithms:
     type: HASH_MOD
     props:
       sharding-count: 10
-
-
-
-
 ```
 
 ---

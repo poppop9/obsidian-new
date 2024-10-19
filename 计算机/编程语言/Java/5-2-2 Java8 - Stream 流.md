@@ -410,7 +410,7 @@ public static void main(String[] args) {
 ```
 
 ## reduce
-- `reduce(初始值，累加器)` 必须保证初始值，和累加器的数据类型一致
+- `reduce(初始值，累加逻辑)` 必须保证初始值，和累加器的数据类型一致
 ```java
 List<String> props = List.of("profile=native", "debug=true", "logging=warn", "interval=500");
 Map<String, String> map = props.stream()
@@ -424,6 +424,19 @@ Map<String, String> map = props.stream()
 			m.putAll(kv);
 			return m;
 		});
+```
+
+- `reduce(初始值，累加逻辑，合并器逻辑)` 当初始值和 Stream 中的元素类型不一致时，就需要加入合并器逻辑，来处理合并
+```java
+ObjectNode node = springTreeList.stream()
+		.reduce(new ObjectMapper().createObjectNode(),
+				(acc, item) -> {
+					acc.putPOJO("node", item);
+					return acc;
+				},
+				// 生成的多个objectNode，只保留第一个
+				(acc1, acc2) -> acc1
+		);
 ```
 
 ## anyMatch，allMatch，noneMatch
