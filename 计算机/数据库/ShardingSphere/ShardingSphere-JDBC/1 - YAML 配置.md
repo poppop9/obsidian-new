@@ -135,16 +135,19 @@ t_order_item_inline:
 
 <u>预定义的分片算法大全</u> ：ShardingSphere 已经定义好了一些常用的分片算法
 - `type` 
-	- INLINE
-	- MOD
-	- HASH_MOD
-	- BOUNDARY_RANGE
-	- VOLUME_RANGE
-	- AUTO_INTERVAL
-	- INTERVAL
-	- CLASS_BASED
-	- COMPLEX_INLINE
-	- HINT_INLINE
+	- INLINE - 自定义 Groovy 表达式
+	- MOD - 如果生成的 id 不随机，比如都是偶数，那数据的就会集中在某个表
+	- HASH_MOD - 将 id 哈希处理后，取模
+	- BOUNDARY_RANGE - 范围分表，~~比如设定 id 为 1~100 的就进入 A 表，100~200 的进入 B 表~~ 
+	- VOLUME_RANGE - 体积分表，~~设定一个容量 Max，先所有数据往 A 表加，当 A 表的行数接近 Max，并且系统预测到数据量可能剧增时，则会创建一个新表，然后往这个表里加~~ 
+	- AUTO_INTERVAL - 自动分表，~~当 A0 表的数据过重时，会自动将数据分配一些给 A1 表，当数据过多时，也会自动创建新表~~ 
+		- 由系统自动调整，很方便
+		- 频繁地迁移数据
+		- 难以调试
+	- INTERVAL - 间隔分表，~~设定一个 Limit 值，所有数据往 A 表加，当 A 表的行数达到 Max 时，系统会创建一个新表，然后往这个表里加~~
+	- CLASS_BASED - 根据特定字段的值进行分片
+	- COMPLEX_INLINE - 根据多个特定字段的值进行分片
+	- HINT_INLINE - 其实不是分片策略，而是查找分片策略，它可以指定系统在查找数据时去哪个分片找
 
 ```yml
 tables:  
