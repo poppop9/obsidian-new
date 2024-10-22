@@ -173,6 +173,18 @@ shardingAlgorithms:
       sharding-count: 10
 ```
 
+<u>指定默认的分库策略，以复用</u> ：配置好，将自动应用于所有库
+```yml
+tables:
+	……
+
+# 默认的分库策略
+defaultDatabaseStrategy:
+  standard:
+	shardingColumn: id  # 将根据id的值，决定路由到哪个数据库实例
+	shardingAlgorithmName: database_def
+```
+
 ---
 
 ```yml
@@ -238,21 +250,6 @@ rules:
         type: DML_SHARDING_CONDITIONS
 ```
 
->[!warning] ShardingSphere-JDBC 的 数据源 YAML 配置文件是不能被 Spring 读取的，因为语法会报错，只能通过配置类来读取创建数据源
-
-```java
-@Configuration
-public class ShardingDataSourceConfig {
-    @Bean
-    public static DataSource createShardingDataSource() throws IOException, SQLException {
-        // 获取 YAML 配置文件
-        File yamlFile = new File(ShardingDataSourceConfig.class.getResource("/application-sharding-databases-tables.yml").getFile());
-        // 创建数据源
-        return YamlShardingSphereDataSourceFactory.createDataSource(yamlFile);
-    }
-}
-```
-
 ## 💛 广播表
 BROADCAST 中可以指定某些表为广播表【~~这个表会在所有数据源中都存在~~】
 
@@ -292,7 +289,31 @@ tables:
 
 
 
+# 读取 yml 配置
+ShardingSphere-JDBC 的 数据源 YAML 配置文件是不能被 Spring 读取的，语法会报错，我们可以通过两种方式读取 ：
+- 使用的是 JPA ，直接指定数据源的 url 为此 yml 文件
+```yml
+spring:
+  datasource:
+    driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
+    url: jdbc:shardingsphere:classpath:application-sharding-databases-tables.yml
+  jpa:
+    ……
+```
 
+- 通过配置类来读取创建数据源
+```java
+@Configuration
+public class ShardingDataSourceConfig {
+    @Bean
+    public static DataSource createShardingDataSource() throws IOException, SQLException {
+        // 获取 YAML 配置文件
+        File yamlFile = new File(ShardingDataSourceConfig.class.getResource("/application-sharding-databases-tables.yml").getFile());
+        // 创建数据源
+        return YamlShardingSphereDataSourceFactory.createDataSource(yamlFile);
+    }
+}
+```
 
 
 
