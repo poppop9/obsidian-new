@@ -336,6 +336,7 @@ TreeUtil 用于构建复杂的菜单层级结构数据
 
 ---
 
+<u>简单示例</u> ：
 ```java
 // 构建node列表
 List<TreeNode<String>> springList = List.of(
@@ -379,8 +380,49 @@ Spring[1]
     OAuth2[1111111]
 ```
 
+<u>自定义字段</u> ：扩展字段，自定义字段名
 ```java
-// 树形结构转 JSON
+// 构建node列表
+List<TreeNode<String>> nodeList = ……;
+
+// 构建配置
+TreeNodeConfig treeNodeConfig = new TreeNodeConfig()
+		.setIdKey("rid")  // 设置ID的键名
+		.setParentIdKey("pid")  // 设置父ID的键名
+		.setWeightKey("weight")  // 设置权重的键名
+		.setNameKey("name")  // 设置节点名的键名
+		.setDeep(3);// 设置树的最大深度
+
+List<Tree<String>> treeNodes = TreeUtil.build(nodeList, "0", treeNodeConfig, (treeNode, tree) -> {
+	tree.setId(treeNode.getId());
+	tree.setParentId(treeNode.getParentId());
+	tree.setWeight(treeNode.getWeight());
+	tree.setName(treeNode.getName());
+	// 扩展属性
+	tree.putExtra("ext1", 1);
+});
+
+List<ObjectNode> list = treeNodes.stream()
+		.map(item -> new ObjectMapper().convertValue(item, ObjectNode.class))
+		.toList();
+System.out.println(list);
+
+---
+[
+  {
+    "rid":"2",
+    "pid":"0",
+    "weight":1,
+    "name":"Go",
+    "ext1":1,
+    "children":[……]
+  },
+  ……
+]
+```
+
+<u>树形结构转 JSON</u> ：
+```java
 List<Tree<String>> springTreeList = TreeUtil.build(springList, "0");
 
 ObjectNode objectNode = new ObjectMapper().createObjectNode();
