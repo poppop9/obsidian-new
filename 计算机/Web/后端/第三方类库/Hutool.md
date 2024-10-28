@@ -319,7 +319,9 @@ TreeUtil 用于构建复杂的菜单层级结构数据
 	- `addChildren(Tree ……)` 在 Tree 上加 Tree
 	- `setChildren(List<Tree<T>> children)` 直接设置覆盖当前 Tree 节点的所有子节点
 - 【改】
-	- `filter(Filter函数式接口)` 将 Tree 中的节点进行过滤，如果 A 节点返回 false，则移除 A 节点及其所有子节点
+	- `filter(Filter函数式接口)` 只将 Tree 的子节点进行过滤，Tree 的根节点会被保留。如果节点返回 false，则移除该节点及其所有子节点；如果节点返回 true，则移除该节点及其所有子节点。**会直接修改原有的树，不需要返回值** 
+	- `filterNew(Filter函数式接口)` 与 filter 相同，但是不会修改原有的树，而是返回新树
+	- `walk(Consumer函数式接口)` 将该 Tree 的所有节点逐层依次遍历消费
 - 【查】
 	- `getNode(子节点id)` 获取到该 Tree 下指定子节点 id 的子节点
 	- `List<Tree<T>> getChildren()` 获取该 Tree 下的所有子节点树
@@ -328,6 +330,7 @@ TreeUtil 用于构建复杂的菜单层级结构数据
 	- ……
 
 <u>TreeNode</u> ：所有的方法都是简单的围绕属性值的 get，set 方法
+- 【增】`new TreeNode<>(id, 父id, 节点名, 排序)` 排序值越小越靠前
 - 【改】
 - 【查】
 	- `getId()` 
