@@ -1,3 +1,7 @@
+$$
+如果失败是确定性的，那么重试就是浪费时间
+$$
+
 ```xml
 <!-- 引入此框架前，需要引入AOP -->
 <dependency>
@@ -187,10 +191,13 @@ recover ……
 valuevalue
 ```
 
-
+# ❤️ RetryListener
+- **重试开始前**：可以记录日志，或执行初始化操作
+- **重试失败时**：可以捕获并处理异常，记录重试次数
+- **重试成功后**：可以记录成功信息
 
 # ❤️ 注意
-<u>Retry 基于 AOP ，所以一切 AOP 的问题，也就是 Retry 的问题</u> ：
+<u>Retry 基于 AOP ，所以一切 AOP 的问题，也就是 Retry 的问题</u>，比如 ：
 - AOP 无法拦截内部调用
 ```java
 public class Demo {

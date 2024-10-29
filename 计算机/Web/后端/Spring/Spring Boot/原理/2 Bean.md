@@ -20,15 +20,15 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=app.xlog.ggbond.c
 Spring 项目启动后，**默认**会把 Bean 都创建好放入到 IOC 容器中【还受到<u>作用域</u>，<u>延迟初始化</u>的影响】
 
 >[!quote] 循环依赖
-> 循环依赖是指两个或多个 Bean 之间相互依赖，互相注入对方的实例，形成一个闭环，当 IOC 容器尝试创建这些 Bean 时，它会陷入无限循环，~~因为每个 Bean 都需要另一个尚未完全创建的 Bean~~
+> 循环依赖 是指两个或多个 Bean 之间相互依赖，互相注入对方的实例，形成一个闭环，当 IOC 容器尝试创建这些 Bean 时，它会陷入无限循环，~~因为每个 Bean 都需要另一个尚未完全创建的 Bean~~
 > 
 > **解决循环依赖**：
-> - 三级缓存：Spring容器使用三级缓存来解决单例Bean的构造器循环依赖问题。当创建Bean时，Spring会将其放入三级缓存中，这样即使Bean还没有完全初始化，其他Bean也可以引用它
-> - `@Lazy`注解：使用`@Lazy`注解可以延迟Bean的加载，直到它被实际使用。这可以防止在Bean的初始化过程中发生循环依赖
-> - `@Autowired`与`@Qualifier`注解：使用`@Autowired`注解时，如果指定了`required=false`，Spring 将不会抛出异常，而是返回`null`，这可以避免某些循环依赖的情况
-> - 使用`@Lookup`注解：`@Lookup` 允许在运行时而不是在Bean初始化时进行依赖注入，这可以打破循环依赖
+> - 三级缓存：Spring 容器使用三级缓存来解决单例 Bean 的构造器循环依赖问题。当创建 Bean 时，Spring 会将其放入三级缓存中，这样即使 Bean 还没有完全初始化，其他 Bean 也可以引用它
+> - `@Lazy` ：使用`@Lazy`注解可以延迟 Bean 的加载，直到它被实际使用。这可以防止在 Bean 的初始化过程中发生循环依赖
+> - `@Autowired` 与 `@Qualifier` ：使用 `@Autowired` 注解时，如果指定了`required=false`，Spring 将不会抛出异常，而是返回`null`，这可以避免某些循环依赖的情况
+> - 使用`@Lookup` ：允许在运行时而不是在 Bean 初始化时进行依赖注入，这可以打破循环依赖
 > 
-> 尽管 Spring 提供了解决循环依赖的方法，但最佳实践是尽量避免循环依赖的发生，通过重构代码和使用设计模式来改善代码结构
+> 尽管 Spring 提供了解决循环依赖的方法，但最佳实践是尽量避免循环依赖的发生
 
 ## 💛 手动获取 Bean
 <u>手动获取 Bean 有三种方法</u>：
