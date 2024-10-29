@@ -102,6 +102,91 @@ public interface MyService {
 >- 使用监听器 Listener 时
 >- 需要统计分析时
 
+---
+
+- 配置 RetryTemplate
+	- 重试次数
+	- 重试间隔
+	- 异常
+
+```java
+@Configuration
+public class RetryConfig {
+    @Bean
+    public RetryTemplate createRetryTemplate() {
+        return RetryTemplate.builder()
+                .maxAttempts(3)  // 最大重试次数
+//                .infiniteRetry()  // 无限重试
+                .fixedBackoff(1000L)  // 固定重试间隔
+//                .exponentialBackoff(100, 2, 10000)  // 重试间隔策略：指数退避
+//                .uniformRandomBackoff(1000, 3000)  // 重试延迟在1-3秒之间随机
+                .retryOn(IOException.class)  // 当什么异常发生时，重试
+                .traversingCauses()  // 判断根异常，而不是直接异常。不指定时，如果抛出异常是该异常的的父异常，并且这个父异常是由该异常引起的，则不会重试
+                .build();
+    }
+}
+```
+
+- 测试
+	- `RetryContext` 
+		- getRetryCount
+		- getParent
+		- getLastThrowable
+		- setAttribute 自定义属性
+	- `DefaultRetryState(key, 是否强制清缓存，接收一个异常处理后给出是否要回滚)` 
+
+```java
+@Resource
+private RetryTemplate retryTemplate;
+
+public void retryWithTemplate() throws Exception {
+	// 设置缓存
+	retryTemplate.setRetryContextCache(new MapRetryContextCache());
+
+	retryTemplate.execute(
+			// 重试方法
+			context -> {
+				System.out.println("save数据 ……");
+				System.out.println(
+						context.getRetryCount() + " "  // 重试次数
+						+ context.getParent() + " "  // 上层环境
+						+ context.getLastThrowable()  // 上次异常
+				);
+
+				// 自定义属性
+				context.setAttribute("temp", "valuevalue");
+
+				String s = null;
+				System.out.println(s.length());
+
+				return new Object();  // 返回重试方法执行结果
+			},
+			// 恢复方法
+			context -> {
+				System.out.println("===============================");
+				System.out.println("recover ……");
+				System.out.println(context.getAttribute("temp"));
+
+				return new Object();  // 要与重试方法返回值类型一致
+			},
+			// 重试状态
+			new DefaultRetryState(IdUtil.randomUUID())
+			// new DefaultRetryState(IdUtil.randomUUID(), true, exception -> exception instanceof Exception)
+	);
+}
+
+---
+save数据 ……
+0 null null
+save数据 ……
+1 null java.lang.NullPointerException: Cannot invoke "String.length()" because "s" is null
+save数据 ……
+2 null java.lang.NullPointerException: Cannot invoke "String.length()" because "s" is null
+===============================
+recover ……
+valuevalue
+```
+
 
 
 # ❤️ 注意
