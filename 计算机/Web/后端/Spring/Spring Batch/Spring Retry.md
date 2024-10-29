@@ -85,11 +85,20 @@ public interface MyService {
 }
 ```
 
+>[!hint] 如果 recover 方法中，需要到重试方法的某些信息，我们可以自定义 Exception，然后把这些信息 set 进去，之后在 recover 方法中捕获时 get
+> ```java
+> @Recover
+> public Boolean recordErrorLog(RetryException retryException, DepartmentPO departmentPO) throws Exception {
+> 	String type = retryException.getType();
+> 	BaseResponse resp = retryException.getResp();
+> }
+> ```
+
 # ❤️ 工具类方式 - RetryTemplate
->[!hint] 什么时候要使用 RetryTemplate 替代注解，来实现重试机制呢 ?
+>[!warning] 什么时候要使用 RetryTemplate 替代注解，来实现重试机制呢 ?
 >- 不使用 IOC 容器时
 >- 场景复杂时
->- 有状态重试时
+>- 在重试时，并且抛出的异常不是自定义时，但是需要保存某些信息时
 >- 使用监听器 Listener 时
 >- 需要统计分析时
 

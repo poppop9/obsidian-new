@@ -44,7 +44,7 @@ public class DemoData {
 ```
 
 ## 💛  写入策略
-### 💙 数据量小时 < 5000 行
+### 💙 数据量小 < 5000 行
 - `write(文件名，excel实体)` 定义参数配置
 - 筛选
 	- `excludeColumnFieldNames(需要被排除的字段集合)` 排除 excel 实体中不需要的字段
@@ -67,7 +67,7 @@ EasyExcel.write(fileName, DemoData.class)
 		));
 ```
 
-### 💙 数据量大时
+### 💙 数据量大
 ![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/20240926224840.png)
 ```java
 String fileName = "E:\\文档\\测试一下.xlsx";
@@ -170,18 +170,22 @@ EasyExcel.write(fileName, DemoData.class)
 
 ## 💛 向 Web 写入
 ```java
-response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-response.setCharacterEncoding("utf-8");
-response.setHeader("Content-Disposition", "attachment; filename=Web.xlsx");
-
-EasyExcel.write(response.getOutputStream(), DemoData.class)  
-        .sheet("工作表 1")  
-        .doWrite(List.of(DemoData.builder()  
-                .title("吃饭")  
-                .date(LocalDate.now())  
-                .number(23d)  
-                .build()  
-        ));
+@GetMapping("/getExcel")  
+public void getExcel(HttpServletResponse response) {  
+	response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+	response.setCharacterEncoding("utf-8");
+	String fileName = URLEncoder.encode("提单列表数据.xlsx", "UTF-8");  
+	response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"; filename*=UTF-8''" + fileName);
+	
+	EasyExcel.write(response.getOutputStream(), DemoData.class)  
+	        .sheet("工作表 1")  
+	        .doWrite(List.of(DemoData.builder()  
+	                .title("吃饭")  
+	                .date(LocalDate.now())  
+	                .number(23d)  
+	                .build()  
+	        ));
+}
 ```
 
 
