@@ -1,5 +1,7 @@
 https://shardingsphere.apache.org/document/current/cn/user-manual/shardingsphere-jdbc/yaml-config/
 
+[官方博客](https://shardingsphere.apache.org/blog/cn/material/)
+
 ShardingSphere-JDBC 的 YAML 配置文件组成 ：
 - 逻辑数据库
 - 运行模式
@@ -103,7 +105,8 @@ https://shardingsphere.apache.org/document/current/cn/dev-manual/sharding/#shard
 
 ---
 
-<u>自定义分布</u> ：默认是均匀分布，也就是 A 库有 2 张表，B 库也有 2 张表
+### 💙 自定义分布
+默认是均匀分布，也就是 A 库有 2 张表，B 库也有 2 张表
 ```yml
 tables:
   t_order:
@@ -119,7 +122,7 @@ db1
   └── t_order4
 ```
 
-<u>多字段作为分片键</u> ：
+### 💙 多字段作为分片键
 ```yml
 tableStrategy:
   complex:
@@ -133,47 +136,50 @@ t_order_item_inline:
 	algorithm-expression: t_order_item_${hashCode(your_column1 + your_column2) % 2}
 ```
 
-<u>预定义的分片算法大全</u> ：ShardingSphere 已经定义好了一些常用的分片算法
-- `type` 
-	- INLINE - 自定义 Groovy 表达式
-	- MOD - 如果生成的 id 不随机，比如都是偶数，那数据的就会集中在某个表
-	- HASH_MOD - 将 id 哈希处理后，取模
-	- BOUNDARY_RANGE - 范围分表，~~比如设定 id 为 1~100 的就进入 A 表，100~200 的进入 B 表~~ 
-	- VOLUME_RANGE - 体积分表，~~设定一个容量 Max，先所有数据往 A 表加，当 A 表的行数接近 Max，并且系统预测到数据量可能剧增时，则会创建一个新表，然后往这个表里加~~ 
-	- AUTO_INTERVAL - 自动分表，~~当 A0 表的数据过重时，会自动将数据分配一些给 A1 表，当数据过多时，也会自动创建新表~~ 
-		- 由系统自动调整，很方便
-		- 频繁地迁移数据
-		- 难以调试
-	- INTERVAL - 间隔分表，~~设定一个 Limit 值，所有数据往 A 表加，当 A 表的行数达到 Max 时，系统会创建一个新表，然后往这个表里加~~
-	- CLASS_BASED - 根据特定字段的值进行分片
-	- COMPLEX_INLINE - 根据多个特定字段的值进行分片
-	- HINT_INLINE - 其实不是分片策略，而是查找分片策略，它可以指定系统在查找数据时去哪个分片找
+### 💙 autoTables + 预定义分片算法
+ShardingSphere 已经定义好了一些常用的分片算法 ：
+- INLINE - 自定义 Groovy 表达式
+- MOD - 如果生成的 id 不随机，比如都是偶数，那数据的就会集中在某个表
+- HASH_MOD - 将 id 哈希处理后，取模
+- BOUNDARY_RANGE - 范围分表，~~比如设定 id 为 1~100 的就进入 A 表，100~200 的进入 B 表~~ 
+- VOLUME_RANGE - 体积分表，~~设定一个容量 Max，先所有数据往 A 表加，当 A 表的行数接近 Max，并且系统预测到数据量可能剧增时，则会创建一个新表，然后往这个表里加~~ 
+- AUTO_INTERVAL - 自动分表，~~当 A0 表的数据过重时，会自动将数据分配一些给 A1 表，当数据过多时，也会自动创建新表~~ 
+	- 由系统自动调整，很方便
+	- 频繁地迁移数据
+	- 难以调试
+- INTERVAL - 间隔分表，~~设定一个 Limit 值，所有数据往 A 表加，当 A 表的行数达到 Max 时，系统会创建一个新表，然后往这个表里加~~
+- CLASS_BASED - 根据特定字段的值进行分片
+- COMPLEX_INLINE - 根据多个特定字段的值进行分片
+- HINT_INLINE - 其实不是分片策略，而是查找分片策略，它可以指定系统在查找数据时去哪个分片找
 
 ```yml
-tables:  
-  t_order:
-	tableStrategy:
-	  standard:
-		shardingColumn: your_sharding_column
-		shardingAlgorithmName: mod
+- !SHARDING  # 数据分片
+  autoTables:
+    Account: # 逻辑表名
+	  actualDataSources: ds_${0..1}
+	  shardingStrategy:
+	    standard:
+		  shardingColumn: id
+		  shardingAlgorithmName: HASH_MOD
 
 # 分片算法定义
 shardingAlgorithms:
-  inline:
+  INLINE:
 	type: INLINE
 	props:
-	  algorithm-expression: t_order_${id % 2}
-  mod:
+	  algorithm-expression: Account_${id % 2}
+  MOD:
 	type: MOD
 	props:
-	  sharding-count: 10
-  hash_mod:
+	  sharding-count: 4  # 一共4张表，如果是2个数据库，就是每个库两张
+  HASH_MOD:
     type: HASH_MOD
     props:
-      sharding-count: 10
+      sharding-count: 4
 ```
 
-<u>指定默认的分库策略，以复用</u> ：配置好，将自动应用于所有库
+### 💙 默认分库策略
+指定默认的分库策略，以复用
 ```yml
 tables:
 	……
@@ -185,45 +191,34 @@ defaultDatabaseStrategy:
 	shardingAlgorithmName: database_def
 ```
 
----
-
+### 💙 示例
+#### 💚 tables 手动配置
 ```yml
 # 规则配置
 rules:
   - !SHARDING  # 数据分片
-    tables:
-      t_order: # 逻辑表名
-        actualDataNodes: ds_${0..1}.t_order_${0..1}  # 实际的数据表的位置
-        # 分表策略
-        tableStrategy:
-          standard:
-            shardingColumn: order_id
-            shardingAlgorithmName: t_order_inline
-		keyGenerateStrategy:
-          column: order_id
-          keyGeneratorName: snowflake
-      t_order_item:
-        actualDataNodes: ds_${0..1}.t_order_item_${0..1}
-        tableStrategy:
-          standard:
-            shardingColumn: order_id
-            shardingAlgorithmName: t_order_item_inline
-      t_account:
-        actualDataNodes: ds_${0..1}.t_account_${0..1}
-        tableStrategy:
-          standard:
-            shardingAlgorithmName: t_account_inline
-    defaultShardingColumn: account_id
-    # 绑定表
-    bindingTables:
-      - t_order, t_order_item
-    defaultDatabaseStrategy:
+    defaultDatabaseStrategy:  # 默认的分库策略
       standard:
         shardingColumn: user_id
         shardingAlgorithmName: database_inline
-    defaultTableStrategy:
+    defaultTableStrategy:  # 默认的分表策略
       none:
-    shardingAlgorithms: # 算法策略总和
+    defaultShardingColumn: id  # 默认的分片列名
+    defaultKeyGenerateStrategy: # 默认的主键生成策略
+      column: id
+      keyGeneratorName: SNOWFLAKE
+    tables:
+      t_order: # 逻辑表名
+        actualDataNodes: ds_${0..1}.t_order_${0..1}  # 实际的数据表的位置
+        tableStrategy:  # 分表策略
+          standard:
+            shardingColumn: order_id
+            shardingAlgorithmName: t_order_inline
+      t_order_item: ……
+    # 绑定表
+    bindingTables:
+      - t_order, t_order_item
+    shardingAlgorithms:  # 定义分片算法策略
       database_inline:
         type: INLINE
         props:
@@ -232,15 +227,7 @@ rules:
         type: INLINE
         props:
           algorithm-expression: t_order_${order_id % 2}
-      t_order_item_inline:
-        type: INLINE
-        props:
-          algorithm-expression: t_order_item_${order_id % 2}
-      t_account_inline:
-        type: INLINE
-        props:
-          algorithm-expression: t_account_${account_id % 2}
-    keyGenerators:
+    keyGenerators:  # 定义主键生成策略
       snowflake:
         type: SNOWFLAKE
         props:  
@@ -248,6 +235,48 @@ rules:
     auditors:
       sharding_key_required_auditor:
         type: DML_SHARDING_CONDITIONS
+```
+
+#### 💚 autoTables 自动配置
+```yml
+rules:
+  - !SHARDING  # 数据分片
+    defaultDatabaseStrategy: # 默认的分库策略
+      standard:
+        shardingColumn: id
+        shardingAlgorithmName: database_inline
+#    defaultTableStrategy:  # 默认的分表策略，但是对于autoTables不起作用
+    defaultShardingColumn: id  # 默认的分片列名
+    defaultKeyGenerateStrategy: # 默认的主键生成策略
+      column: id
+      keyGeneratorName: SNOWFLAKE
+    autoTables:
+      Account:  # 逻辑表名
+        actualDataSources: ds_${0..1}
+        shardingStrategy:  # 分表策略
+          standard:
+            shardingColumn: id
+            shardingAlgorithmName: HASH_MOD
+    shardingAlgorithms:  # 定义分片算法策略
+      HASH_MOD:
+        type: HASH_MOD
+        props:
+          sharding-count: 4
+      database_inline:
+        type: INLINE
+        props:
+          algorithm-expression: ds_${id % 2}
+    keyGenerators:  # 定义主键生成策略
+      SNOWFLAKE:
+        type: SNOWFLAKE
+        props:
+          worker-id: 2
+    auditors:
+	  sharding_key_required_auditor:
+	    type: DML_SHARDING_CONDITIONS
+  - !SINGLE
+    tables:
+      - "*.*"  # 加载所有单表
 ```
 
 ## 💛 广播表
