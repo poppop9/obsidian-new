@@ -2,6 +2,10 @@ https://shardingsphere.apache.org/document/current/cn/user-manual/shardingsphere
 
 [官方博客](https://shardingsphere.apache.org/blog/cn/material/)
 
+https://www.cnblogs.com/sphereex/p/15608235.html
+
+https://www.cnblogs.com/chengxy-nds/p/17513945.html
+
 ShardingSphere-JDBC 的 YAML 配置文件组成 ：
 - 逻辑数据库
 - 运行模式
@@ -202,7 +206,7 @@ rules:
         shardingColumn: user_id
         shardingAlgorithmName: database_inline
     defaultTableStrategy:  # 默认的分表策略
-      none:
+      none:  # 将未配置的表视为单表
     defaultShardingColumn: id  # 默认的分片列名
     defaultKeyGenerateStrategy: # 默认的主键生成策略
       column: id
@@ -245,7 +249,8 @@ rules:
       standard:
         shardingColumn: id
         shardingAlgorithmName: database_inline
-#    defaultTableStrategy:  # 默认的分表策略，但是对于autoTables不起作用
+    defaultTableStrategy:  # 默认的分表策略
+      none:  # 将未配置的表视为单表
     defaultShardingColumn: id  # 默认的分片列名
     defaultKeyGenerateStrategy: # 默认的主键生成策略
       column: id
@@ -274,13 +279,14 @@ rules:
     auditors:
 	  sharding_key_required_auditor:
 	    type: DML_SHARDING_CONDITIONS
-  - !SINGLE
-    tables:
-      - "*.*"  # 加载所有单表
 ```
 
 ## 💛 广播表
-BROADCAST 中可以指定某些表为广播表【~~这个表会在所有数据源中都存在~~】
+>[!quote] 广播表
+>一般会把**需要频繁与其他表进行关联**，并且**数据量不大**的表设置为 广播表【~~字典表，配置表~~】
+>
+>- 这个表会在所有数据源中都存在，并且这个表在每个数据源中都完全一致
+>- 由于在每个数据源都存在，可以提高查询效率
 
 ```yml
 - !BROADCAST
@@ -291,6 +297,12 @@ tables:
 ## 💛 单表
 >[!quote] 单表
 >单表 就是不分片的表，在整个数据集群中都唯一存在的表
+>
+> ```yml
+> - !SHARDING  # 数据分片
+>   defaultTableStrategy:  # 默认的分表策略  
+>     none:  # 将未配置在此 yml 的表视为单表
+> ```
 
 >[!warning] 为什么有数据加密，数据脱敏的表，一般设置为单表 ?
 > 如果一张表的 name 字段被数据加密了，并且字段频繁作为查询条件，以下是查询步骤：
@@ -306,8 +318,8 @@ tables:
 <u>不自动加载的表，手动配置</u> ：
 ```yml
 - !SINGLE
-tables:
-  - user_profile
+  tables:
+    - user_profile
 ```
 
 >[!quote] 自动加载
