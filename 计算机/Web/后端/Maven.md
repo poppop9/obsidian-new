@@ -411,7 +411,7 @@ spring:
 ### 版本锁定
 当拆分的模块越多，有部分模块需要用到某个依赖时，依赖的版本将变得难以管理，所以我们使用 **版本锁定** `<dependencyManagement>`
 
->[!warning] 没有版本号的依赖不需要管理，所以也就不需要写到 `<dependencyManagement>……</dependencyManagement>` 里
+>[!warning] 没有版本号的依赖不需要管理，所以也就不需要写到 `<dependencyManagement>……</dependencyManagement>` 里，也就是说，写在里面的依赖必须要有版本号
 
 ---
 
