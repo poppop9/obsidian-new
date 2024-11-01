@@ -18,5 +18,5 @@ ShardingSphere 包括：
 
 ---
 
-canal
-elasticsearch
+canal ：将数据库的日志解析出来，发送到其他系统中
+elastic search

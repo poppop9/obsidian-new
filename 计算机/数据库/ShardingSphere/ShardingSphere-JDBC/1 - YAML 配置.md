@@ -104,7 +104,6 @@ https://shardingsphere.apache.org/document/current/cn/dev-manual/sharding/#shard
 	- `auditStrategy` 分片审计策略 ：确保每次数据的修改、插入或删除操作都有记录，便于事后审查和追踪
 		- auditorNames 审计算法
 		- allowHintDisable 
-- `bindingTables` 绑定表【~~绑定前提是这些表的分片字段是相同的~~】，将多张表进行绑定路由，这样多表联查时少了很多种可能性【~~比如 order 表，和 user 表绑定，就会有 order_1 对应 user_1，order_2 对应 user_2，多表联查时对应到 order_1 的数据就会去找 user-1，而不是找 user 的所有物理表~~】
 - `shardingAlgorithms` 给分片算法名定义实际的分片策略
 
 ---
@@ -193,6 +192,14 @@ defaultDatabaseStrategy:
   standard:
 	shardingColumn: id  # 将根据id的值，决定路由到哪个数据库实例
 	shardingAlgorithmName: database_def
+```
+
+### 💙 绑定表
+`bindingTables` 绑定表【~~绑定前提是这些表的分片字段是相同的，并且这些表都根据这个字段进行关联~~】，将多张表进行绑定路由，这样多表联查时少了很多种可能性【~~比如 order 表，和 user 表绑定，就会有 order_1 对应 user_1，order_2 对应 user_2，多表联查时对应到 order_1 的数据就会去找 user-1，而不是找 user 的所有物理表~~】
+```java
+tables: ……
+bindingTables:
+  - t_order, user
 ```
 
 ### 💙 示例
@@ -285,8 +292,11 @@ rules:
 >[!quote] 广播表
 >一般会把**需要频繁与其他表进行关联**，并且**数据量不大**的表设置为 广播表【~~字典表，配置表~~】
 >
+><u>特点</u> ：
 >- 这个表会在所有数据源中都存在，并且这个表在每个数据源中都完全一致
 >- 由于在每个数据源都存在，可以提高查询效率
+>
+><u>不支持广播表的数据库</u> ：MySQL，PgSQL，SQLite，MongoDB
 
 ```yml
 - !BROADCAST
