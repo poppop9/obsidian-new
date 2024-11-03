@@ -7,7 +7,8 @@
 ```
 
 >[!quote] LiteFlow
->> LiteFlow 是一个业务规则编排引擎
+>> [LiteFlow](https://liteflow.cc/) 是一个业务规则编排引擎
+>> ![300](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/20241104005204.png)
 >
 > - 如果你使用 JDK11 及其以上的版本，要在 jvm 参数加上 ：
 > ```bash
@@ -76,7 +77,6 @@ void test_1() {
 >[!warning] 所有在组件中定义的方法都是有类型的~~【处理方法，预处理方法，前置处理方法 ……】~~，所有的这些方法的返回值都要按照 NodeComponent 来写
 
 ## 💛 普通组件
-### 监听器方法
 - `process` 该组件的业务逻辑方法
 - `isAccess` 组件的预处理方法，是否进入该组件
 - `isContinueOnError` 出错了是否往下继续执行，~~【默认 false】~~
