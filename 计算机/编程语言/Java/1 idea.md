@@ -76,6 +76,7 @@ get ,set 方法，构造方法 `alt+insert`
 - `sequence diagram` 右键某个类，查看方法的代码流程
 - `codeGlance pro` 右上角的小地图
 - `json parser` 格式化 json 性能最高的，大 json 不会卡住
+- `jpa buddy` 辅助 jpa
 
 
 
