@@ -8,7 +8,7 @@
 > 	participant Y as 用户
 > 	participant Z as 资源服务器[例如微信的资源服务器]
 > 
-> 	D->>S: 给我Token
+> 	D->>S: 请求Token
 > 	S->>Y: 你要把权限给第三方用户吗
 > 	Y->>S: 同意授权
 > 	S->>D: 发放Token
@@ -40,7 +40,7 @@ sequenceDiagram
 	participant S as 授权服务器
 	participant Y as 用户
 
-	D->>S: 给我Token
+	D->>S: 请求Token
 	S->>Y: 要授权给第三方应用吗
 	Y->>S: 同意授权
 	S->>D: 返回Token
