@@ -198,9 +198,10 @@ String decode = QrCodeUtil.decode(FileUtil.file("d:/qrcode.jpg"));
 - 单个
 	- `isBlank()` / `isNotBlank()` 
 	- `isEmpty()` / `isNotEmpty()` 
+	- `containsAny(字符串s，待比较字符串ss ……)` 判断 s 是否在字符串 ss …… 中
 - 集合
 	- `hasBlank(字符串数组)` 判断这个数组中是否有至少一个为 blank，如果是，则返回 true
-	- `hasEmpty()`
+	- `hasEmpty()` 
 
 ## 💛 集合工具 CollUtil
 <u>判空</u> ：
