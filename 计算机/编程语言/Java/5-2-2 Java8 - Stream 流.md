@@ -235,7 +235,8 @@ public static void main(String[] args) {
 
 ## flatMap
 >[!quote] `flatMap()` 
->`flatMap` 就是一次性拿到流中流
+>`flatMap` 可以把流压平
+>![600](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/20241107154800.png)
 
 ```java
 // 使用 map，你要手动过滤空值
@@ -246,30 +247,8 @@ List<String> filteredList = list.stream()
 
 // 使用 flatMap，在将元素转换成流时，空值会被转为空流，空流在合并时会自动消失
 List<String> filteredListJava9 = list.stream()
-    .flatMap(Optional::stream)
+    .flatMap(Optional::stream)  // 在将所有的optional转为流后，将所有的流合起来
     .collect(Collectors.toList());
-```
-
-
-```java
-Optional.ofNullable(item.getJSONArray("registerUserDepartmentName"))
-		.ifPresent(child -> {
-			child.stream().findFirst().ifPresent(node -> {
-				JSONObject jsonObject = (JSONObject) node;
-				if ("zh-CN".equals(jsonObject.getString("lang"))) {
-					item.put("registerUserDepartmentName", jsonObject.getString("value"));
-				}
-			});
-		});
-
-Optional.ofNullable(item.getJSONArray("registerUserDepartmentName"))
-		.flatMap(child -> child.stream().findFirst())
-		.ifPresent(node -> {
-			JSONObject jsonObject = (JSONObject) node;
-			if ("zh-CN".equals(jsonObject.getString("lang"))) {
-				item.put("registerUserDepartmentName", jsonObject.getString("value"));
-			}
-		});
 ```
 
 ## peek

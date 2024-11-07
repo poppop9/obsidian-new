@@ -14,7 +14,6 @@ implementation group: 'com.alibaba.otter', name: 'canal.client', version: '1.1.7
 implementation group: 'com.alibaba.otter', name: 'canal.protocol', version: '1.1.7'
 ```
 
-
 http://xiaoyuge.work/cancel/index.html#1-%E7%AE%80%E4%BB%8B
 
 
@@ -33,31 +32,34 @@ binlog_do_db=ds_1     # 监控指定的数据库 ds_1
 - 用 sql 测试 `SHOW VARIABLES LIKE 'log_bin';` 是否开启
 ```sql
 # 创建 Canal 用户并设置密码
-CREATE USER 'canal'@'%' IDENTIFIED BY 'canal';
+CREATE USER 'canal'@'localhost' IDENTIFIED BY 'canal';
 # 授予权限
-GRANT SELECT, REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'canal'@'%';
+GRANT ALL PRIVILEGES ON *.* TO 'canal'@'localhost' WITH GRANT OPTION;
+ALTER USER 'canal'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'canal';
+ALTER USER 'canal'@'localhost' IDENTIFIED BY 'canal' PASSWORD EXPIRE NEVER;
 # 刷新
 FLUSH PRIVILEGES;
 ```
 - 运行 canal 容器
 ```bash
+# 配置文件在 /home/admin/canal-server/conf
+# 日志文件在 /home/admin/canal-server/logs
+
 docker run -d \
   --name canal-server \
   -p 11110:11110 \
   -p 11111:11111 \
   -p 11112:11112 \
   -p 9100:9100 \
-  canal/canal-server:latest
-```
-- 修改配置文件
-```properties
-# /home/admin/canal-server/conf/canal.properties
-canal.instance.master.address = 127.0.0.1:3306  # mysql的地址
-canal.instance.dbUsername = root  # mysql的用户名
-canal.instance.dbPassword = root  # mysql的密码
-
-# 监听的数据库和表名
-canal.instance.filter.regex = ds_0.*, ds_1.*  # 需要canal监听的数据库表
+  -e canal.instance.master.address=127.0.0.1:3306 \
+  -e canal.instance.dbUsername=canal \
+  -e canal.instance.dbPassword=canal \
+  -e canal.instance.connectionCharset=UTF-8 \
+  -e canal.instance.tsdb.enable=true \
+  -e canal.instance.gtidon=false \
+  -e canal.instance.filter.regex=.*\\..* \
+  -e TZ=Asia/Shanghai \
+  canal/canal-server:v1.1.8-alpha-3
 ```
 
 # ❤️ 基础概念

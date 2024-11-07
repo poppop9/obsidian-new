@@ -309,6 +309,13 @@ Map<String, Integer> map = MapBuilder.create(new HashMap<String, Integer>())
 		.map();
 ```
 
+<u>分割集合</u> ：
+- `List<集合A> ListUtil.partition(集合A, 多少为一组);` 将集合A分割成以 n 为一组的集合
+```java
+// finalUserIds有108个元素，将拆成3个finalUserIds，分别有50，50，8
+List<List<String>> partition = ListUtil.partition(finalUserIds, 50);
+```
+
 # ❤️ 数据结构
 ## 💛 树结构 TreeUtil
 TreeUtil 用于构建复杂的菜单层级结构数据

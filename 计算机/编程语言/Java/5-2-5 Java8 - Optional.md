@@ -16,6 +16,8 @@
 		- `or(生产接口)` 如果 Optional 为空，则计算生产接口返回备选值，只有在 Optional 为空时才计算备选值
 	- **处理**
 		- `map(处理方法)` 将 Optional 里的对象，转为另一个类型，**不会在 Optional 为空时抛出异常**，当 Optional 未空时，将不会执行处理方法
+		- `flatMap(处理方法)` 与 Stream 流同理
+		- `filter(处理方法)` 
 		- `ifPresent(处理方法 A)` 如果该 Optional 对象的值存在，则将这个值传递给方法 A
 		- `ifPresentOrElse(处理方法A, 处理方法B)` 如果该 Optional 对象的值存在，则将这个值传递给方法 A，否则用方法 B 处理
 		- `or(处理方法A)` 当 Optional 有值时，保持原值，反之，使用 A 方法的返回值来替代
@@ -38,8 +40,6 @@ optional.ifPresentOrElse(
 
 
 ---
-
-
 
 ```java
 psvm {
@@ -66,4 +66,40 @@ public Integer sum(Optional<Integer> a, Optional<Integer> b){
   Integer value2 = b.get();
   return value1 + value2;
 }
+```
+
+---
+
+- `flatMap` 例子
+```java
+Optional.ofNullable(item.getJSONArray("registerUserDepartmentName"))
+		.ifPresent(child -> {
+			child.stream().findFirst().ifPresent(node -> {
+				JSONObject jsonObject = (JSONObject) node;
+				if ("zh-CN".equals(jsonObject.getString("lang"))) {
+					item.put("registerUserDepartmentName", jsonObject.getString("value"));
+				}
+			});
+		});
+
+Optional.ofNullable(item.getJSONArray("registerUserDepartmentName"))
+    .map(child -> child.stream().findFirst())  // 返回 Optional<Optional<JSONObject>>
+    .filter(Optional::isPresent)  // 过滤掉 Optional.empty() 的情况
+    .map(Optional::get)  // 解包 Optional<JSONObject>
+    .ifPresent(node -> {
+        JSONObject jsonObject = (JSONObject) node;
+        if ("zh-CN".equals(jsonObject.getString("lang"))) {
+            item.put("registerUserDepartmentName", jsonObject.getString("value"));
+        }
+    });
+
+Optional.ofNullable(item.getJSONArray("registerUserDepartmentName"))
+		// 如果里面为空，都进不来flatMap方法，能进来，那child就不为空
+		.flatMap(child -> child.stream().findFirst())  
+		.ifPresent(node -> {
+			JSONObject jsonObject = (JSONObject) node;
+			if ("zh-CN".equals(jsonObject.getString("lang"))) {
+				item.put("registerUserDepartmentName", jsonObject.getString("value"));
+			}
+		});
 ```
