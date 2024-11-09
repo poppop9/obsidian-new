@@ -20,8 +20,6 @@ Stream<String> stringStream = list.stream();
 ```
 
 ## 数组生成流
-调用 `stream()` 方法
-
 ```java
 int[] numbers = {1, 2, 3, 4, 5};
 IntStream stream = Arrays.stream(numbers);
