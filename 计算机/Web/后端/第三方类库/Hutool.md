@@ -203,13 +203,6 @@ String decode = QrCodeUtil.decode(FileUtil.file("d:/qrcode.jpg"));
 	- `hasBlank(字符串数组)` 判断这个数组中是否有至少一个为 blank，如果是，则返回 true
 	- `hasEmpty()` 
 
-## 💛 集合工具 CollUtil
-<u>判空</u> ：
-- `isEmpty()` 
-- `isNotEmpty()` 
-
-
-
 ## 💛 旧 - 日期时间
 <u>范围</u> ：
 - `rangeToList(开始时间，结束时间，单位)` 获取到两个时间之间的时间集合
@@ -309,6 +302,12 @@ Map<String, Integer> map = MapBuilder.create(new HashMap<String, Integer>())
 		.map();
 ```
 
+## CollUtil
+<u>判空</u> ：
+- `isEmpty()` 
+- `isNotEmpty()` 
+
+## ListUtil
 <u>分割集合</u> ：
 - `List<集合A> ListUtil.partition(集合A, 多少为一组);` 将集合A分割成以 n 为一组的集合
 ```java
