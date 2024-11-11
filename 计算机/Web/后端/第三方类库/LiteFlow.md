@@ -21,9 +21,10 @@
 @LiteflowComponent
 public class TestComponent {
     // 普通组件
-    @LiteflowMethod(value = LiteFlowMethodEnum.PROCESS,
-            nodeId = "a",
-            nodeName = "A组件")
+	@LiteflowMethod(nodeType = NodeTypeEnum.COMMON,  // 组件类型 - 普通组件  
+	        value = LiteFlowMethodEnum.PROCESS,  // 组件方法类型 - 处理方法  
+	        nodeId = "a",  // 组件ID  
+	        nodeName = "A组件")  
     public void processA(NodeComponent bindCmp) {
         System.out.println("A组件执行了");
     }
@@ -88,7 +89,7 @@ void test_1() {
 
 ```java
 @LiteflowMethod(nodeType = NodeTypeEnum.COMMON,  // 组件类型 - 普通组件  
-        value = LiteFlowMethodEnum.BEFORE_PROCESS,  // 组件方法类型 - 前置处理  
+        value = LiteFlowMethodEnum.BEFORE_PROCESS,  // 组件方法类型 - 前置处理
         nodeId = "a",  // 组件ID  
         nodeName = "A组件")  
 public void beforeProcessA(NodeComponent bindCmp) {  
@@ -163,6 +164,17 @@ public void processA(NodeComponent bindCmp) { …… }
 - `T getData` 获取参数，~~拿到的参数类型需要自己强转~~
 - `hasData` 判断是否有参数
 
+## 💛 自定义数据上下文 
+自定义数据上下文不需要继承什么，就直接定义一个类就好了，然后可以在组件中取出：
+```java
+@Data
+public class RaffleFilterContext{ …… }
+```
+
+```java
+RaffleFilterContext context = bindCmp.getContextBean(RaffleFilterContext.class);
+```
+
 ## 💛 传入
 ```java
 // 初始化上下文对象作为入参  
@@ -186,3 +198,11 @@ public boolean processC(NodeComponent bindCmp) {
 ```java
 
 ```
+
+# ❤️ 执行器
+LiteflowResponse 执行器的结果：
+- `getContextBean(上下文class对象)` 获取上下文
+
+
+
+
