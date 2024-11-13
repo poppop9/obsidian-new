@@ -186,24 +186,17 @@ public class User {
 
 ## 💛 仓储层 repository
 >[!quote] 仓储
->仓储 Repository 位于 `Mapper 层`，和 `Service 层` 之间，目的就是<u>解耦 `domain 层` 和 `infrastructure 层`</u>
->
->![650](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202406301405963.png)
+>仓储 Repository 目的就是解耦 `domain 层` 和 `infrastructure 层`
 
 - `domain` 
-	- 【model】
 	- 【repository】
-		- IStrategyRepository
-	- 【service】
-		- IStrategyService：IStrategyService 需要访问数据库，那就通过 IStrategyRepository 访问
-
+		- IRaffleRepository 是一个**业务优先**的 Repository
 ---
-
 - `infrastructure` 
-	- 【mapper】
-		- IStrategyMapper
+	- 【JPARepository】
+		- IStrategyRepository 这个是**实体优先**的 Repository
 	- 【repository】
-		- StrategyRepository：StrategyRepository 实现了 IStrategyRepository 接口；调用了 IStrategyMapper
+		- RaffleRepository：RaffleRepository 实现了 IRaffleRepository 接口；然后再调用多个实体优先的 Repository 来整合形成自己的业务
 
 ## 💛 基础层 infrastructure
 - `infrastructure` **基础层**，包含了数据库，缓存，网关，第三方工具…… ==Mapper==
