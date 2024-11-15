@@ -156,12 +156,10 @@ public class User {
 - `application` **应用层**，用来组合领域层之间的业务，形成完整的业务【比如有一个领域是知识星球领域，另一个领域是 ChatGPT 领域，我要进行两个领域的对接，就在应用层实现】 ==Service==
 
 ## 💛 领域层 domain
-- `domain` **领域层**，与业务无关的类/接口不要放到领域层中 ==Service==
+- `domain` **领域层** ==Service==
 	- `model` **领域模型**，定义了领域对象、聚合和值对象
-		- `po` 持久化对象
+		- `bo` 业务对象
 		- `vo` 值对象
-		- `req` 请求对象的封装
-		- `res` 响应对象的封装
 		- ……
 	- `repository` 仓库，里面定义了仓库接口，访问 Infrastructure 层的 repository 实现类
 	- `service` **领域服务**，包含业务逻辑，只关注业务功能实现，不与外部任何接口和服务直连，而是通过<u>仓储 Repository</u>，<u>端口 Port</u>，或者<u>适配器 Adapter</u> 实现调用

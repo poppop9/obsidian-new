@@ -48,7 +48,7 @@ public class TestComponent {
 ```yml
 # 主yml文件
 liteflow:  
-  rule-source: application-liteflow.xml  # 规则文件路径
+  rule-source: application-liteflow.xml  # 规则文件路径，在resources下
 ```
 
 ```xml
@@ -153,6 +153,21 @@ public void processA(NodeComponent bindCmp) { …… }
 	- `invoke` / `invoke2Response` 隐式调用，~~在该组件中调用另一个组件~~
 
 # ❤️ 编排
+```yml
+# 主yml文件
+liteflow:  
+  rule-source: application-liteflow.xml  # 规则文件路径
+```
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<flow>
+    <chain name="chain1">
+        THEN( a, b );
+    </chain>
+</flow>
+```
+
 
 
 
@@ -190,13 +205,10 @@ flowExecutor.execute2Resp("chain2", null, defaultContext);
 @LiteflowMethod( …… )  
 public boolean processC(NodeComponent bindCmp) {  
     System.out.println("C 组件执行了");  
+    
+    // 如果在这里修改了DefaultContext，下一个组件获取时，就会拿到修改后的值，修改的是上下文的引用
     return bindCmp.getContextBean(DefaultContext.class).getData("key1");  
 }
-```
-
-<u>参数注入获取</u> ：
-```java
-
 ```
 
 # ❤️ 执行器
@@ -204,5 +216,15 @@ LiteflowResponse 执行器的结果：
 - `getContextBean(上下文class对象)` 获取上下文
 
 
+# ❤️ LiteFlowX 插件
 
 
+# ❤️ 高级特性
+## 组件重试
+```xml
+
+<chain id="chain1">
+	THEN(a, b.retry(3)),
+    THEN(a, b).retry(3, "java.lang.NullPointerException", "app.xlog.ggbond.raffle.service.filterChain.filters.RetryRouterException");
+</chain>
+```

@@ -108,6 +108,7 @@ public class User implements Serializable {
 
 ## 💛 建造者
 - `@Builder` 可以自动生成一个建造者模式相关的代码【~~不需要手动 setter 构建对象，而是链式调用来构建对象~~】，使得对象的构建更加简洁
+	- Default 给属性设置默认值。如果创建对象时，没有传，则为默认值
 
 ```java
 // Person类
@@ -116,6 +117,8 @@ public class Person {
     private String name;
     private int age;
     private String address;
+	@Builder.Default
+    private Long raffleTimes = 0L;
 }
 
 // 构建对象
