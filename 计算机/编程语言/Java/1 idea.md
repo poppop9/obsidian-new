@@ -20,7 +20,9 @@ get ,set 方法，构造方法 `alt+insert`
 	- `ctrl+w` 扩展选中区域
 	- `ctrl+shift+w` 减小选中区域
 	- `ctrl+alt+o` 删除没有使用的导包
-	- `ctrl+y` 删除当前行
+	- `ctrl+x` 删除当前行
+	- `shift + enter` 无视光标换行
+	- `ctrl + alt + n` 将变量内联到代码中
 
 ---
 
@@ -30,23 +32,23 @@ get ,set 方法，构造方法 `alt+insert`
 	- `ctrl+B` 查看源码
 	- `ctrl + alt + ←` 返回上一个类
 	- `ctrl + alt + →` 返回下一个类
+	- `ctrl + -` 折叠方法体
+	- `ctrl + +` 打开方法体
 	- 查看类的结构信息 `alt+7`
 	- 查看某个类的所有方法 `ctrl+f12`
 	- 查看接口的所有实现类 `ctrl+alt+左键` 
+	- `alt + ⬇` 转到下个方法出
 
 ---
 
 - **搜索**
 	- `ctrl+F` 在当前类中，进行搜索
+	- `ctrl + r` 当前类中，替换
 	- `shift + shift` 全局搜索
 	- `ctrl+r` 在该文件中搜索
 
----
-
-- **调试，运行**
-	- 运行代码 `ctrl+shift+F10`
-
 # ❤ Debug
+- `F2` 跳转到报错位置
 - `F7` 步入
 - `shift+F7` 智能步入，~~当一行上有多个方法时，可以自己选择要步入的方法~~
 - `F8` 步过
