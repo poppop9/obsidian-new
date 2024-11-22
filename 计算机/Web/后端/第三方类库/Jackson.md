@@ -142,8 +142,8 @@ Map<String, Object> jsonMap = objectMapper.readValue(jsonObject, new TypeReferen
 
 ## 💛 序列化：Bean -> JSON
 - `writeValue()` 
-- `writeValueAsString()` 将生成的 JSON 作为 `String` 返回
-- `writeValueAsBytes()` 将生成的 JSON 作为字节数组返回
+- `writeValueAsString(Object)` 将生成的 JSON 作为 `String` 返回
+- `writeValueAsBytes(Object)` 将生成的 JSON 作为字节数组返回
 
 ```java
 ObjectMapper objectMapper = new ObjectMapper();
