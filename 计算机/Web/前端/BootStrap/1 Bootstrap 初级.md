@@ -169,7 +169,7 @@ import 'bootstrap';
 
 > [!warning] 为什么水平部分居右堆叠要使用 `.ms-auto`，而不是其他居右的属性 ？ 因为此处的父容器 `.hstack` 已经使用了关于 flex 的属性了，为了不冲突，所以使 `margin-left: auto;`
 
-# 组件
+# ❤️ 组件
 ## 警告框
 在 `class属性` 上添加 `alert`
 
@@ -194,7 +194,7 @@ import 'bootstrap';
 </div>
 ```
 
-## 按钮
+## 💛 按钮
 ### 样式
 ![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403161654341.png)
 
@@ -297,7 +297,7 @@ import 'bootstrap';
 </div>
 ```
 
-## 徽章
+## 💛 徽章
  `.badge` ，用于计数，打标签……，会自动匹配父元素的大小 ![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202402181053369.png)
 
 ### 样式
@@ -339,12 +339,12 @@ import 'bootstrap';
 
 ## 加载器
 * 样式
-  * `.spinner-border` 旋转
-  * `.spinner-grow` 增长
+	* `.spinner-border` 旋转
+	* `.spinner-grow` 增长
 * 尺寸
-  * `.spinner-border-lg`
-  * ……
-  * `.spinner-border-sm`
+	* `.spinner-border-lg`
+	* ……
+	* `.spinner-border-sm`
 
 ```html
 <div class="spinner-border text-primary"></div>

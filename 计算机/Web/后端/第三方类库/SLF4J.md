@@ -29,15 +29,17 @@ $$
 
 # 配置
 我们可以使用两种方式来配置 SLF4J：
-- **直接在 yml 配置文件中配置**：简单方便
-- **重新定义一个** `logback-spring.xml`，**再在 yml 配置文件中激活** `logback-spring.xml`：功能更强大，可以对<u>不同环境下</u>【开发环境，测试环境，生产环境……】进行日志配置
+- **直接在 yml 配置文件中配置** ：方便
+- **定义** `logback-spring.xml` ，**再在 yml 配置文件中激活** `logback-spring.xml` ：功能更强大，可以对<u>不同环境下</u>【开发环境，测试环境，生产环境……】进行日志配置
 
 ## 直接在 yml 配置文件中配置
-```properties
+```yml
 logging:
   # 指定不同包下使用不同的日志级别
   level:
-    com.atguigu: trace
+    root: INFO  # 设置全局日志级别  
+	app.xlog.ggbond: INFO  # 设置包级别日志级别  
+	org.springframework: WARN  # 设置spring的日志级别
   # 以文件形式打印日志logging.file
   file:
     name: D:/boot.log	#指定日志文件的具体位置
@@ -152,7 +154,7 @@ class Web2ApplicationTests {
 2024-04-10T11:01:45.273+08:00  INFO 14720 --- [           main] com.example.web_2.Web2ApplicationTests   : Hello greenteck!, pop
 ```
 
-- 使用 `@Slf4j` 注解 ：简洁，但是需要依赖 Lombok 库
+- 使用 `@Slf4j` 注解 ：简洁
 ```java
 @Slf4j  
 public class StrategyArmoryDispatch {

@@ -267,18 +267,16 @@ try {
 }
 ```
 
-## Java 对象 -> JsonNode
+## 💛 Java 对象 -> JsonNode
 ```java
-ObjectMapper objectMapper = new ObjectMapper();
-
 Car car = new Car();
 car.brand = "Cadillac";
 car.doors = 4;
 
-JsonNode carJsonNode = objectMapper.valueToTree(car);
+JsonNode carJsonNode = new ObjectMapper().valueToTree(car);
 ```
 
-## JsonNode -> Java 对象
+## 💛 JsonNode -> Java 对象
 ```java
 ObjectMapper objectMapper = new ObjectMapper();
 
@@ -293,9 +291,9 @@ Car car = objectMapper.treeToValue(carJsonNode);
 >[!hint] JsonNode 里的属性是不可修改的，所以引入 ObjectNode，ObjectNode 是 JsonNode 的子类
 
 ## 创建
-- `new ObjectMapper()` 创建 ObjectMapper 对象
-	- `createObjectNode()` 创建一个空的 ObjectNode
-	- 将 JsonNode 强转为 ObjectNode
+- `new ObjectMapper().createObjectNode()` 创建一个空的 ObjectNode
+- `new ObjectMapper().<ObjectNode>valueToTree(Object)` Object 转 ObjectNode
+- 将 JsonNode 强转为 ObjectNode
 
 ## 添加/修改
 - `put()` 
