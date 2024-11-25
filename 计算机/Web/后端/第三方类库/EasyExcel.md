@@ -10,8 +10,6 @@
 # ❤️ 读
 
 
-
-
 # ❤️ 写
 ## 💛 定义 excel 实体类
 - `@ExcelProperty` 列属性
@@ -174,7 +172,7 @@ EasyExcel.write(fileName, DemoData.class)
 public void getExcel(HttpServletResponse response) {  
 	response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 	response.setCharacterEncoding("utf-8");
-	String fileName = URLEncoder.encode("提单列表数据.xlsx", "UTF-8");  
+	String fileName = URLEncoder.encode("提单列表数据.xlsx", StandardCharsets.UTF_8);  
 	response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"; filename*=UTF-8''" + fileName);
 	
 	EasyExcel.write(response.getOutputStream(), DemoData.class)  
