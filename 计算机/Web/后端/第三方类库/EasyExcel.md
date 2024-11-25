@@ -137,6 +137,54 @@ EasyExcel.write("E:\\文档\\测试一下.xlsx", DemoData.class)
 		.doWrite(dataList);
 ```
 
+## 💛 单元格内换行
+- `@ContentStyle` 
+	- `wrapped` 是否自动换行
+		- BooleanEnum.TRUE 开启自动换行
+
+```java
+@ContentStyle(wrapped = BooleanEnum.TRUE)
+public class UnRegisteredWorkingHoursStatistics {
+    @ExcelProperty(value = "用户姓名")
+    private String userName;
+    @ExcelProperty(value = "一级部门名称")
+    private String firstLevelDepartmentName;
+    @ExcelProperty(value = "部门名称")
+    private String departmentName;
+    @ExcelProperty(value = "未报工日期")
+    private String unRegisteredDates;
+    @ExcelProperty(value = "报工但未被审批的日期")
+    private String unApprovedDates;
+    @ExcelProperty(value = "审批人")
+    private String approvalUserName;
+}
+```
+
+- 写入时，以 `\n` 作为换行标识
+```java
+EasyExcel.write(response.getOutputStream(), UnRegisteredWorkingHoursStatistics.class)
+		.sheet("工作表 1")
+		.doWrite(List.of(
+				UnRegisteredWorkingHoursStatistics.builder()
+						.userName("张三")
+						.firstLevelDepartmentName("技术部")
+						.departmentName("研发部\n研发部\n拉拉部")
+						.unRegisteredDates("2021-08-01,2021-08-02")
+						.unApprovedDates("2021-08-03")
+						.approvalUserName("李四")
+						.build(),
+				UnRegisteredWorkingHoursStatistics.builder()
+						.userName("王五")
+						.firstLevelDepartmentName("技术部\n研发部\n拉拉部")
+						.departmentName("研发部")
+						.unRegisteredDates("2021-08-01,2021-08-02")
+						.unApprovedDates("2021-08-03")
+						.approvalUserName("赵六")
+						.build()
+		));
+```
+
+
 ## 💛 图片写入
 ```java
 @Data  
