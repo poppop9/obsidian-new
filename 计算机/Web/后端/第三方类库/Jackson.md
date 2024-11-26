@@ -288,7 +288,9 @@ Car car = objectMapper.treeToValue(carJsonNode);
 ```
 
 # ❤ ObjectNode 子树模型
->[!hint] JsonNode 里的属性是不可修改的，所以引入 ObjectNode，ObjectNode 是 JsonNode 的子类
+JsonNode 里的属性是不可修改的，所以引入 ObjectNode，ObjectNode 是 JsonNode 的子类
+
+>[!warning] ObjectNode 如果有值为 null ，或者无效字符，执行 `toString()` 时就会报错，只能使用 `writeValueAsString(ObjectNode)` 来转字符串
 
 ## 创建
 - `new ObjectMapper().createObjectNode()` 创建一个空的 ObjectNode

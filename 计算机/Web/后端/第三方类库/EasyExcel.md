@@ -234,5 +234,63 @@ public void getExcel(HttpServletResponse response) {
 }
 ```
 
+# 实验功能
+## 自适应行高
+```java
+import com.alibaba.excel.metadata.Head;
+import com.alibaba.excel.write.handler.WriteHandler;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
+public class CustomRowHeightHandler implements WriteHandler {
+
+    @Override
+    public void beforeCellCreate(Sheet sheet, Row row, Head head, int relativeRowIndex, int columnIndex, boolean isHead) {
+        // Do nothing before cell creation
+    }
+
+    @Override
+    public void afterCellDispose(Cell cell, Head head, int relativeRowIndex, boolean isHead) {
+        if (!isHead) {
+            // 获取当前单元格内容长度
+            String cellValue = cell.getStringCellValue();
+            if (cellValue != null) {
+                // 根据内容长度动态设置行高
+                int contentLength = cellValue.length();
+                int rowHeight = Math.min(255, contentLength * 20); // 根据长度设置行高（最大行高为 255）
+                cell.getRow().setHeight((short) rowHeight);
+            }
+        }
+    }
+}
+```
+
+```java
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.write.handler.WriteHandler;
+
+import java.util.List;
+
+public class ExcelExporter {
+    public static void main(String[] args) {
+        // 假设数据为以下列表
+        List<UnRegisteredWorkingHoursStatistics> data = fetchData();
+
+        // 写入 Excel
+        EasyExcel.write("output.xlsx", UnRegisteredWorkingHoursStatistics.class)
+                .registerWriteHandler(new CustomRowHeightHandler()) // 注册自定义行高处理器
+                .sheet("Sheet1")
+                .doWrite(data);
+    }
+
+    public static List<UnRegisteredWorkingHoursStatistics> fetchData() {
+        // 模拟数据获取
+        return List.of(
+            new UnRegisteredWorkingHoursStatistics("张三", "研发部", "开发组", "2024-11-01,2024-11-02", "2024-11-03", "李四"),
+            new UnRegisteredWorkingHoursStatistics("李四", "销售部", "销售组", "2024-11-05", "2024-11-06,2024-11-07", "王五")
+        );
+    }
+}
+```
 

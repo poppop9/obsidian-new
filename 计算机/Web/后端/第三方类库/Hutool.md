@@ -203,6 +203,9 @@ String decode = QrCodeUtil.decode(FileUtil.file("d:/qrcode.jpg"));
 	- `hasBlank(字符串数组)` 判断这个数组中是否有至少一个为 blank，如果是，则返回 true
 	- `hasEmpty()` 
 
+<u>编辑</u> ：
+- `removeSuffix(字符串，字符)` 去除这个字符串最后一个该字符
+
 ## 💛 旧 - 日期时间
 <u>范围</u> ：
 - `rangeToList(开始时间，结束时间，单位)` 获取到两个时间之间的时间集合
