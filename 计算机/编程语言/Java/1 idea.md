@@ -79,6 +79,9 @@ get ,set 方法，构造方法 `alt+insert`
 - `codeGlance pro` 右上角的小地图
 - `json parser` 格式化 json 性能最高的，大 json 不会卡住
 - `jpa buddy` 辅助 jpa
+- `Show Comment` 在文件夹中展示类的注解
+- `Jump ToLine` 可以 debug 到任意一行
+	- 按住 `ctrl` ，拖动光标到指定行
 
 
 

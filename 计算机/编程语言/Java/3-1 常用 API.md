@@ -18,15 +18,10 @@ int number = r.nextInt(10);   //代表的数据范围是0-9
 ```
 
 ## Arrays
-`Arrays` 里面包含了操作数组的多种方法
-
-```
-public class Arrays extends Object
-```
-
+Arrays 里包含了操作数组的多种方法
 - `String toString(arr)` 返回指定数组内容的字符串表示形式
 - `sort(arr)` 将数组从小到大排列
-- `List<\T> asList(T…a)` 将多个参数转成一个不可变的 List 集合
+- `List<\T> asList(T…a)` 将多个参数转成一个半可变的 List 集合（不允许 `add` ，`remove` ，允许 `set` ，且允许 null 值）
 
 ## Math
 其中集合了基本的数学运算方法
