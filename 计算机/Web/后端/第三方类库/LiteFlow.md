@@ -7,13 +7,20 @@
 ```
 
 >[!quote] LiteFlow
->> [LiteFlow](https://liteflow.cc/) 是一个业务规则编排引擎
+>> [LiteFlow](https://liteflow.cc/) 是一个业务规则编排引擎，而不是流程引擎
 >> ![300](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/20241104005204.png)
 >
-> - 如果你使用 JDK11 及其以上的版本，要在 jvm 参数加上 ：
+>- 通过统一的 xml 文件编排逻辑规则，使得逻辑类之间松耦合，不用互相引用
+>- LiteFlow 相当于瀑布流，没有办法暂停
+
+>[!warning] 如果你使用 JDK11 及其以上的版本，要在 jvm 参数加上 ：
 > ```bash
 > --add-opens java.base/sun.reflect.annotation=ALL-UNNAMED
 > ```
+
+>[!warning] LiteFlow 是一个业务规则编排引擎，而不是流程引擎
+>流程引擎 : 流程是有角色的，比如说审批流
+>规则引擎 : 规则是一套相对复杂的逻辑块
 
 # ❤️ 快速开始
 - 定义组件
