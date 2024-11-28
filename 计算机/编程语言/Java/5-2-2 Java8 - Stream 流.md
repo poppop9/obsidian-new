@@ -247,6 +247,12 @@ List<String> filteredList = list.stream()
 List<String> filteredListJava9 = list.stream()
     .flatMap(Optional::stream)  // 在将所有的optional转为流后，将所有的流合起来
     .collect(Collectors.toList());
+
+// departmentIds 中的 value 是逗号分隔的字符串
+departmentIds.keySet().stream()
+                .map(departmentIds::get)
+                .flatMap(item -> Arrays.stream(item.split(",")))
+                .toList();
 ```
 
 ## peek
@@ -387,7 +393,7 @@ public static void main(String[] args) {
 ```
 
 ## reduce
-- `reduce(初始值，累加逻辑)` 必须保证初始值，和累加器的数据类型一致
+- `reduce(初始值，累加逻辑)` 
 ```java
 List<String> props = List.of("profile=native", "debug=true", "logging=warn", "interval=500");
 Map<String, String> map = props.stream()
@@ -403,7 +409,7 @@ Map<String, String> map = props.stream()
 		});
 ```
 
-- `reduce(初始值，累加逻辑，合并器逻辑)` 当初始值和 Stream 中的元素类型不一致时，就需要加入合并器逻辑，来处理合并
+- `reduce(初始值，累加逻辑，合并器逻辑)` 合并器指定了，在并行流中，出现两个累加器时应该怎么处理
 ```java
 ObjectNode node = springTreeList.stream()
 		.reduce(new ObjectMapper().createObjectNode(),
