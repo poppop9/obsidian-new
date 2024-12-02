@@ -215,6 +215,10 @@ try {
 }
 ```
 
+```java
+JsonNode arrayNode = objectMapper.readTree(item.get("department_name"));
+```
+
 ## 浏览树模型
 - **获取字段**
 	- `JsonNode.get("字段名")` <u>根据字段名</u>获取 JSON 的字段
