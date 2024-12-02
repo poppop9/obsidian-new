@@ -20,8 +20,7 @@
 >	- **缺点**
 >		- 由于不可定制化，所以难以优化性能
 
-# MyBatis
-## 概述
+# 概述
 >[!quote] MyBatis
 >MyBatis 是一个 Java 持久层框架，**封装了 JDBC 程序**，简化了数据库的访问代码的编写，提供了灵活性和高度可定制的 SQL 映射，以及良好的性能
 
@@ -46,7 +45,7 @@ graph TB
     end
 ```
 
-### 数据库连接池技术
+## 数据库连接池技术
 - 在没有数据库连接池技术时，Java 程序要执行一条 SQL 语句，就要创建一个数据库连接对象，在使用完成之后，再释放这个连接对象
 - 而使用了数据库连接池技术后，客户端需要执行 SQL 语句时，可以去数据库连接池中拿连接对象，用完之后再还回去
 ```mermaid
@@ -67,7 +66,7 @@ graph LR
 >- 资源的重用【用完的 Connection 对象无需销毁，还回去即可】
 >- 提升系统的响应速度【无需创建 Connection 对象，去拿即可】
 
-## 准备工作
+# 准备工作
 - 引入 MyBatis，mysql 依赖
 ```xml
 <dependency>  
@@ -86,7 +85,7 @@ graph LR
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    ## 连接到localhost:3306服务的，security数据库
+    # 连接到localhost:3306服务的，security数据库
     url: jdbc:mysql://localhost:3306/security
     username: root
     password: 134
@@ -98,8 +97,8 @@ spring:
 	![image.png](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/20231114143555.png)
 - 安装 `MyBatisX` 插件：可以在 <u>xml 文件</u> 与 <u>Mapper 接口</u> 中快速跳转
 
-## 通过注解来实现 MyBatis
-### 增删改查
+# 通过注解来实现 MyBatis
+## 增删改查
 ```java
 //配置实体user类
 package com.example.Pojo;  
@@ -200,7 +199,7 @@ class SpringBootMyBatisApplicationTests {
 >	- 安全：防止了 SQL 注入【用户使用输入数据来篡改 SQL 语句】
 >	- `#{}` 不能放在**单引号**或**多引号**之间使用，如果一定要在引号里进行占位符，可以使用 `CONCAT 函数`
 
-### 主键返回
+## 主键返回
 >在很多时候我们会在插入一条数据之后，再拿到这条数据的 id。由于不能简单的通过 getId 来获取，所以我们要添加 **Options 注释**
 
 - `useGeneratedKeys = true`  表示我们要拿到生成的主键值
@@ -240,7 +239,7 @@ class SpringBootMyBatisApplicationTests {
 17
 ```
 
-## 通过 XML 来实现 MyBatis
+# 通过 XML 来实现 MyBatis
 >[!hint] 三大规范
 > - 同包同名，一一对应：XML 文件的名称与 Mapper 接口的名称保持一致，一个 XML 文件对应一个 Mapper 接口，XML 文件在 `resource 目录` 下与 Mapper 接口在 java 目录下的包一致
 > - XML 文件的 `namespace` 属性与 Mapper 接口的全类名保持一致
@@ -271,8 +270,8 @@ public interface UserMapper {
 </mapper>
 ```
 
-## 动态 SQL
-### 动态查询
+# 动态 SQL
+## 动态查询
 - `<where>` 标签可以动态的拼接 `<if>` 标签里的条件，如果只使用 WHERE
 	- 如果第一个条件不成立会多出一个 AND
 	- 如果所有条件不成立，会多出一个 WHERE
@@ -295,7 +294,7 @@ public interface UserMapper {
     </where>
 </select>
 ```
-### 动态更新
+## 动态更新
 - `<set>` 标签可以动态删除语句中的逗号
 ```xml
 <update id="UpdateUser">
@@ -320,7 +319,7 @@ public interface UserMapper {
     WHERE id=#{id}
 </update>
 ```
-### 动态批量删除
+## 动态批量删除
 - `collection`  表示集合的名称
 - `item`  表示集合元素的名称
 - `open`  在遍历元素的之前加的字符
@@ -351,7 +350,7 @@ public interface UserMapperXml {
     public void DeleteIds(List<Integer> ids); 
 }
 ```
-### sql 片段的抽取与引用
+## sql 片段的抽取与引用
 >如果像上面一样每个语句都独立写代码，那复用性会很差，如果要更改表名或者其他参数，则要一个一个语句标签更改。引入 `<sql>` ，`<include>`标签可以解决这个问题
 
 ```xml
@@ -367,8 +366,8 @@ public interface UserMapperXml {
 	</where>
 </select>
 ```
-## 其他配置
-### 数据封装
+# 其他配置
+## 数据封装
 当数据库的字段名【dept_id】与实体类的属性名【deptId】不一致时，**默认不会进行封装**，所以我们要在配置文件中配置自动映射：
 
 ```
@@ -376,7 +375,7 @@ public interface UserMapperXml {
 mybatis.configuration.map-underscore-to-camel-case=true
 ```
 
-### 输出 MyBatis 日志到控制台
+## 输出 MyBatis 日志到控制台
 在配置文件配置之后，会在控制台输出要执行的 sql 语句，和各种日志
 
 ```

@@ -1,6 +1,6 @@
 引入 Redis 主要就是两方面的作用：
 - <u>用作缓存</u>，比较简单，所有框架差距不大
-- <u>用作分布式锁</u>，Redisson 的分布式锁功能比较完善，有很多功能不用手写，有现成的直接用【RedLock 算法，读写锁，上锁后自动续期的 watchDog】
+- <u>用作分布式锁</u>，Redisson 的分布式锁功能比较完善，有很多功能不用手写，有现成的直接用【RedLock 算法，读写锁，上锁后自动续期的 watchDog ……】
 
 >[!hint] 技术选型
 >- `Jedis` 
@@ -129,7 +129,7 @@ public void testRedisson() {
 }
 ```
 
-## 💛 字符串 / 对象
+## 💛 字符串 / 对象 RBucket
 - redissonClient 下的方法
 	- `getBucket(键)` 获取对应 key 的 RBucket 对象
 - RBucket 对象下的方法
@@ -218,7 +218,7 @@ rList.addAll(AwardBOs);
 rList.forEach(System.out::println);
 ```
 
-## 💛  哈希
+## 💛  哈希 RMap
 ```java
 @Autowired  
 private RedissonClient redissonClient;
@@ -239,7 +239,7 @@ public void testRedisson() {
 淘宝优惠券
 ```
 
-## 💛  布隆过滤器
+## 💛  布隆过滤器 RBloomFilter
 - `RBloomFilter getBloomFilter(key)` 根据 key 创建 RBloomFilter 对象
 - RBloomFilter
 	- `tryInit(预期数据量，误报率)` 误报率越小，过滤器所需的空间越大

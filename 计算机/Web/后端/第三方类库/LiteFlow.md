@@ -227,7 +227,7 @@ LiteflowResponse 执行器的结果：
 
 
 # ❤️ 高级特性
-## 组件重试
+## 💛 重试机制
 ```xml
 
 <chain id="chain1">
