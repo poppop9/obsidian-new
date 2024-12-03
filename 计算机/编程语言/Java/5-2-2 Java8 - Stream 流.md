@@ -8,6 +8,50 @@
 > 
 > - Stream 流的操作不会影响原集合，但是除非你修改了引用对象
 
+>[!note] 循环处理技术对比
+> - **数据 < 1 万** ，for 循环 > foreach / 增强 for / 迭代器 > Stream
+> - **1 万 < 数据量 < 100 万** ，Stream > foreach / 增强 for / 迭代器 > for
+> - **数据 > 100 万** ，parallelStream 最高
+
+# ❤️ 注意
+- Stream 流最好是**无状态的**，~~即 Stream 的每一步操作不依赖外部的状态，也不会改变外部状态~~
+- 在 Lambda 表达式中只能引用 `final` 或 `effectively final` 的局部变量，所以 Stream 流也不例外
+
+# ❤ 静态方法
+- `iterate(流的初始值，针对于初始值的操作)` 
+
+```java
+// 针对一个LocalDate，每次迭代都plusDays，然后最终限制7个元素
+List<LocalDate> nowDateList = Stream.iterate(  
+        LocalDate.now(),  
+        date -> date.plusDays(1)  
+).limit(7).toList();
+```
+
+---
+
+- `concat()` 合并流
+
+```java
+List<String> list = new ArrayList<>();  
+list.add("吴彦祖");  
+list.add("陈冠希");  
+list.add("黎明");  
+list.add("吴京");  
+
+Stream<String> s1 = list.stream().limit(2);  
+Stream<String> s2 = list.stream().skip(1);  
+Stream.concat(s1, s2)
+	.forEach(System.out::println);  //合并a，b。然后输出
+
+---
+吴彦祖
+陈冠希
+陈冠希
+黎明
+吴京
+```
+
 # ❤ 生成流
 通过数据源【~~数组、集合、IO 通道、生成器……~~】生成流
 
@@ -614,42 +658,6 @@ double totalPayable = content.stream()
 		.sum();
 ```
 
-
-# ❤ 流的静态方法
-- `iterate(流的初始值，针对于初始值的操作)` 
-
-```java
-// 针对一个LocalDate，每次迭代都plusDays，然后最终限制7个元素
-List<LocalDate> nowDateList = Stream.iterate(  
-        LocalDate.now(),  
-        date -> date.plusDays(1)  
-).limit(7).toList();
-```
-
----
-
-- `concat()` 合并流
-
-```java
-List<String> list = new ArrayList<>();  
-list.add("吴彦祖");  
-list.add("陈冠希");  
-list.add("黎明");  
-list.add("吴京");  
-
-Stream<String> s1 = list.stream().limit(2);  
-Stream<String> s2 = list.stream().skip(1);  
-Stream.concat(s1, s2)
-	.forEach(System.out::println);  //合并a，b。然后输出
-
----
-吴彦祖
-陈冠希
-陈冠希
-黎明
-吴京
-```
-
 # ❤ 并行流
 >[!quote] 并行流
 >并行流 是指将数据分成多个部分，然后并行处理流中的每个元素
@@ -674,10 +682,7 @@ List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 Stream<Integer> parallelStream = numbers.parallelStream();
 ```
 
-# ❤ 循环处理技术对比
-- **数据 < 1 万** ，for 循环 > foreach / 增强 for / 迭代器 > Stream
-- **1 万 < 数据量 < 100 万** ，Stream > foreach / 增强 for / 迭代器 > for
-- **数据 > 100 万** ，parallelStream 最高
+
 
 
 
