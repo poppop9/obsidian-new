@@ -243,33 +243,38 @@ public void testRedisson() {
 - `RBloomFilter getBloomFilter(key)` 根据 key 创建 RBloomFilter 对象
 - RBloomFilter
 	- `tryInit(预期数据量，误报率)` 误报率越小，过滤器所需的空间越大
+	- `isExists()` 判断这个过滤器原来是否存在
+	- `delete()` 删除这个布隆过滤器
 	- `add(元素)` 向布隆过滤器中添加元素，或集合
 	- `expire(过期时间，过期单位)` 意味着如果在指定时间内，没有操作布隆过滤器，那 redis 将会删除该布隆过滤器
 	- `Boolean contains(元素)` 判断该元素是否在布隆过滤器中
 
 ```java
-@Autowired  
-private RedissonClient redissonClient;
+// 创建
+RBloomFilter<Long> bloomFilter = redissonClient.getBloomFilter("BlacklistUserList");  
+// 删除旧的布隆过滤器  
+if (bloomFilter.isExists()) {  
+    bloomFilter.delete();  
+}  
 
+bloomFilter.tryInit(100000L, 0.03);
+bloomFilter.add(List.of(404L));
+```
+
+```java
+// 测试
 @Test
-public void testRBloomFilter() {
-	RBloomFilter rBloomFilter = redissonClient.getBloomFilter("seqId");
-	// 初始化预期插入的数据量为10000，和期望误差率为0.01
-	rBloomFilter.tryInit(10000, 0.01);
-	
-	// 插入部分数据
-	rBloomFilter.add("100");
-	rBloomFilter.add("200");
-	rBloomFilter.add("300");
-	
-	// 判断是否存在
-	System.out.println(rBloomFilter.contains("300"));
-	System.out.println(rBloomFilter.contains("200"));
-	System.out.println(rBloomFilter.contains("999"));
+void test_849() {
+	RBloomFilter<Long> bloomFilter = redissonClient.getBloomFilter("BlacklistUserList");
+	System.out.println(bloomFilter.contains(404L));
+	System.out.println(bloomFilter.contains(404L));
+	System.out.println(bloomFilter.contains(101L));
+	System.out.println(bloomFilter.contains(101L));
 }
 
 true
 true
+false
 false
 ```
 
