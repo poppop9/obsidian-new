@@ -200,67 +200,12 @@ HelloController实例化了
 com.example.spring_aop.controller.HelloController@38fb151a
 ```
 
-## Bean 的作用域
-
-|       作用域       |          说明           |
-| :-------------: | :-------------------: |
-| `singleton`【默认】 | 容器内同名称的 Bean，只有一个实例对象 |
-|   `prototype`   | 每次使用 Bean，都会创建新的实例对象  |
-|    `request`    |    每个请求范围内，会创建新的实例    |
-|    `session`    |    每个会话范围，会创建新的实例     |
-|  `application`  |    每个应用范围内，会创建新的实例    |
-
-### prototype
-加入 `@Scope("prototype")`
-
-```java
-package com.example.spring_aop.controller;
-
-@Scope("prototype")
-@RestController
-public class HelloController {
-    // 无参构造
-    public HelloController() {
-        System.out.println("HelloController实例化了");
-    }
-    ……
-    接口方法……
-}
-```
-
-```java
-// Test 测试类
-package com.example.spring_aop;
-
-import com.example.spring_aop.controller.HelloController;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
-
-@SpringBootTest
-class SpringAopApplicationTests {
-    @Autowired
-    private ApplicationContext applicationContext;
-
-    @Test
-    public void TestScope() {
-        for (int i = 0; i < 4; i++) {
-            System.out.println(applicationContext.getBean("helloController"));
-        }
-    }
-}
-
----
-HelloController实例化了
-com.example.spring_aop.controller.HelloController@182e4365
-HelloController实例化了
-com.example.spring_aop.controller.HelloController@1e6d30c0
-HelloController实例化了
-com.example.spring_aop.controller.HelloController@38929da
-HelloController实例化了
-com.example.spring_aop.controller.HelloController@69d667a5
-```
+## 💛 Bean 的作用域
+- `singleton` ~~默认~~，容器内同名称的 Bean，只有一个实例对象
+- `prototype` 每次使用 Bean，都会创建新的实例对象
+- `request` 每个请求范围内，会创建新的实例
+- `session` 每个会话范围，会创建新的实例
+- `application` 每个应用范围内，会创建新的实例
 
 ## 第三方 Bean
 有时我们会在项目中引入第三方的依赖，其中会用到第三方包的对象，如果重复创建对象会消耗资源，我们会想将这个对象放到 IOC 容器中，但是**第三方包是只读的，无法修改**，这时我们就需要使用 `@Bean` 

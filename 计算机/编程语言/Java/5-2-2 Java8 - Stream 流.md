@@ -13,10 +13,6 @@
 > - **1 万 < 数据量 < 100 万** ，Stream > foreach / 增强 for / 迭代器 > for
 > - **数据 > 100 万** ，parallelStream 最高
 
-# ❤️ 注意
-- Stream 流最好是**无状态的**，~~即 Stream 的每一步操作不依赖外部的状态，也不会改变外部状态~~
-- 在 Lambda 表达式中只能引用 `final` 或 `effectively final` 的局部变量，所以 Stream 流也不例外
-
 # ❤ 静态方法
 - `iterate(流的初始值，针对于初始值的操作)` 
 
@@ -437,6 +433,7 @@ public static void main(String[] args) {
 ```
 
 ## reduce
+- `reduce(累加逻辑)` 
 - `reduce(初始值，累加逻辑)` 
 ```java
 List<String> props = List.of("profile=native", "debug=true", "logging=warn", "interval=500");
@@ -682,9 +679,9 @@ List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 Stream<Integer> parallelStream = numbers.parallelStream();
 ```
 
-
-
-
+# ❤️ 注意
+- Stream 流最好是**无状态的**，~~即 Stream 的每一步操作不依赖外部的状态，也不会改变外部状态~~
+- 在 Lambda 表达式中只能引用 `final` 或 `effectively final` 的局部变量，所以 Stream 流也不例外
 
 
 

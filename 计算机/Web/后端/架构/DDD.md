@@ -10,7 +10,7 @@ $$
 
 ## 💛 充血模型
 >[!quote] 贫血模型
->贫血模型就是只有属性，和 `get()`，`set()` 方法的 POJO
+>贫血模型就是只有属性，和 `get()` ，`set()` 方法的 POJO
 > 
 > ```java
 > public class Account {
@@ -177,8 +177,7 @@ public class User {
 >	- `DTO`【~~data transfer object~~】：DTO 用于在不同层之间传输数据
 >		- 不包含任何业务逻辑
 >	- `充血模型` ：充血模型 = PO + 业务逻辑，~~如果某个 PO 中有业务逻辑，那它就是充血模型~~
->		- `BO`【~~Business object~~】：业务对象包含业务逻辑
->			- 只用于 Service 层
+>		- `BO`【~~Business object~~】：业务对象，可以是多个 PO 的组合，并且包含业务逻辑
 
 >[!hint] 在领域与领域之间，如果需要某个充血模型，要把 <u>充血模型</u> 使用工厂组装成 <u>贫血模型</u> 进行传输
 
