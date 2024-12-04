@@ -180,7 +180,7 @@ server {
 
 ## 只实现端口映射
 ```yml
-# 讲本机上的5244端口服务，映射到80端口上，会使访问80端口时自动重定向到5244端口
+# 将本机上的5244端口服务，映射到80端口上，会使访问80端口时自动重定向到5244端口
 server {
     listen 80;
     server_name zsbz.com;
@@ -352,4 +352,30 @@ server {
 
 # 可视化工具 Nginx Proxy Manager
 - https://nginxproxymanager.com/
+- https://docs.halo.run/getting-started/install/other/nginxproxymanager/
+
+## 安装
+```bash
+docker run -d \
+  --name nginx-proxy-manager \
+  --restart unless-stopped \
+  -p 80:80 \
+  -p 81:81 \
+  -p 443:443 \
+  -v nginx-data:/data \
+  -v nginx-data:/etc/letsencrypt \
+  chishin/nginx-proxy-manager-zh:2
+
+docker run -d --name nginx-proxy-manager --restart unless-stopped -p 80:80 -p 81:81 -p 443:443 -v nginx-data:/data -v nginx-data:/etc/letsencrypt chishin/nginx-proxy-manager-zh:2
+```
+
+<u>登录</u> ：
+- Email:    admin@example.com
+- Password: changeme
+
+## 配置
+
+
+
+
 
