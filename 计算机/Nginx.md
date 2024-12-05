@@ -350,11 +350,11 @@ server {
 }
 ```
 
-# 可视化工具 Nginx Proxy Manager
+# 可视化工具
+## Nginx Proxy Manager
 - https://nginxproxymanager.com/
 - https://docs.halo.run/getting-started/install/other/nginxproxymanager/
 
-## 安装
 ```bash
 docker run -d \
   --name nginx-proxy-manager \
@@ -373,8 +373,19 @@ docker run -d --name nginx-proxy-manager --restart unless-stopped -p 80:80 -p 81
 - Email:    admin@example.com
 - Password: changeme
 
-## 配置
+## NginxWebUI
+```bash
+docker run -itd \
+  --name nginxWebUI \
+  -v nginxWebUI:/home/nginxWebUI \
+  -e BOOT_OPTIONS="--server.port=8080" \
+  -p 81:8080 \
+  --restart=always \
+  cym1102/nginxwebui:4.2.5
 
+
+docker run -itd --name nginxWebUI -v nginxWebUI:/home/nginxWebUI -e BOOT_OPTIONS="--server.port=8080" -p 81:8080 --restart=always cym1102/nginxwebui:4.2.5
+```
 
 
 
