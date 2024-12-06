@@ -380,11 +380,10 @@ docker run -itd \
   -v nginxWebUI:/home/nginxWebUI \
   -e BOOT_OPTIONS="--server.port=8080" \
   -p 81:8080 \
-  --restart=always \
   cym1102/nginxwebui:4.2.5
 
 
-docker run -itd --name nginxWebUI -v nginxWebUI:/home/nginxWebUI -e BOOT_OPTIONS="--server.port=8080" -p 81:8080 --restart=always cym1102/nginxwebui:4.2.5
+docker run -itd --name nginxWebUI -v nginxWebUI:/home/nginxWebUI -e BOOT_OPTIONS="--server.port=8080" -p 81:8080 cym1102/nginxwebui:4.2.5
 ```
 
 
