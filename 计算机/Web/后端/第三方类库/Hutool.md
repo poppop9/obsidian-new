@@ -562,12 +562,43 @@ String stringSignTemp = "AAA";
 String MD5 = SecureUtil.md5(stringSignTemp);
 ```
 
+# ❤️ 缓存 CacheUtil
+Cache 有五个实现类：
+- `newTimedCache` 
+- `newFIFOCache`
+- `newLRUCache` 
+- `newWeakCache` 
+- `newLFUCache` 
+
+```java
+// 定时缓存：过期时间为3秒
+Cache<Object, Object> timedCache = CacheUtil.newTimedCache(3000);
+timedCache.put("key1", "value1");
+System.out.println(timedCache.get("key1"));
+
+// FIFO缓存：先进先出缓存，超出容量后先加入的缓存失效
+Cache<String, String> fifoCache = CacheUtil.newFIFOCache(5);
+
+// LRU缓存：超出容量时，会移除最近最少使用的缓存项
+Cache<String, String> lruCache = CacheUtil.newLRUCache(5);
+
+// 弱引用缓存：当没有指向缓存值的引用时，缓存值会被垃圾回收。也可以指定过期时间
+Cache<String, String> weakCache = CacheUtil.newWeakCache(5000);
+
+// LFU缓存：优先淘汰访问频率最低的缓存项
+Cache<String, String> staticCache = CacheUtil.newLFUCache(100);
+```
+
+
+
 # ❤ 断言 Assert
 >[!hint] Java 原生的 Assert 的缺点
 >断言 本意上是在调式时使用，而不是生产环境
 >
 >- assert 默认在程序运行时是关闭的，不会产生任何效果，只有在调试时会生效
 >- assert 断言失败，程序将退出
+
+而 Hutool 的断言工具是用来做参数校验的
 
 - **判空**
 	- `isNull` / `notNull` 是否为 null
