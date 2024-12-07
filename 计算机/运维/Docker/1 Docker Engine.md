@@ -7,7 +7,7 @@
 
 ---
 
->[!hint] 作用
+>[!NOTE] 作用
 > - **容器化应用程序**：Docker 允许将应用程序及其所有依赖项打包到一个独立的容器中。容器可以在不同的环境中运行，而无需担心环境差异导致的问题，确保应用程序在任何地方都能一致运行。每个容器都是一个可隔离的、可移植的单元，具有自己的文件系统、运行时环境和资源
 > - **轻量级和快速启动**：与传统的虚拟机相比，Docker 容器非常轻量级，启动时间非常快
 > ![700](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202402261348445.png)
@@ -37,7 +37,7 @@
 >Docker Engine 是 Docker 的核心部分，负责构建和容器化应用程序
 
 # 安装 Docker Engine
->[!hint] 以下配置均在 Ubuntu 中安装
+>[!NOTE] 以下配置均在 Ubuntu 中安装
 
 - 卸载旧版本
 ```bash
@@ -81,7 +81,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 docker version
 ```
 
->[!hint] 配置镜像加速
+>[!NOTE] 配置镜像加速
 > ```bash
 > # 创建文件
 > sudo nano /etc/docker/daemon.json
@@ -99,7 +99,7 @@ docker version
 > }
 > ```
 
->[!hint] 额外配置
+>[!NOTE] 额外配置
 >>额外的配置可以让我们在使用 Docker 时更加方便
 >
 > - 以非 root 用户身份管理 Docker【可以在使用 Docker 命令时，不加 `sudo`】
@@ -275,7 +275,7 @@ graph TB
 
 ---
 
->[!hint] 运行 `docker run 镜像名称` 如果本地没有镜像，会自动去镜像仓库下载
+>[!NOTE] 运行 `docker run 镜像名称` 如果本地没有镜像，会自动去镜像仓库下载
 
 - **创建并运行**：`docker run ……参数 镜像名称:[版本号]` 【**版本号不写默认最新版**】
 	- `-d` 在后台运行
@@ -313,7 +313,7 @@ docker run -d --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -p 3306:3306
 
 ---
 
->[!hint] 容器就是虚拟了一个计算机，我们可以进入容器，去修改里面文件系统中的文件
+>[!NOTE] 容器就是虚拟了一个计算机，我们可以进入容器，去修改里面文件系统中的文件
 
 - **进入容器**：`docker exec [参数] 容器名 [命令]` 可以进入到容器的内部，来修改容器
 	- 参数
@@ -396,7 +396,7 @@ docker run -itd --name test1 --network test-net ubuntu /bin/bash
 docker run -itd --name test2 --network test-net ubuntu /bin/bash
 ```
 
->[!hint] 如果你有多个容器之间需要互相连接，推荐使用 Docker Compose
+>[!NOTE] 如果你有多个容器之间需要互相连接，推荐使用 Docker Compose
 
 # ❤ 异常
 ```

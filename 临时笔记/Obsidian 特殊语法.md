@@ -75,7 +75,7 @@ tag:问题
 
 > [!error]
 
-> [!note]
+> [!NOTE]
 
 > [!todo]
 

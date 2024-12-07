@@ -8,7 +8,7 @@
 > 
 > - Stream 流的操作不会影响原集合，但是除非你修改了引用对象
 
->[!note] 循环处理技术对比
+>[!NOTE] 循环处理技术对比
 > - **数据 < 1 万** ，for 循环 > foreach / 增强 for / 迭代器 > Stream
 > - **1 万 < 数据量 < 100 万** ，Stream > foreach / 增强 for / 迭代器 > for
 > - **数据 > 100 万** ，parallelStream 最高

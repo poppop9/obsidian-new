@@ -5,7 +5,7 @@
 > * 使用多个引号时，注意双引号里要使用单引号
 
 # ❤ 选择器
-> [!hint] 优先级：id 选择器 > 类选择器 > 元素选择器
+> [!NOTE] 优先级：id 选择器 > 类选择器 > 元素选择器
 
 ## 元素选择器
 ```css
@@ -62,7 +62,7 @@
 <span id="002">我是正文</span>
 ```
 
-> [!hint] 选择器的组合使用
+> [!NOTE] 选择器的组合使用
 >
 > ```css
 > /* 只有具有 class="center" 的 <p\> 元素会居中对齐 */ 
@@ -193,7 +193,7 @@ div ~ p {
 
 # ❤ 引入方式
 
-> [!hint] 引入方式的优先级 行内样式 > 在 `head标签` 里内嵌样式 > 外联样式的顺序
+> [!NOTE] 引入方式的优先级 行内样式 > 在 `head标签` 里内嵌样式 > 外联样式的顺序
 
 ## 行内样式
 
@@ -276,7 +276,7 @@ h1 {
 
 视口 = 浏览器窗口的尺寸
 
-> [!hint] em 和 rem 可用于创建完美的可扩展布局
+> [!NOTE] em 和 rem 可用于创建完美的可扩展布局
 
 # ❤ 颜色
 * `background-color:`
@@ -316,7 +316,7 @@ h1 {
 > * **内容为图片**
 >   * `background-image: url('链接')` 指定背景图像
 
-> [!hint] 默认情况下，`background-image` 在水平和垂直方向上都重复图像，直到铺满整个指定元素
+> [!NOTE] 默认情况下，`background-image` 在水平和垂直方向上都重复图像，直到铺满整个指定元素
 
 ### 参数
 * `background-repeat` 指定背景内容是否重复显示
@@ -375,7 +375,7 @@ background-clip: padding-box;
 background-clip: content-box;
 ```
 
-> [!hint] 多重背景
+> [!NOTE] 多重背景
 >
 > > 可以为背景指定多张图片
 >
@@ -398,7 +398,7 @@ background-clip: content-box;
 > * `border-color`
 > * `border-radius` 添加圆角
 
-> [!hint] 简写 `border: width style color;`
+> [!NOTE] 简写 `border: width style color;`
 
 ### 样式
 
@@ -484,7 +484,7 @@ hello
 <p style="border-style: groove; border-color: red green blue yellow;">hello</p>
 ```
 
-> [!hint] 如果不要颜色的话可以指定为 `color:transparent;` ，表示_**透明色**_
+> [!NOTE] 如果不要颜色的话可以指定为 `color:transparent;` ，表示_**透明色**_
 
 hello
 

@@ -78,7 +78,7 @@ excalidraw里拷贝内部链接 `ctrl+shift+k`
 
 > [!todo] 
 
-> [!note] 
+> [!NOTE] 
 
 - abstract
 - success, check, done

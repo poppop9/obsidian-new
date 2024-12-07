@@ -1,7 +1,7 @@
 
-> [!hint] Bootstrap 可以轻松地创建响应式设计，而且提供了丰富的 JavaScript 插件
+> [!NOTE] Bootstrap 可以轻松地创建响应式设计，而且提供了丰富的 JavaScript 插件
 
-> [!hint] Bootstrap 的核心是**移动优先**，所以为一个较小的视口设置了样式，这个样式会在所有更大的视口中继续适用，除非对更大视口的添加新的样式
+> [!NOTE] Bootstrap 的核心是**移动优先**，所以为一个较小的视口设置了样式，这个样式会在所有更大的视口中继续适用，除非对更大视口的添加新的样式
 
 # 引入
 ## CDN
@@ -68,7 +68,7 @@ import 'bootstrap';
 
 > 利用 `flexbox` ，共有12列【会根据屏幕大小，自动重排】 ![800](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202402051753353.png)
 
-> [!hint] 如果页面底部出现水平的滚动条，就在 `.row` 的 `<div>` 中加入 `.mx-auto`
+> [!NOTE] 如果页面底部出现水平的滚动条，就在 `.row` 的 `<div>` 中加入 `.mx-auto`
 >
 > ```html
 > <div class="row mx-auto">
@@ -249,7 +249,7 @@ import 'bootstrap';
 
 > [!attention] 不可以单独控制按钮组内按钮的大小，只能一起通过按钮组控制
 
-> [!hint] 按钮组是 `inline`
+> [!NOTE] 按钮组是 `inline`
 
 * 尺寸
   * `.btn-group-lg`
