@@ -195,7 +195,11 @@ defaultDatabaseStrategy:
 ```
 
 ### 💙 绑定表
-`bindingTables` 绑定表【~~绑定前提是这些表的分片字段是相同的，并且这些表都根据这个字段进行关联~~】，将多张表进行绑定路由，这样多表联查时少了很多种可能性【~~比如 order 表，和 user 表绑定，就会有 order_1 对应 user_1，order_2 对应 user_2，多表联查时对应到 order_1 的数据就会去找 user-1，而不是找 user 的所有物理表~~】
+>[!quote] `bindingTables` 绑定表
+>>绑定表 就是将多张表进行绑定路由，确保这些表的数据路由到相同的分片，这样多表联查时就避免了跨库
+>
+><u>前提</u>：被绑定的表必须具有相同的分片键（分片字段）和分片算法
+
 ```java
 tables: ……
 bindingTables:
