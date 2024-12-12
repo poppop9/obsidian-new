@@ -43,32 +43,21 @@ public class Car {
 
 	// get，set 方法……
 }
-```
 
-```java
-// 创建 ObjectMapper 对象
-ObjectMapper objectMapper = new ObjectMapper();
-
+// 测试
 String carJson ="{ \"brand\" : \"Mercedes\", \"doors\" : 5 }";
+Car car = new ObjectMapper().readValue(carJson, Car.class);
 
-try {
-	Car car = objectMapper.readValue(carJson, Car.class);
-	
-	System.out.println("car brand = " + car.getBrand());
-	System.out.println("car doors = " + car.getDoors());
-} catch (IOException e) {
-	e.printStackTrace();
-}
+System.out.println("car brand = " + car.getBrand());
+System.out.println("car doors = " + car.getDoors());
 ```
 
 ### JSON 输入流 -> Java 对象
 - 字节流
 ```java
-ObjectMapper objectMapper = new ObjectMapper();
- 
 InputStream input = new FileInputStream("data/car.json");
  
-Car car = objectMapper.readValue(input, Car.class);
+Car car = new ObjectMapper().readValue(input, Car.class);
 ```
 
 - 字符流
@@ -204,19 +193,7 @@ ObjectNode objectNode = new ObjectMapper().convertValue(item, ObjectNode.class)
 ## 创建树模型
 - json 字符串转 JsonNode
 ```java
-ObjectMapper objectMapper = new ObjectMapper();
-
-String carJson = "{ \"brand\" : \"Mercedes\", \"doors\" : 5 }";
-
-try {
-	JsonNode jsonNode = objectMapper.readValue(carJson, JsonNode.class);
-} catch (IOException e) {
-	e.printStackTrace();
-}
-```
-
-```java
-JsonNode arrayNode = objectMapper.readTree(item.get("department_name"));
+JsonNode arrayNode = objectMapper.readTree( 字符串…… );
 ```
 
 ## 浏览树模型

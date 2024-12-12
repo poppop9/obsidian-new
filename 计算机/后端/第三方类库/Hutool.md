@@ -28,7 +28,7 @@ String simpleUUID = IdUtil.simpleUUID();
 		- `long nextId()` 
 		- `String nextIdStr()` 
 - 简单使用
-	- `long getSnowflakeNextId()` 
+	- `long getSnowflakeNextId()` 使用的是全局单例的雪花算法类，每秒最多能生成 4,096,000 个 ID
 	- `String getSnowflakeNextIdStr()`
 
 ```java
