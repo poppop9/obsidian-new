@@ -62,7 +62,7 @@ try (ExcelWriter excelWriter = EasyExcel.write(fileName).build()) {
 }
 ```
 
-## 💛 实体类
+## 💛 实体类写入
 ### 💙 定义 excel 实体类
 - `@ExcelProperty` 列属性
 	- value 列名
@@ -220,24 +220,137 @@ public void getExcel(HttpServletResponse response) {
 }
 ```
 
-## 💛 代码策略
+## 💛 无实体类写入
+```java
+EasyExcel.write("E:\\文档\\测试一下.xlsx")
+		.head(List.of(  
+		        List.of("标题"),  
+		        List.of("数字")
+		))
+		.sheet()
+		.doWrite(List.of(
+			Arrays.asList("吃饭", 23d),
+			Arrays.asList("睡觉", 2d),
+			Arrays.asList("敲代码", 299d)
+		));
+```
+
+### 💙 列宽行高
+```java
+.registerWriteHandler(new SheetWriteHandler() {
+	@Override
+	public void afterSheetCreate(WriteWorkbookHolder writeWorkbookHolder, WriteSheetHolder writeSheetHolder) {
+		Sheet sheet = writeSheetHolder.getSheet();
+		sheet.setColumnWidth(0, 28 * 256);  // 设置第一列宽度为 28
+		sheet.setColumnWidth(1, 88 * 256);  // 设置第二列宽度为 88
+	}
+})
+```
+
+### 💙 居中
+```java
+WriteCellStyle contentStyle = new WriteCellStyle();
+contentStyle.setHorizontalAlignment(HorizontalAlignment.CENTER); // 水平居中
+contentStyle.setVerticalAlignment(VerticalAlignment.CENTER);   // 垂直居中
+
+EasyExcel.write(response.getOutputStream())  
+        .head(List.of(  
+                List.of("字符串"),  
+                List.of("数字"),  
+                List.of("日期")  
+        ))  
+        .registerWriteHandler(new HorizontalCellStyleStrategy(  
+                contentStyle, contentStyle  
+        ))  
+        .sheet("工作表 1")  
+        .doWrite(Arrays.asList(  
+                Arrays.asList("字符串1", 123, LocalDate.now()),  
+                Arrays.asList("字符串2", 123, LocalDate.now()),  
+                Arrays.asList("字符串3", 789, LocalDate.now())  
+        ));
+```
+
 ### 💙 合并单元格
 ```java
-List<DemoData> dataList = List.of(
-		DemoData.builder().title("吃饭").number(23d).build(),
-		DemoData.builder().title("睡觉").number(2d).build(),
-		DemoData.builder().title("敲代码").number(299d).build()
-);
-
-EasyExcel.write("E:\\文档\\测试一下.xlsx", DemoData.class)
+EasyExcel.write("E:\\文档\\测试一下.xlsx")
+		.head(List.of(  
+		        List.of("标题"),  
+		        List.of("数字")
+		))
 		.sheet()
 		// 设置策略，每两行就合并，从第一行就开始作用
 		.registerWriteHandler(new LoopMergeStrategy(2, 0))
-		.doWrite(dataList);
+		.doWrite(List.of(
+			Arrays.asList("吃饭", 23d),
+			Arrays.asList("睡觉", 2d),
+			Arrays.asList("敲代码", 299d)
+		));
 ```
 
-### 💙 数据相同合并单元格
+### 💙 上下单元格数据相同合并
+```java
+EasyExcel.write(response.getOutputStream())
+		.head(List.of(
+				List.of("字符串"),
+				List.of("数字"),
+				List.of("日期")
+		))
+		.registerWriteHandler(new CellWriteHandler() {
+			private final int[] mergeColumnIndex = new int[]{0, 1, 2};  // 合并字段的下标。如第一到五列new int[]{0,1,2,3,4}
+			private final int mergeRowIndex = 1;  // 从第几行开始合并。如果表头占两行，这个数字就是2
 
+			private void mergeWithPrevRow(WriteSheetHolder writeSheetHolder, Cell cell, int curRowIndex, int curColIndex) {
+				// 获取当前行的当前列的数据和上一行的当前列列数据，通过上一行数据是否相同进行合并
+				Object curData = cell.getCellTypeEnum() == CellType.STRING ? cell.getStringCellValue() : cell.getNumericCellValue();
+				Cell preCell = cell.getSheet().getRow(curRowIndex - 1).getCell(curColIndex);
+				Object preData = preCell.getCellTypeEnum() == CellType.STRING ? preCell.getStringCellValue() : preCell.getNumericCellValue();
+
+				// 比较当前行的第一列的单元格与上一行是否相同，相同合并当前单元格与上一行
+				if (curData.equals(preData)) {
+					Sheet sheet = writeSheetHolder.getSheet();
+					List<CellRangeAddress> mergeRegions = sheet.getMergedRegions();
+					boolean isMerged = false;
+					for (int i = 0; i < mergeRegions.size() && !isMerged; i++) {
+						CellRangeAddress cellRangeAddr = mergeRegions.get(i);
+						// 若上一个单元格已经被合并，则先移出原有的合并单元，再重新添加合并单元
+						if (cellRangeAddr.isInRange(curRowIndex - 1, curColIndex)) {
+							sheet.removeMergedRegion(i);
+							cellRangeAddr.setLastRow(curRowIndex);
+							sheet.addMergedRegion(cellRangeAddr);
+							isMerged = true;
+						}
+					}
+
+					// 若上一个单元格未被合并，则新增合并单元
+					if (!isMerged) {
+						CellRangeAddress cellRangeAddress = new CellRangeAddress(curRowIndex - 1, curRowIndex, curColIndex, curColIndex);
+						sheet.addMergedRegion(cellRangeAddress);
+					}
+				}
+			}
+
+			@Override
+			public void afterCellDispose(WriteSheetHolder writeSheetHolder, WriteTableHolder writeTableHolder, List<WriteCellData<?>> cellDataList, Cell cell, Head head, Integer relativeRowIndex, Boolean isHead) {
+				int curRowIndex = cell.getRowIndex();
+				int curColIndex = cell.getColumnIndex();
+
+				if (curRowIndex > mergeRowIndex) {
+					for (int columnIndex : mergeColumnIndex) {
+						if (curColIndex == columnIndex) {
+							mergeWithPrevRow(writeSheetHolder, cell, curRowIndex, curColIndex);
+							break;
+						}
+					}
+				}
+			}
+		})
+		.sheet("工作表 1")
+		.doWrite(Arrays.asList(
+				Arrays.asList("字符串1", 123, LocalDate.now()),
+				Arrays.asList("字符串2", 123, LocalDate.now()),
+				Arrays.asList("字符串3", 789, LocalDate.now())
+		));
+```
 
 
 
