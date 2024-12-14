@@ -198,30 +198,8 @@ Maven 有三套独立的生命周期，每一套都有若干个阶段。**同一
 >![[JavaWeb Draw#^group=QqvDzj8c|300]]
 
 # ❤ 构建
-- `<build>` 部分定义了如何构建和打包项目
-```xml
-<project>
-	……
-	<build>  
-	    <plugins>  
-	        <plugin>  
-	            <groupId>org.springframework.boot</groupId>  
-	            <artifactId>spring-boot-maven-plugin</artifactId>  
-	        </plugin>  
-	        <plugin>  
-	            <groupId>org.apache.maven.plugins</groupId>  
-	            <artifactId>maven-compiler-plugin</artifactId>  
-	            <version>3.13.0</version>  
-	            <configuration>  
-	                <!-- 指定JDK版本 -->  
-	                <source>17</source>  
-	                <target>17</target>  
-	            </configuration>  
-	        </plugin>  
-	    </plugins>  
-	</build>
-</project>
-```
+- `<build>` 部分定义了如何构建和打包项目，主要使用 [[#❤️ 插件]] 来构建
+
 
 # Maven 的打包方式
 - `jar` 【默认】Java 应用程序的标准打包格式，内嵌了 Tomcat
@@ -543,4 +521,38 @@ spring:
 </mirrors>
 ```
 
-
+# ❤️ 插件
+```xml
+<project>
+	……
+	<build>  
+	    <plugins>  
+	        <plugin>  
+			    <groupId>org.springframework.boot</groupId>  
+			    <artifactId>spring-boot-maven-plugin</artifactId>
+			    <configuration>  
+				    <docker>  
+				        <host>//./pipe/dockerDesktopLinuxEngine</host>  
+				    </docker>  
+				</configuration>  
+			    <executions>  
+			        <execution>  
+			            <goals>  
+			                <goal>build-image</goal>  <!-- 默认打image包 -->
+			            </goals>  
+			            <configuration>  
+			                <image>  
+			                    <name>big-market:1.1.0</name>
+			                    <env>  
+			                        <BP_JVM_VERSION>17</BP_JVM_VERSION>  
+			                        <TZ>Asia/Shanghai</TZ>
+			                    </env>  
+			                </image>  
+			            </configuration>  
+			        </execution>  
+			    </executions>  
+			</plugin>
+	    </plugins>  
+	</build>
+</project>
+```

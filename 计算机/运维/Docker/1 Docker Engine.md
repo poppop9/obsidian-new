@@ -153,9 +153,7 @@ COPY docker-demo.jar /app.jar
 # 入口
 ENTRYPOINT ["java", "-jar", "/app.jar"]
 ```
-
 - 将 Dockerfile 和 jar 包放到同一目录下
-
 - 在该目录下，使用 Dockerfile 构建镜像
 ```bash
 docker build -t 1962883041612/demo:1.0 .

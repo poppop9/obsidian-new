@@ -29,7 +29,7 @@
 - 创建管理中心容器，mysql 如果是容器，要连接容器内的 network
 ```bash
 docker run -d \
-  -e SPRING_DATASOURCE_URL="jdbc:mysql://172.17.0.1:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai" \
+  -e SPRING_DATASOURCE_URL="jdbc:mysql://172.17.0.1:3306/xxl_job?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai" \
   -e SPRING_DATASOURCE_USERNAME="root" \
   -e SPRING_DATASOURCE_PASSWORD="root" \
   -e SPRING_DATASOURCE_DRIVER_CLASS_NAME="com.mysql.cj.jdbc.Driver" \
@@ -37,7 +37,7 @@ docker run -d \
   --name xxl-job-admin \
   xuxueli/xxl-job-admin:2.4.2 
   
-docker run -d -e PARAMS="--spring.datasource.url=jdbc:mysql://172.17.0.1:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai --spring.datasource.username=root --spring.datasource.password=root --spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver" -p 9384:8080 --name xxl-job-admin xuxueli/xxl-job-admin:2.4.2
+docker run -d -e PARAMS="--spring.datasource.url=jdbc:mysql://172.17.0.1:3306/xxl_job?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai --spring.datasource.username=root --spring.datasource.password=root --spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver" -p 9384:8080 --name xxl-job-admin xuxueli/xxl-job-admin:2.4.2
 ```
 - 默认账户 ：admin 123456
 
