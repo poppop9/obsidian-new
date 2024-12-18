@@ -4,7 +4,10 @@ docker run \
   --name pgsql \
   -e POSTGRES_USER=postgres \
   -e POSTGRES_PASSWORD=13433026660 \
-  -d postgres
+  -p 5432:5432 \
+  -d postgres:13.18
+
+docker run --name pgsql -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=13433026660 -p 5432:5432 -d postgres:13.18
 ```
 
 # ❤️ 命令

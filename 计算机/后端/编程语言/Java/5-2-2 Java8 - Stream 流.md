@@ -16,13 +16,15 @@
 
 # ❤ 静态方法
 - `iterate(流的初始值，针对于初始值的操作)` 
-
+- `iterate(流的初始值，符合条件，递增规则)` 
 ```java
 // 针对一个LocalDate，每次迭代都plusDays，然后最终限制7个元素
 List<LocalDate> nowDateList = Stream.iterate(  
         LocalDate.now(),  
         date -> date.plusDays(1)  
 ).limit(7).toList();
+
+Stream.iterate(monthSize - 1, data -> data >= 0, data -> data - 1)
 ```
 
 ---

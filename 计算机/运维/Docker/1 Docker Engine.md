@@ -375,11 +375,15 @@ docker run -d --name mysql -p 3306:3306 -e TZ=Asia/Shanghai -e MYSQL_ROOT_PASSWO
 - 宿主机 -> 容器内 `docker cp 宿主机路径 容器名:容器内路径` 
 
 # ❤ 容器通信
+同一网桥下的容器可以将 ip 地址改为容器名进行通信
+
+>[!NOTE] 如果你有多个容器之间需要互相连接，推荐使用 Docker Compose
+
 [https://blog.csdn.net/d2916172682/article/details/135640415](https://blog.csdn.net/d2916172682/article/details/135640415)
 
-- **创建网络**
-	- `docker network create 网络名`
-		- `-d 网络类型` 网络驱动类型可以是 bridge ，overlay ……
+<u>创建网络</u> ：
+- `docker network create 网络名`
+	- `-d 网络类型` 网络驱动类型可以是 bridge ，overlay ……
 
 ```bash
 docker network create -d bridge test-net
@@ -387,14 +391,19 @@ docker network create -d bridge test-net
 
 ---
 
-- **连接网络**
+<u>给已用的容器添加网桥</u> ：
+```bash
+docker network connect 网桥名 容器名
+```
+
+---
+
+<u>连接网络</u> ：
 ```bash
 docker run -itd --name test1 --network test-net ubuntu /bin/bash
 
 docker run -itd --name test2 --network test-net ubuntu /bin/bash
 ```
-
->[!NOTE] 如果你有多个容器之间需要互相连接，推荐使用 Docker Compose
 
 # ❤ 异常
 ```
