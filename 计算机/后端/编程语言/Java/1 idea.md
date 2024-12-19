@@ -83,6 +83,7 @@ get ,set 方法，构造方法 `alt+insert`
 - `Show Comment` 在文件夹中展示类的注解
 - `Jump ToLine` 可以 debug 到任意一行
 	- 按住 `ctrl` ，拖动光标到指定行
+- `Rainbow Brackets` 彩虹括号，yml 文件分级配色
 
 
 

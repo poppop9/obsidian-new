@@ -385,7 +385,7 @@ String element = blockingQueue.take(); // 如果队列为空则等待
 
 ### 💙 延迟队列 DelayedQueue
 >[!quote] DelayedQueue
->DelayedQueue 允许你将元素按照一定的时间间隔【~~时间可以固定，也可以动态变化~~】添加到队列中
+>添加到 DelayedQueue 中的任务会在指定的延迟时间后【~~时间可以固定，也可以动态变化~~】才可被取出执行
 >
 >- 通过延时处理，可以减轻某个组件的负载
 
