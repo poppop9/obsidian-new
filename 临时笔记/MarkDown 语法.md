@@ -355,7 +355,7 @@ sequenceDiagram
     participant Alice
     participant Bob
 
-    Alice-->Bob: Hello Bob, how are you?
+    Alice->>Bob: Hello Bob, how are you?
     Note left of Alice: Alice thinks about it.
     
     Bob-->Alice: Not bad, thanks.
