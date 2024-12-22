@@ -218,6 +218,24 @@ rList.addAll(AwardBOs);
 rList.forEach(System.out::println);
 ```
 
+## 💛 RSet
+- 交并补
+	- `Set readIntersect(String... var1)` 交集
+	- `Set readUnion(String... var1)` 并集
+	- `Set readDifference(String... var1)` 补集，A 有 B 五
+
+```java
+// 获取集合并计算并集（即所有集合中的商品，去重）
+RSet<String> electronics = redissonClient.getSet("products:electronics");
+RSet<String> clothing = redissonClient.getSet("products:clothing");
+RSet<String> books = redissonClient.getSet("products:books");
+
+Set<String> intersection = electronics.readIntersect(clothing, books);
+Set<String> union = electronics.readUnion(clothing, books);
+Set<String> difference = electronics.readDifference(clothing);
+```
+
+
 ## 💛  哈希 RMap
 ```java
 @Autowired  
