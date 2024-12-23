@@ -140,6 +140,9 @@ public void testRedisson() {
 	- **查**
 		- `get()` 查询 key 对应的 value
 		- `isExists()` 判断 RBucket 对象是否存在【~~不能直接通过是否为 null 来判断，因为即使不存在对应的 key，查出来的 RBucket 对象也不为 null~~】
+	- 过期时间
+		- `boolean expire(Instant)` 设置过期时间点
+		- `boolean expire(Duration)` 设置相对过期时间
 
 ---
 
@@ -154,7 +157,6 @@ bucket.set("Hello, Redisson!");
 // 获取字符串
 System.out.println("Stored value: " + bucket.get());
 ```
-
 - 对象
 ```java
 TestUser testUser = new TestUser(1, "harvey", 32);
@@ -167,6 +169,16 @@ bucket.set(testUser);
 //删除
 RBucket<TestUser> bucket3 = redissonClient.getBucket("user:id:" + testUser.getId());
 System.out.println(bucket3.delete());
+```
+- 过期时间
+```java
+boolean result = redissonClient.getBucket("myStringKey").expire(
+	Instant.parse("2024-12-31T23:59:59Z")
+);
+
+boolean result = redissonClient.getBucket("myStringKey").expire(
+	Duration.ofHours(1)
+);
 ```
 
 ### 💙 批量处理
