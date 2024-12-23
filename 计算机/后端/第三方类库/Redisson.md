@@ -230,7 +230,7 @@ rList.addAll(AwardBOs);
 rList.forEach(System.out::println);
 ```
 
-## 💛 RSet
+## 💛 无序不重复集合 RSet
 - 交并补
 	- `Set readIntersect(String... var1)` 交集
 	- `Set readUnion(String... var1)` 并集
@@ -247,8 +247,18 @@ Set<String> union = electronics.readUnion(clothing, books);
 Set<String> difference = electronics.readDifference(clothing);
 ```
 
+## 💛 RScoredSortedSet
+RScoredSortedSet 中的每个元素都带有分数，并且集合跟据分数进行排序
 
-## 💛  哈希 RMap
+## 💛 哈希 RMap
+RMap 是线程安全的，所以其操作也可以看作是原子的
+
+- 【改】
+	- `V addAndGet(key, add的值)` 先 add 其 value，在 get
+	- `V compute(Key, BiFunction函数式接口)` 函数式接口中将处理指定的 Key 的值，返回一个指定的 Key 的值的引用，~~也就是你直接修改这个引用，就会影响原来的 Map~~
+		- 如果这个 key 存在，则将 Key，和该值作为函数式接口的入参；
+		- 如果这个 key 不存在，则将 Key，和 null 值作为函数式接口的入参；
+
 ```java
 @Autowired  
 private RedissonClient redissonClient;
@@ -269,7 +279,7 @@ public void testRedisson() {
 淘宝优惠券
 ```
 
-## 💛  布隆过滤器 RBloomFilter
+## 💛 布隆过滤器 RBloomFilter
 - `RBloomFilter getBloomFilter(key)` 根据 key 创建 RBloomFilter 对象
 - RBloomFilter
 	- `tryInit(预期数据量，误报率)` 误报率越小，过滤器所需的空间越大
@@ -308,7 +318,7 @@ false
 false
 ```
 
-## 💛  原子长整型 AtomicLong
+## 💛 原子长整型 AtomicLong
 >[!quote] AtomicLong
 >AtomicLong 是一个分布式原子 long，是一个线程安全对象
 >
@@ -352,7 +362,7 @@ public void test_getAtomicLong() {
 加100后的值: 0
 ```
 
-## 💛  队列
+## 💛 队列
 ### 💙 队列 RQueue
 >[!quote] RQueue
 >RQueue 是一个分布式的、线程安全的队列接口

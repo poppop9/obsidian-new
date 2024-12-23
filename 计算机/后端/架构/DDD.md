@@ -142,6 +142,8 @@ public class User {
 只有引起实体类属性值变化的业务【新增，删除……】才去按照 DDD 架构的条条框框去做，如果这个实体类只有查询，排序……，这些不引起实体类属性值变化的业务，那我们可以不要<u>充血模型</u>，`repository` ……，避免引入更多的类
 
 # ❤ 项目结构
+![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/20241223231508.png)
+
 ## 💛 触发器层 trigger
 <u>我们可以根据触发动作进行分类</u>：
 - **接口调用**（HTTP / RPC）
@@ -152,10 +154,20 @@ public class User {
 
 >[!hint] 如果这个应用程序只有接口调用，那可以把 `trigger` 换成 `interfaces`
 
+## api
+
+## types
+
+
+
 ## 💛 应用层 / 编排层 application
+>[!note] application 层不能被引入，并且要直接或间接地引入所有模块
+
 - `application` **应用层**，用来组合领域层之间的业务，形成完整的业务【比如有一个领域是知识星球领域，另一个领域是 ChatGPT 领域，我要进行两个领域的对接，就在应用层实现】 ==Service==
 
 ## 💛 领域层 domain
+>[!note] domain 层不能引入任何模块
+
 - `domain` **领域层** ==Service==
 	- `model` **领域模型**，定义了领域对象、聚合和值对象
 		- `bo` 业务对象
@@ -181,26 +193,23 @@ public class User {
 
 >[!hint] 在领域与领域之间，如果需要某个充血模型，要把 <u>充血模型</u> 使用工厂组装成 <u>贫血模型</u> 进行传输
 
-## 💛 仓储层 repository
->[!quote] 仓储
->仓储 Repository 目的就是解耦 `domain 层` 和 `infrastructure 层`
-
-- `domain` 
-	- 【repository】
-		- IRaffleRepository 是一个**业务优先**的 Repository
----
-- `infrastructure` 
-	- 【JPARepository】
-		- IStrategyRepository 这个是**实体优先**的 Repository
-	- 【repository】
-		- RaffleRepository：RaffleRepository 实现了 IRaffleRepository 接口；然后再调用多个实体优先的 Repository 来整合形成自己的业务
-
 ## 💛 基础层 infrastructure
 - `infrastructure` **基础层**，包含了数据库，缓存，网关，第三方工具…… ==Mapper==
 	- `Mapper` 
 	- `PO` 
 	- `redis` 
 	- `repository` 使用 `@Repository` 标记
+
+>[!note] infrastructure 与 domain 的关系
+>infrastructure 与 domain 之间通过仓储 Repository 来解耦
+>- `domain` 
+>	- 【repository】
+>		- IRaffleRepository 是一个**业务优先**的 Repository
+> - `infrastructure` 
+> 	- 【JPARepository】
+> 		- IStrategyRepository 这个是**实体优先**的 Repository
+> 	- 【repository】
+> 		- RaffleRepository：RaffleRepository 实现了 IRaffleRepository 接口；然后再调用多个实体优先的 Repository 来整合形成自己的业务
 
 # ❤ 扩展
 微服务创始人说过：
