@@ -254,7 +254,7 @@ RScoredSortedSet 中的每个元素都带有分数，并且集合跟据分数进
 RMap 是线程安全的，所以其操作也可以看作是原子的
 
 - 【改】
-	- `V addAndGet(key, add的值)` 先 add 其 value，在 get
+	- `V addAndGet(key, add的值)` 先 add 其 value，在 get，**value 只支持浮点数**
 	- `V compute(Key, BiFunction函数式接口)` 函数式接口中将处理指定的 Key 的值，返回一个指定的 Key 的值的引用，~~也就是你直接修改这个引用，就会影响原来的 Map~~
 		- 如果这个 key 存在，则将 Key，和该值作为函数式接口的入参；
 		- 如果这个 key 不存在，则将 Key，和 null 值作为函数式接口的入参；

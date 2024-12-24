@@ -1,6 +1,11 @@
 # ❤ 快捷键
 - `ctrl+g` 生成一个组
 * `ctrl+shift+k` 拷贝内部链接 
+
+# ❤️ 文本
+- `ctrl + shift + ⬅` 将所有选中的文本都左对齐
+- `ctrl + shift + ➡` 将所有选中的文本都右对齐
+
 # ❤ 思维导图
 ![400](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202409092250639.png)
 
