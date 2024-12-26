@@ -36,14 +36,17 @@ public class GlobalExceptionHandler {
 }
 ```
 
-
-
 - `@Validated` **一定在类上加这个注解，校验参数的具体 message 才会返回**
 - `@Valid` 
 - 参数校验
 	- `@NotBlank` 
-
-
+	- `NotNull` 
+	- `@Size` 
+		- min
+		- max
+	- `@Min` / `@Max` 
+		- value
+	- `@Email` 
 
 # ❤️ Controller 校验
 - 类上加 `@Validated` 
