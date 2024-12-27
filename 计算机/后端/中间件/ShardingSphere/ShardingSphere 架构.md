@@ -20,3 +20,7 @@ ShardingSphere 包括：
 
 canal ：将数据库的日志解析出来，发送到其他系统中
 elastic search
+
+[中文文档](https://www.bookstack.cn/books/shardingsphere-5.4.1-zh)
+
+

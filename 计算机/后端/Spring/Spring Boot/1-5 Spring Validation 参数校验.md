@@ -39,16 +39,27 @@ public class GlobalExceptionHandler {
 - `@Validated` **一定在类上加这个注解，校验参数的具体 message 才会返回**
 - `@Valid` 
 - 参数校验
-	- `@NotBlank` 
-	- `NotNull` 
-	- `@Size` 
-		- min
-		- max
-	- `@Min` / `@Max` 
-		- value
-	- `@Email` 
+	- **空值**
+		- `@Null` 值必须是 null
+		- `@NotNull` 
+		- `@NotBlank` 
+		- `@NotEmpty` 
+	- **数值**
+		- `@Size` 
+			- min
+			- max
+		- `@Min` / `@Max` 
+			- value
+	- **格式**
+		- `@Email` 
+		- `@EnumValue` 必须在指定的元素范围内
+			- value
+		- `@Positive` / `@PositiveOrZero` / `@Negative` / `@NegativeOrZero` 必须是一个数字，且是一个正数/正数或零/负数/负数或零
+		- `@AssertTrue` / `@AssertFalse` 必须是 true / false
+		- `@Past` / `@Future` 必须是一个过去/将来的日期
 
-# ❤️ Controller 校验
+# ❤️ 校验
+## 💛 Controller 校验
 - 类上加 `@Validated` 
 - 校验字段上加入对应的注解
 
@@ -66,8 +77,7 @@ public class TestController {
 }
 ```
 
-
-# ❤️ 其他方法校验
+## 💛 其他方法校验
 - 类上加 `@Validated` 
 - 调用这个方法时，一定是通过 Spring Bean 来调用的
 

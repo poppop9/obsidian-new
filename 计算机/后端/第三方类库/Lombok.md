@@ -20,13 +20,10 @@
 @RequiredArgsConstructor  
 public class User implements Serializable {  
     private Integer id;  
-  
     @NonNull  
     private String name;  
-  
     @NonNull  
     private String password;  
-  
     @NonNull  
     private Integer authority;  
 }
