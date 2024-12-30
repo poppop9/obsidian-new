@@ -4,7 +4,7 @@
 	* `new Random()` 创建 Random 对象
 * 生成随机数
 	* 随机范围
-	    * `nextInt()` 返回一个随机的 `int`&#x20;
+	    * `nextInt()` 返回一个随机的 `int` &#x20;
 	    * `nextDouble()` 返回一个随机的 `double` 【范围在 `0.0` - `1.0`】
 	    * `nextFloat()` 返回一个随机的 `float` 【范围在 `0.0` - `1.0`】
 	    * `nextLong()` 返回一个随机的 `long`
