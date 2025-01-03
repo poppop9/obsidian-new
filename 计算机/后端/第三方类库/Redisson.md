@@ -248,7 +248,22 @@ Set<String> difference = electronics.readDifference(clothing);
 ```
 
 ## 💛 RScoredSortedSet
-RScoredSortedSet 中的每个元素都带有分数，并且集合跟据分数进行排序
+RScoredSortedSet 中的每个元素都带有分数，并且集合跟据分数进行排名（从 0 开始）
+
+- 【增】
+	- `add(double 分数, 元素)` 添加元素，并设置分数
+	- `addAll(Map<元素, Double>` 批量添加
+- 【删】
+	- `remove(元素)` 删除指定元素
+	- `removeRangeByScore(5.0, 10.0)` 删除指定分数范围的元素（包前不包后）
+- 【查】
+	- `readAll()` 获取所有元素
+	- `valueRange(5.0, true, 10.5, true)` 获取分数范围内的元素
+	- `rank(元素)` 获取指定元素的排名
+	- `getScore(元素)` 获取指定元素的分数
+
+## RLexSortedSet
+RLexSortedSet 是跟据字典排序的集合
 
 ## 💛 哈希 RMap
 RMap 是线程安全的，所以其操作也可以看作是原子的
@@ -455,5 +470,8 @@ DelayedDecrVO delayedDecrVO = DelayedDecrVO.builder()
 rDelayedQueue.offer(delayedDecrVO, 3, java.util.concurrent.TimeUnit.SECONDS);
 ```
 
-
+## 💛 Redis Stream
+Redis Stream 用于处理日志或消息流数据
+- **消息队列功能**：支持生产者发布消息，消费者订阅消息
+- **持久化存储**：支持将消息数据持久化到磁盘，避免数据丢失
 

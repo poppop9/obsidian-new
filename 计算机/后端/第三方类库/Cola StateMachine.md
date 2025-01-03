@@ -30,6 +30,8 @@ implementation group: 'com.alibaba.cola', name: 'cola-component-statemachine', v
 > - **条件 Condition** ：表示是否允许到达某个状态
 > - **动作 Action** ：到达某个状态之后，可以做什么
 
+![450](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/20250103172332.png)
+
 # 配置准备
 ## 状态
 ```java

@@ -12,31 +12,52 @@ implementation 'org.springframework.boot:spring-boot-starter-validation'
 
 ```java
 /**
- * 全局异常处理器
+ * 更改参数校验器的异常（默认抛出的异常是ConstraintViolationException，不够详细
  */
-@Slf4j
-@RestControllerAdvice
+@Bean
+public static MethodValidationPostProcessor validationPostProcessor() {
+	MethodValidationPostProcessor processor = new MethodValidationPostProcessor();
+	processor.setAdaptConstraintViolations(true);
+	return processor;
+}
+```
+
+```java
+/**  
+ * 全局异常处理器  
+ */  
+@Slf4j  
+@RestControllerAdvice  
 public class GlobalExceptionHandler {
-
-    @Resource
-    private ObjectMapper objectMapper;
-
     /**
      * 处理基本数据类型参数校验异常
      */
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<JsonNode> constrainViolationHandler(ConstraintViolationException e) {
-        log.error("参数校验异常 : {}", e.getMessage());
+    @ExceptionHandler(MethodValidationException.class)
+    public ResponseEntity<JsonNode> constrainViolationHandler(MethodValidationException e) {
+        String details = e.getAllValidationResults().stream().map(item -> item.getResolvableErrors().stream().findFirst().get().getDefaultMessage()).collect(Collectors.joining(", "));
+
+        System.out.println(e.getClass().getName() + ": " + details + "。" + e.getMessage());
+        Arrays.stream(e.getStackTrace()).forEach(stackTraceElement -> {
+            System.out.printf("\tat %s.%s(%s:%d) %s%n",
+                    stackTraceElement.getClassName(),
+                    stackTraceElement.getMethodName(),
+                    stackTraceElement.getFileName(),
+                    stackTraceElement.getLineNumber(),
+                    stackTraceElement.isNativeMethod() ? "~[na:na]" : "~[classes/:na]"
+            );
+        });
+
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(objectMapper.createObjectNode()
-                        .put("message", e.getMessage())
+                        .put("message", details + "。" + e.getMessage())
                 );
     }
 }
 ```
 
-- `@Validated` **一定在类上加这个注解，校验参数的具体 message 才会返回**
+# ❤️ 校验
+- `@Validated` 
 - `@Valid` 
 - 参数校验
 	- **空值**
@@ -58,7 +79,6 @@ public class GlobalExceptionHandler {
 		- `@AssertTrue` / `@AssertFalse` 必须是 true / false
 		- `@Past` / `@Future` 必须是一个过去/将来的日期
 
-# ❤️ 校验
 ## 💛 Controller 校验
 - 类上加 `@Validated` 
 - 校验字段上加入对应的注解
@@ -87,20 +107,9 @@ void test(@NotBlank(message = "var3 不能是无效文本") String var3) {
 }
 ```
 
-
 ---
 
 https://developer.aliyun.com/article/1135202
 https://developer.aliyun.com/article/1228487
 
-```java
-@Configuration
-public class ApplicationConfiguration {
-	@Bean
-	public static MethodValidationPostProcessor validationPostProcessor() {
-		MethodValidationPostProcessor processor = new MethodValidationPostProcessor();
-		processor.setAdaptConstraintViolations(true);
-		return processor;
-	}
-}
-```
+

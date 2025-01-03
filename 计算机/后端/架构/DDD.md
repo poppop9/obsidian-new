@@ -156,9 +156,6 @@ public class User {
 
 ## api
 
-## types
-
-
 
 ## 💛 应用层 / 编排层 application
 >[!note] application 层不能被引入，并且要直接或间接地引入所有模块
@@ -210,6 +207,9 @@ public class User {
 > 		- IStrategyRepository 这个是**实体优先**的 Repository
 > 	- 【repository】
 > 		- RaffleRepository：RaffleRepository 实现了 IRaffleRepository 接口；然后再调用多个实体优先的 Repository 来整合形成自己的业务
+
+## 💛 类型层 types
+types 层用来定义一系列自定义的对象（~~异常类，全局参数类，全局配置类 ……~~）
 
 # ❤ 扩展
 微服务创始人说过：
