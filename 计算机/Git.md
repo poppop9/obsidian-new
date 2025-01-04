@@ -311,7 +311,7 @@ $ git log --oneline --decorate --graph
 >如果你想通过 Git 分享你的代码或者与其他开发人员合作，你就需要将数据放到一台其他开发人员能够连接的服务器上
 >![400](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403221113329.png)
 
-## 初始化
+<u>初始化</u> ：
 - 在本地生成 SSH Key `ssh-keygen -t rsa -C "github注册的邮箱"`
 	- 第一次：默认一直回车
 	- 第二次及以上……
@@ -340,16 +340,16 @@ $ git config --global user.email "your_email@youremail.com"
 - 添加远程仓库，并添加别名【~~远程仓库的地址会存储在 `config文件` 中 ~~】
 `git remote add 别名 git@github.com:github的名字/仓库名.git`
 
-## 推送
+<u>推送</u> ：
 - `git push 远程仓库别名 本地分支名:远程分支名` 进行推送
 
-## 查看
+<u>查看</u> ：
 - `git remote` 查看当前配置有哪些远程仓库
 	- `-v` 查看到链接地址
 
-## 拉取
->`pull` = `fetch` + `merge`
->![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403222350736.png)
+<u>拉取</u> ：`pull` = `fetch` + `merge`
+
+![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403222350736.png)
 
 - `git fetch 远程仓库名` 获取远程仓库的最新信息而不直接修改本地的工作文件
 	- `git fetch -all` 获取远程仓库的所有分支
@@ -370,7 +370,7 @@ git merge test/master
 >- `git clone` 表示从头开始一个项目时，我们需要初始化仓库，如果不使用 `git init` ，那我们就需要在本地仓库创建一个远程仓库的副本
 >- `git pull` 表示在已经初始化好了本地仓库之后，拉取远程仓库中最新更新的一些文件【如果没有进行初始化，是 `git pull` 不了的 】
 
-## 删除
+<u>删除</u> ：
 - `git remote rm 本地仓库别名` 删除本地仓库中指定的远程仓库别名
 - `git push 远程仓库别名 --delete 分支名` 删除远程仓库的某个分支
 
@@ -476,8 +476,10 @@ temp/
 >- 切换到 main 分支
 >- 在 main 分支上拉取请求
 
-
-
+# ❤️ 错误
+ <u>Failed to connect to github.com port 443</u> ：没有给 git 配置代理
+ - `git config --global http.proxy 127.0.0.1:7890` 端口号是 clash 的端口号
+ - `git config --global https.proxy 127.0.0.1:7890` 
 
 
 

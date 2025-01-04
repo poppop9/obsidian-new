@@ -342,8 +342,6 @@ tables:
 ><u>好处</u> ：
 >- 【动态加载】 ：如果程序正在运行中，你修改了这张表的某个字段，ShardingSphere 会自动跟踪并理解新的表结构，而无需你在 yml 配置文件中重新配置
 
-
-
 # 读取 yml 配置
 ShardingSphere-JDBC 的 数据源 YAML 配置文件是不能被 Spring 读取的，语法会报错，我们可以通过两种方式读取 ：
 - 使用的是 JPA ，直接指定数据源的 url 为此 yml 文件
