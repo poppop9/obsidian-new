@@ -86,7 +86,24 @@ String s = user.firstName();
 @Cleanup InputStream in = new FileInputStream(args[0]);
 ```
 
+# 异常
+`@SneakyThrows` 能够自动地将方法中可能抛出的 checked 异常（编译时异常）自动进行 try catch，**这样就不用一个地方抛异常，所有调用这个方法的地方也都要抛异常**
 
+```java
+@SneakyThrows
+public void run() {
+	throw new Throwable();
+}
+
+// 编译后得到
+public void run() {
+	try {
+		throw new Throwable();
+	} catch (Throwable var2) {
+		throw var2;
+	}
+}
+```
 
 
 

@@ -375,34 +375,65 @@ docker run -d --name mysql -p 3306:3306 -e TZ=Asia/Shanghai -e MYSQL_ROOT_PASSWO
 - 宿主机 -> 容器内 `docker cp 宿主机路径 容器名:容器内路径` 
 
 # ❤ 容器通信
-同一网桥下的容器可以将 ip 地址改为容器名进行通信
+同一网桥下的容器可以将 ip 地址改为容器名进行通信，**如果你有多个容器之间需要互相连接，推荐使用 Docker Compose** 
 
->[!NOTE] 如果你有多个容器之间需要互相连接，推荐使用 Docker Compose
+---
 
-[https://blog.csdn.net/d2916172682/article/details/135640415](https://blog.csdn.net/d2916172682/article/details/135640415)
+<u>查看</u> ：
+- `docker network ls` 列出所有网桥
 
 <u>创建网络</u> ：
 - `docker network create 网络名`
 	- `-d 网络类型` 网络驱动类型可以是 bridge ，overlay ……
-
 ```bash
 docker network create -d bridge test-net
 ```
 
----
-
-<u>给已用的容器添加网桥</u> ：
-```bash
-docker network connect 网桥名 容器名
-```
-
----
+<u>给已用的容器添加网桥</u> ：`docker network connect 网桥名 容器名`
 
 <u>连接网络</u> ：
 ```bash
 docker run -itd --name test1 --network test-net ubuntu /bin/bash
 
 docker run -itd --name test2 --network test-net ubuntu /bin/bash
+```
+
+## bridge 桥接模式
+>[!quote] bridge 模式（~~Docker 默认的网络模式~~）
+>bridge 模式下，Docker 会在主机上创建一个虚拟网桥 `docker0`，并将所有容器连接到该网桥，形成一个二层网络
+>
+>- 启动 docker 时，会自动创建 `docker0` 虚拟网桥，`docker0` 的 ip 地址就是默认网关，会分配 ip 地址给每个容器，容器之间通信则通过 `docker0` 
+
+>[!NOTE] 容器的默认网桥 bridge 是不允许使用容器名通信的
+
+## host 模式
+>[!quote] host 模式
+>host 模式下，容器将共享宿主机的网络栈，而不是创建一个独立的网络命名空间
+>
+>- 容器不会被分配独立的网络接口，而是直接使用宿主机的网络接口，所以容器能够直接访问宿主机的 IP 地址和端口
+>- 容器的文件系统、进程列表、环境变量 …… 仍然是和宿主机隔离的
+
+```bash
+docker run -itd \
+  --name t1 \
+  --net host \
+  tomcat:8.5.20
+```
+
+
+## 自定义网络
+```bash
+# 手动创建网段
+docker network create --subnet=172.20.0.0/16 mynet
+
+# 指定网桥和固定ip
+docker run -it \
+  --name t1 \
+  -p 8080:8080 \
+  -v /soft:/usr/local/tomcat/webapps \
+  --net mynet \
+  --ip 172.20.0.100 \
+  tomcat:8.5.20
 ```
 
 # ❤ 异常
