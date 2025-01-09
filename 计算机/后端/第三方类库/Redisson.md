@@ -18,10 +18,9 @@
 ---
 
 - [教程1](https://blog.csdn.net/A_art_xiang/article/details/125525864?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522171964322916800222820133%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=171964322916800222820133&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-125525864-null-null.142^v100^pc_search_result_base5&utm_term=redisson&spm=1018.2226.3001.4187) 非常全面
-- [简化教程](https://blog.csdn.net/black_pp/article/details/131836775?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522171964322916800222820133%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=171964322916800222820133&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-2-131836775-null-null.142^v100^pc_search_result_base5&utm_term=redisson&spm=1018.2226.3001.4187) 
 - [精化教程](https://www.cnblogs.com/xfeiyun/p/17795581.html)
 
-# 配置
+# ❤️ 配置
 - 添加 redis 配置
 ```yml
 # Redis  
@@ -39,7 +38,6 @@ redis:
       ping-interval: 60000  
       keep-alive: true
 ```
-
 - 添加配置类 `RedissonConfig` 
 ```java
 package app.xlog.ggbond.config;  
@@ -79,15 +77,12 @@ public class RedissonConfig {
 }
 ```
 
-# 使用
->[!hint] RedissonClient 对象获取任何其他对象，如果不存在，也不会报 null，也只会返回一个空的对象，不用担心空指针
+# ❤️ 分布式对象
+>[!NOTE] RedissonClient 对象获取任何其他对象，如果不存在，也不会报 null，也只会返回一个空的对象，不用担心空指针
 
 ## 💛 Key
 - RedissonClient 下的方法
 	- `RKeys getKeys();` 返回 RKeys 对象
-
----
-
 - RKeys 下的方法
 	- **删**
 		- `delete(键 ……)` 单/多删
@@ -102,8 +97,6 @@ public class RedissonConfig {
 		- `count()` 统计 key 的数量
 		- `countExists(键)` 判断 key 是否存在
 
----
-
 ```java
 @Autowired  
 private RedissonClient redissonClient;
@@ -111,11 +104,11 @@ private RedissonClient redissonClient;
 @Test
 public void testRedisson() {
 	RKeys keys = redissonClient.getKeys();
-	//获取所有key值
+	// 获取所有key值
 	keys.getKeys().forEach(System.out::println);
 	System.out.println("====================================");
 
-	//模糊获取key值
+	// 模糊获取key值
 	keys.getKeysByPattern("*sys*").forEach(System.out::println);
 
 	// 删除key
@@ -146,7 +139,7 @@ public void testRedisson() {
 
 ---
 
-- 字符串
+<u>字符串</u> ：
 ```java
 // 使用myStringKey作为key，创建bucket对象
 RBucket<String> bucket = redissonClient.getBucket("myStringKey");
@@ -157,7 +150,8 @@ bucket.set("Hello, Redisson!");
 // 获取字符串
 System.out.println("Stored value: " + bucket.get());
 ```
-- 对象
+
+<u>对象</u> ：
 ```java
 TestUser testUser = new TestUser(1, "harvey", 32);
 TestUser testUser2 = new TestUser(2, "tom", 32);
@@ -170,7 +164,8 @@ bucket.set(testUser);
 RBucket<TestUser> bucket3 = redissonClient.getBucket("user:id:" + testUser.getId());
 System.out.println(bucket3.delete());
 ```
-- 过期时间
+
+<u>过期时间</u> ：
 ```java
 boolean result = redissonClient.getBucket("myStringKey").expire(
 	Instant.parse("2024-12-31T23:59:59Z")
@@ -181,7 +176,7 @@ boolean result = redissonClient.getBucket("myStringKey").expire(
 );
 ```
 
-### 💙 批量处理
+<u>批量处理</u> ：
 ```java
 // 创建 Buckets
 RBuckets buckets = redissonClient.getBuckets();
@@ -199,7 +194,8 @@ Map<String, TestUser> bucketsMap = buckets.get("user:id:" + testUser.getId(), "u
 System.out.println(bucketsMap);
 ```
 
-## 💛  列表 List
+# ❤️ 分布式集合
+## 💛 列表 List
 - RedissonClient 下的方法
 	- `getList(键)` 生成 RList 对象
 - RList 下的方法
@@ -247,6 +243,8 @@ Set<String> union = electronics.readUnion(clothing, books);
 Set<String> difference = electronics.readDifference(clothing);
 ```
 
+## BitSet
+
 ## 💛 RScoredSortedSet
 RScoredSortedSet 中的每个元素都带有分数，并且集合跟据分数进行排名（从 0 开始）
 
@@ -264,6 +262,7 @@ RScoredSortedSet 中的每个元素都带有分数，并且集合跟据分数进
 
 ## RLexSortedSet
 RLexSortedSet 是跟据字典排序的集合
+
 
 ## 💛 哈希 RMap
 RMap 是线程安全的，所以其操作也可以看作是原子的
@@ -294,6 +293,152 @@ public void testRedisson() {
 淘宝优惠券
 ```
 
+## Multimap
+
+
+# ❤️ 分布式队列
+## 💛 队列 RQueue
+>[!quote] RQueue
+>RQueue 是一个分布式的、线程安全的队列接口
+
+- `RQueue<?> getQueue(键)` 
+	- **增**
+		- `add(值)` 将值添加到队列尾部
+	- **删查**
+		- `poll()` 移除并返回 Queue 头部的元素，如果队列为空则返回 `null`
+		- `peek()` 返回队列头部的元素但不移除，如果队列为空则返回 `null` 
+
+```java
+RQueue<String> queue = redissonClient.getQueue("myQueue");
+queue.add("firstElement");
+String elementA = queue.peek();
+String elementB = queue.poll();
+```
+
+<u>监听器</u> ：
+- `TrackingListener` 当你从队列中读取元素之后，如果紧接着发生了元素的创建、删除或更新操作，就会触发事件
+- `ListAddListener` 当元素被创建时触发
+- `ListRemoveListener` 当元素被删除时触发
+- `ExpiredObjectListener` 当 RQueue 对象过期时触发
+- `DeletedObjectListener` 当 RQueue 对象被删除时触发
+
+```java
+RQueue<String> queue = redisson.getQueue("anyList");
+
+int listenerId = queue.addListener(new DeletedObjectListener() {
+     @Override
+     public void onDeleted(String name) {
+        sout(name);
+     }
+});
+
+// ...
+
+queue.removeListener(listenerId);
+```
+
+## 💛 阻塞队列 RBlockingQueue
+>[!quote] RBlockingQueue
+>RBlockingQueue 支持阻塞操作，在队列为空，或已满的情况下，操作可以被阻塞
+>
+>- 不适合需要高吞吐量的场景
+
+- `RBlockingQueue<?> getBlockingQueue(键)` 获取阻塞队列对象
+	- **增**
+		- `put(值)` 将元素添加到队列尾部，如果队列已满，则线程阻塞，直到队列中有空位
+		- `Boolean offer(值，时间值，时间单位)` 将元素添加到队列尾部，如果队列已满，则等待指定的时间，如果队列还是满的，则返回 false
+	- **删/查**
+		- `take()` 移除并返回队列头部的元素，如果队列为空，则阻塞，直到有元素可用 
+		- `poll(时间值，时间单位)` 移除并返回队列头部的元素，如果队列为空则等待指定的时间
+
+```java
+RBlockingQueue<String> blockingQueue = redissonClient.getBlockingQueue("myBlockingQueue");
+blockingQueue.put("firstElement");
+String element = blockingQueue.take(); // 如果队列为空则等待
+```
+
+## 💛 延迟队列 DelayedQueue
+>[!quote] DelayedQueue
+>添加到 DelayedQueue 中的任务会在指定的延迟时间后【~~时间可以固定，也可以动态变化~~】才可被取出执行
+>
+>- 通过延时处理，可以减轻某个组件的负载
+
+---
+
+- `RDelayedQueue getDelayedQueue(RQueue<?>)` 从队列中获取 RDelayedQueue 延迟队列对象
+	- **增**
+		- `offer(值，延迟时间，延迟时间单位)` 添加元素到延迟队列
+	- **查**
+		- `poll()` 取出延迟队列中的元素
+		- `isEmpty()` 判断延迟队列是否为空
+
+```java
+/*
+元素一开始就会被加入到rDelayedQueue中，在3s后该元素会被转移到rQueue中，然后rDelayedQueue会将该元素删除
+*/
+
+// 建立队列  
+RQueue<Object> rQueue = redissonClient.getQueue("strategy_" + strategyId + "_awards_DecrQueue");  
+RDelayedQueue<Object> rDelayedQueue = redissonClient.getDelayedQueue(rQueue);  
+  
+// 写入队列  
+DelayedDecrVO delayedDecrVO = DelayedDecrVO.builder()  
+        .strategyId(strategyId)  
+        .awardId(awardId)  
+        .build();  
+rDelayedQueue.offer(delayedDecrVO, 3, java.util.concurrent.TimeUnit.SECONDS);
+```
+
+## Deque / BlockingDeque
+
+
+# ❤️ 分布式原子变量
+## 💛 原子长整型 AtomicLong
+>[!quote] AtomicLong
+>AtomicLong 是一个分布式原子 long，是一个线程安全对象
+>
+>- 如果需要在多线程环境中维护一个 long 变量，可以使用
+>- 需要实现高性能的计数器，可以使用
+>- <u>想要避免加锁，来提高性能时</u>，可以使用
+
+- `RAtomicLong getAtomicLong(键)` 获取 RAtomicLong 对象
+	- **改**
+		- `set(值)` 设置值
+		- `long incrementAndGet()` 递增，并返回新的值
+		- `long decrementAndGet()` 递减，并返回新的值
+		- `long addAndGet(值)` 将 redis 中的值加上指定值，然后返回
+	- **查**
+		- `long get()` 获取值
+
+```java
+@Test
+public void test_getAtomicLong() {
+	RAtomicLong rAtomicLong = redissonClient.getAtomicLong("testAtomicLong");
+
+	rAtomicLong.set(100);
+	log.atInfo().log("当前值: {}", rAtomicLong.get());
+
+	rAtomicLong.incrementAndGet();
+	log.atInfo().log("自增后的值: {}", rAtomicLong.get());
+	
+	rAtomicLong.decrementAndGet();
+	log.atInfo().log("自减后的值: {}", rAtomicLong.get());
+
+	long l = rAtomicLong.addAndGet(-100);
+	log.atInfo().log("加-100后的值: {}", l);
+}
+
+
+当前值: 100
+自增后的值: 101
+自减后的值: 100
+加100后的值: 0
+```
+
+# ❤️ 分布式锁
+[教程](https://www.cnblogs.com/dupengpeng/p/18044474)
+
+# ❤️ 其他
 ## 💛 布隆过滤器 RBloomFilter
 - `RBloomFilter getBloomFilter(key)` 根据 key 创建 RBloomFilter 对象
 - RBloomFilter
@@ -333,142 +478,6 @@ false
 false
 ```
 
-## 💛 原子长整型 AtomicLong
->[!quote] AtomicLong
->AtomicLong 是一个分布式原子 long，是一个线程安全对象
->
->- 如果需要在多线程环境中维护一个 long 变量，可以使用
->- 需要实现高性能的计数器，可以使用
->- <u>想要避免加锁，来提高性能时</u>，可以使用
-
----
-
-- `RAtomicLong getAtomicLong(键)` 获取 RAtomicLong 对象
-	- **改**
-		- `set(值)` 设置值
-		- `long incrementAndGet()` 递增，并返回新的值
-		- `long decrementAndGet()` 递减，并返回新的值
-		- `long addAndGet(值)` 将 redis 中的值加上指定值，然后返回
-	- **查**
-		- `long get()` 获取值
-
-```java
-@Test
-public void test_getAtomicLong() {
-	RAtomicLong rAtomicLong = redissonClient.getAtomicLong("testAtomicLong");
-
-	rAtomicLong.set(100);
-	log.atInfo().log("当前值: {}", rAtomicLong.get());
-
-	rAtomicLong.incrementAndGet();
-	log.atInfo().log("自增后的值: {}", rAtomicLong.get());
-	
-	rAtomicLong.decrementAndGet();
-	log.atInfo().log("自减后的值: {}", rAtomicLong.get());
-
-	long l = rAtomicLong.addAndGet(-100);
-	log.atInfo().log("加-100后的值: {}", l);
-}
-
-
-当前值: 100
-自增后的值: 101
-自减后的值: 100
-加100后的值: 0
-```
-
-## 💛 队列
-### 💙 队列 RQueue
->[!quote] RQueue
->RQueue 是一个分布式的、线程安全的队列接口
-
-- `RQueue<?> getQueue(键)` 
-	- **增**
-		- `add(值)` 将值添加到队列尾部
-	- **删查**
-		- `poll()` 移除并返回 Queue 头部的元素，如果队列为空则返回 `null`
-		- `peek()` 返回队列头部的元素但不移除，如果队列为空则返回 `null` 
-
-```java
-RQueue<String> queue = redissonClient.getQueue("myQueue");
-queue.add("firstElement");
-String elementA = queue.peek();
-String elementB = queue.poll();
-```
-
-#### 💚 监听器
-- `TrackingListener` 当你从队列中读取元素之后，如果紧接着发生了元素的创建、删除或更新操作，就会触发事件
-- `ListAddListener` 当元素被创建时触发
-- `ListRemoveListener` 当元素被删除时触发
-- `ExpiredObjectListener` 当 RQueue 对象过期时触发
-- `DeletedObjectListener` 当 RQueue 对象被删除时触发
-
-```java
-RQueue<String> queue = redisson.getQueue("anyList");
-
-int listenerId = queue.addListener(new DeletedObjectListener() {
-     @Override
-     public void onDeleted(String name) {
-        sout(name);
-     }
-});
-
-// ...
-
-queue.removeListener(listenerId);
-```
-
-### 💙 阻塞队列 RBlockingQueue
->[!quote] RBlockingQueue
->RBlockingQueue 支持阻塞操作，在队列为空，或已满的情况下，操作可以被阻塞
->
->- 不适合需要高吞吐量的场景
-
-- `RBlockingQueue<?> getBlockingQueue(键)` 获取阻塞队列对象
-	- **增**
-		- `put(值)` 将元素添加到队列尾部，如果队列已满，则线程阻塞，直到队列中有空位
-		- `Boolean offer(值，时间值，时间单位)` 将元素添加到队列尾部，如果队列已满，则等待指定的时间，如果队列还是满的，则返回 false
-	- **删/查**
-		- `take()` 移除并返回队列头部的元素，如果队列为空，则阻塞，直到有元素可用 
-		- `poll(时间值，时间单位)` 移除并返回队列头部的元素，如果队列为空则等待指定的时间
-
-```java
-RBlockingQueue<String> blockingQueue = redissonClient.getBlockingQueue("myBlockingQueue");
-blockingQueue.put("firstElement");
-String element = blockingQueue.take(); // 如果队列为空则等待
-```
-
-### 💙 延迟队列 DelayedQueue
->[!quote] DelayedQueue
->添加到 DelayedQueue 中的任务会在指定的延迟时间后【~~时间可以固定，也可以动态变化~~】才可被取出执行
->
->- 通过延时处理，可以减轻某个组件的负载
-
----
-
-- `RDelayedQueue getDelayedQueue(RQueue<?>)` 从队列中获取 RDelayedQueue 延迟队列对象
-	- **增**
-		- `offer(值，延迟时间，延迟时间单位)` 添加元素到延迟队列
-	- **查**
-		- `poll()` 取出延迟队列中的元素
-		- `isEmpty()` 判断延迟队列是否为空
-
-```java
-/*
-元素一开始就会被加入到rDelayedQueue中，在3s后该元素会被转移到rQueue中，然后rDelayedQueue会将该元素删除
-*/
-
-// 建立队列  
-RQueue<Object> rQueue = redissonClient.getQueue("strategy_" + strategyId + "_awards_DecrQueue");  
-RDelayedQueue<Object> rDelayedQueue = redissonClient.getDelayedQueue(rQueue);  
-  
-// 写入队列  
-DelayedDecrVO delayedDecrVO = DelayedDecrVO.builder()  
-        .strategyId(strategyId)  
-        .awardId(awardId)  
-        .build();  
-rDelayedQueue.offer(delayedDecrVO, 3, java.util.concurrent.TimeUnit.SECONDS);
-```
 
 ## 💛 Redis Stream
 Redis Stream 用于处理日志或消息流数据
@@ -478,15 +487,24 @@ Redis Stream 用于处理日志或消息流数据
 ## 键空间通知
 Redis Keyspace Notifications 可以用于监控键的事件（创建、删除、过期 ……）
 
-
 ## Pipeline
-使用 Redis 的 **管道（Pipeline）** 技术，一次性提交多条更新命令，减少网络延迟。
-
+使用 Redis 的 **管道（Pipeline）** 技术，一次性提交多条更新命令，减少网络延迟
 
 ---
+- 限流器 RateLimiter
+- Semaphore 分布式信号量，用于控制访问共享资源的线程数量。信号量维护了一个计数器，线程可以通过获取信号量来获取资源，释放信号量来释放资源
+- CountDownLatch
+- Publish / Subscribe 提供了发布/订阅消息系统的实现
+- Remote Service 允许在 Redis 上实现分布式服务，客户端可以像调用本地服务一样调用远程服务。通过基于 Redis 的异步和同步通信
+- Spring Cache Redisson 提供了与 Spring Cache 集成的支持
+- Executor Service 提供了一个分布式执行器，可以用于并行执行任务
+- Scheduler Service 可以在多个 Redis 节点上定时执行任务
+- Live Object Service 支持在 Redis 中直接存储 Java 对象。Live Object 可以像普通的 Java 对象一样进行操作，自动进行序列化和反序列化
 
-#### 5. **减少网络延迟和 Redis 开销**
 
-- **问题**：频繁调用 Redis API，网络延迟和资源消耗大。
-- **解决方案**：
-    - 开启 Redis 客户端的连接池，提高 Redis 的吞吐量。
+
+
+
+
+
+
