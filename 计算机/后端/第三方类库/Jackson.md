@@ -387,21 +387,17 @@ if (objectNode.get("name").isTextual()) {
 ```
 
 
-# 注解
+# ❤️ 注解
 ## 通用注解
 通用注解表示在序列化，和反序列化时都生效
 
-### @JsonProperty
- `@JsonProperty` 会匹配类属性名，和 JSON 字段名
- 
+ - `@JsonProperty` 会匹配类属性名，和 JSON 字段名
 ```java
 @JsonProperty("birth_date")
 private Date birthDate;
 ```
 
-### @JsonIgnore
-`@JsonIgnore` 用于忽略 Java 对象的某个属性
-
+- `@JsonIgnore` 用于忽略 Java 对象的某个属性
 ```java
 public class PersonIgnore {
 	// 不会从JSON读取属性personId，和写入JSON属性personId
@@ -411,9 +407,7 @@ public class PersonIgnore {
 }
 ```
 
-### @JsonIgnoreProperties
-`@JsonIgnoreProperties` 用于指定要忽略的类的属性列表
-
+- `@JsonIgnoreProperties` 用于指定要忽略的类的属性列表
 ```java
 // 属性 firstName 和 lastName 都将被忽略
 @JsonIgnoreProperties({"firstName", "lastName"})
@@ -424,9 +418,7 @@ public class PersonIgnoreProperties {
 }
 ```
 
-### @JsonIgnoreType
-`@JsonIgnoreType` 忽略整个类
-
+- `@JsonIgnoreType` 忽略整个类
 ```java
 public class PersonIgnoreType {
     @JsonIgnoreType
@@ -443,6 +435,12 @@ public class PersonIgnoreType {
     public Address address = null;
 }
 ```
+
+- `@JsonTypeInfo` 可以在序列化和反序列化时，保存并解析某个字段的具体类型（~~比如类使用了泛型，如果不使用 @JsonTypeInfo，在反序列化时，则会将复杂字段反序列化为 LinkedHashMap~~），原理就是在序列化时，多序列化一个键值对（key 为 property 设置的值，value 为 use 设置的值）
+	- `use` 
+		- JsonTypeInfo.Id.CLASS 设置为对象的全限定类名
+	- `property` 
+		- @class 对象的全限定类名的 key 为 @class
 
 ## 反序列化注解
 反序列化注解只有在<u>反序列化</u>时生效

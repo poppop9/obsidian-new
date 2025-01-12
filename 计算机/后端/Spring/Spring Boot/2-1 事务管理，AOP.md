@@ -2,13 +2,15 @@
 >[!quote] 事务管理
 > >SpringBoot 中的事务管理与 `Mysql` 中相同，事务是一组操作，要么同时成功，要么同时失败
 > 
-> 接口，类，方法上添加 `@Transactional` ：
-> - <u>接口</u> ：该接口下的所有实现类的所有方法
-> - <u>类</u> ：该类下的所有方法
-> - <u>方法</u>交给 Spring 进行事务管理
+> - 事务的回滚机制只适用于关系型数据库，redis 就不适用
+> - 事务管理 的底层是 AOP
 
->[!hint] 事务管理 的底层是 AOP
+---
 
+接口，类，方法上添加 `@Transactional` ：
+- <u>接口</u> ：该接口下的所有实现类的所有方法
+- <u>类</u> ：该类下的所有方法
+- <u>方法</u>交给 Spring 进行事务管理
 ```java
 @Service
 public class DancerService {
@@ -27,7 +29,7 @@ public class DancerService {
 ```
 
 ## 💛 rollbackFor
-事务管理默认只在 `RuntimeException 运行时异常` 出现时才事务回滚，我们可以使用 `rollbackFor` 来指定什么异常需要回滚
+事务管理默认只在 `RuntimeException` 出现时才事务回滚，我们可以使用 `rollbackFor` 来指定什么异常需要回滚
 
 ```java
 @Override
@@ -38,8 +40,7 @@ public void DeleteDanceType(Integer id) {
 ```
 
 ## 💛 propagation
-用于指定<u>当事务嵌套了</u>，该如何处理事务
-
+用于指定<u>当事务嵌套了</u>，该如何处理事务 ：
 - `REQUIRED` ~~默认~~ 如果当前没有事务，则新建一个事务；如果已经存在一个事务中，则加入到这个事务中
 - `SUPPORTS` 如果当前存在事务，则加入该事务；如果没有，就以非事务方式执行
 - `MANDATORY` 强制要求存在一个事务，否则抛出异常

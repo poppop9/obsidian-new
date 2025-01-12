@@ -1,3 +1,11 @@
+```xml
+<dependency>
+    <groupId>org.redisson</groupId>
+    <artifactId>redisson-spring-boot-starter</artifactId>
+    <version>3.32.0</version>
+</dependency>
+```
+
 引入 Redis 主要就是两方面的作用：
 - <u>用作缓存</u>，比较简单，所有框架差距不大
 - <u>用作分布式锁</u>，Redisson 的分布式锁功能比较完善，有很多功能不用手写，有现成的直接用【RedLock 算法，读写锁，上锁后自动续期的 watchDog ……】
@@ -7,18 +15,9 @@
 >- `Lettuce`
 >- `Redisson` 基于 NIO【~~非阻塞的~~】 的 netty 框架
 
-```xml
-<dependency>
-    <groupId>org.redisson</groupId>
-    <artifactId>redisson-spring-boot-starter</artifactId>
-    <version>3.32.0</version>
-</dependency>
-```
-
 ---
 
 - [教程1](https://blog.csdn.net/A_art_xiang/article/details/125525864?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522171964322916800222820133%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=171964322916800222820133&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-125525864-null-null.142^v100^pc_search_result_base5&utm_term=redisson&spm=1018.2226.3001.4187) 非常全面
-- [精化教程](https://www.cnblogs.com/xfeiyun/p/17795581.html)
 
 # ❤️ 配置
 - 添加 redis 配置
@@ -194,6 +193,35 @@ Map<String, TestUser> bucketsMap = buckets.get("user:id:" + testUser.getId(), "u
 System.out.println(bucketsMap);
 ```
 
+## 实时对象 RLiveObjectService
+>[!quote] RLiveObjectService
+>RLiveObjectService 支持在 Redis 中直接存储 Java 对象，当某些数据对象需要频繁读写时可以使用
+>
+><u>优点</u> ：
+>- 通过 RLiveObject 服务创建或获取的对象是实时的，当修改对象的字段时，RLiveObject 会自动将这些更改同步到 Redis 数据库
+>- 由于操作是在对象级别进行的，只有实际更改的字段会被更新到 Redis，而不是传输整个对象，因此可以减少不必要的网络传输
+>
+><u>缺点</u> ：
+>- 在大量操作的场景下，动态代理和反射机制可能会引入额外的性能开销
+>- 不提供复杂查询
+
+```java
+@REntity
+public class MyObject {
+    @RId
+    private String id;
+    @RIndex
+    private String value;
+    private MyObject parent;
+}
+```
+
+
+
+
+
+
+
 # ❤️ 分布式集合
 ## 💛 列表 List
 - RedissonClient 下的方法
@@ -263,7 +291,6 @@ RScoredSortedSet 中的每个元素都带有分数，并且集合跟据分数进
 ## RLexSortedSet
 RLexSortedSet 是跟据字典排序的集合
 
-
 ## 💛 哈希 RMap
 RMap 是线程安全的，所以其操作也可以看作是原子的
 
@@ -293,7 +320,10 @@ public void testRedisson() {
 淘宝优惠券
 ```
 
-## Multimap
+## RListMultimap
+
+## RMapCache
+`RMapCache` 可以为每个键值对单独设置 TTL，支持最大空闲时间，支持监听键过期和删除事件
 
 
 # ❤️ 分布式队列
@@ -389,7 +419,9 @@ DelayedDecrVO delayedDecrVO = DelayedDecrVO.builder()
 rDelayedQueue.offer(delayedDecrVO, 3, java.util.concurrent.TimeUnit.SECONDS);
 ```
 
-## Deque / BlockingDeque
+## 双端队列 Deque
+
+## 阻塞双端队列 BlockingDeque
 
 
 # ❤️ 分布式原子变量
@@ -435,8 +467,129 @@ public void test_getAtomicLong() {
 加100后的值: 0
 ```
 
+## 整长型累加器 LongAdder
+
+
+
+
 # ❤️ 分布式锁
-[教程](https://www.cnblogs.com/dupengpeng/p/18044474)
+>[!quote] 分布式锁
+>分布式锁 可以跨 JVM 来管理共享资源的访问
+>
+>- 一个节点向 redis 请求分布式锁，锁成功获取后，该节点成为锁的持有者
+>- 在锁的有效期内，该节点会一直持有锁，其他节点无法获取该锁
+>- 锁的有效期到了，锁会自动释放，其他节点此时可以获取到该锁
+
+>[!NOTE] 默认不给锁设置超时时间时，其实不是一直等到手动释放锁，锁的超时时间才会改变
+>当你获取锁时，redisson 默认会为这个锁设置一个超时时间（30s），并且后台会启动一个线程”看门狗“，这个看门狗大概会在过期时间的一半左右，续期这把锁（~~续期时间可以自己设置，默认 30s~~），这样这把锁就还是没被释放
+
+## 💛 递归锁
+递归锁 就是如果一个线程已经持有锁，并再次尝试获取该锁，它可以成功获取，而不会发生死锁，**但是要保证获取了多少次锁，就要调用多少次 unlock** ：
+- 【获取对象】
+	- `RLock getLock(锁名)` 跟据锁名获取锁（同一锁名为同一把锁）
+- `lock()` 获取锁并加锁，一直锁，直到手动释放
+- `lock(10, TimeUnit.SECONDS);` 锁的有效期为 10s
+- `boolean tryLock(100, 10, TimeUnit.SECONDS)` 获取锁的超时时间为 100s（如果在指定时间内无法获得锁，将放弃获取锁返回  false）
+
+```java
+RLock lock = redissonClient.getLock("myLock");
+
+lock.lock(); // 第一次加锁
+// ... 执行任务
+
+lock.lock(); // 第二次加锁，线程 A 会再次获得锁
+// ... 执行任务
+
+lock.unlock(); // 第一次解锁，计数器减 1
+lock.unlock(); // 第二次解锁，计数器为 0，锁释放
+```
+
+>[!NOTE] 但是递归锁是不公平的（~~不是按照线程到达的先后顺序决定谁能获得锁~~），获得锁的规则是哪个线程的优先级高哪个线程获得锁
+><u>以下类型的线程优先级较高</u>：
+>- 已经运行在 cpu 上的线程（因为它不需要从挂起状态恢复，即无需上下文切换）
+>- 最近使用过锁的线程
+
+## 💛 公平锁 Fair Lock
+>[!quote] 公平锁 Fair Lock
+>公平锁内部维护了一个队列，获得锁依赖于**线程请求锁的先后顺序**
+>
+>- 非公平锁可能因为高优先级线程频繁插队，导致某些线程长时间得不到锁，造成线程饥饿
+>- 由于需要维护队列和排队机制，**公平锁的性能通常比非公平锁低一些**
+
+- 【获取对象】
+	- `RLock getFairLock(锁名)` 跟据锁名获取锁（同一锁名为同一把锁）
+- 其他方法同上 ……
+
+## 💛 联锁 RedissonMultiLock
+联锁只有在所有锁都获取到后，才会进行加锁，**如果任何一个锁获取失败，将阻塞直到所有锁都能成功获取**，当然，解锁时也会同时释放其所有锁
+
+```java
+RLock lock1 = redissonClient.getLock("lock1");
+RLock lock2 = redissonClient.getLock("lock2");
+RLock lock3 = redissonClient.getLock("lock3");
+
+RedissonMultiLock lock = new RedissonMultiLock(lock1, lock2, lock3);
+// 所有的锁都获取到了，才能算加锁成功
+lock.lock();
+...
+lock.unlock();
+```
+
+## 红锁 RedLock
+
+
+## 💛 读写锁 ReadWriteLock
+>[!quote] 读写锁 ReadWriteLock
+><u>读写锁分为读锁，和写锁</u> ：
+>- 读锁 Read Lock
+>     - 允许多个线程同时获取读锁，共享访问资源
+>     - 如果其他线程持有写锁，则无法获取读锁
+>     - 适合读多写少的场景，提高并发性能
+> - 写锁 Write Lock
+>     - 只有一个线程能够获取写锁，其他线程无论是读锁还是写锁都需要等待
+>     - 用于保护对资源的独占写入，确保数据的一致性
+
+- 【获取对象】
+	- `RReadWriteLock getReadWriteLock(锁名)` 
+- `RLock readLock()` 获取读锁
+- `RLock writeLock()` 获取写锁
+
+## 分布式信号量 Semaphore
+>[!quote] 分布式信号量 Semaphore
+>Semaphore 维护了一个信号量（~~同一时刻，系统允许多少个并发线程访问某一资源~~），当一个线程想访问资源时，它需要从信号量中获取一个许可证，才能获取资源，使用完后释放许可证
+>
+>- 如果没有许可可用，线程会阻塞，直到有许可释放
+
+- 【获取对象】
+	- `RSemaphore getSemaphore(锁名)` 
+- 
+
+```java
+RSemaphore semaphore = redisson.getSemaphore("printer");
+
+// 初始化许可数量为 3
+semaphore.trySetPermits(3);
+
+// 线程 A 获取许可
+semaphore.acquire();
+System.out.println("Thread A is using the printer");
+
+// 线程 B 尝试获取许可（非阻塞）
+if (semaphore.tryAcquire()) {
+    System.out.println("Thread B is using the printer");
+} else {
+    System.out.println("Thread B is waiting for the printer");
+}
+
+// 使用完后，释放许可
+semaphore.release();
+System.out.println("Thread A released the printer");
+```
+
+## 倒计时锁 CountDownLatch
+CountDownLatch 会维护一个计数器，当计数器中的值为 0 时，才会释放锁
+
+
 
 # ❤️ 其他
 ## 💛 布隆过滤器 RBloomFilter
@@ -487,19 +640,16 @@ Redis Stream 用于处理日志或消息流数据
 ## 键空间通知
 Redis Keyspace Notifications 可以用于监控键的事件（创建、删除、过期 ……）
 
-## Pipeline
-使用 Redis 的 **管道（Pipeline）** 技术，一次性提交多条更新命令，减少网络延迟
+## 管道 Pipeline
+Pipeline 可以一次性提交多条更新命令，减少网络延迟
 
 ---
 - 限流器 RateLimiter
-- Semaphore 分布式信号量，用于控制访问共享资源的线程数量。信号量维护了一个计数器，线程可以通过获取信号量来获取资源，释放信号量来释放资源
-- CountDownLatch
 - Publish / Subscribe 提供了发布/订阅消息系统的实现
 - Remote Service 允许在 Redis 上实现分布式服务，客户端可以像调用本地服务一样调用远程服务。通过基于 Redis 的异步和同步通信
 - Spring Cache Redisson 提供了与 Spring Cache 集成的支持
 - Executor Service 提供了一个分布式执行器，可以用于并行执行任务
 - Scheduler Service 可以在多个 Redis 节点上定时执行任务
-- Live Object Service 支持在 Redis 中直接存储 Java 对象。Live Object 可以像普通的 Java 对象一样进行操作，自动进行序列化和反序列化
 
 
 

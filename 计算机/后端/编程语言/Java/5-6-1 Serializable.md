@@ -12,6 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor  
 @AllArgsConstructor
 public class WeightRandom<T> implements Serializable {
+	@Serial
     private static final long serialVersionUID = -8244697995702786499L;
 
     private int weight;
