@@ -11,7 +11,11 @@
 
 # 构造方法
 - `@NoArgsConstructor`  为实体类生成无参构造方法
+	- `access` 设置无参构造的访问修饰符
+		- lombok.AccessLevel.PROTECTED
+		- lombok.AccessLevel.PRIVATE
 - `@AllArgsConstructor`  为实体类生成除了 static 修饰的字段之外带有所有参数的构造方法
+	- `access` 设置有参构造的访问修饰符
 - `@RequiredArgsConstructor` 与 `@NonNull` 注解配合使用，自定义字段参数构造方法
 	- `@NonNull` 将某个属性规定为必须传入
 
@@ -38,7 +42,7 @@ public class User implements Serializable {
 
 ## @Builder
 `@Builder` 可以自动生成一个建造者模式相关的代码【~~不需要手动 setter 构建对象，而是链式调用来构建对象~~】，使得对象的构建更加简洁
-- Default 给属性设置默认值。如果创建对象时，没有传，则为默认值
+- Default 给属性设置默认值。如果创建对象时，没有传，则为默认值。**但是只有在使用 builder 构建对象时才能生效**
 
 ```java
 // Person类

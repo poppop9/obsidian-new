@@ -1,3 +1,4 @@
+
 >[!quote] 序列化 Serialization
 >> 序列化 指的是将 Java Bean 转换为字节流的过程
 >
