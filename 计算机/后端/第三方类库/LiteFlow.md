@@ -175,8 +175,8 @@ liteflow:
 </flow>
 ```
 
-
-
+# ❤️ 流程入参
+流程入参能做的数据上下文都能实现
 
 # ❤️ 数据上下文
 >[!hint] 所有的组件需要用到其他组件的数据时，都是利用数据上下文去取，而不是依赖于其他组件
@@ -186,8 +186,9 @@ liteflow:
 - `T getData` 获取参数，~~拿到的参数类型需要自己强转~~
 - `hasData` 判断是否有参数
 
-## 💛 自定义数据上下文 
-自定义数据上下文不需要继承什么，就直接定义一个类就好了，然后可以在组件中取出：
+---
+
+<u>自定义数据上下文</u>  ：自定义数据上下文不需要继承什么，就直接定义一个类就好了，然后可以在组件中取出：
 ```java
 @Data
 public class RaffleFilterContext{ …… }
@@ -197,7 +198,7 @@ public class RaffleFilterContext{ …… }
 RaffleFilterContext context = bindCmp.getContextBean(RaffleFilterContext.class);
 ```
 
-## 💛 传入
+<u>传入</u> ：
 ```java
 // 初始化上下文对象作为入参  
 DefaultContext defaultContext = new DefaultContext();  
@@ -206,8 +207,8 @@ defaultContext.setData("key1", true);
 flowExecutor.execute2Resp("chain2", null, defaultContext);
 ```
 
-## 💛 获取
-<u>手动获取</u> ：
+<u>获取</u> ：
+- 手动获取
 ```java
 @LiteflowMethod( …… )  
 public boolean processC(NodeComponent bindCmp) {  
@@ -219,9 +220,82 @@ public boolean processC(NodeComponent bindCmp) {
 ```
 
 # ❤️ 执行器
-LiteflowResponse 执行器的结果：
-- `getContextBean(上下文class对象)` 获取上下文
+执行器 是一个流程的触发点，你可以在代码的任意地方用执行器进行执行流程
 
+```java
+@Resource  
+private FlowExecutor flowExecutor;  
+```
+
+## 💛 阻塞执行
+- `LiteflowResponse execute2Resp(String chainId, Object param, Class<?>... contextBeanClazzArray)` 第一个参数为流程 ID，第二个参数为流程入参，后面可以传入多个上下文 class
+- `LiteflowResponse execute2Resp(String chainId, Object param, Object... contextBeanArray)` 第一个参数为流程 ID，第二个参数为流程入参，后面可以传入多个上下文的 Bean
+
+>[!quote] LiteflowResponse
+>LiteflowResponse 是执行器的执行结果
+>- `getContextBean(上下文class对象)` 获取上下文
+
+## 💛 非阻塞执行
+- `Future<LiteflowResponse> execute2Future(String chainId, Object param, Object... contextBeanArray)` 
+
+<u>默认配置</u> ：
+```yml
+liteflow:
+  # 主线程池中的工作线程数
+  main-executor-works: 64
+  # 配置线程池实现类
+  main-executor-class: com.yomahub.liteflow.thread.LiteFlowDefaultMainExecutorBuilder
+```
+
+<u>自定义线程池实现类</u> ：
+```java
+public class CustomThreadBuilder implements ExecutorBuilder {
+    @Override
+    public ExecutorService buildExecutor() {
+        return Executors.newCachedThreadPool();
+    }
+}
+```
+
+# ❤️ 决策路由
+决策路由会并行执行你指定的多条 chain，若 route 为 false，则终止执行
+
+- `List<LiteflowResponse> executeRouteChain(流程入参, 数据上下文)` 会执行所有带有 `<route>` 标签的 chain
+- `List<LiteflowResponse> executeRouteChain(命名空间, 流程入参, 数据上下文)` 会执行指定命名空间下的所有带  `<route>` 标签的 chain
+
+```java
+<chain name="chain1" namespace="n1">
+    <route>
+        AND(r1, r2, r3)
+    </route>
+    <body>
+        THEN(a, b, c);
+    </body>
+</chain>
+
+<chain name="chain2" namespace="n1">
+    <route>
+        AND(OR(r4, r5), NOT(r3))
+    </route>
+    <body>
+        SWITCH(x).TO(d, e, f);
+    </body>
+</chain>
+
+<chain name="chain3" namespace="n2">
+    <route>
+        r4
+    </route>
+    <body>
+        WHEN(a,b);
+    </body>
+</chain>
+```
+
+```java
+// 执行 n1 空间下的带 route 的 chain
+flowExecutor.executeRouteChain("n1", null, YourContext);
+```
 
 # ❤️ LiteFlowX 插件
 

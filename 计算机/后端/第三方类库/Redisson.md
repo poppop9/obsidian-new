@@ -271,7 +271,32 @@ Set<String> union = electronics.readUnion(clothing, books);
 Set<String> difference = electronics.readDifference(clothing);
 ```
 
-## BitSet
+## RBitSet
+- `getBitSet()` 
+- 【改】
+	- `set(long)` 将该位设为 true
+	- `clear(long)` 将该位设为 false
+	- `set(long, boolean)` 设置第 x 位，为 true / false
+	- `set(long1, long2, boolean)` 将第 x 位到第 y-1 位设置为指定 boolean
+- 【查】
+	- `boolean get(long)` 获取指定位的 boolean
+- 【统计】
+	- `long cardinality()` 获取 true 的位的数量
+	- `long length()` 获取该 RBitSet 的总长（最后一位 + 1）
+
+```java
+RBitSet bitSet = redisson.getBitSet("myBitmap");
+
+bitSet.set(0, true); // 设置第0位为1
+bitSet.set(1, false); // 设置第1位为0
+bitSet.set(2); // 设置第2位为1（简写）
+
+boolean bit0 = bitSet.get(0); // 获取第0位，结果为 true
+boolean bit1 = bitSet.get(1); // 获取第1位，结果为 false
+
+long cardinality = bitSet.cardinality(); // 获取所有置1的位的数量
+long length = bitSet.length(); // 获取 Bitmap 的总长度（最后一位+1）
+```
 
 ## 💛 RScoredSortedSet
 RScoredSortedSet 中的每个元素都带有分数，并且集合跟据分数进行排名（从 0 开始）
@@ -294,6 +319,7 @@ RLexSortedSet 是跟据字典排序的集合
 ## 💛 哈希 RMap
 RMap 是线程安全的，所以其操作也可以看作是原子的
 
+- `getMap()` 
 - 【改】
 	- `V addAndGet(key, add的值)` 先 add 其 value，在 get，**value 只支持浮点数**
 	- `V compute(Key, BiFunction函数式接口)` 函数式接口中将处理指定的 Key 的值，返回一个指定的 Key 的值的引用，~~也就是你直接修改这个引用，就会影响原来的 Map~~

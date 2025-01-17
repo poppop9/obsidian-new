@@ -16,11 +16,9 @@
 		- lombok.AccessLevel.PRIVATE
 - `@AllArgsConstructor`  为实体类生成除了 static 修饰的字段之外带有所有参数的构造方法
 	- `access` 设置有参构造的访问修饰符
-- `@RequiredArgsConstructor` 与 `@NonNull` 注解配合使用，自定义字段参数构造方法
-	- `@NonNull` 将某个属性规定为必须传入
+- `@RequiredArgsConstructor` 生成只有 final，或者 `@NonNull` 标注的参数构造方法
 
 ```java
-// id属性没有加@NonNull注解，所以构造方法里不会有id属性
 @RequiredArgsConstructor  
 public class User implements Serializable {  
     private Integer id;  
