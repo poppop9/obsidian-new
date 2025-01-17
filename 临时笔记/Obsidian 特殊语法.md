@@ -61,13 +61,13 @@ tag:问题
 
 > [!bug] 描述 bug
 
-> [!summary] 进行小结；描述类或接口中的方法
-
 > [!faq] 描述问题
 
 > [!hint] 额外说明，提示
 
 >[!warning] 注意
+
+> [!summary]
 
 > [!done]
 
@@ -83,62 +83,16 @@ tag:问题
 
 ## 插件
 _**Better footnote**_ 阅读视图时，脚注可以鼠标悬浮显示
-
 _**Commander**_ 控制在侧边栏，底部，各处的按钮
-
-_**Dataview**_ 对数据的处理
-
 _**Editing Toolbar**_ 悬浮的快捷编辑栏
-
 _**Excalidraw**_
-
 _**Image auto upload Plugin**_ 图床
-
 _**Keyboard Analyzer**_ 查看各种键的快捷键
-
-_**Make.md**_ 文件管理器
-
-_**Mousewheel Image zoom**_ 鼠标滚轮控制图片大小
-
 _**Obsidian Git**_ git 来备份文件
-
 _**Recent Files**_ 显示最近文件
-
 _**Remotely Save**_ 远程通过 webdev 备份文件
-
 _**Setting Search**_ ob 的原生搜素不全面，这个设置搜索好用
-
 _**Style Settings**_ 对于主题的 css 设置
 
-`Linter` 格式化文档
-
-### Code Styler
-* 代码块添加标题
-```ts
-import { defaultTheme } from '@vuepress/theme-default'
-import { defineUserConfig } from 'vuepress'
-
-export default defineUserConfig({
-  title: '你好， VuePress',
-
-  theme: defaultTheme({
-    logo: 'https://vuejs.org/images/logo.png',
-  }),
-})
-```
-
-* 行号 `ln:false/true`
-
-```java
-aaa
-```
-
-* 代码行高亮
-  * `hl:1` 单行
-  * `hl:1-3` 范围
-
-```java
-1-2 行高亮
-aaa
-sss
-```
+- `Linter` 格式化文档
+- `Code Styler` 
