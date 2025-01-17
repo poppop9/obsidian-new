@@ -271,7 +271,7 @@ Set<String> union = electronics.readUnion(clothing, books);
 Set<String> difference = electronics.readDifference(clothing);
 ```
 
-## RBitSet
+## 💛 RBitSet
 - `getBitSet()` 
 - 【改】
 	- `set(long)` 将该位设为 true
@@ -457,7 +457,9 @@ rDelayedQueue.offer(delayedDecrVO, 3, java.util.concurrent.TimeUnit.SECONDS);
 >
 >- 如果需要在多线程环境中维护一个 long 变量，可以使用
 >- 需要实现高性能的计数器，可以使用
->- <u>想要避免加锁，来提高性能时</u>，可以使用
+>- **想要避免加锁，来提高性能时，可以使用**
+>
+><u>原理</u> ：CAS 
 
 - `RAtomicLong getAtomicLong(键)` 获取 RAtomicLong 对象
 	- **改**
@@ -494,9 +496,13 @@ public void test_getAtomicLong() {
 ```
 
 ## 整长型累加器 LongAdder
+AtomicLong 底层是 CAS，而 LongAdder 是用的分段算法，能够在高高高并发下有更好地效果
 
-
-
+>[!quote] 分段算法
+>分段算法 将**数据分为多个段，每个段独立控制**，避免了多个线程对同一数据的竞争，以提高并发性能，**最后将分段结果合并**
+>
+> - 会有内存开销，但是几乎忽略
+> - 在合并频繁时，会有合并开销
 
 # ❤️ 分布式锁
 >[!quote] 分布式锁
