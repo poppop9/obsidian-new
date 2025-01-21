@@ -126,8 +126,26 @@ A 组件的 onSuccessA 执行了
 ```
 
 ## 💛 选择组件
+选择组件 可以通过动态的业务逻辑判断接下去该执行哪一个节点
 
-其实选择组件，和布尔组件很类似，都可以完成对方所有的功能 #待学习 
+```java
+/**
+ * 活动单类型路由器
+ */
+@LiteflowMethod(nodeType = NodeTypeEnum.SWITCH,
+		value = LiteFlowMethodEnum.PROCESS_SWITCH,
+		nodeId = "ActivityOrderTypeRouter",
+		nodeName = "活动单类型路由器")
+public String ActivityOrderTypeRouter(NodeComponent bindCmp) {
+	return "nodeId";
+}
+```
+
+```xml
+<chain name="chain1">
+    SWITCH(a).to(b, c);
+</chain>
+```
 
 ## 💛 布尔组件
 ```java
@@ -141,7 +159,11 @@ public boolean processC(NodeComponent bindCmp) {
 }
 ```
 
-
+```xml
+<chain name="RaffleFilterChain">  
+	IF(CheckProceed, NormalTimeMatchRafflePoolFilter)
+</chain>
+```
 
 ## NodeComponent
 ```java

@@ -128,7 +128,7 @@ import 'bootstrap';
 ### 自动均分列宽
 
 ```html
-/* 有三个col，所以每列会占用33.3% */
+// 有三个col，所以每列会占用33.3%
 <div class="row">
 	<div class="col"></div>
 	<div class="col"></div>
