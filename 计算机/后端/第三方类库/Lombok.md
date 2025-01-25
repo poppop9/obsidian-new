@@ -11,6 +11,8 @@
 
 # 构造方法
 - `@NoArgsConstructor`  为实体类生成无参构造方法
+	- `force` 
+		- true 即使该类有一个 final 字段也强制生成一个无参构造
 	- `access` 设置无参构造的访问修饰符
 		- lombok.AccessLevel.PROTECTED
 		- lombok.AccessLevel.PRIVATE

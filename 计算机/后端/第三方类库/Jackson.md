@@ -512,21 +512,21 @@ public class User {
 ```
 
 ```java
-    public enum UserStatus {
-        NORMAL(1, "正常"),
-        LOCKED(2, "锁定"),
-        FROZEN(3, "冻结");
+public enum UserStatus {
+	NORMAL(1, "正常"),
+	LOCKED(2, "锁定"),
+	FROZEN(3, "冻结");
 
-		// status将会代表整个UserStatus类返回
-        @JsonValue
-        private final int status;
-        private final String description;
+	// status将会代表整个UserStatus类返回
+	@JsonValue
+	private final int status;
+	private final String description;
 
-        UserStatus(int status, String description) {
-            this.status = status;
-            this.description = description;
-        }
-    }
+	UserStatus(int status, String description) {
+		this.status = status;
+		this.description = description;
+	}
+}
 ```
 
 ### @JsonFormat
@@ -535,6 +535,9 @@ public class User {
 ```java
 @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm")
 public Date getBirthDate()
+
+@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+private LocalDateTime activityOrderExpireTime;  // 活动单过期时间
 ```
 
 ### @JsonPropertyOrder

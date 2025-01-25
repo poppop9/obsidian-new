@@ -139,7 +139,7 @@ String base64 = Base64.encode(byteArray);
 > \</dependency>
 > ```
 
-### 生成二维码
+### 💙 生成二维码
 - 自定义二维码参数 `QrConfig`【长，宽，二维码的颜色，背景颜色，边距 ……】，<u>这个参数可以作为后续生成二维码</u>
 ```java
 // 设置长宽
@@ -178,7 +178,7 @@ String base64 = Base64.encode(imageBytes);
 return base64;
 ```
 
-### 识别二维码
+### 💙 识别二维码
 ```java
 // decode 就是被识别出来的链接
 String decode = QrCodeUtil.decode(FileUtil.file("d:/qrcode.jpg"));

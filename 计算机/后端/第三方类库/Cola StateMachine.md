@@ -88,6 +88,8 @@ public class OrderContext {
 ```
 
 ## 状态机配置
+- 当 when 条件为 false 时，不会报错，只是不执行 perform 块而且
+
 ```java
 @Slf4j
 @Configuration
@@ -123,13 +125,14 @@ public class StateMachineConfig {
 ```
 
 # 事件中心
+- 状态机发布事件，默认是阻塞的
+
 ```java
 /**
  * 状态机事件中心
  */
 @Component
 public class OrderStateMachineEventCenter {
-
     /**
      * 发布创建订单事件
      */
@@ -140,13 +143,7 @@ public class OrderStateMachineEventCenter {
                         OrderEvents.CreateOrder,
                         new OrderContext().setOrderId(12345L).setPayAmount(100L)
                 );
-        if (orderStatus == OrderStatus.PAY_PENDING) {
-            // 订单创建成功
-        } else {
-            // 订单创建失败
-        }
     }
-
 }
 ```
 

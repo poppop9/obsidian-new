@@ -142,7 +142,7 @@ public class User {
 只有引起实体类属性值变化的业务【新增，删除……】才去按照 DDD 架构的条条框框去做，如果这个实体类只有查询，排序……，这些不引起实体类属性值变化的业务，那我们可以不要<u>充血模型</u>，`repository` ……，避免引入更多的类
 
 # ❤ 项目结构
-![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/20250106202611.png)
+![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/20250123210739.png)
 
 ## 💛 触发器层 trigger
 <u>我们可以根据触发动作进行分类</u>：

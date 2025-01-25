@@ -361,8 +361,9 @@ public void testRedisson() {
 	- **增**
 		- `add(值)` 将值添加到队列尾部
 	- **删查**
-		- `poll()` 移除并返回 Queue 头部的元素，如果队列为空则返回 `null`
+		- `poll()` 移除并返回 Queue 头部的一个元素，如果队列为空则返回 `null`
 		- `peek()` 返回队列头部的元素但不移除，如果队列为空则返回 `null` 
+	- 【流式调用】 stream 流，只会操作元素，不会取出元素
 
 ```java
 RQueue<String> queue = redissonClient.getQueue("myQueue");
@@ -413,25 +414,24 @@ blockingQueue.put("firstElement");
 String element = blockingQueue.take(); // 如果队列为空则等待
 ```
 
-## 💛 延迟队列 DelayedQueue
->[!quote] DelayedQueue
->添加到 DelayedQueue 中的任务会在指定的延迟时间后【~~时间可以固定，也可以动态变化~~】才可被取出执行
+## 💛 延迟队列 RDelayedQueue
+>[!quote] RDelayedQueue
+>添加到 RDelayedQueue 中的任务会在指定的延迟时间后【~~时间可以固定，也可以动态变化~~】才可被取出执行
 >
 >- 通过延时处理，可以减轻某个组件的负载
 
 ---
 
-- `RDelayedQueue getDelayedQueue(RQueue<?>)` 从队列中获取 RDelayedQueue 延迟队列对象
+- `RDelayedQueue getDelayedQueue(RQueue<?> A)` **从队列 A 中获取 RDelayedQueue 延迟队列对象，所以如果需要有延迟效果，你需要去 A 队列中取元素**
 	- **增**
 		- `offer(值，延迟时间，延迟时间单位)` 添加元素到延迟队列
 	- **查**
-		- `poll()` 取出延迟队列中的元素
+		- `poll()` 取出延迟队列中的元素（没有延迟效果）
 		- `isEmpty()` 判断延迟队列是否为空
+	- 【流式操作】 stream 流，只会操作元素，不会取出元素
 
 ```java
-/*
-元素一开始就会被加入到rDelayedQueue中，在3s后该元素会被转移到rQueue中，然后rDelayedQueue会将该元素删除
-*/
+// 元素一开始就会被加入到rDelayedQueue中，在3s后该元素会被转移到rQueue中，然后rDelayedQueue会将该元素删除
 
 // 建立队列  
 RQueue<Object> rQueue = redissonClient.getQueue("strategy_" + strategyId + "_awards_DecrQueue");  
