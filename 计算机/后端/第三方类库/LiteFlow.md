@@ -331,3 +331,16 @@ flowExecutor.executeRouteChain("n1", null, YourContext);
     THEN(a, b).retry(3, "java.lang.NullPointerException", "app.xlog.ggbond.raffle.service.filterChain.filters.RetryRouterException");
 </chain>
 ```
+
+## 💛 前后置组件
+前后置组件不受 exception 的影响
+
+```java
+<chain name="chain1">
+    THEN(
+        PRE(p1, p2), 
+        a, b, c, 
+        FINALLY(f1, f2)
+    );
+</chain>
+```
