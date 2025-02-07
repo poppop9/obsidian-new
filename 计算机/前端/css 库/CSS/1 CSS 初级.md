@@ -41,10 +41,9 @@
 ```
 
 ## id 选择器
-> [!attention]
-> * id 不能重用
-> * id 不能以数字开头
-> * id 不能包含空白字符
+* id 不能重用
+* id 不能以数字开头
+* id 不能包含空白字符
 
 ```css
 <style>
@@ -234,15 +233,13 @@ h1 {
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-<link rel="stylesheet" href="路径">  <!-- 在head标签中指定css文件的路径 -->
-</head>
-<body>
-
-<h1>This is a heading</h1>
-<p>This is a paragraph.</p>
-在·
-</body>
+	<head>
+		<link rel="stylesheet" href="路径">  <!-- 在head标签中指定css文件的路径 -->
+	</head>
+	<body>
+		<h1>This is a heading</h1>
+		<p>This is a paragraph.</p>
+	</body>
 </html>
 ```
 
@@ -280,12 +277,12 @@ h1 {
 
 # ❤ 颜色
 * `background-color:`
-  * `Tomato`
-  * `rgb(255, 99, 71)`
-  * `#ff6347`
-  * `hsl(9, 100%, 64%)`
-  * `rgba(255, 99, 71, 0.5)`
-  * `hsla(9, 100%, 64%, 0.5)`
+	* `Tomato`
+	* `rgb(255, 99, 71)`
+	* `#ff6347`
+	* `hsl(9, 100%, 64%)`
+	* `rgba(255, 99, 71, 0.5)`
+	* `hsla(9, 100%, 64%, 0.5)`
 
 # ❤ 框模型
 元素总宽度 = width + 左右padding + 左右border + 左右margin + outline ![600](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202402022232532.png)
@@ -321,16 +318,16 @@ h1 {
 ### 参数
 * `background-repeat` 指定背景内容是否重复显示
 * `background-origin` 模糊的背景位置
-  * border-box 从边框的左上角开始
-  * padding-box 【默认】从内边距边缘的左上角开始
-  * content-box 从内容的左上角开始
+	* border-box 从边框的左上角开始
+	* padding-box 【默认】从内边距边缘的左上角开始
+	* content-box 从内容的左上角开始
 * `background-position` 指定具体背景的位置
 * `background-attachment` 指定背景滚动 / 固定
 * `background-size` 背景的尺寸
 * `background-clip` 背景的绘制区域
-  * border-box 【默认】背景绘制到边框的外部边缘
-  * padding-box 背景绘制到内边距的外边缘
-  * content-box 在内容框中绘制背景
+	* border-box 【默认】背景绘制到边框的外部边缘
+	* padding-box 背景绘制到内边距的外边缘
+	* content-box 在内容框中绘制背景
 
 ***
 
@@ -424,28 +421,6 @@ p {
 }
 ```
 
-hello
-
-hello
-
-hello
-
-hello
-
-hello
-
-hello
-
-hello
-
-hello
-
-hello
-
-hello
-
-hello
-
 ### 参数
 
 * **宽度**
@@ -463,16 +438,6 @@ hello
 <p style="border-style: groove; border-width: 25px 10px 4px 35px;">hello</p>
 ```
 
-hello
-
-hello
-
-hello
-
-hello
-
-hello
-
 ***
 
 * **颜色**
@@ -486,10 +451,6 @@ hello
 
 > [!NOTE] 如果不要颜色的话可以指定为 `color:transparent;` ，表示_**透明色**_
 
-hello
-
-hello
-
 ***
 
 * **圆角**
@@ -502,10 +463,7 @@ hello
 <p style="border-style: groove; border-radius: 12px;">hello</p>
 ```
 
-hello
-
 ## 内外边距
-
 ```css
 /* 允许指定单个外边距 */
 p {
@@ -517,7 +475,6 @@ p {
 ```
 
 ## 轮廓
-
 > [!summary] 属性
 >
 > * `outline-style` 样式
@@ -537,15 +494,14 @@ p {
 
 # ❤ 文本
 ## 基础属性
-
 * `color` 指定文本的颜色
 * `font-size` 指定文本的大小【普通文本默认大小为 16px】
-  * `px`
-  * `em`
-  * `vm`
+	* `px`
+	* `em`
+	* `vm`
 * `font-family` 指定字体
-  * 有多个字体时，应以逗号分隔
-  * 字体名称不止一个单词，则必须用引号引起来
+	* 有多个字体时，应以逗号分隔
+	* 字体名称不止一个单词，则必须用引号引起来
 * `font-style` 斜体
 * `font-weight` 粗体
 * `font-variant` 变体
@@ -594,20 +550,19 @@ p {
 ```
 
 ## 位置
-
 * `text-align` 水平对齐
-  * `left`
-  * `center`
-  * `right`
+	* `left`
+	* `center`
+	* `right`
 * `justify` 将文本内容拉伸至每一行都具有相同宽度
-  * `vertical-align` 垂直对齐【当文本与其他元素的相对位置】
-  * `top` 其他元素相对于文本位于上部
-  * `middle` 居中
-  * `bottom`
+	* `vertical-align` 垂直对齐【当文本与其他元素的相对位置】
+	* `top` 其他元素相对于文本位于上部
+	* `middle` 居中
+	* `bottom`
 * `direction` 文本方向
-  * `ltr` 从左到右
-  * `rtl`
-  * `inherit`
+	* `ltr` 从左到右
+	* `rtl`
+	* `inherit`
 
 ```css
 /* vertical-align */
@@ -649,14 +604,6 @@ hello
 /* 多线 */
 <p style="text-decoration:overline underline;">hello</p>
 ```
-
-hello
-
-hello
-
-hello
-
-hello
 
 ### 文本间距
 ```css

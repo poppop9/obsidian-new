@@ -1,9 +1,9 @@
-# 2-1 BootStrap 中级
-## 深色模式
+
+# 深色模式
 在容器添加 `data-bs-theme="dark"`
 
-## 组件
-### 卡片
+# 组件
+## 卡片
 卡片是一种灵活且可扩展的内容容器
 
 * `.card` 父容器卡片元素
@@ -12,7 +12,7 @@
 * `.card-footer` 卡片页脚
 * `.card-text` **用于去除页眉，主题，页脚内最后一个子元素的底边距**
 
-#### 多功能卡片
+### 多功能卡片
 * **全宽图片卡片**
 
 ```html
@@ -89,7 +89,7 @@
 </div>
 ```
 
-#### 卡片组
+### 卡片组
 
 > 使用 `.card-group` 包含多个 `card` ![600](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202402182338798.png)
 
@@ -121,7 +121,7 @@
 </div>
 ````
 
-#### 网格卡
+### 网格卡
 
 > 使用 `.row-cols-*` 控制一行要显示多少列 ![200](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202402182347837.png)
 
@@ -167,11 +167,11 @@
 </div>
 ```
 
-#### 砌筑
+### 砌筑
 
 > 由于有副作用，BootStrap不直接支持，可以使用插件 [Masonry](https://masonry.desandro.com/)，这是[例子](https://v5.bootcss.com/docs/examples/masonry/)
 
-### 下拉菜单
+## 下拉菜单
 
 * 下拉列表父容器
   * `.dropdown` 用于创建下拉列表父容器【~~可以省略~~】
@@ -228,7 +228,7 @@
 </div>
 ```
 
-#### 按钮下拉分离
+### 按钮下拉分离
 
 * `.dropdown-toggle-split` 让下拉按钮与按钮更近
 
@@ -244,7 +244,7 @@
 </div>
 ```
 
-#### 将表单放入下拉列表中
+### 将表单放入下拉列表中
 
 ```html
 <div class="dropdown">
@@ -273,7 +273,7 @@
 </div>
 ```
 
-#### 触发下拉菜单方式
+### 触发下拉菜单方式
 
 * 点击【默认】
 * 鼠标悬浮
@@ -305,7 +305,7 @@
 </style>
 ```
 
-### 折叠
+## 折叠
 
 * 父容器 `.accordion`
   * `.accordion-flush` 五边框的手风琴
@@ -366,7 +366,7 @@
 </div>
 ```
 
-### 导航
+## 导航
 > 将 `.nav` 添加到 `<ul>`，然后为每个 `<li>` 添加 `.nav-item`，并将 `.nav-link` 添加到它们的链接
 
 * 父容器
@@ -396,7 +396,7 @@
 </ul>
 ```
 
-#### 导航栏
+### 导航栏
 * 父容器
 	* `.navbar` **必须**
 	* `.navbar-expand-xxl|xl|lg|md|sm` 设置响应式堆叠，**如果不设置，则导航栏默认垂直堆叠**
@@ -515,7 +515,7 @@
 </nav>
 ```
 
-#### 面包屑导航
+### 面包屑导航
 
 * 父容器 ：使用 `<ol>`
 	* `breadcrumb`
@@ -532,7 +532,7 @@
 </nav>
 ```
 
-### 轮播
+## 轮播
 
 * 父容器
 	* `.carousel` 创建轮播
@@ -602,7 +602,7 @@
 
 > [!hint] 看不懂思密达 出于性能原因，必须使用轮播构造函数方法手动初始化轮播。如果不进行初始化，则在用户显式激活控件或指示器之前，不会注册某些事件侦听器（特别是需要触摸/轻扫支持的事件）。唯一的例外是带有该属性的 `data-bs-ride="carousel"` 自动播放轮播，因为这些轮播是在页面加载时自动初始化的。如果使用带有 data 属性的自动播放轮播，请不要使用 constructor 方法显式初始化相同的轮播
 
-### 模态
+## 模态
 > [!quote] 模态 模态 是一种弹出窗口，显示在当前页面的最上层
 
 > [!hint] 在打开模态时，默认会在 `<body>` 上加上 `padding-right` ，所以主页面会向左移动，我们可以这么解决
@@ -655,7 +655,7 @@
 </div>
 ```
 
-#### 模态的切换
+### 模态的切换
 ```html
 <div class="modal fade" id="exampleModalToggle" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
@@ -692,22 +692,22 @@
 <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Open first modal</button>
 ```
 
-### 弹出框
+## 弹出框
 > [!warning] 不推荐使用，似乎跟 vue 有冲突
 
-#### 悬停提示
+### 悬停提示
 
-#### 点击提示
+### 点击提示
 
-### 短暂的警告框
+## 短暂的警告框
 
 不实用，不如直接使用 `Alert`
 
-### 滚动间谍
+## 滚动间谍
 
 > 根据滚动位置自动更新导航或列表组组件，以指示当前在视口中处于活动状态的链接
 
-### OffCanvas
+## OffCanvas
 > 构建隐藏的侧边栏
 
 > [!warning] 不能在 `.offcanvas` 元素上使用 `margin` 或 `translate` ，如果一定要用，在该元素的父元素上使用

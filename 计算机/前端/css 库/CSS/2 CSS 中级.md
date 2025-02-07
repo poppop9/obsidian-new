@@ -1,14 +1,9 @@
-# 2 CSS 中级
-
-## 布局
-
-### display
-
+# 布局
+## display
 每个HTML元素都有一个默认的 display 值【具体取决于它的元素类型，大多数元素为 `block` 或 `inline`】
 
-#### 块级元素 block
-
-> 总是从新行开始，并占据可用的全部宽度。_**HTML会自动地在块级元素前后添加一个额外的空行**_
+### 块级元素 block
+总是从新行开始，并占据可用的全部宽度。_**HTML会自动地在块级元素前后添加一个额外的空行**_
 
 > [!NOTE] 常见的块级元素标签
 >
@@ -39,11 +34,10 @@
 }
 ```
 
-#### 行内元素 inline
-
+### 行内元素 inline
 > 不从新行开始，仅占用所需的宽度
 >
-> * _**不允许在元素上设置宽度和高度**_
+> * **不允许在元素上设置宽度和高度**
 > * 不保留上下内外边距
 
 > [!NOTE] 常见的行内元素
@@ -59,9 +53,9 @@ li {
 }
 ```
 
-#### 隐藏元素 none
+### 隐藏元素 none
 
-> 默认情况下`<script>元素`使用`display: none;`
+默认情况下 `<script>元素` 使用 `display: none;`
 
 ```css
 /* 元素被隐藏，不会占用空间 */
@@ -75,19 +69,15 @@ h1.hidden {
 }
 ```
 
-#### 行内块元素 inline-block
+### 行内块元素 inline-block
 
-> `inline-block` 结合了 `inline` 和 `block` 的优点 !\[\[Excalidraw/计算机/JavaWeb Draw.md#^group=tsmJGJs5|500]]
+`inline-block` 结合了 `inline` 和 `block` 的优点 !\[\[Excalidraw/计算机/JavaWeb Draw.md#^group=tsmJGJs5|500]]
 
-#### 弹性容器 Flexbox
-
-\[\[#Flexbox]]
-
-### max-width
-
+### 弹性容器 Flexbox
+## max-width
 > `width` 当浏览器窗口小于元素的宽度时，浏览器会将水平滚动条添加到页面 `max-width` 可以改善浏览器对小窗口的处理，当浏览器窗口小于元素的宽度时，会自动换行
 
-### position
+## position
 
 > [!NOTE] 属性值
 >
@@ -142,7 +132,7 @@ div.sticky {
 >
 > * 一般会把父元素定义为 `relative` ，子元素定义为 `absolute` ，这样子元素就会在父元素的里面进行绝对定位，而不是相对于整个文档
 
-### 重叠
+## 重叠
 
 ```css
 /* 由于所有元素都设置了absolute，所以会重叠 */
@@ -169,7 +159,7 @@ img {
 <p>p2222222222222222222222222222222222222222222222</p>   
 ```
 
-### 溢出 overflow
+## 溢出 overflow
 
 * `overflow` 元素内容太大而无法放入指定区域时是_**剪裁内容**_还是_**添加滚动条**_，==仅适用于具有指定高度的块元素==
   * `visible` _**默认**_，溢出没有被剪裁，==内容在元素框外渲染==
@@ -195,7 +185,7 @@ div {
 
 !\[\[Excalidraw/计算机/JavaWeb Draw.md#^group=b8rxkPi3|800]]
 
-### 浮动 float
+## 浮动 float
 
 > [!NOTE] 属性值
 >
@@ -224,7 +214,7 @@ img {
 
 > [!attention] 被设置为浮动的元素 不在文档的普通流中，所以文档的普通流中的块框表现得就像浮动框不存在一样 !\[\[Excalidraw/计算机/JavaWeb Draw.md#^group=vCuuJ0iq|700]] ==要解决这个问题，可以对==`div2`==使用==`clear`==属性==
 
-### 清除 clear
+## 清除 clear
 
 > [!NOTE] 属性值
 >
@@ -251,9 +241,8 @@ img {
 
 !\[\[Excalidraw/计算机/JavaWeb Draw.md#^group=sgLQHiif|700]]
 
-## Flexbox
-
-> `Flexbox`可以更轻松地设计灵活的响应式布局结构，而无需使用 `float` 和`position`
+# Flexbox
+`Flexbox` 可以更轻松地设计灵活的响应式布局结构，无需 `float`  和 `position`
 
 ```css
 .flex-container {
@@ -279,39 +268,37 @@ img {
 </div>
 ```
 
-### 弹性容器
-
+## 弹性容器
 * `flex-direction` _**定义容器要在哪个方向上堆叠 flex 项目**_
-  * `column` 在竖直方向上堆叠
-  * `column-reverse` 竖直，但是是从下到上
-  * `row` 水平
-  * `row-reverse`
+	* `column` 在竖直方向上堆叠
+	* `column-reverse` 竖直，但是是从下到上
+	* `row` 水平
+	* `row-reverse`
 * `flex-wrap` _**规定是否应该对 flex 项目换行**_
-  * `wrap` 在必要时进行换行
-  * `nowrap` 【默认】，不对flex项目换行
-  * `wrap-reverse` 在必要时，flex项目将从下到上换行
+	* `wrap` 在必要时进行换行
+	* `nowrap` 【默认】，不对flex项目换行
+	* `wrap-reverse` 在必要时，flex项目将从下到上换行
 * `justify-content` _**用于水平对齐flex项目**_
-  * `center` 将flex项目在flex容器里居中
-  * `flex-start` 【默认】
-  * `flex-end` 在末端对齐
-  * `space-around` 在每个flex项目的两侧都添加空间
-  * `space-between` 第一个flex项目的左侧不添加空间，最后一个flex项目的右侧不添加空间，其他都类似 `space-around`
+	* `center` 将flex项目在flex容器里居中
+	* `flex-start` 【默认】
+	* `flex-end` 在末端对齐
+	* `space-around` 在每个flex项目的两侧都添加空间
+	* `space-between` 第一个flex项目的左侧不添加空间，最后一个flex项目的右侧不添加空间，其他都类似 `space-around`
 * `align-items` _**用于垂直对齐flex项目**_
-  * `center`
-  * `flex-start`
-  * `flex-end`
-  * `stretch` 【默认】，拉伸flex项目填充满整个高度
-  * `baseline` 根据文本的底部线居中对齐
+	* `center`
+	* `flex-start`
+	* `flex-end`
+	* `stretch` 【默认】，拉伸flex项目填充满整个高度
+	* `baseline` 根据文本的底部线居中对齐
 * `align-content` _**用于不同行之间的flex项目应该如何垂直对齐**_
-  * `stretch` 【默认】，拉伸每一行以填充满整个高度
-  * `space-around` 在有多行时，每一行的上下都添加相同间距
-  * `space-between` 在有多行时，第一行的上面无间距，最后一行的下面无间距，其他行平分间距
-  * `center` 每一行的无间距的挤到中间
-  * `flex-start` 每一行都挤到上面
-  * `flex-end` 每一行都挤到下面
+	* `stretch` 【默认】，拉伸每一行以填充满整个高度
+	* `space-around` 在有多行时，每一行的上下都添加相同间距
+	* `space-between` 在有多行时，第一行的上面无间距，最后一行的下面无间距，其他行平分间距
+	* `center` 每一行的无间距的挤到中间
+	* `flex-start` 每一行都挤到上面
+	* `flex-end` 每一行都挤到下面
 
-### 弹性项目
-
+## 弹性项目
 * `order` 规定flex项目的顺序
 * `flex-grow` 规定某个 flex 项目相对于其余 flex 项目将增长多少，_**默认值为1，0表示不可增长**_， https://www.w3school.com.cn/tiy/t.asp?f=css3\_flexbox\_flex-grow
 * `flex-shrink` 规定某个 flex 项目相对于其余 flex 项目将收缩多少，_**默认值为1，0表示不可收缩**_
@@ -351,14 +338,8 @@ img {
 </div>
 ```
 
-> [!NOTE] Flexbox 常用于创建响应式布局
-
-## 状态选择器
-
-> 伪类用于定义元素的**特殊状态**
-
-根据元素处于什么状态来设置不同样式：
-
+# 状态选择器
+伪类用于定义元素的**特殊状态**，根据元素处于什么状态来设置不同样式：
 * `:link`  未访问过的链接
 * `:visited`  访问过的链接
 * `:hover`  鼠标悬停时
@@ -403,7 +384,6 @@ img {
 ***
 
 * 链接的设置
-
 ```css
 /* 未访问过的链接 */
 a:link {
@@ -429,7 +409,6 @@ a:active {
 > [!attention] 链接的状态属性不是html的属性，所以不能使用行内样式
 
 * 提示悬停
-
 ```css
 p {
 	display: none;
@@ -442,9 +421,7 @@ div:hover p {
 	display: block;
 }
 ```
-
 * 匹配符合要求的类的元素
-
 ```css
 /* 对data-line大于等于10的li应用样式 */
 li[data-line]:nth-child(n+10) {
@@ -458,12 +435,11 @@ li[data-line]:nth-child(n+10) {
 <li data-line="11"></li> 
 ```
 
-## 伪元素
+# 伪元素
 伪元素用于设置元素指定部分的样式，可以在内容之前或之后插入内容
 
-### ::first-line
-
-> 向文本的 **首行** 添加特殊样式，==只能应用于块级元素==
+## ::first-line
+向文本的 **首行** 添加特殊样式，==只能应用于块级元素==
 
 ```css
 <p>您可以使用 ::first-line 伪元素将特殊效果添加到文本的第一行。一些更多的文字。越来越多，越来越多，越来越多，越来越多，越来越多，越来越多，越来越多，越来越多，越来越多，越来越多。</p>
@@ -490,9 +466,8 @@ li[data-line]:nth-child(n+10) {
 > * line-height
 > * clear
 
-### ::first-letter
-
-> 向文本的 **首字母** 添加特殊样式，==只适用于块级元素==
+## ::first-letter
+向文本的 **首字母** 添加特殊样式，==只适用于块级元素==
 
 ```css
 p::first-letter {
@@ -513,9 +488,8 @@ p::first-letter {
 > * float
 > * clear
 
-### ::before
-
-> 在元素内容之前插入一些内容
+## ::before
+在元素内容之前插入一些内容
 
 ```css
 /* 在每个<h1>元素之前插入一幅图像 */
@@ -524,13 +498,11 @@ h1::before {
 }
 ```
 
-### ::after
+## ::after
+在元素内容之后插入一些内容
 
-> 在元素内容之后插入一些内容
-
-### ::selection
-
-> 匹配用户选择的元素部分
+## ::selection
+匹配用户选择的元素部分
 
 ```css
 /* 会对鼠标选择的文本进行处理 */
@@ -553,9 +525,8 @@ h1::before {
 > * `cursor`
 > * `outline`
 
-## 导航栏
-
-> 导航栏基本上是链接列表
+# 导航栏
+导航栏基本上是链接列表
 
 > [!NOTE] 设置导航时的注意点
 >
@@ -563,13 +534,11 @@ h1::before {
 > * `width: 60px;` 默认情况下，块元素会占用全部可用宽度，我们需要指定合适的 width
 > * `position: fixed;` 固定导航栏
 
-### 垂直导航栏
+## 垂直导航栏
+列表本身就是垂直的，相对简单些
 
-> 列表本身就是垂直的，相对简单些
-
-### 水平导航栏
-
-> 使用 _**行内**_ 或 _**浮动**_
+## 水平导航栏
+使用 _**行内**_ 或 _**浮动**_
 
 ```css
 <ul>
@@ -602,8 +571,7 @@ a {
 }
 ```
 
-### 响应式顶部导航栏
-
+## 响应式顶部导航栏
 ```css
 /* 在屏幕尺寸小于或等于600像素时垂直堆叠导航栏 */
 @media screen and (max-width: 600px) {
@@ -613,11 +581,11 @@ a {
 }
 ```
 
-### 悬浮下拉菜单
-> 基本思路：
-> 1. 先把下拉菜单创建好
-> 2. 再将其设置为`display: none;`
-> 3. 设置悬浮`:hover` 时 `display: block;`
+## 悬浮下拉菜单
+基本思路：
+1. 先把下拉菜单创建好
+2. 再将其设置为 `display: none;`
+3. 设置悬浮 `:hover` 时 `display: block;`
 
 ```css
 <li><a href="#home">Home</a></li>
@@ -645,10 +613,8 @@ a {
 }
 ```
 
-## 计数器
-
-> 计数器使您可以根据内容在文档中的位置来调整其外观
-
+# 计数器
+计数器使您可以根据内容在文档中的位置来调整其外观
 * `counter-reset`  创建或重置计数器
 * `counter-increment`  递增计数器值
 * `content`  插入生成的内容
@@ -673,8 +639,6 @@ a {
 </style>
 ```
 
-!\[\[Excalidraw/计算机/JavaWeb Draw.md#^group=FEjVXHLN|300]]
-
 ***
 
 ```css
@@ -698,9 +662,8 @@ h2::before {
 }
 ```
 
-## 冲突
-
-> 如果有两条或两条以上指向同一元素的冲突CSS规则，则浏览器将遵循一些原则来确定应用哪一条
+# 冲突
+如果有两条或两条以上指向同一元素的冲突CSS规则，则浏览器将遵循一些原则来确定应用哪一条
 
 > [!NOTE] 冲突规则
 >

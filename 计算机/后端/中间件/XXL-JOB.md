@@ -24,7 +24,7 @@
 - 如果给任务配置了超时时间，就不会直接使用当前线程来执行方法调用，而是通过一个 futureTask 来做异步调用
 
 # ❤️ 安装配置
-## 配置调度中心
+## 💛 配置调度中心
 - 运行官网的 [sql 文件](https://github.com/xuxueli/xxl-job/tree/master/doc/db)，创建数据库
 - 创建管理中心容器，mysql 如果是容器，要连接容器内的 network
 ```bash
@@ -41,7 +41,7 @@ docker run -d -e PARAMS="--spring.datasource.url=jdbc:mysql://172.17.0.1:3306/xx
 ```
 - 默认账户 ：admin 123456
 
-## 配置执行器
+## 💛 配置执行器
 - 引入依赖
 ```xml
 <dependency>
@@ -89,7 +89,7 @@ public XxlJobSpringExecutor xxlJobExecutor() {
 }
 ```
 
-## 对接调度中心和执行器
+## 💛 对接调度中心和执行器
 - **注册执行器** : 在管理页面 > 执行器管理 > 新增 > 输入执行中心配置文件的 appName，名称随意，选择自动注册 > 确定
 
 # ❤️ 创建任务
