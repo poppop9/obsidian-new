@@ -27,7 +27,7 @@
 
  [Axios](https://axios-http.com/zh/docs/intro) 对原生的 Ajax 进行了封装，简化了书写
 
-# 安装Axios
+# ❤️ 安装Axios
 ## 工程化 Axios
 * 在项目目录下的 cmd 输入 `npm install axios`
 * 需要 Axios 时，在 `script标签` 中导入
@@ -45,8 +45,15 @@
     ```
 * 然后就可以在 `script标签` 中使用axios了
 
-# 使用与定义
-我们一般会把异步请求封装到一个单独的 `.js 文件` 中，并暴露调用函数，这样在其他文件中可以直接调用，不用重复书写相同的 `axios 代码`
+# ❤️ 配置 · 使用
+<u>配置</u> ：
+```jsx
+axios.defaults.baseURL = 'http://localhost:8090';
+```
+
+---
+
+<u>使用</u> ：我们一般会把异步请求封装到一个单独的 `.js 文件` 中，并暴露调用函数，这样在其他文件中可以直接调用，不用重复书写相同的 `axios 代码`
 
 ```js
 export function getHello() {
@@ -54,7 +61,7 @@ export function getHello() {
 }
 ```
 
-# 请求方式
+# ❤️ 请求方式
 ## get
 * `result` 服务器返回的所有数据【响应头，响应体】
 * `result.data` 服务器返回的核心数据
@@ -128,7 +135,7 @@ axios.post('http://localhost:8080/qrcodepay', jsondata, {
 	});
 ```
 
-# 同步与异步
+# ❤️ 同步与异步
 ## 同步
  `js代码` 与 `axios请求代码` 顺序执行，使用 `async` ，`await`
 
@@ -161,24 +168,25 @@ function dispatchAward() {
 
 > [!attention] `async` 是异步的意思，为什么用于同步呢 由于 JavaScript 是赶工出来的语言，这是它的设计缺陷，`await` 必须在 `async` 定义的函数里面才能使用
 
-# 公共路径baseURL
-如果每一个 `axios请求` 都包含完整的路径，那么后续改动时将非常麻烦，所以我们会定义一个公共路径 `baseURL`
+# ❤️ 拦截器
+- 请求拦截器 ：在发送请求之前拦截，做一些操作
+```jsx
+axios.interceptors.request.use(
+    (config) => {
+        // 由于 set-cookie，浏览器会自动带上 cookie，无需手动设置
+        config.withCredentials = true;  // 统一配置带上 credentials
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
 
-* ~~未定义~~ `baseURL`
-```js
-axios.get('http://localhost:8080/helloparam').then(result => {
-	alert(result.data);
-});
+export default axios;  // 之后其他文件使用则从这里导入
 ```
-* 定义 `baseURL`
-```js
-// 定义基础路径
-const baseURL = 'http://localhost:8080';
-// 将基础路径作为js对象，传递给axios，拿到instance对象
-const instance = axios.create({ baseURL });
 
-// 使用instance对象
-instance.get('/helloparam').then(result => {
-	alert(result.data);
-});
-```
+
+
+- 响应拦截器
+
+
