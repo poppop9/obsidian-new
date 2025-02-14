@@ -110,9 +110,10 @@ let jsondata = {
 	name: '张三'
 };
 
-axios.post('http://localhost:8080/hellojson', jsondata).then(result => {
-	alert(result.data);
-});
+axios.post('http://localhost:8080/hellojson', jsondata)
+	.then(result => {
+		alert(result.data);
+	});
 ```
 
 ## delete
