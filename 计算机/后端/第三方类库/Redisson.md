@@ -216,7 +216,7 @@ public class MyObject {
 ```
 
 # ❤️ 分布式集合
-## 💛 列表 List
+## 💛 List
 - RedissonClient 下的方法
 	- `getList(键)` 生成 RList 对象
 - RList 下的方法
@@ -247,7 +247,8 @@ rList.addAll(AwardBOs);
 rList.forEach(System.out::println);
 ```
 
-## 💛 无序不重复集合 RSet
+## 💛 Set
+### 💙 无序不重复集合 RSet
 - 交并补
 	- `Set readIntersect(String... var1)` 交集
 	- `Set readUnion(String... var1)` 并集
@@ -264,13 +265,13 @@ Set<String> union = electronics.readUnion(clothing, books);
 Set<String> difference = electronics.readDifference(clothing);
 ```
 
-## RSortedSet
+### RSortedSet
 
 
-## 💛 RBitSet
+### 💙 位图 RBitSet
 - `getBitSet()` 
 - 【改】
-	- `set(long)` 将该位设为 true
+	- `boolean set(long)` 将该位设为 true，返回旧值
 	- `clear(long)` 将该位设为 false
 	- `set(long, boolean)` 设置第 x 位，为 true / false
 	- `set(long1, long2, boolean)` 将第 x 位到第 y-1 位设置为指定 boolean
@@ -294,7 +295,18 @@ long cardinality = bitSet.cardinality(); // 获取所有置1的位的数量
 long length = bitSet.length(); // 获取 Bitmap 的总长度（最后一位+1）
 ```
 
-## 💛 RScoredSortedSet
+---
+
+位图用作并发锁，可以节省 redis 空间，**但由于不是天然的锁工具，无法阻塞**
+```java
+public boolean acquireLoginLock(Long userId) {
+	RBitSet bitSet = redissonClient.getBitSet(GlobalConstant.RedisKey.FREQUENT_LOGIN_USER);
+	boolean wasLocked = bitSet.set(userId, true);
+	return !wasLocked;
+}
+```
+
+### 💙 RScoredSortedSet
 RScoredSortedSet 中的每个元素都带有分数，并且集合跟据分数进行排名（从 0 开始）
 
 - 【增】
@@ -309,10 +321,11 @@ RScoredSortedSet 中的每个元素都带有分数，并且集合跟据分数进
 	- `rank(元素)` 获取指定元素的排名
 	- `getScore(元素)` 获取指定元素的分数
 
-## RLexSortedSet
+### RLexSortedSet
 RLexSortedSet 是跟据字典排序的集合
 
-## 💛 哈希 RMap
+## 💛 Map
+### 💙 哈希 RMap
 RMap 是线程安全的，所以其操作也可以看作是原子的
 
 - `getMap()` 
@@ -342,9 +355,9 @@ public void testRedisson() {
 淘宝优惠券
 ```
 
-## RListMultimap
+### RListMultimap
 
-## RMapCache
+### RMapCache
 `RMapCache` 可以为每个键值对单独设置 TTL，支持最大空闲时间，支持监听键过期和删除事件
 
 
@@ -511,7 +524,7 @@ AtomicLong 底层是 CAS，而 LongAdder 是用的分段算法，能够在高高
 >[!NOTE] 默认不给锁设置超时时间时，其实不是一直等到手动释放锁，锁的超时时间才会改变
 >当你获取锁时，redisson 默认会为这个锁设置一个超时时间（30s），并且后台会启动一个线程”看门狗“，这个看门狗大概会在过期时间的一半左右，续期这把锁（~~续期时间可以自己设置，默认 30s~~），这样这把锁就还是没被释放
 
-## 💛 递归锁
+## 💛 递归锁 Lock
 递归锁 就是如果一个线程已经持有锁，并再次尝试获取该锁，它可以成功获取，而不会发生死锁，**但是要保证获取了多少次锁，就要调用多少次 unlock** ：
 - 【获取对象】
 	- `RLock getLock(锁名)` 跟据锁名获取锁（同一锁名为同一把锁）
@@ -564,7 +577,7 @@ lock.unlock();
 ```
 
 ## 红锁 RedLock
-
+依次向每个 Redis 节点发送加锁命令，并记录每个节点的响应时间，如果超过锁的超时时间，则认为失败。检查成功加锁的节点数是否达到多数，如果未满足多数成功条件，立即向所有节点发送解锁请求
 
 ## 💛 读写锁 ReadWriteLock
 >[!quote] 读写锁 ReadWriteLock
@@ -590,7 +603,6 @@ lock.unlock();
 
 - 【获取对象】
 	- `RSemaphore getSemaphore(锁名)` 
-- 
 
 ```java
 RSemaphore semaphore = redisson.getSemaphore("printer");
@@ -617,7 +629,27 @@ System.out.println("Thread A released the printer");
 ## 倒计时锁 CountDownLatch
 CountDownLatch 会维护一个计数器，当计数器中的值为 0 时，才会释放锁
 
+# ❤️ 分布式异步多线程
+一般不使用，因为 RFuture 里的状态太多了，序列化很麻烦，并且序列化到 redis 很占用空间
 
+## RFuture
+
+
+## RScheduledExecutorService
+<u>配置</u>
+```java
+RExecutorService executorService = redissonClient.getExecutorService("myScheduledThreadPool");
+executorService.registerWorkers(WorkerOptions
+		.defaults()
+		.executorService(myScheduledThreadPool.getScheduledExecutor()));
+```
+
+<u>使用</u> ：
+- `submit(……)` lambda 表达式中的一切都要实现序列化接口
+```java
+RScheduledExecutorService executorService = redissonClient.getExecutorService("myScheduledThreadPool");
+RExecutorFuture rExecutorFuture = executorService.submit(……)
+```
 
 # ❤️ 其他
 ## 💛 键 RKeys

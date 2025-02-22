@@ -28,8 +28,10 @@ public class DancerService {
 }
 ```
 
-## 💛 rollbackFor
-事务管理默认只在 `RuntimeException` 出现时才事务回滚，我们可以使用 `rollbackFor` 来指定什么异常需要回滚
+## 💛 rollbackFor / noRollbackFor
+事务管理默认只在 `RuntimeException` 出现时才事务回滚
+- `rollbackFor` 指定什么异常需要回滚
+- `noRollbackFor` 
 
 ```java
 @Override
@@ -38,6 +40,8 @@ public void DeleteDanceType(Integer id) {
 	……
 }
 ```
+
+
 
 ## 💛 propagation
 用于指定<u>当事务嵌套了</u>，该如何处理事务 ：
@@ -69,7 +73,7 @@ public void workA (){
 
 ### 💙 REQUIRES_NEW
 ```java
-@Transactional(propagation = Propagation.REQUIRES_NEW)
+@Transactional
 public void workA (){
 	try {
 		C
@@ -77,7 +81,7 @@ public void workA (){
 		D
 	} finally {
 		// 此处一般用来记录日志
-		// 这个方法在 B 中加入了事务
+		// 这个方法在 B 中加入了事务 (propagation = Propagation.REQUIRES_NEW)
 		B.workB();
 	}
 }
