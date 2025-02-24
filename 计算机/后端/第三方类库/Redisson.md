@@ -713,6 +713,7 @@ Redis Keyspace Notifications 可以用于监控键的事件（创建、删除、
 Pipeline 可以一次性提交多条更新命令，减少网络延迟
 
 ---
+
 - 限流器 RateLimiter
 - Publish / Subscribe 提供了发布/订阅消息系统的实现
 - Remote Service 允许在 Redis 上实现分布式服务，客户端可以像调用本地服务一样调用远程服务。通过基于 Redis 的异步和同步通信
