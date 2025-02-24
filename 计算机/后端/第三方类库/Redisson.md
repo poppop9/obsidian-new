@@ -529,7 +529,7 @@ AtomicLong 底层是 CAS，而 LongAdder 是用的分段算法，能够在高高
 - 【获取对象】
 	- `RLock getLock(锁名)` 跟据锁名获取锁（同一锁名为同一把锁）
 - `lock()` 获取锁并加锁，一直锁，直到手动释放
-- `lock(10, TimeUnit.SECONDS);` 锁的有效期为 10s
+- `lock(10, TimeUnit.SECONDS)` 锁的有效期为 10s
 - `boolean tryLock(100, 10, TimeUnit.SECONDS)` 获取锁的超时时间为 100s（如果在指定时间内无法获得锁，将放弃获取锁返回  false）
 
 ```java

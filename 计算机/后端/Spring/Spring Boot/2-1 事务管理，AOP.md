@@ -5,8 +5,7 @@
 > - 事务的回滚机制只适用于关系型数据库，redis 就不适用
 > - 事务管理 的底层是 AOP
 
----
-
+## 💛 注解事务
 接口，类，方法上添加 `@Transactional` ：
 - <u>接口</u> ：该接口下的所有实现类的所有方法
 - <u>类</u> ：该类下的所有方法
@@ -28,7 +27,7 @@ public class DancerService {
 }
 ```
 
-## 💛 rollbackFor / noRollbackFor
+### 💙 rollbackFor / noRollbackFor
 事务管理默认只在 `RuntimeException` 出现时才事务回滚
 - `rollbackFor` 指定什么异常需要回滚
 - `noRollbackFor` 
@@ -41,9 +40,7 @@ public void DeleteDanceType(Integer id) {
 }
 ```
 
-
-
-## 💛 propagation
+### 💙 propagation
 用于指定<u>当事务嵌套了</u>，该如何处理事务 ：
 - `REQUIRED` ~~默认~~ 如果当前没有事务，则新建一个事务；如果已经存在一个事务中，则加入到这个事务中
 - `SUPPORTS` 如果当前存在事务，则加入该事务；如果没有，就以非事务方式执行
@@ -53,7 +50,9 @@ public void DeleteDanceType(Integer id) {
 - `NEVER`  以非事务方式执行操作，如果当前存在事务，则抛出异常
 - `NESTED` 如果当前存在事务，则在嵌套事务内执行；如果没有，就新建一个事务
 
-### 💙 REQUIRED
+---
+
+<u>REQUIRED</u>
 ```java
 @Transactional
 public void workA (){
@@ -71,7 +70,7 @@ public void workA (){
 
 ![500](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202402291623087.png)
 
-### 💙 REQUIRES_NEW
+<u>REQUIRES_NEW</u>
 ```java
 @Transactional
 public void workA (){
@@ -89,10 +88,8 @@ public void workA (){
 
 ![900](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202402291632083.png)
 
-## 💛 readOnly
+### 💙 readOnly
 `readOnly = true` 标识了该事务中只执行读取操作，不进行任何修改或写入操作
-
----
 
 <u>优点</u> ：
 - **避免脏检查**：普通事务会跟踪实体的状态变化，而只读事务假设事务内不会有数据修改，所以也不会跟踪实体的状态变化，从而减少开销，~~但是你如果在只读事务中执行了写操作，那 Spring 还是会抛异常~~
@@ -100,9 +97,29 @@ public void workA (){
 - **提高并发性**：
 	- 普通事务会加入读锁，写锁
 	- 只读事务既无读锁，也无写锁
-
 <u>缺点</u> ：
 - 只读事务也是事务，一个事务就会占用一个数据库连接资源，~~如果如何这个方法的执行时间很长，那就不推荐设置为只读事务~~
+
+## 💛 TransactionTemplate
+- 入参 status 的方法
+	- `setRollbackOnly()` 将当前事务标记为“仅回滚”，即使事务执行成功也不会提交
+	- `boolean isRollbackOnly()` 检查当前事务是否已被标记为“仅回滚”
+	- `boolean isNewTransaction()` 检查当前事务是否是一个新事务
+	- `hasSavepoint()` 检查当前事务是否有保存点，意味着事务中某些部分可以回滚到保存点，而不是回滚整个事务
+	- `flush()` 刷新当前事务的状态，确保在事务中进行的所有更改立即同步到数据库中
+
+```java
+@Resource
+private TransactionTemplate transactionTemplate;
+
+// 使用 TransactionTemplate 执行事务部分
+transactionTemplate.execute(status -> {
+	// 事务代码
+	System.out.println("事务代码执行");
+	// 模拟操作数据库
+	return null; // 如果需要返回值，可以返回具体数据
+});
+```
 
 ## 💛 事务失效
 <u>事务在多线程环境下会失效</u> ：一遇到异步执行，后续的操作都不保证事务性。spring 默认每个线程都有其独立的事务上下文，确保了事务信息在线程间的隔离
