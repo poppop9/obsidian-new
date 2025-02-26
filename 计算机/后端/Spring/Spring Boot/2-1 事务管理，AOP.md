@@ -101,6 +101,11 @@ public void workA (){
 - 只读事务也是事务，一个事务就会占用一个数据库连接资源，~~如果如何这个方法的执行时间很长，那就不推荐设置为只读事务~~
 
 ## 💛 TransactionTemplate
+TransactionTemplate 提供了更高的灵活性 ：
+- 需要手动处理回滚，否则即使异常，事务也会提交
+
+---
+
 - 入参 status 的方法
 	- `setRollbackOnly()` 将当前事务标记为“仅回滚”，即使事务执行成功也不会提交
 	- `boolean isRollbackOnly()` 检查当前事务是否已被标记为“仅回滚”
@@ -114,9 +119,16 @@ private TransactionTemplate transactionTemplate;
 
 // 使用 TransactionTemplate 执行事务部分
 transactionTemplate.execute(status -> {
-	// 事务代码
-	System.out.println("事务代码执行");
-	// 模拟操作数据库
+	try {
+		// 业务逻辑
+		System.out.println("执行事务逻辑...");
+		// 模拟异常
+		int result = 1 / 0; 
+	} catch (Exception e) {
+		System.out.println("捕获异常，回滚事务");
+		// 显式标记事务回滚
+		status.setRollbackOnly();
+	}
 	return null; // 如果需要返回值，可以返回具体数据
 });
 ```

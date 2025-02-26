@@ -19,7 +19,7 @@
 
 [教程](https://blog.csdn.net/A_art_xiang/article/details/125525864?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522171964322916800222820133%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=171964322916800222820133&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-125525864-null-null.142^v100^pc_search_result_base5&utm_term=redisson&spm=1018.2226.3001.4187)
 
-# ❤️ 配置
+# 🔧 配置
 - 添加 redis 配置
 ```yml
 redis:  
@@ -75,7 +75,7 @@ public class RedissonConfig {
 }
 ```
 
-# ❤️ 分布式对象
+# 🎯 分布式对象
 >[!NOTE] RedissonClient 对象获取任何其他对象，如果不存在，也不会报 null，也只会返回一个空的对象，不用担心空指针
 
 ## 💛 Key
@@ -215,7 +215,7 @@ public class MyObject {
 }
 ```
 
-# ❤️ 分布式集合
+# 👥 分布式集合
 ## 💛 List
 - RedissonClient 下的方法
 	- `getList(键)` 生成 RList 对象
@@ -361,7 +361,7 @@ public void testRedisson() {
 `RMapCache` 可以为每个键值对单独设置 TTL，支持最大空闲时间，支持监听键过期和删除事件
 
 
-# ❤️ 分布式队列
+# 🚶‍♂️ 分布式队列
 ## 💛 队列 RQueue
 >[!quote] RQueue
 >RQueue 是一个分布式的、线程安全的队列接口
@@ -459,7 +459,7 @@ rDelayedQueue.offer(delayedDecrVO, 3, java.util.concurrent.TimeUnit.SECONDS);
 ## 阻塞双端队列 BlockingDeque
 
 
-# ❤️ 分布式原子变量
+# ⚛️ 分布式原子变量
 ## 💛 原子长整型 AtomicLong
 >[!quote] AtomicLong
 >AtomicLong 是一个分布式原子 long，是一个线程安全对象
@@ -513,7 +513,7 @@ AtomicLong 底层是 CAS，而 LongAdder 是用的分段算法，能够在高高
 > - 会有内存开销，但是几乎忽略
 > - 在合并频繁时，会有合并开销
 
-# ❤️ 分布式锁
+# 🔒 分布式锁
 >[!quote] 分布式锁
 >分布式锁 可以跨 JVM 来管理共享资源的访问
 >
@@ -629,7 +629,7 @@ System.out.println("Thread A released the printer");
 ## 倒计时锁 CountDownLatch
 CountDownLatch 会维护一个计数器，当计数器中的值为 0 时，才会释放锁
 
-# ❤️ 分布式异步多线程
+# 🔄 分布式异步多线程
 一般不使用，因为 RFuture 里的状态太多了，序列化很麻烦，并且序列化到 redis 很占用空间
 
 ## RFuture
@@ -651,14 +651,45 @@ RScheduledExecutorService executorService = redissonClient.getExecutorService("m
 RExecutorFuture rExecutorFuture = executorService.submit(……)
 ```
 
-# ❤️ 其他
-## 💛 键 RKeys
-- `RKeys getKeys()` 获取所有 key 的抽象对象 RKeys
-	- `flushall()` 清空所有 key
+# 🛠️ 其他分布式工具
+## 💛 限流器 RateLimiter
+- 【获取对象】
+	- `RRateLimiter getRateLimiter(key)` 
+- 【配置】
+	- `trySetRate(RateType, 速率, 时间间隔, 时间单位)` 
+		- RateType.OVERALL 全局限流，所有客户端共享同一个限流器
+		- RateType.PER_CLIENT 每个客户端单独限流
+- 【获取】
+	- `boolean tryAcquire()` 返回 true 表示成功获取令牌
+	- `tryAcquire(1, 500, TimeUnit.MILLISECONDS)` 获取 1 个令牌，等待 500 ms，如果没获取到，报超时异常
 
 ```java
-RKeys keys = redissonClient.getKeys();
-keys.flushall();
+RRateLimiter rateLimiter = redisson.getRateLimiter("myRateLimiter");
+
+// 全局范围内，1s内生成5个令牌
+rateLimiter.trySetRate(
+	RRateLimiter.RateType.OVERALL,
+	5,
+	1,
+	RRateLimiter.IntervalUnit.SECONDS
+);
+
+// 5. 模拟请求并尝试获取令牌
+for (int i = 0; i < 10; i++) {
+	boolean acquired = rateLimiter.tryAcquire();
+	if (acquired) {
+		System.out.println("Token acquired. Task " + i + " is processing.");
+	} else {
+		System.out.println("Rate limit exceeded. Task " + i + " rejected.");
+	}
+
+	// 模拟请求间隔
+	try {
+		Thread.sleep(200); // 每 200ms 发送一次请求
+	} catch (InterruptedException e) {
+		e.printStackTrace();
+	}
+}
 ```
 
 ## 💛 布隆过滤器 RBloomFilter
@@ -700,11 +731,19 @@ false
 false
 ```
 
-
-## 💛 Redis Stream
+## 流 Redis Stream
 Redis Stream 用于处理日志或消息流数据
 - **消息队列功能**：支持生产者发布消息，消费者订阅消息
 - **持久化存储**：支持将消息数据持久化到磁盘，避免数据丢失
+
+## 💛 键 RKeys
+- `RKeys getKeys()` 获取所有 key 的抽象对象 RKeys
+	- `flushall()` 清空所有 key
+
+```java
+RKeys keys = redissonClient.getKeys();
+keys.flushall();
+```
 
 ## 键空间通知
 Redis Keyspace Notifications 可以用于监控键的事件（创建、删除、过期 ……）
@@ -714,7 +753,6 @@ Pipeline 可以一次性提交多条更新命令，减少网络延迟
 
 ---
 
-- 限流器 RateLimiter
 - Publish / Subscribe 提供了发布/订阅消息系统的实现
 - Remote Service 允许在 Redis 上实现分布式服务，客户端可以像调用本地服务一样调用远程服务。通过基于 Redis 的异步和同步通信
 - Spring Cache Redisson 提供了与 Spring Cache 集成的支持
