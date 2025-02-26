@@ -197,6 +197,10 @@ Maven 有三套独立的生命周期，每一套都有若干个阶段。**同一
 >在 Maven 的侧边栏中运行
 >![[JavaWeb Draw#^group=QqvDzj8c|300]]
 
+## 依赖冲突
+- 使用工具分析哪个依赖冲突
+![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/20250227005433.png)
+
 # ❤ 构建
 - `<build>` 部分定义了如何构建和打包项目，主要使用 [[#❤️ 插件]] 来构建
 

@@ -1,4 +1,3 @@
-
 ```xml
 <dependency>
     <groupId>com.alibaba</groupId>
@@ -9,12 +8,100 @@
 <dependency>
     <groupId>cn.idev.excel</groupId>
     <artifactId>fastexcel</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
 # ❤️ 读
+## 简单读取
+### 有 pojo
+- 定义接收的 excel 实体类
+```java
+@Data
+public class PurchaseHistoryExcelData {
+    private Long userId;  // 用户id
+    private UserPurchaseHistoryBO.PurchaseCategory purchaseCategory;  // 商品类型（生鲜、家居、数码 ……）
+    private String purchaseName;  // 商品名称
+    private double purchasePrice;  // 商品价格
+}
+```
+- 读取数据
+	- 定义数据监听器，或者内部类，来处理每一行数据（**监听器不能被 Spring 管理，每次读取 Excel 时需要重新实例化**）
+		- `invoke` 读取每一行数据时的操作
+		- `doAfterAllAnalysed` 读取完成后的操作
+	- `sheet(Integer/String)` 
+		- 如果没有参数，默认读取第一个工作表
+		- 可以给定数值，或者工作表的名字
+	- `doRead` 执行读取操作
 
+```java
+FastExcel.read("path/to/demo.xlsx", UserPurchaseHistoryBO.class, new AnalysisEventListener<UserPurchaseHistoryBO>() {
+	private final List<UserPurchaseHistoryBO> userPurchaseHistoryBOList = new ArrayList<>();
+
+	@Override
+	public void invoke(UserPurchaseHistoryBO userPurchaseHistoryBO, AnalysisContext analysisContext) {
+		userPurchaseHistoryBOList.add(userPurchaseHistoryBO);
+	}
+
+	@Override
+	public void doAfterAllAnalysed(AnalysisContext analysisContext) {
+		securityRepo.writePurchaseHistoryFromExcel(userPurchaseHistoryBOList);
+	}
+}).sheet().doRead();
+```
+
+
+### 无 pojo
+```java
+public class NoModelDataListener extends AnalysisEventListener<Map<Integer, String>> {
+    private static final int BATCH_COUNT = 5;
+    private List<Map<Integer, String>> cachedDataList = new ArrayList<>(BATCH_COUNT);
+ 
+    @Override
+    public void invoke(Map<Integer, String> data, AnalysisContext context) {
+        log.info("解析到一条数据: {}", JSON.toJSONString(data));
+        cachedDataList.add(data);
+        if (cachedDataList.size() >= BATCH_COUNT) {
+            saveData();
+            cachedDataList.clear();
+        }
+    }
+ 
+    @Override
+    public void doAfterAllAnalysed(AnalysisContext context) {
+        // 确保全部数据被处理
+        saveData();
+    }
+ 
+    private void saveData() {
+        // 实际业务处理逻辑
+        log.info("存储 {} 条数据", cachedDataList.size());
+    }
+}
+```
+
+## web 读取
+```java
+@PostMapping("/v1/writePurchaseHistoryFromExcel")
+public ResponseEntity<JsonNode> writePurchaseHistoryFromExcel(MultipartFile file) {
+	if (file.isEmpty()) return ZakiResponse.error("文件为空！");
+	FastExcel.read(file.getInputStream(), UserPurchaseHistoryBO.class, new AnalysisEventListener<UserPurchaseHistoryBO>() {  
+	    private final List<UserPurchaseHistoryBO> userPurchaseHistoryBOList = new ArrayList<>();  
+	  
+	    @Override  
+	    public void invoke(UserPurchaseHistoryBO userPurchaseHistoryBO, AnalysisContext analysisContext) {  
+	        userPurchaseHistoryBOList.add(userPurchaseHistoryBO);  
+	    }  
+	  
+	    @Override  
+	    public void doAfterAllAnalysed(AnalysisContext analysisContext) {  
+	        securityRepo.writePurchaseHistoryFromExcel(userPurchaseHistoryBOList);  
+	    }  
+	}).sheet().doRead();
+
+	return ZakiResponse.ok("文件上传成功！，数据已写入数据库");
+}
+```
 
 # ❤️ 写
 <u>数据量小于 5000 行</u> ：
