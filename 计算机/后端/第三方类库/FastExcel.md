@@ -13,8 +13,8 @@
 ```
 
 # ❤️ 读
-## 简单读取
-### 有 pojo
+## 💛 简单读取
+### 💙 有 pojo
 - 定义接收的 excel 实体类
 ```java
 @Data
@@ -33,7 +33,6 @@ public class PurchaseHistoryExcelData {
 		- 如果没有参数，默认读取第一个工作表
 		- 可以给定数值，或者工作表的名字
 	- `doRead` 执行读取操作
-
 ```java
 FastExcel.read("path/to/demo.xlsx", UserPurchaseHistoryBO.class, new AnalysisEventListener<UserPurchaseHistoryBO>() {
 	private final List<UserPurchaseHistoryBO> userPurchaseHistoryBOList = new ArrayList<>();
@@ -50,8 +49,7 @@ FastExcel.read("path/to/demo.xlsx", UserPurchaseHistoryBO.class, new AnalysisEve
 }).sheet().doRead();
 ```
 
-
-### 无 pojo
+### 💙 无 pojo
 ```java
 public class NoModelDataListener extends AnalysisEventListener<Map<Integer, String>> {
     private static final int BATCH_COUNT = 5;
@@ -80,7 +78,45 @@ public class NoModelDataListener extends AnalysisEventListener<Map<Integer, Stri
 }
 ```
 
-## web 读取
+## 💛 复杂读取
+### 💙 转换器
+当 excel 数据格式与定义的 pojo 不匹配时，需要使用转换器进行转换
+
+- 定义转换器
+	- `supportJavaTypeKey` 告诉框架支持的 java 类型
+	- `supportExcelTypeKey` 告诉框架支持的 excel 类型
+	- `convertToJavaData` 将 Excel 数据转换为 Java 数据
+	- `convertToExcelData` 将 Java 数据转换为 Excel 数据
+```java
+public class CustomStringStringConverter implements Converter<String> {
+    @Override
+    public Class<?> supportJavaTypeKey() {
+        return String.class;
+    }
+ 
+    @Override
+    public CellDataTypeEnum supportExcelTypeKey() {
+        return CellDataTypeEnum.STRING;
+    }
+ 
+    @Override
+    public String convertToJavaData(ReadConverterContext<?> context) {
+        return "自定义：" + context.getReadCellData().getStringValue();
+    }
+ 
+    @Override
+    public WriteCellData<?> convertToExcelData(WriteConverterContext<String> context) {
+        return new WriteCellData<>(context.getValue());
+    }
+}
+```
+- 使用转换器
+```java
+@ExcelProperty(converter = StringEnumConverter.class)  
+private PurchaseCategory purchaseCategory;
+```
+
+## 💛 web 读取
 ```java
 @PostMapping("/v1/writePurchaseHistoryFromExcel")
 public ResponseEntity<JsonNode> writePurchaseHistoryFromExcel(MultipartFile file) {
@@ -99,7 +135,7 @@ public ResponseEntity<JsonNode> writePurchaseHistoryFromExcel(MultipartFile file
 	    }  
 	}).sheet().doRead();
 
-	return ZakiResponse.ok("文件上传成功！，数据已写入数据库");
+	return ZakiResponse.ok("文件上传成功，数据已写入数据库");
 }
 ```
 

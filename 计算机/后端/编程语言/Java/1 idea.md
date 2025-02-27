@@ -85,6 +85,7 @@ get ,set 方法，构造方法 `alt+insert`
 	- 按住 `ctrl` ，拖动光标到指定行
 - `Rainbow Brackets` 彩虹括号，yml 文件分级配色
 - `CamelCase` 转换大小写，shift + alt + u
+- `Maven helper` 可以分析依赖冲突
 
 
 
