@@ -57,12 +57,10 @@ long id = IdUtil.getSnowflakeNextId();
 String id = IdUtil.getSnowflakeNextIdStr();
 ```
 
-
-
 ## 💛 随机 Random
 - `RandomUtil` 静态对象
 	- `randomInt()` 获取随机的 int
-	- `randomInt(int minInclude, int maxExclude)` 获得指定范围内的随机数
+	- `randomInt(int minInclude, int maxExclude)` 获得指定范围内的随机数（包左不包右）
 	- `randomString(int length)` 获得一个随机的 length 长度的字符串
 
 ```java
