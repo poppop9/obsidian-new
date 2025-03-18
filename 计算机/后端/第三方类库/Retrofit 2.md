@@ -27,7 +27,6 @@ public interface GitHubService {
 
 // 总结：定义了一个api规范，根据后续实现类的baseUrl，拼接上 ‘users/{user}/repos’ ，其中的 ‘{user}’ 参数在调用时传入
 ```
-
 - 创建 Retrofit 实例，并用 Retrofit 实例生成接口的实现类对象，用接口的实现类对象生成 Call 对象，使用 Call 对象发起请求，获取到 Response 对象
 ```java
 // 创建Retrofit实例
@@ -71,7 +70,6 @@ System.out.println(response.body());
 
 - `@Path("与url对应")`
 - `@Query("查询参数")` 
-
 ```java
 // {id} 参数会在方法调用时传入
 @GET("group/{id}/users")
@@ -81,7 +79,6 @@ Call<List<User>> groupList(@Path("id") int groupId,
 
 ## 请求头
 - `@Headers` 为方法设置头信息
-
 ```java
 // 设置一个
 @Headers("Cache-Control: max-age=640000")
@@ -96,18 +93,11 @@ Call<List<Widget>> widgetList();
 @GET("users/{username}")
 Call<User> getUser(@Path("username") String username);
 ```
-
----
-
 - `@Header` 在方法调用时，动态传入头信息
-
 ```java
 @GET("user")
 Call<User> getUser(@Header("Authorization") String authorization)
 ```
-
----
-
 - `@HeaderMap` 在方法调用时，动态传入一组头信息【~~对于复杂的请求头~~】
 ```java
 @GET("user")
@@ -116,7 +106,6 @@ Call<User> getUser(@HeaderMap Map<String, String> headers)
 
 ## 请求正文
 - `@Body` 指定一个对象作为 HTTP 请求的正文【~~需要与转换器搭配使用~~】
-
 ```java
 @POST("users/new")
 Call<User> createUser(@Body User user);
