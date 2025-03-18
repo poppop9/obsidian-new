@@ -57,7 +57,6 @@ System.out.println(response.body());
 - DELETE
 - OPTIONS
 - HEAD
-
 ```java
 @GET("users/list")
 
