@@ -12,7 +12,6 @@
 		  -->
 		  <localRepository>D:\apache-maven-3.9.6\mvn_repo</localRepository>
 		```
-
 - 在 `conf` 文件夹下的 `setting.xml` 中配置阿里云私服
 	```xml
 	  <mirrors>
@@ -33,7 +32,6 @@
 	    </mirror>
 	  </mirrors>
 	```
-
 - 配置环境变量：为了在任何目录下都可以运行 Maven 指令
 - 在 cmd 中运行 `mvn -v` 测试版本号
 
@@ -41,7 +39,7 @@
 > - `bin` 可执行文件
 > - `boot`
 > - `conf` 配置文件
-> - `lib` jar包资源
+> - `lib` jar 包资源
 
 ## 在 idea 中安装 Maven 项目
 >[!hint] 配置单个项目
@@ -206,10 +204,9 @@ Maven 有三套独立的生命周期，每一套都有若干个阶段。**同一
 
 
 # Maven 的打包方式
-- `jar` 【默认】Java 应用程序的标准打包格式，内嵌了 Tomcat
+- `jar` Java 应用程序的标准打包格式，内嵌了 Tomcat （~~默认~~）
 - `war` Web 应用程序的打包格式，需要自己部署到服务器上运行
 - `pom` **通常用在父级工程或聚合工程中**
-
 ```java
 // 父工程的pom文件
 <package>pom</package>

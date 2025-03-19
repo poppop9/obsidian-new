@@ -45,32 +45,21 @@ public class RedissonConfig {
     @Bean  
     public RedissonClient redissonClient() {  
         Config config = new Config();  
-  
-        //设置redis的地址，这里是单机模式  
-        config.useSingleServer()  
-                .setAddress("redis://127.0.0.1:6379")  
-//                .setPassword(……)  
-                // 设置连接池的大小，默认为64  
-                .setConnectionPoolSize(64)  
-                // 设置连接池的最小空闲连接数，默认为10  
-                .setConnectionMinimumIdleSize(10)  
-                // 设置连接的最大空闲时间（单位：毫秒），超过该时间的空闲连接将被关闭，默认为10000  
-                .setIdleConnectionTimeout(10000)  
-                // 设置连接超时时间（单位：毫秒），默认为10000  
-                .setConnectTimeout(10000)  
-                // 设置连接重试次数，默认为3  
-                .setRetryAttempts(3)  
-                // 设置连接重试的间隔时间（单位：毫秒），默认为1000  
-                .setRetryInterval(1000)  
-                // 设置定期检查连接是否可用的时间间隔（单位：毫秒），默认为0，表示不进行定期检查  
-                .setPingConnectionInterval(0)  
-                // 设置是否保持长连接，默认为true  
-                .setKeepAlive(true);  
-                
-	    // 设置Redisson存储数据的格式，这里使用Json，一定要配置，防止乱码 
-		config.setCodec(new JsonJacksonCodec());
-  
-        return Redisson.create(config);  
+		config.useSingleServer()  // 单机模式  
+		        .setAddress(redisAddress)  
+		        // .setPassword(……)
+		        .setConnectionPoolSize(64)  // 设置连接池的大小，默认为64  
+		        .setConnectionMinimumIdleSize(10)  // 设置连接池的最小空闲连接数，默认为10  
+		        .setIdleConnectionTimeout(10000)  // 设置连接的最大空闲时间（单位：毫秒），超过该时间的空闲连接将被关闭，默认为10000  
+		        .setConnectTimeout(10000)  // 设置连接超时时间（单位：毫秒），默认为10000  
+		        .setRetryAttempts(3)  // 设置连接重试次数，默认为3  
+		        .setRetryInterval(1000)  // 设置连接重试的间隔时间（单位：毫秒），默认为1000  
+		        .setPingConnectionInterval(0)  // 设置定期检查连接是否可用的时间间隔（单位：毫秒），默认为0，表示不进行定期检查  
+		        .setKeepAlive(true);  // 设置是否保持长连接，默认为true  
+		config.setCodec(JsonJacksonCodec.INSTANCE);  // 设置Redisson存储数据的格式，这里使用Json，一定要配置，防止乱码  
+		config.setExecutor(myScheduledThreadPool.getScheduledExecutor());  // 设置redisson核心线程池，不设置默认线程数=cpu核心数*2
+		RedissonClient redissonClient = Redisson.create(config);  
+		return redissonClient;
     }  
 }
 ```
@@ -731,10 +720,20 @@ false
 false
 ```
 
-## 流 Redis Stream
-Redis Stream 用于处理日志或消息流数据
-- **消息队列功能**：支持生产者发布消息，消费者订阅消息
-- **持久化存储**：支持将消息数据持久化到磁盘，避免数据丢失
+## 流 Stream
+Redis Stream 用于处理日志或消息流数据，支持将消息数据持久化到磁盘，避免数据丢失
+
+- `RStream<String, String> getStream(name)` 获取 RStream
+- 生产者
+	- `String add(消息)` 发送消息，并返回 messageId
+- 消费者
+	- 无消费者组读取
+	- 有消费者组读取
+
+
+## 发布订阅 Pub/Sub
+消息是即时投递的，不会存储。如果订阅者掉线，则该订阅者将丢失在掉线期间内的所有消息
+
 
 ## 💛 键 RKeys
 - `RKeys getKeys()` 获取所有 key 的抽象对象 RKeys
@@ -753,7 +752,6 @@ Pipeline 可以一次性提交多条更新命令，减少网络延迟
 
 ---
 
-- Publish / Subscribe 提供了发布/订阅消息系统的实现
 - Remote Service 允许在 Redis 上实现分布式服务，客户端可以像调用本地服务一样调用远程服务。通过基于 Redis 的异步和同步通信
 - Spring Cache Redisson 提供了与 Spring Cache 集成的支持
 - Executor Service 提供了一个分布式执行器，可以用于并行执行任务

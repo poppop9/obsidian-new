@@ -9,7 +9,6 @@
 
 ## spring.factories
 ```yml
-# 检测到`@EnableAutoConfiguration`注解时，应该自动加载`DynamicThreadPoolAutoConfig`这个类
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=app.xlog.ggbond.config.DynamicThreadPoolAutoConfig
 ```
 

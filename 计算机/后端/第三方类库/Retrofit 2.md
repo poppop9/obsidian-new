@@ -124,7 +124,6 @@ Call<User> createUser(@Body User user);
 ### application/x-www-form-urlencoded
 - `@FormUrlEncoded` 指示该方法的请求体应该被编码为表单数据，每个键值对都使用 `@Field`
 - `@Field` 用于指定表单中的单个键值对
-
 ```java
 @FormUrlEncoded
 @POST("user/edit")
@@ -134,7 +133,6 @@ Call<User> updateUser(@Field("first_name") String first, @Field("last_name") Str
 ### multipart/form-data
 - `@Multipart` 指示该方法的请求体应该被编码为 `multipart/form-data` ，Retrofit 会构造一个多部分请求，其中每个部分都由 `@Part` 定义
 - `@Part` 每个 `@Part` 都对应请求体中的一个单独部分【~~可以包含文件，文本 ……~~】
-
 ```java
 @Multipart
 @PUT("user/photo")

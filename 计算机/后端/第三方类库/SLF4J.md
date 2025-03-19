@@ -3,7 +3,7 @@ $$
 SLF4J 是一个接口，它本身不具有输出日志的功能，输出日志还是由抽象类来实现【比如 log4j，logback】【~~类比 JDBC 只是一种规则~~】
 $$
 
-# 概述
+# ❤️ 概述
 ## 介绍
 我们在编写代码的时候，只会使用 SLF4J 里的 API，应用程序在运行时再去类路径下查找绑定的具体日志实现，并使用其进行实际的日志操作【~~如果在应用程序的类路径下面没有找到合适的绑定的话，默认无操作~~】，**也就是说，你要使用日志，你要引入两个依赖**【slf4j-api，实现类 api】，~~但是 SpringBoot-Starter-Web 里已经有了 logback 依赖，所以我们还是只用引入 slf4j 就好了~~
 
@@ -27,7 +27,7 @@ $$
 ## 日志格式
 日志 = 日志打印时间 + 日志级别 + 线程 id + 线程名称 + 日志所在类 + 日志内容
 
-# 配置
+# ❤️ 配置
 我们可以使用两种方式来配置 SLF4J：
 - **直接在 yml 配置文件中配置** ：方便
 - **定义** `logback-spring.xml` ，**再在 yml 配置文件中激活** `logback-spring.xml` ：功能更强大，可以对<u>不同环境下</u>【开发环境，测试环境，生产环境……】进行日志配置
@@ -66,7 +66,6 @@ spring:
   profiles:
     active: dev
 ```
-
 - 在 `logback-spring.xml` 中指定 `Spring Profile` 
 ```xml
 <configuration>
@@ -99,7 +98,7 @@ spring:
 </configuration>
 ```
 
-# 切换日志框架
+# ❤️ 切换日志框架
 SpringBoot 默认使用 `spring-boot-starter-logging 启动器`【Logback 的启动器】, 如果要切换成 Log4j2 进行日志记录，那就要切换成 `spring-boot-starter-log4j2 启动器`
 
 ```xml
@@ -122,7 +121,7 @@ SpringBoot 默认使用 `spring-boot-starter-logging 启动器`【Logback 的启
 </dependency>
 ```
 
-# 具体操作
+# ❤️ 具体操作
 ```xml
 <dependency>
 	<groupId>org.slf4j</groupId>
@@ -188,7 +187,54 @@ class Web2ApplicationTests {
 2024-04-10T11:14:51.204+08:00  INFO 10180 --- [           main] com.example.web_2.Web2ApplicationTests   : Hello
 ```
 
+## 自定义 appender
+ILoggingEvent 的方法 ：
+- `String getFormattedMessage()` 返回格式化后的日志消息内容
+- `String getMessage()` 返回未格式化的日志消息内容
+- `Level getLevel()` 返回日志的级别（例如 DEBUG, INFO, WARN, ERROR 等）
+- `long getTimeStamp()` 返回日志生成的时间戳（以毫秒为单位）
+- `String getLoggerName()` 返回记录日志的日志器（Logger）的名称
+- `String getThreadName()` 返回记录日志的线程名称
+- `Map<String, String> getMDCPropertyMap()` 返回上下文中存储的 MDC（Mapped Diagnostic Context）键值对
+- `StackTraceElement[] getCallerData()` 返回调用日志记录的堆栈信息数组，通常包含类名、方法名、行号等
+- `Object[] getArgumentArray()` 返回与日志消息一起传递的参数数组
+- `boolean hasCallerData()` 判断是否包含调用者数据（调用类、方法、行号等）
+- `IThrowableProxy getThrowableProxy()` 如果日志记录时有异常抛出，则返回异常对象的代理
 
+<u>在 logback 中</u> ：
+- 创建 Appender 类
+```java
+public class CustomAppender extends AppenderBase<ILoggingEvent> {
+    @Override
+    protected void append(ILoggingEvent eventObject) {
+        // 获取日志信息
+        String message = eventObject.getFormattedMessage();
+        // 自定义处理逻辑，比如将日志输出到控制台或保存到文件
+        System.out.println("CustomAppender - Log: " + message);
+    }
+}
+```
+- 配置自定义的 appender
+```java
+@Configuration
+public class LogbackConfig {
+    @PostConstruct
+    public void init() {
+        // 获取 Logback 上下文
+        LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
+        context.reset(); // 清空现有配置
+
+        // 1. 创建自定义 Appender
+        ZakiAppender zakiAppender = new ZakiAppender();
+        zakiAppender.setContext(context);
+        zakiAppender.start();
+
+        // 3. 将 Appender 绑定到 Root Logger
+        Logger rootLogger = context.getLogger(Logger.ROOT_LOGGER_NAME);
+        rootLogger.addAppender(zakiAppender);
+    }
+}
+```
 
 
 

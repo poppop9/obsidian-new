@@ -9,13 +9,11 @@ $$
   <artifactId>jackson-core</artifactId>
   <version>2.17.0</version>
 </dependency>
- 
 <dependency>
   <groupId>com.fasterxml.jackson.core</groupId>
   <artifactId>jackson-annotations</artifactId>
   <version>2.17.0</version>
 </dependency>
- 
 <dependency>
   <groupId>com.fasterxml.jackson.core</groupId>
   <artifactId>jackson-databind</artifactId>
