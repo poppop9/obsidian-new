@@ -2,7 +2,7 @@
 <dependency>
     <groupId>org.redisson</groupId>
     <artifactId>redisson-spring-boot-starter</artifactId>
-    <version>3.32.0</version>
+    <version>3.45.1</version>
 </dependency>
 ```
 
@@ -641,6 +641,15 @@ RExecutorFuture rExecutorFuture = executorService.submit(……)
 ```
 
 # 🛠️ 其他分布式工具
+## 💛 键 RKeys
+- `RKeys getKeys()` 获取所有 key 的抽象对象 RKeys
+	- `flushall()` 清空所有 key
+
+```java
+RKeys keys = redissonClient.getKeys();
+keys.flushall();
+```
+
 ## 💛 限流器 RateLimiter
 - 【获取对象】
 	- `RRateLimiter getRateLimiter(key)` 
@@ -722,27 +731,42 @@ false
 
 ## 流 Stream
 Redis Stream 用于处理日志或消息流数据，支持将消息数据持久化到磁盘，避免数据丢失
-
 - `RStream<String, String> getStream(name)` 获取 RStream
-- 生产者
-	- `String add(消息)` 发送消息，并返回 messageId
-- 消费者
-	- 无消费者组读取
-	- 有消费者组读取
+
+### 生产消息
+- `String add(StreamAddArgs)` 发送消息，并返回 messageId
+
+```java
+// 生产消息
+RStream<String, String> logStream = redissonClient.getStream("LOG_STREAM");
+StreamMessageId streamMessageId = logStream.add(StreamAddArgs.entries(Map.of(
+		"level", "INFO", "message", "测试测试测试"
+)));
+```
+
+### 消费消息
+<u>无消费者组读取</u> ：不会标记消息是否已经被消费
+- `Map<StreamMessageId, Map<K, V>> read(StreamReadArgs)` 读取的结果 Map 的键为 StreamMessageId，值为你传入的 map 数据。**消息在被读取之后不会自动删除**
+- `range(StreamMessageId, StreamMessageId)` 获取指定范围的消息 
+
+```java
+// 消费消息，消费StreamMessageId在0之后的消息（不包括0）
+Map<StreamMessageId, Map<String, String>> read = logStream.read(StreamReadArgs.greaterThan(new StreamMessageId(0)));
+```
+
+<u>有消费者组读取</u> ：在消费组中，当一个消费者读取消息时，消息会被标记为已消费，并且不会再被其他消费者读取
+- `createGroup()` 创建消费者组
+	- `StreamCreateGroupArgs` 
+		- name 组名
+		- makeStream 如果流不存在，则创建空流
+- `readGroup()`
+- `remove(streamMessageId)` 删除消息
+
+<u>监听器读取</u> ：
 
 
 ## 发布订阅 Pub/Sub
 消息是即时投递的，不会存储。如果订阅者掉线，则该订阅者将丢失在掉线期间内的所有消息
-
-
-## 💛 键 RKeys
-- `RKeys getKeys()` 获取所有 key 的抽象对象 RKeys
-	- `flushall()` 清空所有 key
-
-```java
-RKeys keys = redissonClient.getKeys();
-keys.flushall();
-```
 
 ## 键空间通知
 Redis Keyspace Notifications 可以用于监控键的事件（创建、删除、过期 ……）
