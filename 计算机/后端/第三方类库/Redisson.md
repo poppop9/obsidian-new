@@ -12,7 +12,7 @@
 
 <u>技术选型</u> ：
 - `Jedis` 
-- `Lettuce`
+- `Lettuce` 
 - `Redisson` 基于 NIO【~~非阻塞的~~】 的 netty 框架
 
 ---
@@ -762,8 +762,7 @@ Map<StreamMessageId, Map<String, String>> read = logStream.read(StreamReadArgs.g
 - `readGroup()`
 - `remove(streamMessageId)` 删除消息
 
-<u>监听器读取</u> ：
-
+<u>监听器</u> ：
 
 ## 发布订阅 Pub/Sub
 消息是即时投递的，不会存储。如果订阅者掉线，则该订阅者将丢失在掉线期间内的所有消息
