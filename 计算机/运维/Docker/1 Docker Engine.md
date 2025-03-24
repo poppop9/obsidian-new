@@ -377,6 +377,7 @@ docker run -d --name mysql -p 3306:3306 -e TZ=Asia/Shanghai -e MYSQL_ROOT_PASSWO
 # ❤ 容器通信
 <u>查看</u> ：
 - `docker network ls` 列出所有网桥
+- `docker network inspect 网桥名` 列出某个网桥的详细信息
 
 <u>创建网络</u> ：
 - `docker network create 网络名`
@@ -402,7 +403,7 @@ docker run -itd --name test2 --network test-net ubuntu /bin/bash
 
 同一网桥下的容器可以将 ip 地址改为容器名进行通信，**如果你有多个容器之间需要互相连接，推荐使用 Docker Compose** 
 
->[!NOTE] 容器的默认网桥 bridge 是不允许使用容器名通信的
+>[!NOTE] 容器的默认网桥是不允许使用容器名通信的
 
 ## host 模式
 >[!quote] host 模式
@@ -417,7 +418,6 @@ docker run -itd \
   --net host \
   tomcat:8.5.20
 ```
-
 
 ## 自定义网络
 ```bash
