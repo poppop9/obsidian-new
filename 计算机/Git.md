@@ -310,7 +310,6 @@ $ git log --oneline --decorate --graph
 	- 第一次：默认一直回车
 	- 第二次及以上……
 		- 指定新的 SSH 文件名
-		- 
 - 成功的话，会在 `~/` 下生成 `.ssh` 文件夹，打开 `id_rsa.pub`，复制
 - 打开 github，打开 **SSH and GPG keys**，然后点击 **New SSH key** ，设置名称，再粘贴复制的 Key
 - 验证是否成功 `ssh -T git@github.com`
@@ -471,8 +470,8 @@ temp/
 >- 在 main 分支上拉取请求
 
 # ❤️ 错误
- <u>Failed to connect to github.com port 443</u> ：没有给 git 配置代理
- - `git config --global http.proxy 127.0.0.1:7890` 端口号是 clash 的端口号
+<u>Failed to connect to 127.0.0.1 port 7897 after 2052 ms: Could not connect to server</u> 或者 <u>Failed to connect to github.com port 443</u> ：git 代理错误
+ - `git config --global http.proxy 127.0.0.1:7890` 端口号是 clash 的端口号，或者使用 hiddify 则是 12334
  - `git config --global https.proxy 127.0.0.1:7890` 
 
 
