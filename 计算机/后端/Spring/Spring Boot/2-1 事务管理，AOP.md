@@ -101,11 +101,7 @@ public void workA (){
 - 只读事务也是事务，一个事务就会占用一个数据库连接资源，~~如果如何这个方法的执行时间很长，那就不推荐设置为只读事务~~
 
 ## 💛 TransactionTemplate
-TransactionTemplate 提供了更高的灵活性 ：
-- 需要手动处理回滚，否则即使异常，事务也会提交
-
----
-
+TransactionTemplate 提供了更高的灵活性，但是也需要手动处理回滚，否则即使异常，事务也会提交
 - 入参 status 的方法
 	- `setRollbackOnly()` 将当前事务标记为“仅回滚”，即使事务执行成功也不会提交
 	- `boolean isRollbackOnly()` 检查当前事务是否已被标记为“仅回滚”
