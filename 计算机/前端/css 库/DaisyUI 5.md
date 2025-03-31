@@ -22,6 +22,7 @@ DaisyUI 5 完全兼容 Tailwind CSS 4
 ```
 - 浅色背景按钮 `btn-soft` 
 - 无色背景按钮 `btn-outline` 
+- 链接按钮 `btn-link` 
 
 ---
 
