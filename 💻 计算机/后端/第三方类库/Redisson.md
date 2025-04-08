@@ -67,48 +67,6 @@ public class RedissonConfig {
 # 🎯 分布式对象
 >[!NOTE] RedissonClient 对象获取任何其他对象，如果不存在，也不会报 null，也只会返回一个空的对象，不用担心空指针
 
-## 💛 Key
-- RedissonClient 下的方法
-	- `RKeys getKeys();` 返回 RKeys 对象
-- RKeys 下的方法
-	- **删**
-		- `delete(键 ……)` 单/多删
-		- `deleteByPattern()` 模糊删
-	- **查**
-		- `getKeys()` 返回所有 key 集合
-		- `getKeysByPattern(模糊匹配)` 根据模糊匹配条件，返回所有 key 集合
-			- `*` 匹配 0 个或多个字符
-			- `?` 匹配单个字符
-			- `[]` 匹配指定字符范围内的单个字符
-		- `randomKey()` 随机获取 key
-		- `count()` 统计 key 的数量
-		- `countExists(键)` 判断 key 是否存在
-
-```java
-@Autowired  
-private RedissonClient redissonClient;
-
-@Test
-public void testRedisson() {
-	RKeys keys = redissonClient.getKeys();
-	// 获取所有key值
-	keys.getKeys().forEach(System.out::println);
-	System.out.println("====================================");
-
-	// 模糊获取key值
-	keys.getKeysByPattern("*sys*").forEach(System.out::println);
-
-	// 删除key
-	keys.delete("sys1111", "2222_sys2222");
-
-	// 判断key是否存在
-	System.out.println(keys.countExists("awards"));
-
-	// 获取key的数量
-	System.out.println(keys.count());
-}
-```
-
 ## 💛 字符串 / 对象 RBucket
 - redissonClient 下的方法
 	- `getBucket(键)` 获取对应 key 的 RBucket 对象
@@ -205,9 +163,9 @@ public class MyObject {
 ```
 
 # 👥 分布式集合
-## 💛 List
+## 💛 RList
 - RedissonClient 下的方法
-	- `getList(键)` 生成 RList 对象
+	- `RList getList(键)` 生成 RList 对象
 - RList 下的方法
 	- **增**
 		- `add(值)` 向 List 中添加值
@@ -215,10 +173,6 @@ public class MyObject {
 	- **删**
 		- `romove(索引)` 删除集合中的指定索引的元素
 		- `romove(值)` 删除集合中的指定值的元素
-
->[!hint] 可以直接把 `RList` 看成 Java 里的 `List 集合`
-
----
 
 ```java
 // 构建集合
@@ -297,7 +251,6 @@ public boolean acquireLoginLock(Long userId) {
 
 ### 💙 RScoredSortedSet
 RScoredSortedSet 中的每个元素都带有分数，并且集合跟据分数进行排名（从 0 开始）
-
 - 【增】
 	- `add(double 分数, 元素)` 添加元素，并设置分数
 	- `addAll(Map<元素, Double>` 批量添加
@@ -348,12 +301,9 @@ public void testRedisson() {
 ### RMapCache
 `RMapCache` 可以为每个键值对单独设置 TTL，支持最大空闲时间，支持监听键过期和删除事件
 
-
 # 🚶‍♂️ 分布式队列
 ## 💛 队列 RQueue
->[!quote] RQueue
->RQueue 是一个分布式的、线程安全的队列接口
-
+RQueue 是一个分布式的、线程安全的队列接口 ：
 - `RQueue<?> getQueue(键)` 
 	- **增**
 		- `add(值)` 将值添加到队列尾部
@@ -641,12 +591,46 @@ RExecutorFuture rExecutorFuture = executorService.submit(……)
 
 # 🛠️ 其他分布式工具
 ## 💛 键 RKeys
-- `RKeys getKeys()` 获取所有 key 的抽象对象 RKeys
+- RedissonClient 下的方法
+	- `RKeys getKeys();` 返回 RKeys 对象
 	- `flushall()` 清空所有 key
+- RKeys 下的方法
+	- **删**
+		- `delete(键 ……)` 单/多删
+		- `deleteByPattern()` 模糊删
+	- **查**
+		- `getKeys()` 返回所有 key 集合
+		- `getKeysByPattern(模糊匹配)` 根据模糊匹配条件，返回所有 key 集合
+			- `*` 匹配 0 个或多个字符
+			- `?` 匹配单个字符
+			- `[]` 匹配指定字符范围内的单个字符
+		- `randomKey()` 随机获取 key
+		- `count()` 统计 key 的数量
+		- `countExists(键)` 判断 key 是否存在
 
 ```java
-RKeys keys = redissonClient.getKeys();
-keys.flushall();
+@Autowired  
+private RedissonClient redissonClient;
+
+@Test
+public void testRedisson() {
+	RKeys keys = redissonClient.getKeys();
+	// 获取所有key值
+	keys.getKeys().forEach(System.out::println);
+	System.out.println("====================================");
+
+	// 模糊获取key值
+	keys.getKeysByPattern("*sys*").forEach(System.out::println);
+
+	// 删除key
+	keys.delete("sys1111", "2222_sys2222");
+
+	// 判断key是否存在
+	System.out.println(keys.countExists("awards"));
+
+	// 获取key的数量
+	System.out.println(keys.count());
+}
 ```
 
 ## 💛 限流器 RateLimiter
