@@ -79,20 +79,18 @@ graph LR
     <artifactId>mysql-connector-j</artifactId>  
 </dependency>
 ```
-
 - 在配置文件中配置 MySQL
 ```yml
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     # 连接到localhost:3306服务的，security数据库
-    url: jdbc:mysql://localhost:3306/security
+    url: jdbc:mysql://localhost:3306/security?allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
     username: root
     password: 134
 ```
-
 - 配置 SQL 提示
-	![image.png](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/20231114143104.png)
+	![600](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/20231114143104.png)
 - 在 idea 的数据库配置中添加数据库
 	![image.png](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/20231114143555.png)
 - 安装 `MyBatisX` 插件：可以在 <u>xml 文件</u> 与 <u>Mapper 接口</u> 中快速跳转
