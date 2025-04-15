@@ -100,6 +100,12 @@ public void workA (){
 <u>缺点</u> ：
 - 只读事务也是事务，一个事务就会占用一个数据库连接资源，~~如果如何这个方法的执行时间很长，那就不推荐设置为只读事务~~
 
+### 💙 隔离级别 isolation
+- `READ_UNCOMMITTED` 读未提交
+- `READ_COMMITTED` 读已提交
+- `REPEATABLE_READ` 可重复读
+- `SERIALIZABLE` 串行化
+
 ## 💛 TransactionTemplate
 TransactionTemplate 提供了更高的灵活性，但是也需要手动处理回滚，否则即使异常，事务也会提交
 - 入参 status 的方法
@@ -108,6 +114,12 @@ TransactionTemplate 提供了更高的灵活性，但是也需要手动处理回
 	- `boolean isNewTransaction()` 检查当前事务是否是一个新事务
 	- `hasSavepoint()` 检查当前事务是否有保存点，意味着事务中某些部分可以回滚到保存点，而不是回滚整个事务
 	- `flush()` 刷新当前事务的状态，确保在事务中进行的所有更改立即同步到数据库中
+- 设置隔离级别
+	- `setIsolationLevel(TransactionDefinition)` 
+		- 读未提交：TransactionDefinition.ISOLATION_READ_UNCOMMITTED
+		- 读已提交：TransactionDefinition.ISOLATION_READ_COMMITTED
+		- 可重复读：TransactionDefinition.ISOLATION_REPEATABLE_READ
+		- 串行化：TransactionDefinition.ISOLATION_SERIALIZABLE
 
 ```java
 @Resource
