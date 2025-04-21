@@ -79,7 +79,11 @@ void test_1() {
 ```
 
 # ❤️ 配置
-
+```yml
+liteflow:
+  rule-source: application-liteflow-raffle.xml, application-liteflow-activity.xml
+  print-execution-log: false  # 是否打印日志
+```
 
 # ❤️ 组件
 >[!warning] 所有在组件中定义的方法都是有类型的~~【处理方法，预处理方法，前置处理方法 ……】~~，所有的这些方法的返回值都要按照 NodeComponent 来写

@@ -5,10 +5,10 @@
 
 # ❤ 快捷键
 ## 生成语句
-快速生成 main() 方法 `psvm`
-生成输出语句 `sout`
-get ,set 方法，构造方法 `alt+insert`
-生成左边对象 `ctrl+alt+v` / 在对象后面输入 `.var`
+- 快速生成 main() 方法 `psvm`
+- 生成输出语句 `sout`
+- get ,set 方法，构造方法 `alt+insert`
+- 生成左边对象 `ctrl+alt+v` / 在对象后面输入 `.var`
 
 ## 快捷操作
 - **编辑**
@@ -70,6 +70,11 @@ get ,set 方法，构造方法 `alt+insert`
 ## 异常断点
 设置异常断点后，只要那一行代码会报这个异常，代码就会停在哪一行
 ![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202409022210239.png)
+
+# ❤️ 技巧
+✨️ 将日志输出到文件 ：
+- 找到 App 运行配置，编辑配置
+- 修改选项 > 日志 > 将日志输出到文件
 
 # ❤ 插件
 - `Mybatis`
