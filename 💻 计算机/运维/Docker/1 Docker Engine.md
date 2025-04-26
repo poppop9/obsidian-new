@@ -1,9 +1,9 @@
-# Docker 的体系结构
+# ❤️ Docker 的体系结构
 >[!quote] Docker
 > Docker 是一个开源的容器化平台，**用于构建、部署和运行应用程序**。它提供了一种轻量级的虚拟化技术，允许将应用程序及其依赖项打包到一个<u>容器</u>中
 
->[!quote] 容器
->独立的运行环境
+>[!quote] Docker Engine
+>Docker Engine 是 Docker 的核心部分，负责构建和容器化应用程序
 
 ---
 
@@ -31,19 +31,13 @@
 >[!quote] 仓库
 ><u>仓库</u> 是用来存储，分享 Docker 镜像的地方【DockerHub……】
 
----
-
->[!quote] Docker Engine
->Docker Engine 是 Docker 的核心部分，负责构建和容器化应用程序
-
-# 安装 Docker Engine
+# ❤️ 安装 Docker Engine
 >[!NOTE] 以下配置均在 Ubuntu 中安装
 
 - 卸载旧版本
 ```bash
 for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
 ```
-
 - 卸载映像，容器，卷，网络【如果需要】
 ```bash
 # 卸载 Docker Engine、CLI、containerd 和 Docker Compose 包
@@ -53,7 +47,6 @@ sudo apt-get purge docker-ce docker-ce-cli containerd.io docker-buildx-plugin do
 sudo rm -rf /var/lib/docker
 sudo rm -rf /var/lib/containerd
 ```
-
 - 使用 apt 存储库安装
 ```bash
 # 添加 Docker 官方的 GPG 密钥
@@ -72,7 +65,6 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.
 # 更新系统的软件包列表，这样就可以从新添加的Docker仓库中获取Docker的最新版本
 sudo apt-get update
 ```
-
 - 安装 Docker 包
 ```bash
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
@@ -123,7 +115,6 @@ docker run -d --name kafka-server \
 	-v "D:/文档/docker binds/kafka:/opt/bitnami/kafka" \
 	bitnami/kafka:latest
 ```
-
 
 # ❤ 镜像
 ## 💛 制作镜像
