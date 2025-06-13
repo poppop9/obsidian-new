@@ -50,6 +50,8 @@ FastExcel.read("path/to/demo.xlsx", UserPurchaseHistoryBO.class, new AnalysisEve
 ```
 
 ### 💙 无 pojo
+`Map<Integer, String> data` 的每一个元素表示一行数据。key 是列的索引，value 是单元格的值
+
 ```java
 public class NoModelDataListener extends AnalysisEventListener<Map<Integer, String>> {
     private static final int BATCH_COUNT = 5;
