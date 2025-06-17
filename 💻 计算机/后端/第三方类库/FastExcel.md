@@ -53,31 +53,25 @@ FastExcel.read("path/to/demo.xlsx", UserPurchaseHistoryBO.class, new AnalysisEve
 `Map<Integer, String> data` 的每一个元素表示一行数据。key 是列的索引，value 是单元格的值
 
 ```java
-public class NoModelDataListener extends AnalysisEventListener<Map<Integer, String>> {
-    private static final int BATCH_COUNT = 5;
-    private List<Map<Integer, String>> cachedDataList = new ArrayList<>(BATCH_COUNT);
- 
-    @Override
-    public void invoke(Map<Integer, String> data, AnalysisContext context) {
-        log.info("解析到一条数据: {}", JSON.toJSONString(data));
-        cachedDataList.add(data);
-        if (cachedDataList.size() >= BATCH_COUNT) {
-            saveData();
-            cachedDataList.clear();
-        }
-    }
- 
-    @Override
-    public void doAfterAllAnalysed(AnalysisContext context) {
-        // 确保全部数据被处理
-        saveData();
-    }
- 
-    private void saveData() {
-        // 实际业务处理逻辑
-        log.info("存储 {} 条数据", cachedDataList.size());
-    }
-}
+FastExcel.read(inputStream, new AnalysisEventListener<Map<Integer, String>>() {
+	private List<Map<Integer, String>> cachedDataList = new ArrayList<>();
+	private Map<Integer, String> headMap;
+
+	@Override
+	public void invokeHeadMap(Map<Integer, String> headMap, AnalysisContext context) {
+		this.headMap = headMap;
+	}
+
+	@Override
+	public void invoke(Map<Integer, String> data, AnalysisContext context) {
+		cachedDataList.add(new LinkedHashMap<>(data));
+	}
+
+	@Override
+	public void doAfterAllAnalysed(AnalysisContext context) {
+		if (!cachedDataList.isEmpty()) testValueLogService.importData(batchId, headMap, cachedDataList);
+	}
+}).sheet().doRead();
 ```
 
 ## 💛 复杂读取
@@ -621,3 +615,13 @@ public class ExcelExporter {
 }
 ```
 
+## 杂
+```java
+// Alternatively, you can read without specifying a class, returning a list, then read the first sheet.
+// Synchronous reading will automatically finish.
+List<Map<Integer, String>> listMap = EasyExcel.read(fileName).sheet().doReadSync();
+for (Map<Integer, String> data : listMap) {
+	// Return key-value pairs for each data item, representing the column index and its value.
+	log.info("Read data:{}", JSON.toJSONString(data));
+}
+```
