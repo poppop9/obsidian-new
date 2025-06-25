@@ -11,14 +11,14 @@ MongoDB 是一个文档型的非关系型数据库，它使用类似 JSON 的文
 # ❤️ 安装部署
 ```
 docker run -d \
-  --name mongodb-community \
+  --name mongodb \
   -p 27017:27017 \
   -v mongodb_data:/data/db \
   -e MONGO_INITDB_ROOT_USERNAME=admin \
   -e MONGO_INITDB_ROOT_PASSWORD=admin \
   mongodb/mongodb-community-server:7.0.18-ubuntu2204
 
-docker run -d --name mongodb-community -p 27017:27017 -v mongodb_data:/data/db -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin mongodb/mongodb-community-server:7.0.18-ubuntu2204
+docker run -d --name mongodb -p 27017:27017 -v mongodb_data:/data/db -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=admin mongodb/mongodb-community-server:7.0.18-ubuntu2204
 ```
 
 # ❤️ 数据结构
