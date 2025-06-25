@@ -233,8 +233,6 @@ new Criteria().andOperator(criterias.toArray(new Criteria[0]));
 ```
 
 # ❤️ 其他
-https://www.cnblogs.com/studyjobs/p/17632443.html
-
 https://cloud.tencent.com/developer/article/2441738
 
 https://www.hxstrive.com/subject/spring_data_mongodb/1980.htm
