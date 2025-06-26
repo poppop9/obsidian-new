@@ -190,7 +190,8 @@ public void testDelete() {
 }~
 ```
 
-# ❤️ Criteria 复杂查询条件
+# ❤️ 高阶功能
+## Criteria 复杂查询条件
 - 多条件组合
 - 嵌套文档查询
 ```java
@@ -230,6 +231,42 @@ if (name != null) criterias.add(Criteria.where("name").regex(name));
 
 // 将收集到的所有条件组合为 AND 条件
 new Criteria().andOperator(criterias.toArray(new Criteria[0]));
+```
+
+## 动态字段
+- 使用Document 类型，推荐用于字段完全动态的情况
+```java
+Document doc1 = new Document();
+doc1.append("name", "Alice");
+doc1.append("age", 25);
+mongoTemplate.insert(doc1, "my_collection");
+```
+
+- 使用 Map
+```java
+Map<String, Object> doc1 = new HashMap<>();
+doc1.put("name", "Charlie");
+doc1.put("active", true);
+mongoTemplate.save(doc1, "my_collection");
+```
+
+- 使用动态保留字段，但是不能平铺到顶层
+```java
+@Document("my_collection")
+public class MyDynamicEntity {
+    private String name;
+    private Integer age;
+    private Map<String, Object> properties;
+}
+
+{
+  "name": "Alice",
+  "age": 25,
+  "properties": {
+    "customField1": "value1",
+    "customField2": 123
+  }
+}
 ```
 
 # ❤️ 其他
