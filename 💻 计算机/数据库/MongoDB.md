@@ -22,6 +22,8 @@ docker run -d --name mongodb -p 27017:27017 -v mongodb_data:/data/db -e MONGO_IN
 ```
 
 # ❤️ 数据结构
+MongoDB 的数据格式是 BSON (Binary JSON)，是二进制形式的 JSON
+
 MongoDB 使用集合来组织文档，每个文档都由键值对组成 ：
 - 数据库 Database ：存储数据的容器（数据库）
 - 集合 Collection ：数据库中的一个集合（表）
@@ -40,7 +42,9 @@ MongoDB 使用集合来组织文档，每个文档都由键值对组成 ：
 # ❤️ GUI
 [https://www.mongodb.com/try/download/compass](https://www.mongodb.com/try/download/compass)
 
-
+# ❤️ 功能
+- MongoDB 会为每个文档自动生成的唯一标识符，不需要我们手动管理 (生成、存储与查询)
+- 可以为集合中的某些字段设置 TTL，以自动删除旧数据
 
 
 
