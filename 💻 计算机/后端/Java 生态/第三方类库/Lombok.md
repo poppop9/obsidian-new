@@ -63,6 +63,9 @@ Person person = Person.builder()
                       .build();
 ```
 
+## @SuperBuilder
+用于支持继承的 Builder 模式，可以构建父类字段。子类使用 @SuperBuilder 时，父类也必须使用 @SuperBuilder
+
 ## @Accessors
 `@Accessors` 可以调整生成的 `getter` 和 `setter` 方法的命名和访问方式
 - fluent

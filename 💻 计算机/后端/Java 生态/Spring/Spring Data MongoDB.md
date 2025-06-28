@@ -37,7 +37,7 @@ public class User {
 }
 ```
 
-# ❤️ 工具类
+# ❤️ 基础 CRUD
 ## 💛 MongoRepository
 MongoRepository 类似于 JpaRepository
 ```java
@@ -203,9 +203,10 @@ public void testDelete() {
   }
 }
 
-Query query = new Query();
-query.addCriteria(Criteria.where("address.city").is("Tokyo"));
-List<User> users = mongoTemplate.find(query, User.class);
+List<User> users = mongoTemplate.find(
+	Query.query(Criteria.where("address.city").is("Tokyo")),
+    User.class
+);
 ```
 
 ```java
@@ -217,9 +218,10 @@ List<User> users = mongoTemplate.find(query, User.class);
   ]
 }
 
-Query query = new Query();
-query.addCriteria(Criteria.where("orders.product").is("Pen"));
-List<User> users = mongoTemplate.find(query, User.class);
+// 流式风格更加推荐
+List<User> users = mongoTemplate.query(User.class)
+    .matching(Query.query(Criteria.where("orders.product").is("Pen")))
+    .all();
 ```
 
 - 条件动态拼接
@@ -233,15 +235,22 @@ if (name != null) criterias.add(Criteria.where("name").regex(name));
 new Criteria().andOperator(criterias.toArray(new Criteria[0]));
 ```
 
+## BasicQuery
+BasicQuery 是原生的 json 查询方法，非常复杂，但是功能很丰富
+
+```java
+BasicQuery query = new BasicQuery("{ age : { $lt : 30 }, name : { $regex : 'l' }}");
+List<Person> result = mongoTemplate.find(query, Person.class);
+```
+
 ## 动态字段
-- 使用Document 类型，推荐用于字段完全动态的情况
+- 使用 Document 类型，推荐用于字段完全动态的情况
 ```java
 Document doc1 = new Document();
 doc1.append("name", "Alice");
 doc1.append("age", 25);
 mongoTemplate.insert(doc1, "my_collection");
 ```
-
 - 使用 Map
 ```java
 Map<String, Object> doc1 = new HashMap<>();
@@ -249,8 +258,7 @@ doc1.put("name", "Charlie");
 doc1.put("active", true);
 mongoTemplate.save(doc1, "my_collection");
 ```
-
-- 使用动态保留字段，但是不能平铺到顶层
+- **推荐**使用动态保留字段，但是不能平铺到顶层
 ```java
 @Document("my_collection")
 public class MyDynamicEntity {
