@@ -62,136 +62,54 @@ Employee emp4 = new Employee().setWorkNo("nb004")
 mongoTemplate.save(emp4);
 ```
 
-<u>查询</u> ：
+<u>删除</u> ：
 ```java
-//查询所有员工
-@Test
-public void testFindAll() {
-	List<Employee> list = mongoTemplate.findAll(Employee.class);
-	for (Employee emp : list) {
-		System.out.println(emp);
-	}
-}
+DeleteResult remove = mongoTemplate.remove(对象);
+```
 
-//条件查询：查询【研发部】，并且年龄大于 30 岁的员工，按照年龄【倒序】排列
-@Test
-public void testFindWhere() {
-	Criteria criteria = Criteria.where("depart").is("研发部").and("age").gt(30);
-	Query query = new Query(criteria).with(Sort.by(Sort.Order.desc("age")));
-	List<Employee> list = mongoTemplate.find(query, Employee.class);
-	for (Employee emp : list) {
-		System.out.println(emp);
-	}
-}
+<u>更新</u> ：
+```java
+// 将年龄在 30 岁以下的员工，薪水增加 100 元，部门改为大数据部门
+UpdateResult updateResult = mongoTemplate.updateMulti(
+    Query.query(Criteria.where("age").lt(30)),
+    new Update().inc("money", 100).set("depart", "大数据部门"),
+    Employee.class
+);
+```
 
-//将年龄在 30 岁以下的员工，薪水增加 100 元，部门改为大数据部门
-@Test
-public void testUpdate() {
-	Query query = Query.query(Criteria.where("age").lt(30));
-	Update update = new Update();
-	update.inc("money", 100);
-	update.set("depart", "大数据部门");
+<u>查询</u> ：
+- 普通查询 / 条件查询
+```java
+// 查询所有员工
+List<Employee> list = mongoTemplate.findAll(Employee.class);
 
-	UpdateResult updateResult = mongoTemplate.updateMulti(query, update, Employee.class);
-	//打印修改的文档数量
-	System.out.println(updateResult.getModifiedCount());
-}
-
-//分页查询（查询薪水大于等于 2000 的员工，按照薪水【升序】排列）
-@Test
-public void testPage() {
-	int page = 2;
-	int size = 2;
-
-	Criteria criteria = Criteria.where("money").gt(2000);
-	Query queryCount = new Query(criteria);
-	long total = mongoTemplate.count(queryCount, Employee.class);
-	System.out.println("一共有 " + total + " 条记录，其中第 " + page + " 页的结果为：");
-
-	Query queryLimit = new Query(criteria)
-			.skip((page - 1) * size) //跳过多少条
-			.limit(size) //返回多少条
-			.with(Sort.by(Sort.Order.asc("money")));
-
-	List<Employee> list = mongoTemplate.find(queryLimit, Employee.class);
-	for (Employee emp : list) {
-		System.out.println(emp);
-	}
-}
-
-//统计每个部门的人数
-@Test
-public void testGroupCout() {
-	// 统计各个部门的人数
-	AggregationOperation group = Aggregation.group("depart").count().as("empCount");
-	// 将操作加入到聚合对象中
-	Aggregation aggregation = Aggregation.newAggregation(group);
-	// 执行聚合查询
-	AggregationResults<Map> results = mongoTemplate.aggregate(aggregation, Employee.class, Map.class);
-	for (Map result : results.getMappedResults()) {
-		System.out.println(result);
-	}
-}
-
-//统计每个部门，最高的薪水是多少
-@Test
-public void testGroupMax() {
-	//这里使用的是 max ，当然你也可以使用 min（最小），sum(总和)，avg（平均）等方法
-	AggregationOperation group = Aggregation.group("depart").max("money").as("maxMoney");
-	Aggregation aggregation = Aggregation.newAggregation(group);
-	AggregationResults<Map> results = mongoTemplate.aggregate(aggregation, Employee.class, Map.class);
-	for (Map result : results.getMappedResults()) {
-		System.out.println(result);
-	}
-}
-
-//随机获取 3 个人的信息
-@Test
-public void testGetRandomData() {
-	//创建统计对象，设置统计参数，sample 表示随机获取数据
-	TypedAggregation aggregation = Aggregation.newAggregation(Employee.class, Aggregation.sample(3));
-	//调用mongoTemplate方法统计
-	AggregationResults<Employee> results = mongoTemplate.aggregate(aggregation, Employee.class);
-	//获取统计结果
-	List<Employee> list = results.getMappedResults();
-	//循环打印出来
-	list.forEach(System.out::println);
-}
-
-//随机获取 2 个年龄大于 26 岁的员工
-@Test
-public void testGetWhereRandomData() {
-
-	Criteria criteria = Criteria.where("age").gt(26);
-	TypedAggregation<Employee> aggregation =
-			TypedAggregation.newAggregation(Employee.class,
-					Aggregation.match(criteria), Aggregation.sample(2));
-
-	AggregationResults<Employee> results = mongoTemplate.aggregate(aggregation, Employee.class);
-	List<Employee> list = results.getMappedResults();
-	list.forEach(System.out::println);
-}
-
-//删除【薪水最高】的老油条员工
-@Test
-public void testDelete() {
-	//先找到薪水最高的老油条员工
-	Query maxQuery = new Query().with(Sort.by(Sort.Order.desc("money")));
-	Employee one = mongoTemplate.findOne(maxQuery, Employee.class);
-	//打印出老油条员工
-	System.out.println(one);
-
-	if (one != null) {
-		//这里直接删除了，当然你也可以再通过查询条件，比如主键 id 进行删除
-		DeleteResult remove = mongoTemplate.remove(one);
-		//打印出删除的文档数量
-		System.out.println(remove.getDeletedCount());
-	}
-}~
+// 条件查询：查询研发部，并且年龄大于 30 岁的员工，按照年龄倒序排列
+List<Employee> list = mongoTemplate.find(
+    Query.query(Criteria.where("depart").is("研发部").and("age").gt(30))
+         .with(Sort.by(Sort.Direction.DESC, "age")),
+    Employee.class
+);
+```
+- 计数
+```java
+long total = mongoTemplate.count(
+	Query.query(Criteria.where("money").gt(2000)),
+	Employee.class
+);
+```
+- 分页查询
+```java
+int page = 2;
+int size = 2;
+Query query = new Query(criteria)
+		.skip((page - 1) * size) //跳过多少条
+		.limit(size) //返回多少条
+		.with(Sort.by(Sort.Order.asc("money")));
+List<Employee> list = mongoTemplate.find(query, Employee.class);
 ```
 
 # ❤️ 高阶功能
-## Criteria 复杂查询条件
+## 💛 Criteria 复杂查询条件
 - 多条件组合
 - 嵌套文档查询
 ```java
@@ -235,7 +153,7 @@ if (name != null) criterias.add(Criteria.where("name").regex(name));
 new Criteria().andOperator(criterias.toArray(new Criteria[0]));
 ```
 
-## BasicQuery
+## 💛 BasicQuery
 BasicQuery 是原生的 json 查询方法，非常复杂，但是功能很丰富
 
 ```java
@@ -243,7 +161,63 @@ BasicQuery query = new BasicQuery("{ age : { $lt : 30 }, name : { $regex : 'l' }
 List<Person> result = mongoTemplate.find(query, Person.class);
 ```
 
-## 动态字段
+## 💛 聚合查询
+- 聚合统计数量
+```java
+// 统计各个部门的人数
+AggregationOperation group = Aggregation.group("depart").count().as("empCount");
+Aggregation aggregation = Aggregation.newAggregation(group);
+AggregationResults<Map> results = mongoTemplate.aggregate(aggregation, Employee.class, Map.class);
+for (Map result : results.getMappedResults()) {
+	System.out.println(result);
+}
+
+---
+{ "name": "张三", "depart": "研发部" }
+{ "name": "李四", "depart": "研发部" }
+{ "name": "王五", "depart": "市场部" }
+
+{_id=研发部, empCount=2}
+{_id=市场部, empCount=1}
+```
+- 聚合统计最大值
+```java
+// 统计每个部门，最高的薪水是多少，这里使用的是 max ，当然你也可以使用 min（最小），sum(总和)，avg（平均）等方法
+AggregationOperation group = Aggregation.group("depart").max("money").as("maxMoney");
+Aggregation aggregation = Aggregation.newAggregation(group);
+AggregationResults<Map> results = mongoTemplate.aggregate(aggregation, Employee.class, Map.class);
+for (Map result : results.getMappedResults()) {
+	System.out.println(result);
+}
+
+---
+{ "name": "张三", "depart": "研发部" , "money": 5000 }
+{ "name": "李四", "depart": "研发部" , "money": 7000 }
+{ "name": "王五", "depart": "市场部" , "money": 6000 }
+
+{_id=开发部, maxMoney=7000}
+{_id=市场部, maxMoney=6000}
+```
+- 聚合随机获取数据
+```java
+// 随机获取 3 个人的信息
+TypedAggregation aggregation = Aggregation.newAggregation(Employee.class, Aggregation.sample(3));
+AggregationResults<Employee> results = mongoTemplate.aggregate(aggregation, Employee.class);
+List<Employee> list = results.getMappedResults();
+```
+- 有条件地聚合随机获取数据
+```java
+// 随机获取 2 个年龄大于 26 岁的员工
+TypedAggregation<Employee> aggregation = TypedAggregation.newAggregation(
+    Employee.class,
+    Aggregation.match(Criteria.where("age").gt(26)),
+    Aggregation.sample(2)
+);
+
+List<Employee> list = mongoTemplate.aggregate(aggregation, Employee.class).getMappedResults();
+```
+
+## 💛 动态字段
 - 使用 Document 类型，推荐用于字段完全动态的情况
 ```java
 Document doc1 = new Document();
