@@ -370,6 +370,13 @@ while(fieldNames.hasNext()) {
 # ❤ ArrayNode
 ```java
 ArrayNode arrayNode = objectMapper.createArrayNode();
+
+arrayNode.add("apple");
+arrayNode.add(objectNode);
+```
+
+```java
+ArrayNode arrayNode = (ArrayNode) objectMapper.readTree(json);
 ```
 
 # ❤ TextNode
