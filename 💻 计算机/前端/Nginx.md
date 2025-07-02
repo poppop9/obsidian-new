@@ -1,10 +1,9 @@
-# 基础
+
 >[!hint] nginx 中的进程
 >nginx 中的进程分为：
 >- `master` ：主进程，负责读取配置文件，管理 `worker` 进程，~~只有一个~~
 >- `worker` ：工作进程，负责处理请求，~~可以有多个，在 `nginx.conf` 里配置~~
 
-## 目录结构
 - `nginx` 
 	- `conf` 
 		- `conf.d` 【所有配置文件定义在这里就好，nginx.conf 会自动引入】
@@ -14,66 +13,20 @@
 	- `logs` 
 	- `ssl` 
 
-## 在 docker 中安装配置
-[nginx 的 docker 地址](https://hub.docker.com/_/nginx)
-
-- 创建一个默认的 nginx 用于拷贝配置文件
+# ❤️ 部署安装
 ```bash
-docker run --name nginxconf -p 9999:80 -d nginx
-```
-
-- 在宿主机上创建目录，用来映射容器中的目录
-```bash
-mkdir -p /data/nginx/conf
-mkdir -p /data/nginx/logs
-mkdir -p /data/nginx/ssl
-```
-
-- 复制容器内的配置文件
-```bash
-# 拷贝nginx.conf
-docker cp nginxconf:/etc/nginx/nginx.conf /data/nginx/conf/nginx.conf
-
-# 拷贝default.conf
-docker cp nginxconf:/etc/nginx/conf.d /data/nginx/conf
-
-# 拷贝html目录
-docker cp nginxconf:/usr/share/nginx/html /data/nginx
-```
-
-- 创建最终的 nginx
-```bash
+# 创建四个数据卷，后续方便配置修改
 docker run \
   --name nginx \
   -p 80:80 \
-  -v /data/nginx/logs:/var/log/nginx \
-  -v /data/nginx/html:/usr/share/nginx/html \
-  -v /data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf \
-  -v /data/nginx/conf/conf.d:/etc/nginx/conf.d \
-  -v /data/nginx/ssl:/etc/nginx/ssl \
-  -d --restart=always nginx
+  -v nginx_logs:/var/log/nginx \
+  -v nginx_html:/usr/share/nginx/html \
+  -v nginx_conf:/etc/nginx/conf.d \
+  -v nginx_ssl:/etc/nginx/ssl \
+  -d --restart=always nginx:1.28.0
 ```
 
-- 删除原来没用的 nginx
-```bash
-docker rm -f nginxconf
-```
-
-# 命令
-## Win
-- `nginx` 
-	- `-s 值` 
-		- `quit` 优雅停止【~~等待 `worker` 进程完成当前处理后退出~~】
-		- `stop` 立即停止
-		- `reload` 重新加载配置文件
-		- `reopen` 重新打开新的日志文件，并写入
-	- `-t` 检查配置文件是否正确
-
-- `start nginx` 启动 nginx
-
-## Linux
-
-# 配置文件
+# ❤️ 配置文件
 - `event{……}` 告诉 nginx 如何处理连接
 
 ---
@@ -134,7 +87,7 @@ http {
 }
 ```
 
-# 功能
+# ❤️ 功能
 ## 反向代理 + 负载均衡
 - 在 `http 块` 中添加 `upstream 块` ，里面配置服务的 IP 地址，和端口号
 ```yml
@@ -350,7 +303,7 @@ server {
 }
 ```
 
-# 可视化工具
+# ❤️ 可视化工具
 ## Nginx Proxy Manager
 - https://nginxproxymanager.com/
 - https://docs.halo.run/getting-started/install/other/nginxproxymanager/

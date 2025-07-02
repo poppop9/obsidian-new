@@ -345,17 +345,12 @@ docker exec -it my_container bash
 > 
 > - 数据卷默认在宿主机的 `/var/lib/docker/volumes/数据卷名` 
 
----
-
 - **增**
 	- 创建数据卷 `docker volume create` 
 	- 挂载数据卷 ：[[#^131b42]] ，如果没有该数据卷，会自动创建数据卷
 ```bash
 docker run -d --name nginx -p 80:80 -v html:/usr/share/nginx/html nginx
 ```
-
----
-
 - **删**
 	- `docker volume rm` 删除指定数据卷
 	- `docker volume prune` 删除未使用的数据卷
