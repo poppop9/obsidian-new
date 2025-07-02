@@ -1,3 +1,7 @@
+[https://juejin.cn/post/7373937820178169894](https://juejin.cn/post/7373937820178169894)
+
+[https://docs.spring.io/spring-kafka/reference/kafka/receiving-messages/listener-annotation.html#manual-assignment](https://docs.spring.io/spring-kafka/reference/kafka/receiving-messages/listener-annotation.html#manual-assignment)
+
 ```xml
 <!-- spring-kafka 封装了 kafka-clients，简化开发 -->
 <dependency>
@@ -86,8 +90,53 @@ spring:
 ```
 
 ## 💛 主题
+<u>配置</u> ：
+- 单机使用：KafkaAdmin 会被自动注入，会读取配置文件的配置
+- 集群使用：手动注入多个 KafkaAdmin
+```java
+@Bean
+public KafkaAdmin kafkaAdmin() {
+    return new KafkaAdmin(
+	    Map.of(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092")
+	);
+}
+```
 
+<u>创建 Topic</u> ：
+- 初始化时创建
+```
+@Component
+public class KafkaTopicConfig {
+    @Bean
+    public KafkaAdmin.NewTopics createTopics() {
+        return new KafkaAdmin.NewTopics(
+                TopicBuilder.name("TopicThree").build(),
+                TopicBuilder.name("TopicFour").build(),
+                TopicBuilder.name("TopicFive").build()
+        );
+    }
+}
+```
+- 运行时动态创建，修改
+```java
+kafkaAdmin.createOrModifyTopics(
+		TopicBuilder.name("TopicOne").build(),
+		TopicBuilder.name("TopicTwo").build(),
+		TopicBuilder.name("TopicThree").build()
+);
+```
+<u>查看</u> ：
+```java
+kafkaAdmin.describeTopics("TopicTwo", "TopicThree", "TopicFour")
+    .forEach((topicName, topicDescription) -> System.out.println(topicName + "：" + topicDescription));
 
+---
+TopicThree：(name=TopicThree, internal=false, partitions=(partition=0, leader=localhost:9092 (id: 0 rack: null), replicas=localhost:9092 (id: 0 rack: null), isr=localhost:9092 (id: 0 rack: null)), authorizedOperations=null)
+
+TopicTwo：(name=TopicTwo, internal=false, partitions=(partition=0, leader=localhost:9092 (id: 0 rack: null), replicas=localhost:9092 (id: 0 rack: null), isr=localhost:9092 (id: 0 rack: null)),(partition=1, leader=localhost:9092 (id: 0 rack: null), replicas=localhost:9092 (id: 0 rack: null), isr=localhost:9092 (id: 0 rack: null)),(partition=2, leader=localhost:9092 (id: 0 rack: null), replicas=localhost:9092 (id: 0 rack: null), isr=localhost:9092 (id: 0 rack: null)), authorizedOperations=null)
+
+TopicFour：(name=TopicFour, internal=false, partitions=(partition=0, leader=localhost:9092 (id: 0 rack: null), replicas=localhost:9092 (id: 0 rack: null), isr=localhost:9092 (id: 0 rack: null)), authorizedOperations=null)
+```
 
 ## 💛 生产者
 <u>注入对象</u> ：
