@@ -201,6 +201,14 @@ com.example.spring_aop.controller.HelloController@38fb151a
 - `session` 每个会话范围，会创建新的实例
 - `application` 每个应用范围内，会创建新的实例
 
+```java
+@Component
+@Scope("prototype")
+public class MyBean {
+    // Bean 类定义
+}
+```
+
 ## 第三方 Bean
 有时我们会在项目中引入第三方的依赖，其中会用到第三方包的对象，如果重复创建对象会消耗资源，我们会想将这个对象放到 IOC 容器中，但是**第三方包是只读的，无法修改**，这时我们就需要使用 `@Bean` 
 
