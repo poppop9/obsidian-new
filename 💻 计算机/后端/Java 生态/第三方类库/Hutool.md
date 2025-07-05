@@ -604,6 +604,22 @@ Cache<String, String> weakCache = CacheUtil.newWeakCache(5000);
 Cache<String, String> staticCache = CacheUtil.newLFUCache(100);
 ```
 
+```java
+// 手动封装全局缓存
+public class PicPathGlobalCache {
+    // key 是唯一id，value 是图片路径列表
+    private static final Cache<String, List<String>> cache = CacheUtil.newFIFOCache(10);
+
+    public static void put(String key, List<String> val) {
+        cache.put(key, val);
+    }
+
+    public static List<String> get(String key) {
+        return cache.get(key);
+    }
+}
+```
+
 
 
 # ❤ 断言 Assert
