@@ -32,7 +32,7 @@
 ><u>仓库</u> 是用来存储，分享 Docker 镜像的地方【DockerHub……】
 
 # ❤️ 安装 Docker Engine
->[!NOTE] 以下配置均在 Ubuntu 中安装
+> [!NOTE] 以下配置均在 Ubuntu 中安装
 
 - 卸载旧版本
 ```bash
@@ -72,7 +72,6 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 # 验证是否安装成功
 docker version
 ```
-
 - 安装 2
 ```
 sudo apt update
@@ -84,8 +83,7 @@ sudo systemctl enable docker
 docker --version
 docker run hello-world
 ```
-
->[!NOTE] 配置镜像加速
+- 配置镜像加速
 ```bash
 # 创建文件
 sudo nano /etc/docker/daemon.json
