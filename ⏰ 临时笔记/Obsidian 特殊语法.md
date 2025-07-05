@@ -57,29 +57,29 @@ tag:问题
 ### Callout
 > [!quote] 用来编写概念
 
-> [!example] 描述例子
+> [!EXAMPLE] 描述例子
 
-> [!bug] 描述 bug
+> [!BUG] 描述 bug
 
-> [!faq] 描述问题
+> [!FAQ] 描述问题
 
-> [!hint] 额外说明，提示
+> [!HINT] 额外说明，提示
 
->[!warning] 注意
+>[!WARNING] 注意
 
-> [!summary]
+> [!SUMMARY]
 
-> [!done]
+> [!DONE]
 
-> [!fail]
+> [!FAIL]
 
-> [!error]
+> [!ERROR]
 
 > [!NOTE]
 
-> [!todo]
+> [!TODO]
 
-> [!info]
+> [!INFO]
 
 ## 插件
 _**Better footnote**_ 阅读视图时，脚注可以鼠标悬浮显示
