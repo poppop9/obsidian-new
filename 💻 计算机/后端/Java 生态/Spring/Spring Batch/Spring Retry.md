@@ -211,7 +211,6 @@ class ShakyBusinessService {
 	- 重试次数
 	- 重试间隔
 	- 异常
-
 ```java
 @Configuration
 public class RetryConfig {
