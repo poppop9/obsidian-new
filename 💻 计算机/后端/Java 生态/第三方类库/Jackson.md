@@ -175,11 +175,6 @@ System.out.println(json);
 > System.out.println(output2);
 > ```
 
-## 💛 Bean -> ObjectNode
-```java
-ObjectNode objectNode = new ObjectMapper().convertValue(item, ObjectNode.class)
-```
-
 # ❤ JsonNode 树模型
 >[!quote] 树模型
 >>树模型 由 JsonNode 类表示，可用于表示 JSON 对象
@@ -255,15 +250,10 @@ car.doors = 4;
 JsonNode carJsonNode = new ObjectMapper().valueToTree(car);
 ```
 
-## 💛 JsonNode -> Java 对象
+## 💛 All -> All
 ```java
-ObjectMapper objectMapper = new ObjectMapper();
-
-String carJson = "{ \"brand\" : \"Mercedes\", \"doors\" : 5 }";
-
-JsonNode carJsonNode = objectMapper.readValue(carJson, JsonNode.class);
-
-Car car = objectMapper.treeToValue(carJsonNode);
+List<Integer> list = objectMapper.convertValue(jsonNode.get("dirInfoIdList"), new TypeReference<List<Integer>>() {
+})
 ```
 
 # ❤ ObjectNode 子树模型
