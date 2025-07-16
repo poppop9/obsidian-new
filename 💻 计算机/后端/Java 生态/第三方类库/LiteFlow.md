@@ -7,6 +7,7 @@
 ```
 
 > [!quote] LiteFlow
+> 
 > > [LiteFlow](https://liteflow.cc/) 是一个业务规则编排引擎，而不是流程引擎
 > > ![300](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/20241104005204.png)
 > 
@@ -85,6 +86,7 @@ liteflow:
 ```
 
 # ❤️ 组件
+
 > [!warning] 所有在组件中定义的方法都是有类型的~~【处理方法，预处理方法，前置处理方法 ……】~~，所有的这些方法的返回值都要按照 NodeComponent 来写
 
 ## 💛 普通组件
@@ -204,6 +206,7 @@ liteflow:
 流程入参能做的数据上下文都能实现
 
 # ❤️ 数据上下文
+
 > [!hint] 所有的组件需要用到其他组件的数据时，都是利用数据上下文去取，而不是依赖于其他组件
 
 `DefaultContext` ：是默认实现的数据上下文，你也可以自己定义

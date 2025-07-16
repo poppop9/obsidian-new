@@ -9,14 +9,15 @@
 > - 存储 - Kafka 可以作为一个安全的分布式存储
 
 # ❤️ Broker
+
 > [!quote] Broker
 > 一个独立的 Kafka 服务器被称为 Broker，一个 Kafka 集群会有多个 Broker
-
 
 # ❤️ 三级结构
 ![600](https://s21.ax1x.com/2024/08/01/pkXlN8O.png)
 
 ## 💛 主题 Topic
+
 > [!quote] Topic
 > Topic 是用来给 Partition 做分类的，一个 Topic 可以有多个 Partition
 > 
@@ -24,6 +25,7 @@
 > - <u>同一个主题的消息可以保存在一个，或多个 Broker 上</u>
 
 ## 💛 分区 Partition
+
 > [!quote] Partition
 > Partition 是一个有序不变的消息序列，消息以追加的方式写入 Partition，然后以先入先出的顺序读取
 > 
@@ -31,6 +33,7 @@
 > - 一个 Partition ，在同一个时间内，只容许最多一个生产者，和最多一个消费者的操作
 
 ### 💙 分区策略
+
 > [!quote] 分区策略
 > 分区策略 是决定生产者将消息发送到哪个分区的算法
 > 
@@ -43,6 +46,7 @@
 	- `没有指定 key` ：每隔一段时间，随机选择一个 partition。在某个时间段内的所有消息都发送到这个 partition，如果发送出错，那就重新选择一个 partition
 
 ### 💙 分区再均衡 Rebalance
+
 > [!quote] 分区再均衡
 > kafka 会为一个消费者组里的所有消费者分配分区，这就是**均衡**，但如果达到触发条件，那 Broker 会触发分区再均衡，重新为每一个消费者分配分区，这就是**分区再均衡**
 > ![650](https://s21.ax1x.com/2024/08/01/pkX8gG6.png)
@@ -60,10 +64,12 @@
 > [!NOTE] 分区再均衡的代价很高，应该尽量避免，以整体提高 Consumer 的吞吐量
 
 ## 💛 消息 Message
+
 > [!quote] Message
 > Message 就是 Kafka 的数据单元，由字节数组组成
 
 # ❤️ 生产者
+
 > [!quote] Producer
 > Producer 是向 Topic 发布 Message 的 Kafka 客户端，发送的是 `ProducerRecord` 数据对象，里面有 4 个关键参数：
 > - `Topic` - 主题
@@ -79,6 +85,7 @@
 > 批次 是一组消息，<u>是对于 Producer 来说的</u>，在消息发送到服务端之前，会将要发送到同一主题下同一分区下的消息打包成一个批次，统一发送到 Kafka 服务端
 
 ## 💛 解压缩
+
 > [!quote] 压缩
 > Kafka 的压缩会有三个阶段 ：<u>Producer 压缩</u> -> <u>Broker 保持</u> -> <u>Consumer 解压缩</u>
 > 
@@ -101,6 +108,7 @@
 [https://dunwu.github.io/bigdata-tutorial/kafka/Kafka%E7%94%9F%E4%BA%A7%E8%80%85.html#_7-%E5%B9%82%E7%AD%89%E6%80%A7](https://dunwu.github.io/bigdata-tutorial/kafka/Kafka%E7%94%9F%E4%BA%A7%E8%80%85.html#_7-%E5%B9%82%E7%AD%89%E6%80%A7)
 
 # ❤️ 消费者
+
 > [!quote] 消费者 Consumer
 > 消费者 是从 Topic 订阅 Message 的 Kafka 客户端，消费者通过检查消息的 <u>offset</u> 来区分消息是否已读
 > 
@@ -135,6 +143,7 @@
 > 举个例子，如果 time 为 300000 ms，数据积累值为 50 条消息，在 300000 ms 内：数据没有积累到 50 条不会返回；只要一到 300000 ms ，不管数据积累了多少都会返回
 
 ## 💛 心跳机制
+
 > [!quote] 心跳机制
 > 心跳 由消费者使用 poll() 定期发送给协调器 Coordinator ，以告知其仍然存活，如果 Coordinator 发现有消费者宕机了，会再均衡
 > 
@@ -169,7 +178,6 @@ Kafka 有两种清理策略 ：
 - 基于日志大小清理。如果日志的总大小超过某个阈值，就会开始清理旧消息
 
 ---
-
 
 # ❤️ 可视化
 Offset Explorer

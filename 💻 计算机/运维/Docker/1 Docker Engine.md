@@ -1,4 +1,5 @@
 # ❤️ Docker 的体系结构
+
 > [!quote] Docker
 > Docker 是一个开源的容器化平台，**用于构建、部署和运行应用程序**。它提供了一种轻量级的虚拟化技术，允许将应用程序及其依赖项打包到一个<u>容器</u>中
 
@@ -32,6 +33,7 @@
 > <u>仓库</u> 是用来存储，分享 Docker 镜像的地方【DockerHub……】
 
 # ❤️ 安装 Docker Engine
+
 > [!NOTE] 以下配置均在 Ubuntu 中安装
 
 - 卸载旧版本
@@ -102,6 +104,7 @@ sudo nano /etc/docker/daemon.json
 ```
 
 > [!NOTE] 额外配置
+> 
 > > 额外的配置可以让我们在使用 Docker 时更加方便
 > 
 > - 以非 root 用户身份管理 Docker【可以在使用 Docker 命令时，不加 `sudo`】
@@ -329,6 +332,7 @@ docker exec -it my_container bash
 
 # ❤ 挂载
 ## 💛 数据卷挂载
+
 > [!warning] 容器创建之后不能再挂载数据卷，只能在 `docker run` 的时候就挂载
 
 > [!quote] 数据卷挂载
@@ -357,6 +361,7 @@ docker run -d --name nginx -p 80:80 -v html:/usr/share/nginx/html nginx
 	- `docker volume inspect 数据卷名` 查看某个数据卷的详情【数据卷在宿主机的目录，……】
 
 ## 💛 绑定挂载
+
 > [!quote] 绑定挂载
 > 绑定挂载 就是将宿主机上的文件或目录，挂载到容器中，<u>不管容器内的目录中有无文件，都会被宿主机上的 文件/目录 覆盖</u>
 
@@ -392,6 +397,7 @@ docker run -itd --name test2 --network test-net ubuntu /bin/bash
 ```
 
 ## bridge 桥接模式
+
 > [!quote] bridge 模式（~~Docker 默认的网络模式~~）
 > bridge 模式下，Docker 会在主机上创建一个虚拟网桥 `docker0`，并将所有容器连接到该网桥，形成一个二层网络
 > 
@@ -402,6 +408,7 @@ docker run -itd --name test2 --network test-net ubuntu /bin/bash
 > [!NOTE] 容器的默认网桥是不允许使用容器名通信的
 
 ## host 模式
+
 > [!quote] host 模式
 > host 模式下，容器将共享宿主机的网络栈，而不是创建一个独立的网络命名空间
 > 

@@ -20,6 +20,7 @@
 > MyBatis 偏向于定制化开发，MyBatis Plus 也不是用来替换 MyBatis 的，是在 MyBatis 的基础上提供的一套增强功能，<u>而且只适合单表的 CRUD</u>，对于多表还是需要手写 SQL 语句
 
 # 常用注解
+
 > [!hint] MyBatis Plus 中的默认处理方式
 > - MP 默认会把实体类名的驼峰命名转下划线作为表名【~~UserInfo 转为 user_info~~】
 > - 实体类的变量名驼峰命名转下划线作为字段名
@@ -74,6 +75,7 @@ public class User {
 ```
 
 # 常用配置
+
 > [!hint] 大部分配置都是默认的，不用自己配，除非特殊需求要用到
 
 ```yml
@@ -183,7 +185,9 @@ userPlus(userId=2, userName=nelson, userPassword=Fra, userAuthority=1)
 ```
 
 ## 条件构造器
+
 > [!quote] 条件构造器 Wrapper
+> 
 > > 条件构造器 Wrapper 可以构造 `WHERE` 条件，进行条件性地 RUD
 > 
 > **继承体系**：
@@ -293,6 +297,7 @@ public void testUpdateWrapper() {
 ```
 
 ### 动态 SQL
+
 > [!quote] 动态 SQL
 > 动态 SQL 就是可以使用条件来动态地判断是否要加入某个 `WHERE 条件`
 > 
@@ -313,6 +318,7 @@ public void testIServiceMultiConditionDynamicSelect(User user) {
 }
 ```
 ## IService 接口
+
 > [!hint] 有了 `IService` ，我们就很少用到 `BaseMapper` 了，除非需要自定义 SQL，<u>虽然不用，但是也要创建 `BaseMapper` ，因为 `IService` 的实现类的泛型需要 `BaseMapper` </u>
 
 > [!quote] IService 接口
@@ -357,6 +363,7 @@ User(id=1, name=kite, password=Japen, authority=4)
 ```
 
 ### 批量处理
+
 > [!hint] 在需要处理大量数据时，批处理可以提高性能
 > - **不使用批处理**：发送网络请求次数较多，导致耗时长
 > - **使用批处理**
@@ -392,6 +399,7 @@ public void testIServiceSaveBatch() {
 ```
 
 ## 半自动 SQL
+
 > [!quote] 半自动 SQL
 > 半自动 SQL 是指 sql 语句的<u>前半部分还是写在 XML 文件里</u>，而  <u>`WHERE 条件` 使用 MyBatis-Plus 来写</u>
 > 
@@ -454,7 +462,9 @@ public interface UserMapper extends BaseMapper<User> {
 
 # 高阶用法
 ## 代码生成
+
 > [!quote] 代码生成
+> 
 > > 由于各种 `IService` ， `BaseMapper` 的格式比较固定，所以我们可以借助代码生成器来快速生成
 > 
 > 代码生成的方式：
@@ -469,6 +479,7 @@ public interface UserMapper extends BaseMapper<User> {
 - ![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202406151502136.png)
 
 ## Db Kit
+
 > [!quote] Db Kit
 > Db Kit 允许<u>通过静态调用的方式</u>执行 CRUD 操作，从而避免了在 Spring 环境下的 Service 循环注入问题【~~比如 `UserService` 需要注入 `RoleService` ，而 `RoleService` 也需要注入 `UserService`~~】
 
@@ -543,7 +554,9 @@ public User getUserAndRoleName(int id) {
 ```
 
 ## 逻辑删除
+
 > [!quote] 逻辑删除
+> 
 > > 逻辑删除 就是这条数据展示给用户时，像是被删除了，但是依旧保留在数据库中【~~方便后续溯源~~】，~~比如商品的订单信息，用户要删除订单，用户看不见了，但是我们不能真的在数据库中删除，因为这个订单信息还是有用的~~
 > 
 > - 不推荐使用，因为会影响性能【~~因为要每个 SQL 语句都多加一个条件~~】
@@ -643,6 +656,7 @@ public class MybatisPlusConfig {
 - 创建 Page 对象，使用 IService 中的 page() 进行分页查询
 
 > [!quote] Page 类
+> 
 > | 属性名                    | 类型              | 默认值       | 描述                             |
 > | ---------------------- | --------------- | --------- | ------------------------------ |
 > | records                | List\<T>         | emptyList | 这一页 page 的数据          |

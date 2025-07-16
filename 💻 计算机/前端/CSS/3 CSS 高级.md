@@ -47,6 +47,7 @@
 
 # 渐变
 ## 线性渐变
+
 > `linear-gradient` 向下 / 向上 / 向左 / 向右 / 对角线
 
 语法：`background-image: linear-gradient(direction/angle, color-stop1, color-stop2, ...);`
@@ -90,6 +91,7 @@ background-image: repeating-radial-gradient(red, yellow 10%, green 15%);
 ```
 
 # 滤镜，模糊
+
 > 使用 `filter` 属性
 
 * `blur()` 模糊效果

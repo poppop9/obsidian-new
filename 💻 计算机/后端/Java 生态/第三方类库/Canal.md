@@ -16,11 +16,11 @@ implementation group: 'com.alibaba.otter', name: 'canal.protocol', version: '1.1
 
 http://xiaoyuge.work/cancel/index.html#1-%E7%AE%80%E4%BB%8B
 
-
 > [!quote] Canal
 > 在 MySQL 中，主服务器 Master 将所有的数据变化~~【INSERT、UPDATE、DELETE 操作】~~记录到 binlog 日志文件中，从服务器 Slave 会定期向主服务器请求数据更新，进行同步，**而 Canal 就模拟了从服务器的角色**
 
 # ❤️ 配置
+
 > [!warning] 使用 Canal 需要开启 MySQL 的 mysql_native_password 插件，所以 MySQL 最高只支持 8.4.0
 
 - mysql 开启 binlog 

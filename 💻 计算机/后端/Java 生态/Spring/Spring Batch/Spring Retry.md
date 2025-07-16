@@ -53,6 +53,7 @@ retry ……
 ```
 
 ## 重试机制
+
 > [!quote] `@Retryable`
 > 你可以定义当方法出现何种异常时，如何重试 ：
 > - `retryFor` 指明需要重试的异常
@@ -84,6 +85,7 @@ public interface MyService {
 ```
 
 ## 恢复机制
+
 > [!quote] `@Recover`
 > 你可以定义当方法重试后依旧失败时，要执行的方法 ：
 > - 恢复方法的第一个参数是异常类，后续参数按照重试方法的参数来写
@@ -176,6 +178,7 @@ public RetryListener createRetryListener() {
 
 
 ## 熔断器
+
 > [!quote] `@CircuitBreaker` 
 
 ```java
@@ -198,6 +201,7 @@ class ShakyBusinessService {
 ```
 
 # ❤️ 工具类方式 - RetryTemplate
+
 > [!warning] 什么时候要使用 RetryTemplate 替代注解，来实现重试机制呢 ?
 > - 不使用 IOC 容器时
 > - 场景复杂时

@@ -67,6 +67,7 @@ docker run -d -p 8848:8848 -p 9848:9848 -p 9849:9849 --name nacos -e JVM_XMS=256
 - 保护阈值 ：保护阈值是一个 0 ~ 1 之间的值，当服务有 10 个实例时，如果设置为 0.1 ，表示当 10 个实例挂了 9 个，只剩 1 个时，nacos 会将流量分发到 10 个实例上（~~即使有 9 个不可用，也会这么做，因为如果不这么做所有的流量都会压到 1 个实例上，可能会导致 10 个都挂掉，继而导致调用这个服务的上游服务累积流量，最终也挂掉~~）
 
 ## 💛 Client
+
 > [!warning] 如果需要引入 Dubbo ，则无需引入 Nacos Client
 
 <u>引入依赖</u> ：
@@ -148,10 +149,6 @@ public NamingService namingService() throws NacosException {
 
 ### 💙 NamingService
 [api 文档](https://nacos.io/docs/latest/manual/user/java-sdk/usage/?spm=5238cd80.2ef5001f.0.0.3f613b7c8e69FZ#4-%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0api)
-
-
-
-
 
 ---
 

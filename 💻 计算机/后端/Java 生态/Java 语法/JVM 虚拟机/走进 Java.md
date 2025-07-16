@@ -4,6 +4,7 @@ Write Once，Run Anywhere
 $$
 
 # Java 技术体系
+
 > [!quote] Java 技术体系：
  > - Java 程序设计语言
  > - 各种硬件平台上的 Java 虚拟机实现

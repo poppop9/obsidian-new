@@ -55,6 +55,7 @@ tag:问题
 ```
 
 ## Callout
+
 > [!QUOTE] 用来编写概念
 
 > [!EXAMPLE] 描述例子
@@ -82,17 +83,16 @@ tag:问题
 > [!INFO]
 
 # 插件
-_**Better footnote**_ 阅读视图时，脚注可以鼠标悬浮显示
-_**Commander**_ 控制在侧边栏，底部，各处的按钮
-_**Editing Toolbar**_ 悬浮的快捷编辑栏
-_**Excalidraw**_
-_**Image auto upload Plugin**_ 图床
-_**Keyboard Analyzer**_ 查看各种键的快捷键
-_**Obsidian Git**_ git 来备份文件
-_**Recent Files**_ 显示最近文件
-_**Remotely Save**_ 远程通过 webdev 备份文件
-_**Setting Search**_ ob 的原生搜素不全面，这个设置搜索好用
-_**Style Settings**_ 对于主题的 css 设置
-
+- _**Better footnote**_ 阅读视图时，脚注可以鼠标悬浮显示
+- _**Commander**_ 控制在侧边栏，底部，各处的按钮
+- _**Editing Toolbar**_ 悬浮的快捷编辑栏
+- _**Excalidraw**_
+- _**Image auto upload Plugin**_ 图床
+- _**Keyboard Analyzer**_ 查看各种键的快捷键
+- _**Obsidian Git**_ git 来备份文件
+- _**Recent Files**_ 显示最近文件
+- _**Remotely Save**_ 远程通过 webdev 备份文件
+- _**Setting Search**_ ob 的原生搜素不全面，这个设置搜索好用
+- _**Style Settings**_ 对于主题的 css 设置
 - `Linter` 格式化文档
 - `Code Styler` 

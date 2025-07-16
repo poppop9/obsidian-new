@@ -118,6 +118,7 @@ D:100
 ```
 
 ## 💛 Base64
+
 > [!hint] 在浏览器中打开 Base64 编码的图片
 > 直接在浏览器的地址栏中输入：`data:image/png;base64,` + base64 编码数据
 
@@ -128,6 +129,7 @@ String base64 = Base64.encode(byteArray);
 ```
 
 ## 💛 二维码 QrCodeUtil
+
 > [!hint] 使用之前还要再引入 zxing 依赖
 > ```xml
 > \<dependency>
@@ -521,6 +523,7 @@ AwardBO(strategyId=1, awardId=102, awardCount=100, awardRate=0.1)
 ```
 
 # ❤ 加密解密
+
 > [!quote] 加密分类
 > - **对称加密**
 > 	- AES
@@ -623,6 +626,7 @@ public class PicPathGlobalCache {
 
 
 # ❤ 断言 Assert
+
 > [!hint] Java 原生的 Assert 的缺点
 > 断言 本意上是在调式时使用，而不是生产环境
 > 

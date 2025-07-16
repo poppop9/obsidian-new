@@ -9,6 +9,7 @@
 - `light` 浅色
 
 ---
+
 - 文本色
 	- `.text-primary`
 	- `.text-danger`
@@ -132,6 +133,7 @@
 ```
 
 # 表格
+
 > 将 `.table` 添加到 `<table>` 标签
 
 - **颜色**
@@ -199,6 +201,7 @@
 	- `.img-fluid` 响应式图像
 
 # 纵横比
+
 > 根据父容器的宽度，响应式处理子容器的视频或幻灯片
 > ![500](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403161650391.png)
 
@@ -246,6 +249,7 @@
 ![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403162112918.png)
 - `d-inline-flex` 创建行内弹性容器【~~内容多少占多少~~】
 ![300](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403162112488.png)
+
 ---
 
 - **方向**
@@ -323,5 +327,3 @@
 	- `.flex-wrap` 对 flex 子项目进行换行
 
 ---
-
-

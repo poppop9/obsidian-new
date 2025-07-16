@@ -1,4 +1,5 @@
 # 占位符
+
 > 为组件或页面使用加载占位符，以显示某些内容仍在加载中
 > ![150](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403171020883.png)
 
@@ -27,6 +28,7 @@
 
 ## 表单布局
 ### 表单标签与表单输入同行
+
 > `<label>` 要添加 `.col-form-label`，使得标签与输入垂直居中
 > ![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403172112015.png)
 
@@ -42,6 +44,7 @@
 > [!hint] `<label>` 还可以使用 `.col-form-label-sm/lg`，来匹配 `<input>` 的大小
 
 ## \<input>
+
 > 在 `<input>` 标签中添加 `form-control`
 
 - **类型**
@@ -81,7 +84,9 @@
 ```
 
 ---
+
 ### file
+
 > [!hint] 使用 `multiple` 属性，一次上传多个文件
 > ```html
 > \<label for="formFileMultiple" class="form-label">Multiple files input example\</label>
@@ -89,12 +94,14 @@
 > ```
 
 ### color
+
 > [!hint] 使用 `.form-control-color` ，优化<u>颜色表单</u>
 > ```html
 > \<input class="form-control form-control-color" type="color">
 > ```
 
 ### radio，checkbox
+
 > [!hint] 使用 `.form-check`/`.form-check-inline`，优化<u>单选框</u>，<u>复选框</u>
 > ![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403171443947.png)
 > ```html
@@ -156,6 +163,7 @@
 > ```
 
 ### range
+
 > 使用 `.form-range` 来优化<u>范围表单</u>
 
 - **步长**
@@ -177,6 +185,7 @@
 ```
 
 ## 下拉表单 \<select>
+
 > 在 `<select>` 标签上使用 `.form-select`
 
 - **预选**
@@ -222,6 +231,7 @@
 ```
 
 ## 表单组
+
 > 表单组可以让**某几个元素成为一个整体**
 > - 实现表单两侧固定文字
 > - 实现表单与按钮的无违和感结合
@@ -229,9 +239,8 @@
 - `.input-group` 创建一个表单组
 	- `.input-group-text` 在里面放置固定文字
 
-
-
 ---
+
 ![500](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403171717569.png)
 
 ```html
@@ -253,6 +262,7 @@
 ```
 
 ---
+
 ![500](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403171720264.png)
 ```html
 <div class="input-group mb-3">
@@ -262,6 +272,7 @@
 ```
 
 ## 表单浮动标签
+
 > 在单击输入字段<u>有值/获取到焦点</u>时，使标签浮动
 
 > [!warning] 使用前提

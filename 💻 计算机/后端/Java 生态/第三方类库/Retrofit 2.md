@@ -65,6 +65,7 @@ System.out.println(response.body());
 ```
 
 ## 请求 url
+
 > [!hint] 请求的 url 可以在方法调用时传入，<u>并且还可以指定查询参数【~~?key=value~~】</u>
 
 - `@Path("与url对应")`
@@ -111,6 +112,7 @@ Call<User> createUser(@Body User user);
 ```
 
 ## 表单数据
+
 > [!hint] application/x-www-form-urlencoded 与 multipart/form-data
 > - `application/x-www-form-urlencoded` 
 > 	- 这是一种简单的文本格式，易于解析

@@ -65,6 +65,7 @@ public class RedissonConfig {
 ```
 
 # 🎯 分布式对象
+
 > [!NOTE] RedissonClient 对象获取任何其他对象，如果不存在，也不会报 null，也只会返回一个空的对象，不用担心空指针
 
 ## 💛 字符串 / 对象 RBucket
@@ -140,6 +141,7 @@ System.out.println(bucketsMap);
 ```
 
 ## 实时对象 RLiveObjectService
+
 > [!quote] RLiveObjectService
 > RLiveObjectService 支持在 Redis 中直接存储 Java 对象，当某些数据对象需要频繁读写时可以使用
 > 
@@ -358,6 +360,7 @@ String element = blockingQueue.take(); // 如果队列为空则等待
 ```
 
 ## 💛 延迟队列 RDelayedQueue
+
 > [!quote] RDelayedQueue
 > 添加到 RDelayedQueue 中的任务会在指定的延迟时间后【~~时间可以固定，也可以动态变化~~】才可被取出执行
 > 
@@ -395,6 +398,7 @@ rDelayedQueue.offer(delayedDecrVO, 3, java.util.concurrent.TimeUnit.SECONDS);
 
 # ⚛️ 分布式原子变量
 ## 💛 原子长整型 AtomicLong
+
 > [!quote] AtomicLong
 > AtomicLong 是一个分布式原子 long，是一个线程安全对象
 > 
@@ -448,6 +452,7 @@ AtomicLong 底层是 CAS，而 LongAdder 是用的分段算法，能够在高高
 > - 在合并频繁时，会有合并开销
 
 # 🔒 分布式锁
+
 > [!quote] 分布式锁
 > 分布式锁 可以跨 JVM 来管理共享资源的访问
 > 
@@ -486,6 +491,7 @@ lock.unlock(); // 第二次解锁，计数器为 0，锁释放
 > - 最近使用过锁的线程
 
 ## 💛 公平锁 Fair Lock
+
 > [!quote] 公平锁 Fair Lock
 > 公平锁内部维护了一个队列，获得锁依赖于**线程请求锁的先后顺序**
 > 
@@ -515,6 +521,7 @@ lock.unlock();
 依次向每个 Redis 节点发送加锁命令，并记录每个节点的响应时间，如果超过锁的超时时间，则认为失败。检查成功加锁的节点数是否达到多数，如果未满足多数成功条件，立即向所有节点发送解锁请求
 
 ## 💛 读写锁 ReadWriteLock
+
 > [!quote] 读写锁 ReadWriteLock
 > <u>读写锁分为读锁，和写锁</u> ：
 > - 读锁 Read Lock
@@ -531,6 +538,7 @@ lock.unlock();
 - `RLock writeLock()` 获取写锁
 
 ## 分布式信号量 Semaphore
+
 > [!quote] 分布式信号量 Semaphore
 > Semaphore 维护了一个信号量（~~同一时刻，系统允许多少个并发线程访问某一资源~~），当一个线程想访问资源时，它需要从信号量中获取一个许可证，才能获取资源，使用完后释放许可证
 > 

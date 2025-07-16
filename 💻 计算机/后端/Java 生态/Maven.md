@@ -42,6 +42,7 @@
 > - `lib` jar 包资源
 
 ## 在 idea 中安装 Maven 项目
+
 > [!hint] 配置单个项目
 > - 设置 - 构建 - 构建工具 -Maven
 > ![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403031421719.png)
@@ -58,6 +59,7 @@
 ![400](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403031422705.png)
 
 # 基本概念
+
 > [!quote] Maven
 > Maven 是构建和管理 Java 项目的工具
 
@@ -86,7 +88,7 @@ Maven 规定了一套统一的 Java 开发目录，这样**可以让不同开发
 > 		<artifactId>maven-project_1</artifactId>  //项目名称
 > 		<version>1.0-SNAPSHOT</version>  //版本号
 > 		```
-				
+
 ### 标准的跨平台项目构建化流程
 对不同平台的**编译，测试，打包等操作**进行了统一标准化
 
@@ -114,6 +116,7 @@ Maven 规定了一套统一的 Java 开发目录，这样**可以让不同开发
 ![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403031423533.png)
 
 ### 排除依赖
+
 > [!quote] 排除依赖
 > 排除依赖 就是，`A项目` 引用了 `B项目` 但是不想引用 `B项目` 底下的 jar 包
 
@@ -143,6 +146,7 @@ Maven 规定了一套统一的 Java 开发目录，这样**可以让不同开发
 |    test     |     |  √   |     |    junit    |
 |  provided   |  √  |  √   |     | servlet-api |
 |   runtime   |     |  √   |  √  |   JDBC 驱动   |
+
 ```xml
 <dependencies>  
     <dependency>  
@@ -225,6 +229,7 @@ Maven 有三套独立的生命周期，每一套都有若干个阶段。**同一
 > 一个项目中的多个模块会有一个主模块，只有这个主模块会有 `APP.java` 和 `Test 类`，其他模块都是提供接口来辅助的
 
 ---
+
 ### 项目结构
 - idea_project
 	- ***blog_pojo*** 创建时创建 Maven 就好，不用创建 Spring
@@ -318,6 +323,7 @@ spring:
 ![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202408280039393.png)
 
 ## 继承
+
 > Maven 继承同 Java 类似，描述了 Maven 项目之间的关系，使用 `<parent>……</parent>` 实现
 > ![500](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403061328780.png)
 
@@ -435,6 +441,7 @@ spring:
 > [!hint] 如果没有聚合，我们要将<u>除了主项目的所有模块</u>都一个一个执行 `install` 生命周期，安装到本地的 Maven 仓库，然后在主项目中执行 `package` 打包
 
 ## 私服
+
 > [!hint] 私服可以实现依赖的共享，当项目中引入依赖后，首先会到<u>本地仓库</u>中找依赖，找不到就会到<u>私服仓库</u>中找，还找不到就会到<u>中央仓库</u>中找
 
 > [!quote] 私服中的三种仓库：

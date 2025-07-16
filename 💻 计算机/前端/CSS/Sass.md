@@ -14,6 +14,7 @@
 - 输入以下命令 `sass runoob-test.scss runoob-test.css` 将该 scss 文件编译成 css 文件放到当前目录
 
 # ❤ 变量
+
 > [!hint] 
 > - Sass 变量可以存储以下信息：
 > 	- 字符串
@@ -72,7 +73,7 @@ body {
 >   color: $myColor;  // 为green
 > }
 > ```
- 
+
 # ❤ 嵌套
 很多 CSS 属性都有同样的前缀，例如：`font-family` , `font-size` ，`font-weight` ，`text-align` , `text-transform` ，`text-overflow`
 

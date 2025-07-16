@@ -21,6 +21,7 @@
 > 		- 由于不可定制化，所以难以优化性能
 
 # 概述
+
 > [!quote] MyBatis
 > MyBatis 是一个 Java 持久层框架，**封装了 JDBC 程序**，简化了数据库的访问代码的编写，提供了灵活性和高度可定制的 SQL 映射，以及良好的性能
 
@@ -198,6 +199,7 @@ class SpringBootMyBatisApplicationTests {
 > 	- `#{}` 不能放在**单引号**或**多引号**之间使用，如果一定要在引号里进行占位符，可以使用 `CONCAT 函数`
 
 ## 主键返回
+
 > 在很多时候我们会在插入一条数据之后，再拿到这条数据的 id。由于不能简单的通过 getId 来获取，所以我们要添加 **Options 注释**
 
 - `useGeneratedKeys = true` 表示我们要拿到生成的主键值
@@ -238,6 +240,7 @@ class SpringBootMyBatisApplicationTests {
 ```
 
 # 通过 XML 来实现 MyBatis
+
 > [!hint] 三大规范
 > - 同包同名，一一对应：XML 文件的名称与 Mapper 接口的名称保持一致，一个 XML 文件对应一个 Mapper 接口，XML 文件在 `resource 目录` 下与 Mapper 接口在 java 目录下的包一致
 > - XML 文件的 `namespace` 属性与 Mapper 接口的全类名保持一致
@@ -246,6 +249,7 @@ class SpringBootMyBatisApplicationTests {
 > ![400](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202404301556169.png)
 
 ---
+
 ```java
 package com.example.spring_security.infrastructure.mapper;
 
@@ -349,6 +353,7 @@ public interface UserMapperXml {
 }
 ```
 ## sql 片段的抽取与引用
+
 > 如果像上面一样每个语句都独立写代码，那复用性会很差，如果要更改表名或者其他参数，则要一个一个语句标签更改。引入 `<sql>` ，`<include>` 标签可以解决这个问题
 
 ```xml

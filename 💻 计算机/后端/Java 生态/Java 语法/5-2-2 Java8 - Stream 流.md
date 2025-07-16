@@ -275,6 +275,7 @@ public static void main(String[] args) {
 ```
 
 ## flatMap
+
 > [!quote] `flatMap()` 
 > `flatMap` 可以把流压平
 > ![600](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/20241107154800.png)
@@ -335,6 +336,7 @@ def
 ```
 
 # 🔚 终结操作
+
 > [!warning] 如果一个流不进行终结操作，则这个流在执行时，不会执行中间操作，相当于这个流从来没有执行过 ：
 > ```java
 > // 这个程序看似会将数据add进list中，但是由于这个流操作没有终结操作，peek操作压根不会执行
@@ -657,6 +659,7 @@ double totalPayable = content.stream()
 ```
 
 # ❤ 并行流
+
 > [!quote] 并行流
 > 并行流 是指将数据分成多个部分，然后并行处理流中的每个元素
 > 

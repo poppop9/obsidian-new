@@ -42,6 +42,7 @@
 ```
 
 ---
+
 ## 斜体，粗体，删除线，下划线，高亮
 
 ^7b4f97
@@ -110,7 +111,9 @@ obsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidian
 <iframe src="https://www.bilibili.com/" style="width: 100%; height: 400px;"></iframe>
 
 ---
+
 # 列表
+
 > [!quote] 无序列表
 > ```
 > - 列表1
@@ -150,9 +153,13 @@ obsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidian
 >>二级引用
 >>>三级引用
 ```
+
 > 一级引用
+> 
 > > 二级引用
+> > 
 > > > 三级引用
+
 # 脚注
 ```
 这是一个简单的脚注[^1]
@@ -200,7 +207,6 @@ obsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidian
 > |标题 1|标题 2 |
 > |:-:|:-:|
 > |我是一段很长的文字我是一段很长的文字<br>我是一段很长的文字我是一段很长的文字<br>我是一段很长的文字我是一段很长的文字<br>我是一段很长的文字我是一段很长的文字 |我是一段很短的文字 |
->  
 
 # 绘图
 - `%%` 注解
@@ -376,6 +382,7 @@ gantt
 ```
 
 ## 类图
+
 > [!hint] 规则
 > - 子类用三角箭头实线指向父类
 > - 实现类用三角箭头虚线指向接口
@@ -468,9 +475,11 @@ $e^{i\pi} + 1 = 0$
 $\ce{CO2 + C -> 2 CO}$
 $\ce{2Mg + O2 ->[燃烧] 2 MgO}$
 ## 公式块
+
 $$
 \ce{Zn^2+  <=>[+ 2OH-][+ 2H+]  $\underset{\text{amphoteres Hydroxid}}{\ce{Zn(OH)2 v}}$  <=>[+ 2OH-][+ 2H+]  $\underset{\text{Hydroxozikat}}{\ce{[Zn(OH)4]^2-}}$}
 $$
+
 $$
 \begin{array}{lll}
 \nabla\times E &=& -\;\frac{\partial{B}}{\partial{t}}   
@@ -479,6 +488,7 @@ $$
 \ \nabla\cdot B &=& 0
 \ \end{array}
 $$
+
 $$
 i\hbar\frac{\partial \psi}{\partial t} = \frac{-\hbar^2}{2m} \left(\frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2}+\frac{\partial^2}{\partial z^2} \right) \psi + V \psi
 $$

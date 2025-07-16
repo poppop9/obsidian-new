@@ -164,6 +164,7 @@ public class StrategyArmoryDispatch {
 ```
 
 ## 链式编程记录日志
+
 > [!hint] 这种方式可以使用 `addKeyValue(key, value)` 给日志添加键值对，更有利于后续分析
 
 `atTrace()`，`atDebug()`，`atInfo()`，`atWarn()` ，`atError()`，`atFatal()` 方法都会返回一个 `LoggingEventBuilder` 实例
