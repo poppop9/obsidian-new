@@ -10,13 +10,13 @@
 #### 六级标题    
 ```
 ## 字号
-<font size="1">1号字(最小)</font>
-<font size="2">2号字</font>
-<font size="3">3号字</font>
-<font size="4">4号字</font>
-<font size="5">5号字</font>
-<font size="6">6号字</font>
-<font size="7">7号字(最大)</font>
+<font size="1">1 号字 (最小)</font>
+<font size="2">2 号字</font>
+<font size="3">3 号字</font>
+<font size="4">4 号字</font>
+<font size="5">5 号字</font>
+<font size="6">6 号字</font>
+<font size="7">7 号字 (最大)</font>
 
 ```
 <font size="1">1号字(最小)</font>
@@ -31,7 +31,7 @@
 <font color ="red">红色</font>
 <font color ="green">绿色</font>
 <font color ="blue">蓝色</font>
-<font color ="rgb(200, 100, 100)">使用RGB颜色集</font>
+<font color ="rgb(200, 100, 100)">使用 RGB 颜色集</font>
 <font color ="FF00BB">使用十六进制颜色集</font>
 ```
 <font color ="red">红色</font>
@@ -111,29 +111,29 @@ obsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidian
 
 ---
 # 列表
->[!quote] 无序列表
+> [!quote] 无序列表
 > ```
 > - 列表1
 > 	- 二级列表1
 > - 列表2
 > ```
 > 
-> - 列表1
-> 	- 二级列表1
-> - 列表2
+> - 列表 1
+> 	- 二级列表 1
+> - 列表 2
 
->[!quote] 有序列表
+> [!quote] 有序列表
 > ```
 > 1. 列表1
 > 2. 列表2
 > 	1. 二级列表1
 > ```
 > 
-> 1. 列表1
-> 2. 列表2
-> 	1. 二级列表1
+> 1. 列表 1
+> 2. 列表 2
+> 	1. 二级列表 1
 
->[!quote] 任务列表
+> [!quote] 任务列表
 > ```
 > - [x] 支持 #标签 ，[链接]()，**样式** 
 > - [x] 这是一个已经完成的项目 
@@ -150,9 +150,9 @@ obsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidian
 >>二级引用
 >>>三级引用
 ```
->一级引用
->>二级引用
->>>三级引用
+> 一级引用
+> > 二级引用
+> > > 三级引用
 # 脚注
 ```
 这是一个简单的脚注[^1]
@@ -161,9 +161,8 @@ obsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidian
 [^1]:这就是脚注
 ```
 
-这是一个简单的脚注[^1]
+这是一个简单的脚注 [^1]
 
-[^1]:这就是脚注
 # 注释
 ```
 这里是行内注释：%%预览模式下你将看不到这句话%%
@@ -175,7 +174,7 @@ obsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidian
 %%
 ```
 
-这里是行内注释：%%预览模式下你将看不到这句话%%
+这里是行内注释：%% 预览模式下你将看不到这句话%%
 
 这里是跨行注释：
 %%
@@ -190,18 +189,18 @@ obsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidian
 | 21 | 22 |
 ```
 
-| **标题1** | **标题2** |
+| **标题 1** | **标题 2** |
 | -- | -- | 
 | 11 | 12 | 
 |21| 22 |
 
->[!hint] 表格内的文字换行
->使用 `<br>`
+> [!hint] 表格内的文字换行
+> 使用 `<br>`
 > 
-> |标题1|标题2 |
+> |标题 1|标题 2 |
 > |:-:|:-:|
 > |我是一段很长的文字我是一段很长的文字<br>我是一段很长的文字我是一段很长的文字<br>我是一段很长的文字我是一段很长的文字<br>我是一段很长的文字我是一段很长的文字 |我是一段很短的文字 |
-> 
+>  
 
 # 绘图
 - `%%` 注解
@@ -377,9 +376,9 @@ gantt
 ```
 
 ## 类图
->[!hint] 规则
->- 子类用三角箭头实线指向父类
->- 实现类用三角箭头虚线指向接口
+> [!hint] 规则
+> - 子类用三角箭头实线指向父类
+> - 实现类用三角箭头虚线指向接口
 
 - **箭头**
 	- 三角箭头 `<|--` 
@@ -484,3 +483,4 @@ $$
 i\hbar\frac{\partial \psi}{\partial t} = \frac{-\hbar^2}{2m} \left(\frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2}+\frac{\partial^2}{\partial z^2} \right) \psi + V \psi
 $$
 
+[^1]: 这就是脚注

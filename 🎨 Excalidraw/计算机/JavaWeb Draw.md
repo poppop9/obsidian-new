@@ -33,7 +33,7 @@ Header：记录签名算法，令牌类型 ^OlM6aefb
 
 Payload：携带自定义信息 ^svHQMCP7
 
-Signature：将各种信息加密，防止Token被篡改 ^ejw09Yhy
+Signature：将各种信息加密，防止 Token 被篡改 ^ejw09Yhy
 
 浏览器 ^DyQApte9
 
@@ -53,7 +53,7 @@ Filter 2 ^QdgaPGzS
 
 放行 ^gp8cZ2Sr
 
-Web资源 ^oecXQW0Y
+Web 资源 ^oecXQW0Y
 
 login ^VR3Y4QKT
 
@@ -69,7 +69,7 @@ emps ^lk0eLFL2
 
 响应 ^lZvSqkE0
 
-类名排名越靠前，Filter优先级越高 ^6G9A7gOr
+类名排名越靠前，Filter 优先级越高 ^6G9A7gOr
 
 浏览器 ^y6WNmSgg
 
@@ -81,16 +81,16 @@ emps ^lk0eLFL2
 
 放行 ^4yD27llE
 
-获取请求头Token ^J7EIQEtX
+获取请求头 Token ^J7EIQEtX
 
-有Token ^Qc165IdJ
+有 Token ^Qc165IdJ
 
-Token正确 ^vC384csx
+Token 正确 ^vC384csx
 
-Token错误
+Token 错误
 【令牌非法】 ^394SEJJD
 
-无Token ^oCaOB4zI
+无 Token ^oCaOB4zI
 
 返回未登录结果 ^zLMJhkN3
 
@@ -98,7 +98,7 @@ Token错误
 
 发起请求 ^srzPAtjy
 
-Web资源 ^sAGpSFgT
+Web 资源 ^sAGpSFgT
 
 login ^WhZ1mTfb
 
@@ -130,7 +130,7 @@ scroll ^MUTTg3gI
 
 auto ^dIFLUiZq
 
-黄色方框为inline-block，可以在行内，并且可以设置宽度，高度 ^MBXvuD4F
+黄色方框为 inline-block，可以在行内，并且可以设置宽度，高度 ^MBXvuD4F
 
 默认 ^HHGaALBf
 
@@ -140,9 +140,9 @@ keep-all ^XNai9Yhu
 
 break-all ^K7edhKiF
 
-未指定column-span ^RvtOkszl
+未指定 column-span ^RvtOkszl
 
-指定column-span: all ^mLVkSMlR
+指定 column-span: all ^mLVkSMlR
 
 header ^kUlXpWqZ
 
@@ -168,11 +168,11 @@ main.js ^sdprJEx3
 
 App.vue ^nB2LdMzs
 
-其他.vue文件 ^9tkRfUqW
+其他.vue 文件 ^9tkRfUqW
 
 用户看到的 ^7ZEYnxe1
 
-E盘下的MyBatis-Plus/src/main/java/app.xlog/ggbond ^TgtA3otY
+E 盘下的 MyBatis-Plus/src/main/java/app.xlog/ggbond ^TgtA3otY
 
 实体类生成的位置 ^tmYSjaK2
 
@@ -189,7 +189,7 @@ E盘下的MyBatis-Plus/src/main/java/app.xlog/ggbond ^TgtA3otY
 在类中写入数据表
 中的注释 ^rvnLGgKG
 
-Java8的新时间api ^mBgci2fT
+Java8 的新时间 api ^mBgci2fT
 
 生成的类和位置 ^mMCYObnW
 
@@ -225,11 +225,11 @@ TreeNode ^bqY8MT1n
 
 Tree ^6jknLlE1
 
-组件1 ^yRzEx5Un
+组件 1 ^yRzEx5Un
 
-组件2 ^sJKRkua5
+组件 2 ^sJKRkua5
 
-组件3 ^0RprPnxx
+组件 3 ^0RprPnxx
 
 编排规则 ^gEnV6p2e
 
@@ -237,7 +237,7 @@ Tree ^6jknLlE1
 
 MySQL ^U6baPJGX
 
-原本的div是占据一行的，但是div1被设置为了float，div2会当div1的框不存在，但是内容存在 ^bL6G3r6O
+原本的 div 是占据一行的，但是 div1 被设置为了 float，div2 会当 div1 的框不存在，但是内容存在 ^bL6G3r6O
 
 Server ^nszyiTZh
 
@@ -319,19 +319,19 @@ xxl-job 调度中心 ^9FE6jRw0
 
 Project 1 ^GnAdHmhm
 
-jar包1 ^rDtuFL5f
+jar 包 1 ^rDtuFL5f
 
 Project 2 ^l0xLAoA7
 
-jar包2 ^JNp1Bxpz
+jar 包 2 ^JNp1Bxpz
 
-jar包3 ^EtMerQ1H
+jar 包 3 ^EtMerQ1H
 
-jar包4 ^73WXqoTW
+jar 包 4 ^73WXqoTW
 
 Project 3 ^AE6e98lV
 
-jar包5 ^aYa0ryRt
+jar 包 5 ^aYa0ryRt
 
 直接依赖 ^SSYSnPiP
 
@@ -347,9 +347,9 @@ EmpService ^AZhG64Nz
 
 依赖注入 ^2cYwjHXl
 
-Bean对象 ^Ew4IuVjZ
+Bean 对象 ^Ew4IuVjZ
 
-Bean对象 ^JIKBVgjp
+Bean 对象 ^JIKBVgjp
 
 trigger ^PJrGXHBh
 
@@ -383,19 +383,19 @@ infrastructure ^CxCOCJES
 
 types ^QNEPsXyE
 
-+表示一组
++ 表示一组
 不可变的值 ^boBwhDDM
 
-+数据库表映射 ^6wmUqfnQ
++ 数据库表映射 ^6wmUqfnQ
 
-+只用于Service层 ^p7P5Qus4
++ 只用于 Service 层 ^p7P5Qus4
 
-+业务逻辑 ^2bzhDyYw
++ 业务逻辑 ^2bzhDyYw
 
-+用于不同层之间
++ 用于不同层之间
 传输数据 ^D2Ftm7S9
 
-+唯一标识 ^0Z9PFJye
++ 唯一标识 ^0Z9PFJye
 
 Nacos
 服务注册中心 ^abGZ3CPI
@@ -404,7 +404,7 @@ A 服务 ^16Jj2g00
 
 B 服务 ^HYXnqOvN
 
-向Nacos注册服务 ^DzXZgj78
+向 Nacos 注册服务 ^DzXZgj78
 
 获取并调用 A 服务 ^ZFApWVU8
 

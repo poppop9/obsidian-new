@@ -1,7 +1,7 @@
 
->[!quote] Stream 流
->Stream 允许你对集合进行链式调用，进行各种操作【~~过滤、映射、聚合 ……~~】
->
+> [!quote] Stream 流
+> Stream 允许你对集合进行链式调用，进行各种操作【~~过滤、映射、聚合 ……~~】
+> 
 > ```java
 > public interface Stream\<T> extends BaseStream<T,Stream\<T>>
 > ```
@@ -9,7 +9,7 @@
 > - Stream 流的操作不会影响原集合，但是除非你修改了引用对象
 > - Stream 是延迟求值的 : 它只会计算有终结操作的 Stream，如果一个流没有终结操作，那么它的中间操作也不会执行
 
->[!NOTE] 循环处理技术对比
+> [!NOTE] 循环处理技术对比
 > - **数据 < 1 万** ，for 循环 > foreach / 增强 for / 迭代器 > Stream
 > - **1 万 < 数据量 < 100 万** ，Stream > foreach / 增强 for / 迭代器 > for
 > - **数据 > 100 万** ，parallelStream 最高
@@ -275,9 +275,9 @@ public static void main(String[] args) {
 ```
 
 ## flatMap
->[!quote] `flatMap()` 
->`flatMap` 可以把流压平
->![600](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/20241107154800.png)
+> [!quote] `flatMap()` 
+> `flatMap` 可以把流压平
+> ![600](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/20241107154800.png)
 
 ```java
 // 使用 map，你要手动过滤空值
@@ -335,7 +335,7 @@ def
 ```
 
 # 🔚 终结操作
->[!warning] 如果一个流不进行终结操作，则这个流在执行时，不会执行中间操作，相当于这个流从来没有执行过 ：
+> [!warning] 如果一个流不进行终结操作，则这个流在执行时，不会执行中间操作，相当于这个流从来没有执行过 ：
 > ```java
 > // 这个程序看似会将数据add进list中，但是由于这个流操作没有终结操作，peek操作压根不会执行
 > List\<JSONObject> list = new ArrayList<>();
@@ -413,9 +413,9 @@ Optional<JSONObject> first = referenceRateData.stream()
 - `Optional findFirst` 获取流中的第一个元素，并返回 Optional 对象
 	- `get()` 获取到 Optional 对象的值，也就是 Stream 流中的元素
 
->[!hint] 获得 Stream 流中的最后一个元素：
->- 先 skip （长度 - 1） 个元素
->- 再 findFirst
+> [!hint] 获得 Stream 流中的最后一个元素：
+> - 先 skip （长度 - 1） 个元素
+> - 再 findFirst
 
 ## count
 ```java
@@ -657,16 +657,16 @@ double totalPayable = content.stream()
 ```
 
 # ❤ 并行流
->[!quote] 并行流
->并行流 是指将数据分成多个部分，然后并行处理流中的每个元素
->
->- **优点**
->	- 利用了多核处理器的优势
->	- 对海量数据的处理效率更高
->- **缺点**
->	- 但是由于是多线程的，要考虑并发问题
->	- 如果是少量数据，使用并行流反而没优势，因为并行流要创建线程，销毁线程，这些都要时间
->	- 并行流处理流元素是无序的
+> [!quote] 并行流
+> 并行流 是指将数据分成多个部分，然后并行处理流中的每个元素
+> 
+> - **优点**
+> 	- 利用了多核处理器的优势
+> 	- 对海量数据的处理效率更高
+> - **缺点**
+> 	- 但是由于是多线程的，要考虑并发问题
+> 	- 如果是少量数据，使用并行流反而没优势，因为并行流要创建线程，销毁线程，这些都要时间
+> 	- 并行流处理流元素是无序的
 
 ---
 

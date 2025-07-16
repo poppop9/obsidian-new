@@ -25,8 +25,8 @@ $$
 - 反序列化：将 JSON 格式的字符串转换回对应的 Java 对象
 
 # ❤ ObjectMapper
->[!hint] 忽略 JSON 中的某些字段
->有时候，JSON 中的字段非常冗余，我们只需要将一小部分字段写入到 Java 对象中。这时，可以忽略额外的字段：
+> [!hint] 忽略 JSON 中的某些字段
+> 有时候，JSON 中的字段非常冗余，我们只需要将一小部分字段写入到 Java 对象中。这时，可以忽略额外的字段：
 > ```java
 >objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 > ```
@@ -147,9 +147,9 @@ String json = objectMapper.writeValueAsString(car);
 System.out.println(json);
 ```
 
->[!warning] Jackson 的日期转换
->Jackson 默认会将 `java.util.Date` 对象序列化为 `long` 毫秒数。但是，我们大多数时候希望能将 `java.util.Date` 转换为日期格式的字符串
->
+> [!warning] Jackson 的日期转换
+> Jackson 默认会将 `java.util.Date` 对象序列化为 `long` 毫秒数。但是，我们大多数时候希望能将 `java.util.Date` 转换为日期格式的字符串
+> 
 > - 默认
 > ```java
 > ObjectMapper objectMapper = new ObjectMapper();
@@ -176,12 +176,12 @@ System.out.println(json);
 > ```
 
 # ❤ JsonNode 树模型
->[!quote] 树模型
->>树模型 由 JsonNode 类表示，可用于表示 JSON 对象
->
->**使用场景**：
->- 不知道接收到的 JSON 格式
->- 不想多创建一个类
+> [!quote] 树模型
+> > 树模型 由 JsonNode 类表示，可用于表示 JSON 对象
+> 
+> **使用场景**：
+> - 不知道接收到的 JSON 格式
+> - 不想多创建一个类
 
 ## 创建树模型
 - json 字符串转 JsonNode
@@ -259,7 +259,7 @@ List<Integer> list = objectMapper.convertValue(jsonNode.get("dirInfoIdList"), ne
 # ❤ ObjectNode 子树模型
 JsonNode 里的属性是不可修改的，所以引入 ObjectNode，ObjectNode 是 JsonNode 的子类
 
->[!warning] ObjectNode 如果有值为 null ，或者无效字符，执行 `toString()` 时就会报错，只能使用 `writeValueAsString(ObjectNode)` 来转字符串
+> [!warning] ObjectNode 如果有值为 null ，或者无效字符，执行 `toString()` 时就会报错，只能使用 `writeValueAsString(ObjectNode)` 来转字符串
 
 ## 创建
 - `new ObjectMapper().createObjectNode()` 创建一个空的 ObjectNode

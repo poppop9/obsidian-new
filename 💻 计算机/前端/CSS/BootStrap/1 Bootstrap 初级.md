@@ -52,7 +52,7 @@ import 'bootstrap';
 
 ### .container 固定宽度容器
 
-> 提供了一个响应式的_**固定宽度容器**_【`max-width`会在不同的屏幕尺寸变化】
+> 提供了一个响应式的 _**固定宽度容器**_【`max-width` 会在不同的屏幕尺寸变化】
 
 | 类                                | <p>Extra small<br>&#x3C;576px</p> | <p>Small<br>≥576px</p> | <p>Medium<br>≥768px</p> | <p>Large<br>≥992px</p> | <p>Extra large<br>≥1200px</p> | <p>XXL<br>≥1400px</p> |
 | -------------------------------- | --------------------------------- | ---------------------- | ----------------------- | ---------------------- | ----------------------------- | --------------------- |
@@ -66,10 +66,10 @@ import 'bootstrap';
 
 ## 网格布局
 
-> 利用 `flexbox` ，共有12列【会根据屏幕大小，自动重排】 ![800](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202402051753353.png)
+> 利用 `flexbox` ，共有 12 列【会根据屏幕大小，自动重排】 ![800](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202402051753353.png)
 
 > [!NOTE] 如果页面底部出现水平的滚动条，就在 `.row` 的 `<div>` 中加入 `.mx-auto`
->
+> 
 > ```html
 > <div class="row mx-auto">
 > 	\<div class="col-9 mx-auto">

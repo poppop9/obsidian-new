@@ -1,7 +1,7 @@
 
 # Lambda 表达式
->[!quote] Lambda 表达式
->`() -> {……}`
+> [!quote] Lambda 表达式
+> `() -> {……}`
 > ```
 > ()：小括号里面没有内容，表示该方法没有参数。如果有多个参数，用逗号隔开
 > ->：表示指向要做的事情
@@ -14,8 +14,8 @@
 > 	- 使用匿名内部类时，会在编译之后，单独产生一个字节码文件
 > 	- 使用 Lambda 表达式时，编译之后不会单独产生一个字节码文件，而是在运行时动态生成
 
->[!warning] lambda 表达式中使用外部变量时，使用的是变量的副本，而不是对外部变量的直接引用
->- 为了确保在 Stream 流中<u>修改外部变量</u>~~【非原子操作】~~造成线程安全问题，这样的话，每个线程就会有一个副本
+> [!warning] lambda 表达式中使用外部变量时，使用的是变量的副本，而不是对外部变量的直接引用
+> - 为了确保在 Stream 流中<u>修改外部变量</u>~~【非原子操作】~~造成线程安全问题，这样的话，每个线程就会有一个副本
 
 ### 3. **作用域与闭包安全**
 
@@ -85,9 +85,9 @@ Java 的 `Stream` 和 lambda 表达式设计时没有允许直接修改外部变
 
 ---
 
->[!hint] 使用前提
->- **这个类要有一个接口**：比如需要的 MyRunnable 这个类要有一个 Runnable 接口
->- **这个接口中有且仅有一个抽象方法**：比如 Runnable 接口里只有一个抽象方法 run
+> [!hint] 使用前提
+> - **这个类要有一个接口**：比如需要的 MyRunnable 这个类要有一个 Runnable 接口
+> - **这个接口中有且仅有一个抽象方法**：比如 Runnable 接口里只有一个抽象方法 run
 
 ```java
 public interface Eatable {  
@@ -113,7 +113,7 @@ public class EatableDemo {
 3
 ```
 
->[!hint] 如何继续简写 Lambda 表达式
+> [!hint] 如何继续简写 Lambda 表达式
 > - 小括号里的参数类型可以省略
 > - 如果参数只有一个，那么小括号可以省略
 > - 如果大括号里的语句只有一条，那么可以省略大括号和分号和 return
@@ -128,10 +128,10 @@ public class EatableDemo {
 > ```
 
 # 方法引用
->[!quote] 方法引用
->方法引用 `::` 简化了 Lambda 的书写
+> [!quote] 方法引用
+> 方法引用 `::` 简化了 Lambda 的书写
 
->[!hint]+ 引用类的静态方法
+> [!hint]+ 引用类的静态方法
 > ```java
 > public interface parseInt {  
 >     int convert(String s);  
@@ -149,7 +149,7 @@ public class EatableDemo {
 > }
 > ```
 
->[!hint]+ 引用对象的实例方法
+> [!hint]+ 引用对象的实例方法
 > ```java
 > public interface Printable {  
 >     void printString(String s);  
@@ -172,7 +172,7 @@ public class EatableDemo {
 > Hello Java
 > ```
 
->[!hint]+ 引用类的实例方法
+> [!hint]+ 引用类的实例方法
 > ```java
 > public interface SubString {  
 >     String sub(String s, int x, int y);  
@@ -191,7 +191,7 @@ public class EatableDemo {
 > }
 > ```
 
->[!hint]+ 引用构造方法
+> [!hint]+ 引用构造方法
 > ```java
 > public class student {  
 >     private int age;  

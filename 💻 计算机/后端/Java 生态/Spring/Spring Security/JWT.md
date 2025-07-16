@@ -145,7 +145,7 @@ public interface ManagerLoginMapper {
 
 #### 过滤器 Filter
 
-> Filter 是 JavaWeb 的三大组件【Servlet，Filter，Listener】之一，可以把对资源的请求拦截下来，从而_**完成一些通用的操作**_【登录校验，统一编码处理，敏感字符处理……】
+> Filter 是 JavaWeb 的三大组件【Servlet，Filter，Listener】之一，可以把对资源的请求拦截下来，从而 _**完成一些通用的操作**_【登录校验，统一编码处理，敏感字符处理……】
 
 **执行流程**
 

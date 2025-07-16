@@ -1,9 +1,9 @@
 
->[!quote] Bean 定义
->Bean 定义 是用来描述一个 Bean 的各种属性的【Bean 的类名，Bean 的作用域，Bean 的构造函数参数，Bean 的属性值，Bean 的初始化方法，销毁方法……】
+> [!quote] Bean 定义
+> Bean 定义 是用来描述一个 Bean 的各种属性的【Bean 的类名，Bean 的作用域，Bean 的构造函数参数，Bean 的属性值，Bean 的初始化方法，销毁方法……】
 
 # ❤ 配置 Bean
->[!hint] 配置 Bean 主要有两种方式
+> [!hint] 配置 Bean 主要有两种方式
 > - `resource/META-INF/spring.factories` ：一般用于该项目是<u>组件项目</u>，<u>轮子项目</u>，<u>第三方依赖库项目</u> …… 。当这些项目被其他项目引入时，首先会扫描这个项目的 spring.factories 文件 ，然后根据路径准确地加载里面的配置类
 > - `@Configuration` ：一般用于项目内部配置。SpringBoot 在启动时，会自动扫描主程序类所在的包及其所有的子包中的所有文件，寻找带有 @Configuration 的类作为配置类
 
@@ -17,14 +17,14 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=app.xlog.ggbond.c
 # ❤ Bean 管理
 Spring 项目启动后，**默认**会把 Bean 都创建好放入到 IOC 容器中【还受到<u>作用域</u>，<u>延迟初始化</u>的影响】
 
->[!quote] 循环依赖
+> [!quote] 循环依赖
 > 循环依赖 是指两个或多个 Bean 之间相互依赖，互相注入对方的实例，形成一个闭环，当 IOC 容器尝试创建这些 Bean 时，它会陷入无限循环，~~因为每个 Bean 都需要另一个尚未完全创建的 Bean~~
 > 
 > **解决循环依赖**：
 > - 三级缓存：Spring 容器使用三级缓存来解决单例 Bean 的构造器循环依赖问题。当创建 Bean 时，Spring 会将其放入三级缓存中，这样即使 Bean 还没有完全初始化，其他 Bean 也可以引用它
-> - `@Lazy` ：使用`@Lazy`注解可以延迟 Bean 的加载，直到在调用时才注入这个 bean，这可以防止在 Bean 的初始化过程中发生循环依赖
-> - `@Autowired` 与 `@Qualifier` ：使用 `@Autowired` 注解时，如果指定了`required=false`，Spring 将不会抛出异常，而是返回`null`，这可以避免某些循环依赖的情况
-> - 使用`@Lookup` ：允许在运行时而不是在 Bean 初始化时进行依赖注入，这可以打破循环依赖
+> - `@Lazy` ：使用 `@Lazy` 注解可以延迟 Bean 的加载，直到在调用时才注入这个 bean，这可以防止在 Bean 的初始化过程中发生循环依赖
+> - `@Autowired` 与 `@Qualifier` ：使用 `@Autowired` 注解时，如果指定了 `required=false`，Spring 将不会抛出异常，而是返回 `null`，这可以避免某些循环依赖的情况
+> - 使用 `@Lookup` ：允许在运行时而不是在 Bean 初始化时进行依赖注入，这可以打破循环依赖
 > 
 > 尽管 Spring 提供了解决循环依赖的方法，但最佳实践是尽量避免循环依赖的发生
 
@@ -279,11 +279,11 @@ public class SaxReaderConfiguration {
 	- `@PreDestroy` 在 Bean 的生命周期结束之前，会调用
 - Bean 的生命周期在 IOC 容器中结束，但是，Bean 实例是否从内存中消失还取决于 Java 的垃圾回收机制
 
->[!quote] `@PostConstruct` 
->一个类中只要有一个方法被 `@PostConstruct` 注解标识，则这个类的所有方法都会被执行一遍，即使其他方法没有任何注解标识，顺序是：
->- 先执行 `@PostConstruct` 标识的方法，~~A 方法~~
->- 再执行其他方法，~~B 方法~~
->
+> [!quote] `@PostConstruct` 
+> 一个类中只要有一个方法被 `@PostConstruct` 注解标识，则这个类的所有方法都会被执行一遍，即使其他方法没有任何注解标识，顺序是：
+> - 先执行 `@PostConstruct` 标识的方法，~~A 方法~~
+> - 再执行其他方法，~~B 方法~~
+> 
 > ```java
 > @Configuration
 > public class A {

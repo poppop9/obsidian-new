@@ -6,9 +6,9 @@
 </dependency>
 ```
 
->[!quote] Retrofit 2
->Retrofit 2 可以将 HTTP API 转换为 Java 接口【~~这意味着可以使用 Java 接口来定义网络请求~~】，然后 Retrofit 会负责将这些接口调用转换为实际的 HTTP 请求
->
+> [!quote] Retrofit 2
+> Retrofit 2 可以将 HTTP API 转换为 Java 接口【~~这意味着可以使用 Java 接口来定义网络请求~~】，然后 Retrofit 会负责将这些接口调用转换为实际的 HTTP 请求
+> 
 > - **类型安全**：由于通过 Java 接口来定义 HTTP 请求，这使得编译时就可以检查错误
 > - **自动序列化**：可以自动将 Java 对象序列化为 JSON 请求体，以及将 JSON 格式的响应体反序列化为 Java 对象
 > - **支持同步，异步请求**
@@ -65,7 +65,7 @@ System.out.println(response.body());
 ```
 
 ## 请求 url
->[!hint] 请求的 url 可以在方法调用时传入，<u>并且还可以指定查询参数【~~?key=value~~】</u>
+> [!hint] 请求的 url 可以在方法调用时传入，<u>并且还可以指定查询参数【~~?key=value~~】</u>
 
 - `@Path("与url对应")`
 - `@Query("查询参数")` 
@@ -111,15 +111,15 @@ Call<User> createUser(@Body User user);
 ```
 
 ## 表单数据
->[!hint] application/x-www-form-urlencoded 与 multipart/form-data
->- `application/x-www-form-urlencoded` 
->	- 这是一种简单的文本格式，易于解析
->	- 只能用于非文件数据，不支持文件数据
->	- 传输效率高
->	- 兼容性好
->- `multipart/form-data` 
->	- 支持文件上传
->	- 可以传输的数据量更大
+> [!hint] application/x-www-form-urlencoded 与 multipart/form-data
+> - `application/x-www-form-urlencoded` 
+> 	- 这是一种简单的文本格式，易于解析
+> 	- 只能用于非文件数据，不支持文件数据
+> 	- 传输效率高
+> 	- 兼容性好
+> - `multipart/form-data` 
+> 	- 支持文件上传
+> 	- 可以传输的数据量更大
 
 ### application/x-www-form-urlencoded
 - `@FormUrlEncoded` 指示该方法的请求体应该被编码为表单数据，每个键值对都使用 `@Field`
@@ -173,7 +173,7 @@ Retrofit retrofit = new Retrofit.Builder()
 
 但是，可以通过调用 `Call` 对象的 `clone()` 方法来创建一个新的 `Call` 实例，这个新实例可以用于发起新的请求
 
->[!hint] 在 JVM 上，回调将在执行 HTTP 请求的同一线程上进行
+> [!hint] 在 JVM 上，回调将在执行 HTTP 请求的同一线程上进行
 > 当你使用 Retrofit 的异步调用（通过回调函数）时，回调函数会在发起 HTTP 请求的同一个线程上被执行。也就是说，如果请求是在主线程发起的，那么回调也会在主线程上执行
 > 
 > 这通常不是我们想要的行为，因为网络请求通常需要一些时间，如果在主线程上同步执行，可能会导致界面冻结或无响应。因此，通常我们会在异步线程上执行网络请求，并在主线程上更新 UI 或处理结果

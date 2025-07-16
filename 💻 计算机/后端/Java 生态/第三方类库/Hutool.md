@@ -19,12 +19,12 @@
 | hutool-cache   | 简单缓存实现                                         |
 | hutool-core    | Bean 操作、日期、各种 Util                             |
 | hutool-crypto  | 加密解密模块，提供对称、非对称和摘要算法封装                         |
-| hutool-dfa     | 基于DFA模型的多关键字查找                                 |
+| hutool-dfa     | 基于 DFA 模型的多关键字查找                                 |
 | hutool-extra   | 扩展模块，对第三方封装（模板引擎、邮件、Servlet、二维码、Emoji、FTP、分词等） |
-| hutool-script  | 脚本执行封装，例如Javascript                            |
-| hutool-system  | 系统参数调用封装（JVM信息等）                               |
+| hutool-script  | 脚本执行封装，例如 Javascript                            |
+| hutool-system  | 系统参数调用封装（JVM 信息等）                               |
 | hutool-captcha | 图片验证码实现                                        |
-| hutool-jwt     | JSON Web Token (JWT)封装实现                       |
+| hutool-jwt     | JSON Web Token (JWT) 封装实现                       |
 
 # ❤ 工具类
 ## 💛 唯一键 IdUtil
@@ -118,8 +118,8 @@ D:100
 ```
 
 ## 💛 Base64
->[!hint] 在浏览器中打开 Base64 编码的图片
->直接在浏览器的地址栏中输入：`data:image/png;base64,` + base64编码数据
+> [!hint] 在浏览器中打开 Base64 编码的图片
+> 直接在浏览器的地址栏中输入：`data:image/png;base64,` + base64 编码数据
 
 - 字节数组 -> base64
 ```java
@@ -128,7 +128,7 @@ String base64 = Base64.encode(byteArray);
 ```
 
 ## 💛 二维码 QrCodeUtil
->[!hint] 使用之前还要再引入 zxing 依赖
+> [!hint] 使用之前还要再引入 zxing 依赖
 > ```xml
 > \<dependency>
 > 	\<groupId>com.google.zxing\</groupId>
@@ -327,7 +327,7 @@ Map<String, Integer> map = MapBuilder.create(new HashMap<String, Integer>())
 
 ## ListUtil
 <u>分割集合</u> ：
-- `List<集合A> ListUtil.partition(集合A, 多少为一组);` 将集合A分割成以 n 为一组的集合
+- `List<集合A> ListUtil.partition(集合A, 多少为一组);` 将集合 A 分割成以 n 为一组的集合
 ```java
 // finalUserIds有108个元素，将拆成3个finalUserIds，分别有50，50，8
 List<List<String>> partition = ListUtil.partition(finalUserIds, 50);
@@ -521,8 +521,8 @@ AwardBO(strategyId=1, awardId=102, awardCount=100, awardRate=0.1)
 ```
 
 # ❤ 加密解密
->[!quote] 加密分类
->- **对称加密**
+> [!quote] 加密分类
+> - **对称加密**
 > 	- AES
 > 	- ARCFOUR
 > 	- Blowfish
@@ -566,7 +566,7 @@ AwardBO(strategyId=1, awardId=102, awardCount=100, awardRate=0.1)
 	- `SecureUtil.rsa`
 	- `SecureUtil.dsa`
 - UUID
-	- `SecureUtil.simpleUUID` 方法提供无“-”的UUID
+	- `SecureUtil.simpleUUID` 方法提供无“-”的 UUID
 - 密钥生成
 	- `SecureUtil.generateKey` 针对对称加密生成密钥
 	- `SecureUtil.generateKeyPair` 生成密钥对（用于非对称加密）
@@ -623,11 +623,11 @@ public class PicPathGlobalCache {
 
 
 # ❤ 断言 Assert
->[!hint] Java 原生的 Assert 的缺点
->断言 本意上是在调式时使用，而不是生产环境
->
->- assert 默认在程序运行时是关闭的，不会产生任何效果，只有在调试时会生效
->- assert 断言失败，程序将退出
+> [!hint] Java 原生的 Assert 的缺点
+> 断言 本意上是在调式时使用，而不是生产环境
+> 
+> - assert 默认在程序运行时是关闭的，不会产生任何效果，只有在调试时会生效
+> - assert 断言失败，程序将退出
 
 而 Hutool 的断言工具是用来做参数校验的
 
@@ -636,7 +636,7 @@ public class PicPathGlobalCache {
 	- `notEmpty` 不能为空，支持字符串，数组，集合 ……
 	- `notBlank` 不能是空白字符串
 - **判对错**
-	- `isTrue` 必须为 true，否则抛出IllegalArgumentException异常
+	- `isTrue` 必须为 true，否则抛出 IllegalArgumentException 异常
 	- `state` 检查 Boolean 表达式，如果为 false ，则抛异常
 - **判包含**
 	- `notContain` 不能包含指定的子串

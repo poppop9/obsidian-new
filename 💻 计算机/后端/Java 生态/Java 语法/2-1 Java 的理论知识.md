@@ -22,8 +22,8 @@
 | exit   | 退出命令提示符窗口  |
 
 # path 环境变量的配置
->[!warning] 为什么要配置环境变量 ？
->打开 javac 和 java 的过程要在 dos 中打开，非常麻烦，所以要配置。配置完之后，不需要在 dos 中输入 javac 的文件路径，可以直接输入 javac
+> [!warning] 为什么要配置环境变量 ？
+> 打开 javac 和 java 的过程要在 dos 中打开，非常麻烦，所以要配置。配置完之后，不需要在 dos 中输入 javac 的文件路径，可以直接输入 javac
 
 
 

@@ -35,20 +35,20 @@
 - 配置环境变量：为了在任何目录下都可以运行 Maven 指令
 - 在 cmd 中运行 `mvn -v` 测试版本号
 
->[!quote] Maven 目录结构
+> [!quote] Maven 目录结构
 > - `bin` 可执行文件
 > - `boot`
 > - `conf` 配置文件
 > - `lib` jar 包资源
 
 ## 在 idea 中安装 Maven 项目
->[!hint] 配置单个项目
-> - 设置-构建-构建工具-Maven
+> [!hint] 配置单个项目
+> - 设置 - 构建 - 构建工具 -Maven
 > ![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403031421719.png)
-> - 设置-构建-构建工具-Maven-runner：查看 jre 的配置是否正确
-> - 设置-构建-构建工具-compiler-java complier：配置正确的字节码版本
+> - 设置 - 构建 - 构建工具 -Maven-runner：查看 jre 的配置是否正确
+> - 设置 - 构建 - 构建工具 -compiler-java complier：配置正确的字节码版本
 
->[!hint] 配置全局项目【推荐】
+> [!hint] 配置全局项目【推荐】
 ![500](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403031422200.png)
 
 ## 在 idea 中创建 Maven 项目
@@ -58,8 +58,8 @@
 ![400](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403031422705.png)
 
 # 基本概念
->[!quote] Maven
->Maven 是构建和管理 Java 项目的工具
+> [!quote] Maven
+> Maven 是构建和管理 Java 项目的工具
 
 ## 作用
 ### 更好的依赖管理
@@ -72,7 +72,7 @@
 ### 统一项目结构
 Maven 规定了一套统一的 Java 开发目录，这样**可以让不同开发软件开发出来的项目可以互相移植**
 
->[!quote] 项目目录结构
+> [!quote] 项目目录结构
 > - `src`
 > 	- `main` 实际项目资源
 > 		- `java` java 源代码
@@ -110,12 +110,12 @@ Maven 规定了一套统一的 Java 开发目录，这样**可以让不同开发
 ![600](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403031423203.png)
 
 ### 查看依赖关系
-右键`pom.xml`，选择`diagrams`的`show dependencies`
+右键 `pom.xml`，选择 `diagrams` 的 `show dependencies`
 ![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403031423533.png)
 
 ### 排除依赖
->[!quote] 排除依赖
->排除依赖 就是，`A项目` 引用了 `B项目` 但是不想引用 `B项目` 底下的 jar 包
+> [!quote] 排除依赖
+> 排除依赖 就是，`A项目` 引用了 `B项目` 但是不想引用 `B项目` 底下的 jar 包
 
 ```xml
 <dependencies>  
@@ -166,7 +166,7 @@ Maven 有三套独立的生命周期，每一套都有若干个阶段。**同一
 	2. `initialize`：初始化构建状态，例如设置属性或创建目录结构。
 	3. `generate-sources`：生成源代码，通常是从注解处理器或其他工具生成的代码。
 	4. `process-sources`：处理源代码，例如编译、过滤或转换。
-	5. `generate-resources`：生成资源文件，例如从非Java源代码生成的文件。
+	5. `generate-resources`：生成资源文件，例如从非 Java 源代码生成的文件。
 	6. `process-resources`：处理资源文件，例如拷贝到输出目录或对资源文件进行过滤
 	7. ==compile== 把项目的源代码编译为 `.class` 文件
 	8. `process-classes`：处理编译后的类文件，例如对字节码进行额外的操作。
@@ -191,9 +191,9 @@ Maven 有三套独立的生命周期，每一套都有若干个阶段。**同一
 	3. `post-site`：在生成站点之后运行的阶段。在此阶段，可以执行一些后处理操作，例如复制附加资源到生成的站点目录或进行站点发布的准备工作
 	4. `site-deploy`：将生成的站点文档部署到指定的服务器或远程仓库的阶段。在此阶段，可以将生成的站点文档发布到远程服务器，以供他人访问
 
->[!warning] 如何运行生命周期的某个阶段 ？
->在 Maven 的侧边栏中运行
->![[JavaWeb Draw#^group=QqvDzj8c|300]]
+> [!warning] 如何运行生命周期的某个阶段 ？
+> 在 Maven 的侧边栏中运行
+> ![[JavaWeb Draw#^group=QqvDzj8c|300]]
 
 ## 依赖冲突
 - 使用工具分析哪个依赖冲突
@@ -219,10 +219,10 @@ Maven 有三套独立的生命周期，每一套都有若干个阶段。**同一
 ## 分模块设计
 ![500](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403061147795.png)
 
->[!hint] 分模块设计可以方便项目管理，维护，扩展，模块间的共享复用
+> [!hint] 分模块设计可以方便项目管理，维护，扩展，模块间的共享复用
 
->[!warning] 注意！注意！注意！
->一个项目中的多个模块会有一个主模块，只有这个主模块会有 `APP.java` 和 `Test 类`，其他模块都是提供接口来辅助的
+> [!warning] 注意！注意！注意！
+> 一个项目中的多个模块会有一个主模块，只有这个主模块会有 `APP.java` 和 `Test 类`，其他模块都是提供接口来辅助的
 
 ---
 ### 项目结构
@@ -263,7 +263,7 @@ Maven 有三套独立的生命周期，每一套都有若干个阶段。**同一
 </dependency>
 ```
 
->[!warning] 分模块设计会引发一些问题【比如各个模块引入了相同的依赖】，所以我们需要 <u>继承与聚合</u>
+> [!warning] 分模块设计会引发一些问题【比如各个模块引入了相同的依赖】，所以我们需要 <u>继承与聚合</u>
 
 ## 💛 动态更换配置文件
 ```yml
@@ -318,10 +318,10 @@ spring:
 ![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202408280039393.png)
 
 ## 继承
->Maven 继承同 Java 类似，描述了 Maven 项目之间的关系，使用 `<parent>……</parent>` 实现
->![500](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403061328780.png)
+> Maven 继承同 Java 类似，描述了 Maven 项目之间的关系，使用 `<parent>……</parent>` 实现
+> ![500](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403061328780.png)
 
->[!warning] Maven 中项目只能 <u>单继承</u>【只能继承一个项目】
+> [!warning] Maven 中项目只能 <u>单继承</u>【只能继承一个项目】
 
 ---
 
@@ -385,12 +385,12 @@ spring:
 #### 主要模块
 不用指定构建标签 `<build></build>`，默认入口文件在这个模块
 
->[!warning] 子工程会自动继承父工程的 `<groupId></groupId>`，子工程无需再添加 `<groupId></groupId>`
+> [!warning] 子工程会自动继承父工程的 `<groupId></groupId>`，子工程无需再添加 `<groupId></groupId>`
 
 ### 版本锁定
 当拆分的模块越多，有部分模块需要用到某个依赖时，依赖的版本将变得难以管理，所以我们使用 **版本锁定** `<dependencyManagement>`
 
->[!warning] 没有版本号的依赖不需要管理，所以也就不需要写到 `<dependencyManagement>……</dependencyManagement>` 里，也就是说，写在里面的依赖必须要有版本号
+> [!warning] 没有版本号的依赖不需要管理，所以也就不需要写到 `<dependencyManagement>……</dependencyManagement>` 里，也就是说，写在里面的依赖必须要有版本号
 
 ---
 
@@ -432,12 +432,12 @@ spring:
 
 ---
 
->[!hint] 如果没有聚合，我们要将<u>除了主项目的所有模块</u>都一个一个执行 `install` 生命周期，安装到本地的 Maven 仓库，然后在主项目中执行 `package` 打包
+> [!hint] 如果没有聚合，我们要将<u>除了主项目的所有模块</u>都一个一个执行 `install` 生命周期，安装到本地的 Maven 仓库，然后在主项目中执行 `package` 打包
 
 ## 私服
->[!hint] 私服可以实现依赖的共享，当项目中引入依赖后，首先会到<u>本地仓库</u>中找依赖，找不到就会到<u>私服仓库</u>中找，还找不到就会到<u>中央仓库</u>中找
+> [!hint] 私服可以实现依赖的共享，当项目中引入依赖后，首先会到<u>本地仓库</u>中找依赖，找不到就会到<u>私服仓库</u>中找，还找不到就会到<u>中央仓库</u>中找
 
->[!quote] 私服中的三种仓库：
+> [!quote] 私服中的三种仓库：
 > - ***central 仓库*** ：里面存储了从中央仓库下载来的依赖
 > - ***RELEASE 仓库*** ：里面存储了发行版的相关依赖
 > - ***SNAPSHOT 仓库*** ：里面存储了测试版【功能不稳定】的相关依赖
@@ -506,7 +506,7 @@ spring:
 </distributionManagement>
 ```
 
-**配置完成后，执行  Maven 生命周期** `deploy` 
+**配置完成后，执行 Maven 生命周期** `deploy` 
 
 ### 下载
 - 配置连接私服的地址

@@ -35,20 +35,20 @@
 - 引用 `ctrl+q`
 - 插入链接 `ctrl+k`
 
-- excalidraw里拷贝内部链接 `ctrl+shift+k`
+- excalidraw 里拷贝内部链接 `ctrl+shift+k`
 
 # 妙招
 ## 多光标协同
 按住 `alt`（mac 上是 `option`）并点击，你将可以创建多个光标
 
 ## Callout
->[!quote] 
->描述某个名词，概念
+> [!quote] 
+> 描述某个名词，概念
 
->[!hint]
->- 强调某个知识点，作为功能点
->- 而不用多写一个标题
->- 描述问题
+> [!hint]
+> - 强调某个知识点，作为功能点
+> - 而不用多写一个标题
+> - 描述问题
 
 > [!attention] 
 > 注意事项
@@ -69,7 +69,7 @@
 > [!tldr] 
 
 > [!info]
-> 
+>  
 
 > [!todo] 
 

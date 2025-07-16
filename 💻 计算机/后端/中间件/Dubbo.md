@@ -54,11 +54,11 @@ dubbo:
 public class SecurityService implements ISecurityService { …… }
 ```
 
->[!quote] `@DubboService` 
-><u>属性值</u> ：
->- interfaceClass 指定要注入的接口服务
->
-><u>注意</u> ：一个 @DubboService 只能注册一个服务，也就是说只能注册 IRaffleArmory 、或者 IRaffleDispatch 其中一个
+> [!quote] `@DubboService` 
+> <u>属性值</u> ：
+> - interfaceClass 指定要注入的接口服务
+> 
+> <u>注意</u> ：一个 @DubboService 只能注册一个服务，也就是说只能注册 IRaffleArmory 、或者 IRaffleDispatch 其中一个
 > ```java
 > @DubboService
 > public class RaffleArmoryDispatch implements IRaffleArmory, IRaffleDispatch {

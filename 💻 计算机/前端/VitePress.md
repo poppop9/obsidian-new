@@ -244,7 +244,7 @@ pwa ： https://chodocs.cn/program/vitepress-plugin/#%E6%96%87%E6%A1%A3%E6%94%AF
 
 # ❤️ algolia DocSearch
 - [申请免费爬取计划](https://docsearch.algolia.com/apply/)
-	- 如果计划未通过，那就[自己爬取](https://docsearch.algolia.com/docs/legacy/run-your-own/)
+	- 如果计划未通过，那就 [自己爬取](https://docsearch.algolia.com/docs/legacy/run-your-own/)
 - 接受邀请，进入到官方创建好的爬网程序
 - 获取 search key，并填写 config.mjs 配置，[配置详解](https://github.com/vuejs/vitepress/blob/main/types/docsearch.d.ts#L96)
 ```json
@@ -264,7 +264,7 @@ search: {
 },
 ```
 
-- 可以[定义爬取的周期](https://www.algolia.com/doc/tools/crawler/apis/configuration/schedule/)
+- 可以 [定义爬取的周期](https://www.algolia.com/doc/tools/crawler/apis/configuration/schedule/)
 
 # ❤ 部署
 ## 💛 同步

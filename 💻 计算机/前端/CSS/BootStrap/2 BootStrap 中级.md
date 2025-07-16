@@ -169,7 +169,7 @@
 
 ### 砌筑
 
-> 由于有副作用，BootStrap不直接支持，可以使用插件 [Masonry](https://masonry.desandro.com/)，这是[例子](https://v5.bootcss.com/docs/examples/masonry/)
+> 由于有副作用，BootStrap 不直接支持，可以使用插件 [Masonry](https://masonry.desandro.com/)，这是 [例子](https://v5.bootcss.com/docs/examples/masonry/)
 
 ## 下拉菜单
 
@@ -191,7 +191,7 @@
 * 下拉列表子项目
   * `.dropdown-item` 可交互的子项目
   * `.dropdown-item-text` 文本子项目【不可点击】
-  *   在 `<hr>`里添加 `.dropdown-divider` 分割线
+  * 在 `<hr>` 里添加 `.dropdown-divider` 分割线
 
       ```html
       <ul class="dropdown-menu">
@@ -606,7 +606,7 @@
 > [!quote] 模态 模态 是一种弹出窗口，显示在当前页面的最上层
 
 > [!hint] 在打开模态时，默认会在 `<body>` 上加上 `padding-right` ，所以主页面会向左移动，我们可以这么解决
->
+> 
 > ```css
 > body.modal-open {
 >     padding-right: 0px !important;
@@ -714,8 +714,8 @@
 
 * 父容器
 * `data-bs-toggle="offcanvas"` 在触发按钮上使用
-* `data-bs-target="id值"` 在触发按钮上指定对应的id值，以触发目标
-* `offcanvas` 创建offcanvas
+* `data-bs-target="id值"` 在触发按钮上指定对应的 id 值，以触发目标
+* `offcanvas` 创建 offcanvas
 * `.offcanvas-start/end/top/bottom` 定位 offcanvas，并将其宽度设置为 400px
 * `data-bs-scroll="true"` 当触发侧边栏时，依旧可以滚动主页面
 * 子容器

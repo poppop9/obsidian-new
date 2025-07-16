@@ -2,8 +2,8 @@ https://www.hxstrive.com/subject/minio/680.htm
 
 https://www.cnblogs.com/hellxz/p/17359828.html#minio%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%96%B9%E5%BC%8F%E6%93%8D%E4%BD%9Cs3
 
->[!quote] MinIO 
->MinIO 是一个对象存储系统
+> [!quote] MinIO 
+> MinIO 是一个对象存储系统
 
 # ❤️ 安装
 ```bash
@@ -16,7 +16,7 @@ docker run --name minio \
     bitnami/minio:latest
 ```
 
->[!warning] minIO 的密码要设置超过 8 位，要不然会报错
+> [!warning] minIO 的密码要设置超过 8 位，要不然会报错
 
 1. **9000 端口**：这是 MinIO 的主要 API 端口，用于数据的对象存储操作。你可以通过这个端口进行文件的上传、下载和管理
 2. **9001 端口**：这是 MinIO 控制台的端口，用于管理界面访问。通过这个端口，你可以使用浏览器访问 MinIO 的管理控制台，进行用户管理、监控等操作
@@ -50,7 +50,7 @@ public class MinioClientConfig {
 
 ## 文件
 ### 上传
->[!warning] 上传时，文件重名会进行覆盖，所以上传时文件名要唯一
+> [!warning] 上传时，文件重名会进行覆盖，所以上传时文件名要唯一
 
 <u>从本地文件上传</u> ：
 - bucket 是桶名，如果不存在会报错

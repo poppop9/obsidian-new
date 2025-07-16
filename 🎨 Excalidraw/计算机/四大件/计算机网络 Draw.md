@@ -9,12 +9,12 @@ tags: [excalidraw]
 
 # Excalidraw Data
 ## Text Elements
-告诉服务器怎么处理URI ^JrDxVY0a
+告诉服务器怎么处理 URI ^JrDxVY0a
 
-URL的父集 ^AcYSRz7k
+URL 的父集 ^AcYSRz7k
 
-这一步不是询问了，而是访问Web服务器了。
-因为在第5步，lab服务器已经知道域名的IP，并返回IP地址了 ^rwUsiWHc
+这一步不是询问了，而是访问 Web 服务器了。
+因为在第 5 步，lab 服务器已经知道域名的 IP，并返回 IP 地址了 ^rwUsiWHc
 
 操作系统 ^fAaLWcmb
 
@@ -25,14 +25,14 @@ URL的父集 ^AcYSRz7k
 
 由于第一步的初始值可能丢失，
 所以服务器会通过这个初始值
-计算出ACK号返回给客户端 ^dXSmPily
+计算出 ACK 号返回给客户端 ^dXSmPily
 
 这个序号初始值是服务器计算的 ^EbQ2pEJV
 
 客户端又根据服务器提供的序号初始值
-返回一个ACK号 ^Aaex9s8P
+返回一个 ACK 号 ^Aaex9s8P
 
-如果对方没有回应ACK号，
+如果对方没有回应 ACK 号，
 则会重新发送包 ^I7fxSYX6
 
 地址转换设备【不仅有路由器，还可以是防火墙】 ^dABIdJKH
@@ -49,7 +49,7 @@ URL的父集 ^AcYSRz7k
 
 电话局的电话电缆 ^uRf5REDi
 
-DHCP的原理 ^SM2Rn0Ic
+DHCP 的原理 ^SM2Rn0Ic
 
 ## Embedded Files
 f3d06f0a199622487ca1712195c63f18bf57e8d1: https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/72FF0A287DEBEA9FBFCA9502088206F5.png

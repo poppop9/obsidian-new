@@ -1,13 +1,13 @@
 # ❤️ Docker 的体系结构
->[!quote] Docker
+> [!quote] Docker
 > Docker 是一个开源的容器化平台，**用于构建、部署和运行应用程序**。它提供了一种轻量级的虚拟化技术，允许将应用程序及其依赖项打包到一个<u>容器</u>中
 
->[!quote] Docker Engine
->Docker Engine 是 Docker 的核心部分，负责构建和容器化应用程序
+> [!quote] Docker Engine
+> Docker Engine 是 Docker 的核心部分，负责构建和容器化应用程序
 
 ---
 
->[!NOTE] 作用
+> [!NOTE] 作用
 > - **容器化应用程序**：Docker 允许将应用程序及其所有依赖项打包到一个独立的容器中。容器可以在不同的环境中运行，而无需担心环境差异导致的问题，确保应用程序在任何地方都能一致运行。每个容器都是一个可隔离的、可移植的单元，具有自己的文件系统、运行时环境和资源
 > - **轻量级和快速启动**：与传统的虚拟机相比，Docker 容器非常轻量级，启动时间非常快
 > ![700](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202402261348445.png)
@@ -20,16 +20,16 @@
 
 ![900](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202402261429382.png)
 
->[!quote] 镜像
-><u>镜像</u> 是一个只读的模板
+> [!quote] 镜像
+> <u>镜像</u> 是一个只读的模板
 
->[!quote] 容器
-><u>容器</u> 是一个运行实例【类似**类与实例的关系**】
->
->- <u>容器是一个隔离的环境，我的依赖跟你的依赖不冲突</u>【比如有一个 MySQL 服务，这个服务的内部容器端口永远是 3306，但是我可以使用端口映射创建两个 MySQL 服务，`docker run -p 3306:3306`，`docker run -p 3307:3306`】
+> [!quote] 容器
+> <u>容器</u> 是一个运行实例【类似**类与实例的关系**】
+> 
+> - <u>容器是一个隔离的环境，我的依赖跟你的依赖不冲突</u>【比如有一个 MySQL 服务，这个服务的内部容器端口永远是 3306，但是我可以使用端口映射创建两个 MySQL 服务，`docker run -p 3306:3306`，`docker run -p 3307:3306`】
 
->[!quote] 仓库
-><u>仓库</u> 是用来存储，分享 Docker 镜像的地方【DockerHub……】
+> [!quote] 仓库
+> <u>仓库</u> 是用来存储，分享 Docker 镜像的地方【DockerHub……】
 
 # ❤️ 安装 Docker Engine
 > [!NOTE] 以下配置均在 Ubuntu 中安装
@@ -101,9 +101,9 @@ sudo nano /etc/docker/daemon.json
 }
 ```
 
->[!NOTE] 额外配置
->>额外的配置可以让我们在使用 Docker 时更加方便
->
+> [!NOTE] 额外配置
+> > 额外的配置可以让我们在使用 Docker 时更加方便
+> 
 > - 以非 root 用户身份管理 Docker【可以在使用 Docker 命令时，不加 `sudo`】
 > 	- 创建 Docker 组 `sudo groupadd docker`
 > 	- 将用户添加到 docker 组 `sudo usermod -aG docker 用户`
@@ -131,16 +131,16 @@ docker run -d --name kafka-server \
 ### 💙 根据 Dockerfile 制作镜像
 [https://www.runoob.com/docker/docker-dockerfile.html](https://www.runoob.com/docker/docker-dockerfile.html)
 
->[!quote] Dockerfile
->Dockerfile 是一个文本文件，里面包含一系列指令，用来告诉 Docker 如何构建镜像
->
->- 指令
->	- `FROM` 指定基础镜像
->	- `EVN` 设置环境变量
->	- `COPY` 拷贝本地文件到镜像目录里，`COPY 本地文件 镜像目录`
->	- `RUN` 将拷贝的文件在 Linux 里解压缩……，`RUN tar -zxvf 文件……`
->	- `EXPOSE` 指定容器运行时的端口号，`EXPOSE 端口号`
->	- `ENTRYPOINT` <u>入口命令</u>【应用程序启动的命令，比如 Java 是 `java -jar jar包`】
+> [!quote] Dockerfile
+> Dockerfile 是一个文本文件，里面包含一系列指令，用来告诉 Docker 如何构建镜像
+> 
+> - 指令
+> 	- `FROM` 指定基础镜像
+> 	- `EVN` 设置环境变量
+> 	- `COPY` 拷贝本地文件到镜像目录里，`COPY 本地文件 镜像目录`
+> 	- `RUN` 将拷贝的文件在 Linux 里解压缩……，`RUN tar -zxvf 文件……`
+> 	- `EXPOSE` 指定容器运行时的端口号，`EXPOSE 端口号`
+> 	- `ENTRYPOINT` <u>入口命令</u>【应用程序启动的命令，比如 Java 是 `java -jar jar包`】
 
 - 创建一个 Dockerfile
 ```dockerfile
@@ -274,7 +274,7 @@ graph TB
 
 ---
 
->[!NOTE] 运行 `docker run 镜像名称` 如果本地没有镜像，会自动去镜像仓库下载
+> [!NOTE] 运行 `docker run 镜像名称` 如果本地没有镜像，会自动去镜像仓库下载
 
 - **创建并运行**：`docker run ……参数 镜像名称:[版本号]` 【**版本号不写默认最新版**】
 	- `-d` 在后台运行
@@ -312,7 +312,7 @@ docker run -d --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -p 3306:3306
 
 ---
 
->[!NOTE] 容器就是虚拟了一个计算机，我们可以进入容器，去修改里面文件系统中的文件
+> [!NOTE] 容器就是虚拟了一个计算机，我们可以进入容器，去修改里面文件系统中的文件
 
 - **进入容器**：`docker exec [参数] 容器名 [命令]` 可以进入到容器的内部，来修改容器
 	- 参数
@@ -329,10 +329,10 @@ docker exec -it my_container bash
 
 # ❤ 挂载
 ## 💛 数据卷挂载
->[!warning] 容器创建之后不能再挂载数据卷，只能在 `docker run` 的时候就挂载
+> [!warning] 容器创建之后不能再挂载数据卷，只能在 `docker run` 的时候就挂载
 
->[!quote] 数据卷挂载
->数据卷 Volumes 可以把容器中的指定路径，映射到宿主机的某个位置，实现双向数据绑定，实现持久化
+> [!quote] 数据卷挂载
+> 数据卷 Volumes 可以把容器中的指定路径，映射到宿主机的某个位置，实现双向数据绑定，实现持久化
 > ```mermaid
 > graph LR
 > 	a[宿主机目录]---->b[数据卷]
@@ -357,8 +357,8 @@ docker run -d --name nginx -p 80:80 -v html:/usr/share/nginx/html nginx
 	- `docker volume inspect 数据卷名` 查看某个数据卷的详情【数据卷在宿主机的目录，……】
 
 ## 💛 绑定挂载
->[!quote] 绑定挂载
->绑定挂载 就是将宿主机上的文件或目录，挂载到容器中，<u>不管容器内的目录中有无文件，都会被宿主机上的 文件/目录 覆盖</u>
+> [!quote] 绑定挂载
+> 绑定挂载 就是将宿主机上的文件或目录，挂载到容器中，<u>不管容器内的目录中有无文件，都会被宿主机上的 文件/目录 覆盖</u>
 
 具体操作：[[#^ca483a]]
 
@@ -392,21 +392,21 @@ docker run -itd --name test2 --network test-net ubuntu /bin/bash
 ```
 
 ## bridge 桥接模式
->[!quote] bridge 模式（~~Docker 默认的网络模式~~）
->bridge 模式下，Docker 会在主机上创建一个虚拟网桥 `docker0`，并将所有容器连接到该网桥，形成一个二层网络
->
->- 启动 docker 时，会自动创建 `docker0` 虚拟网桥，`docker0` 的 ip 地址就是默认网关，会分配 ip 地址给每个容器，容器之间通信则通过 `docker0` 
+> [!quote] bridge 模式（~~Docker 默认的网络模式~~）
+> bridge 模式下，Docker 会在主机上创建一个虚拟网桥 `docker0`，并将所有容器连接到该网桥，形成一个二层网络
+> 
+> - 启动 docker 时，会自动创建 `docker0` 虚拟网桥，`docker0` 的 ip 地址就是默认网关，会分配 ip 地址给每个容器，容器之间通信则通过 `docker0` 
 
 同一网桥下的容器可以将 ip 地址改为容器名进行通信，**如果你有多个容器之间需要互相连接，推荐使用 Docker Compose** 
 
->[!NOTE] 容器的默认网桥是不允许使用容器名通信的
+> [!NOTE] 容器的默认网桥是不允许使用容器名通信的
 
 ## host 模式
->[!quote] host 模式
->host 模式下，容器将共享宿主机的网络栈，而不是创建一个独立的网络命名空间
->
->- 容器不会被分配独立的网络接口，而是直接使用宿主机的网络接口，所以容器能够直接访问宿主机的 IP 地址和端口
->- 容器的文件系统、进程列表、环境变量 …… 仍然是和宿主机隔离的
+> [!quote] host 模式
+> host 模式下，容器将共享宿主机的网络栈，而不是创建一个独立的网络命名空间
+> 
+> - 容器不会被分配独立的网络接口，而是直接使用宿主机的网络接口，所以容器能够直接访问宿主机的 IP 地址和端口
+> - 容器的文件系统、进程列表、环境变量 …… 仍然是和宿主机隔离的
 
 ```bash
 docker run -itd \

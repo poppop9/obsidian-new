@@ -65,7 +65,7 @@ tag:问题
 
 > [!HINT] 额外说明，提示
 
->[!WARNING] 注意
+> [!WARNING] 注意
 
 > [!SUMMARY]
 

@@ -12,7 +12,7 @@ tags: [excalidraw]
 ## Text Elements
 用户登录 ^E7GEVw1e
 
-装配权重对象Map，库存Map到redis ^rtamDzjK
+装配权重对象 Map，库存 Map 到 redis ^rtamDzjK
 
 并设置过期时间 ^6tWOtmfu
 
@@ -22,7 +22,7 @@ tags: [excalidraw]
 
 用户登录 ^kRdwggUN
 
-装配该活动下，该用户的权重对象Map，奖品库存Map ^EIp61j6d
+装配该活动下，该用户的权重对象 Map，奖品库存 Map ^EIp61j6d
 
 并设置过期时间 ^eqpVjQUz
 
@@ -34,7 +34,7 @@ tags: [excalidraw]
 
 更改活动单状态（未使用→已使用） ^hFDXj2Uh
 
-第1步 ^kHJSD6fd
+第 1 步 ^kHJSD6fd
 
 抽奖结束 ^nRF32o5q
 
@@ -58,18 +58,18 @@ tags: [excalidraw]
         - 高并发下，RScoredSortedSet 要一直更新，一直维护跳表，性能较低 ^U4H2C8jI
 
 Redis Keyspace Notifications ：
-    - 用户获取了一个活动单，就将其放入 redis 作为一个键值对（key为userId，value为orderId、有效时间、失效时间）
+    - 用户获取了一个活动单，就将其放入 redis 作为一个键值对（key 为 userId，value 为 orderId、有效时间、失效时间）
     - 用户抽奖时，从 redis 中取出该用户所有的活动单，判断时间是否符合要求
-    - 活动单被使用/失效后，调用键空间通知，通知App更新数据库数据
+    - 活动单被使用/失效后，调用键空间通知，通知 App 更新数据库数据
     - 缺点
         - 内存开销大
-        - 用户的活动单如果都在一个时间点失效，那将会触发大量事件，导致通知丢失和redis性能瓶颈 ^4m0fMeV2
+        - 用户的活动单如果都在一个时间点失效，那将会触发大量事件，导致通知丢失和 redis 性能瓶颈 ^4m0fMeV2
 
-从数据库中查询出该用户的权限/角色信息，放入到Session中 ^WmXrRRJv
+从数据库中查询出该用户的权限/角色信息，放入到 Session 中 ^WmXrRRJv
 
 用户鉴权 ^MEBDeznq
 
-从Session中获取该用户的所有权限/角色信息 ^EhkGN9RK
+从 Session 中获取该用户的所有权限/角色信息 ^EhkGN9RK
 
 Session ^AaQFnfFW
 
@@ -79,25 +79,25 @@ A 活动 ^gMCBXlD7
 
 B 活动 ^ItuRXQtC
 
-奖品1
-奖品2
-奖品3 ^Zd16X7C1
+奖品 1
+奖品 2
+奖品 3 ^Zd16X7C1
 
 一个策略 ^zVA5POOW
 
-奖品1
-奖品2
-奖品4 ^tKfwOhbO
+奖品 1
+奖品 2
+奖品 4 ^tKfwOhbO
 
 所有的奖品 ^9IsOxxli
 
-奖品1 ^5nGQ0emU
+奖品 1 ^5nGQ0emU
 
-奖品2 ^sgfDbUWu
+奖品 2 ^sgfDbUWu
 
-奖品3 ^PUeKvzyj
+奖品 3 ^PUeKvzyj
 
-奖品4 ^7VTtj6YR
+奖品 4 ^7VTtj6YR
 
 某用户 ^ZEBekspq
 
@@ -117,7 +117,7 @@ B 活动 ^ItuRXQtC
 
 该用户已经存在策略 ^vVPmYFA9
 
-第2步 ^mxAViIpC
+第 2 步 ^mxAViIpC
 
 创建活动单的触发动作
 （签到、购买、兑换 ……） ^KEFO1HU6
@@ -130,9 +130,9 @@ B 活动 ^ItuRXQtC
 - 给用户加的抽奖次数是多少
 - …… ^SEDFcBzy
 
-第1步 ^XJnJALtK
+第 1 步 ^XJnJALtK
 
-第2步 ^03RioWL2
+第 2 步 ^03RioWL2
 
 转为 ^geT96Ftt
 
@@ -210,13 +210,13 @@ B 活动 ^ItuRXQtC
 
 达到发放有效活动单的条件 ^cBitROYW
 
-是否发奖的task表 ^e2UmjGHk
+是否发奖的 task 表 ^e2UmjGHk
 
-发送MQ消息 ^FJxXOANK
+发送 MQ 消息 ^FJxXOANK
 
 轮询 worker ^PoM6PJYn
 
-检查未发奖的task记录 ^IF4TMZcV
+检查未发奖的 task 记录 ^IF4TMZcV
 
 长时间未发奖的记录，再次 ^RINhPU75
 
@@ -226,9 +226,9 @@ B 活动 ^ItuRXQtC
 
 更新 ^8FrMz7pb
 
-APP启动 ^yvBdPM1F
+APP 启动 ^yvBdPM1F
 
-将数据库中的黑名单用户初始化到布隆过滤器中（会覆盖原来的redis数据） ^8jseNylZ
+将数据库中的黑名单用户初始化到布隆过滤器中（会覆盖原来的 redis 数据） ^8jseNylZ
 
 是否超时 ^cROKbpBx
 

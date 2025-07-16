@@ -7,9 +7,9 @@
 
 | 路径                               | 描述                             |
 | -------------------------------- | ------------------------------ |
-| \<img src="picture.jpg">         | picture.jpg位于与当前网页相同的文件夹       |
-| \<img src="images/picture.jpg">  | picture.jpg位于当前文件夹的 images文件夹中 |
-| \<img src="/images/picture.jpg"> | 位于当前站点根目录的 images文件夹中          |
+| \<img src="picture.jpg">         | picture.jpg 位于与当前网页相同的文件夹       |
+| \<img src="images/picture.jpg">  | picture.jpg 位于当前文件夹的 images 文件夹中 |
+| \<img src="/images/picture.jpg"> | 位于当前站点根目录的 images 文件夹中          |
 | \<img src="../picture.jpg">      | 位于当前文件夹的上一级文件夹中                |
 
 > [!hint] 使用 **相对路径** 是个好习惯
@@ -22,12 +22,12 @@
 ## 特殊字符
 `&nbsp;` 空格符 `&lt;` < `&gt;` > `&amp;` & `&yen;` ￥ `&copy;` © `&reg;` ® `&deg;` ℃ `plusmn;` 正负号 `&times;` 乘号 `&divide;` 除号 `&sup2;` 平方² `&sup3;` 立方³
 
-`&#65;` 字母A【使用UTF-8字符集（可以用字符集插入emoji）】
+`&#65;` 字母 A【使用 UTF-8 字符集（可以用字符集插入 emoji）】
 
 字符集手册： https://www.w3school.com.cn/charsets/ref\_html\_8859.asp
 
 ## 骨架标签
-* `<!doctype html>` 告诉浏览器使用HTML版本来显示网页
+* `<!doctype html>` 告诉浏览器使用 HTML 版本来显示网页
 * `<html lang="en">` 设置网页的语言。中文为“zh-CN”
 * `<meta charset="UTF-8">` 设置字符集合
 
@@ -47,7 +47,7 @@
 * `<title>` 文档的标题
 * `<base/>` 为页面上的所有链接规定默认地址，默认目标
 * `<link/>` 定义外部资源
-* `<meta/>` 元数据【对页面的描述，==重定向页面==……】，_**搜索引擎会根据meta的数据，来推荐给用户搜索结果**_
+* `<meta/>` 元数据【对页面的描述，==重定向页面==……】，_**搜索引擎会根据 meta 的数据，来推荐给用户搜索结果**_
 
 ```html
 <head>
@@ -87,11 +87,11 @@
 
 ## 常用标签
 > [!hint] 内联标签 和 块级标签
->
+> 
 > * 对于内联标签，属性只能影响其内部的文本内容，并不能改变整个元素在父容器中的状态。如果需要改变可以将内联标签放在块级元素中 / 使用其他布局技术【Flexbox 或 Grid】
 > * 对于块级标签，属性可以改变内部内容和整个状态
 >   * 常见：div，h，table，form
->
+> 
 > 例如：想让一个链接位于水平居中，必须 ![200](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202402021844689.png)
 
 ### 注释
@@ -99,7 +99,7 @@
 `<!--注释内容-->`
 
 ### 标题\<h>
-一个标题独占一行，有6个等级的标题可以选择
+一个标题独占一行，有 6 个等级的标题可以选择
 
 ```
 <h1>我是一级标题</h1>
@@ -182,24 +182,24 @@
 ```
 
 ### 无语义盒子
-> 这两个标签都是没有具体意思的，它们就是一个_**盒子**_【用来装文字，图片，超链接】 ![600](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202402021848521.png)
+> 这两个标签都是没有具体意思的，它们就是一个 _**盒子**_【用来装文字，图片，超链接】 ![600](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202402021848521.png)
 
 #### \<div>
-> 一个`<div>`独占一行
+> 一个 `<div>` 独占一行
 
 #### \<span>
-> 多个`<span>`标签占一行
+> 多个 `<span>` 标签占一行
 
 **\<span>标签无法设置 width 和 height，宽度和高度由内容默认撑开**
 
 ### 超链接\<a>
-* `href` 指定的URL
+* `href` 指定的 URL
 * `target` 以哪种方式打开超链接
 	* **\_self**：【默认】在当前页面打开
 	* **\_blank**：在新页面打开
 	* **\_parent**：在该链接的父容器中打开
 	* **\_top**：在该链接的最顶级父容器中打开
-	* **frame名**：在某个指定的frame中打开
+	* **frame 名**：在某个指定的 frame 中打开
 
 ```html
 <a id="h002" href="https://www.zjxu.edu.cn/" target="_blank">嘉兴学院</a>
@@ -210,7 +210,7 @@
 </a>
 ```
 
-> [!hint] 尽量在链接之后添加`/` √：`http://www.w3school.com.cn/html/` ×：`http://www.w3school.com.cn/html`，会产生两次HTTP请求
+> [!hint] 尽量在链接之后添加 `/` √：`http://www.w3school.com.cn/html/` ×：`http://www.w3school.com.cn/html`，会产生两次 HTTP 请求
 
 #### 锚点链接
 就像是 PDF 的目录一样
@@ -232,7 +232,7 @@
 
 `alt` 当图片因为某些原因无法显示时，显示该文字 `title` 提示文本【鼠标悬浮时显示该文本】
 
-`width` 图像的宽度【单位可以是像素`px`，也可以是百分比`%`(百分比是相对于父元素的)】 `height` 图像的高度 `border` 图像的边框粗细
+`width` 图像的宽度【单位可以是像素 `px`，也可以是百分比 `%`(百分比是相对于父元素的)】 `height` 图像的高度 `border` 图像的边框粗细
 
 ```html
 <img src="https://1b2a.net/img/tv/PwGW.avif" width="300" title="装腔启示录" />
@@ -244,9 +244,9 @@
 
 #### 图像映射
 在图像里面划分区域创建链接
-* `<area shape="circle" coords="180,139,14" href="/example/html/venus.html" target="_blank" alt="Venus" />`：定义了一个圆形区域，圆心位于`(180,139)`，半径为`14`，点击这个区域会跳转到`/example/html/venus.html`页面
+* `<area shape="circle" coords="180,139,14" href="/example/html/venus.html" target="_blank" alt="Venus" />`：定义了一个圆形区域，圆心位于 `(180,139)`，半径为 `14`，点击这个区域会跳转到 `/example/html/venus.html` 页面
 * ……
-* `<area shape="rect" coords="0,0,110,260" href="/example/html/sun.html" target="_blank" alt="Sun" />`：定义了一个矩形区域，坐标从`(0,0)`到`(110,260)`
+* `<area shape="rect" coords="0,0,110,260" href="/example/html/sun.html" target="_blank" alt="Sun" />`：定义了一个矩形区域，坐标从 `(0,0)` 到 `(110,260)`
 
 ```html
 <img src="/i/eg_planets.jpg" usemap="#planetmap" />

@@ -16,13 +16,13 @@ request ^mzGIOjNQ
 
 response ^6ZhaS3ef
 
-Servlet容器 ^nw1fXlc6
+Servlet 容器 ^nw1fXlc6
 
-init()方法 ^hNBugFyE
+init() 方法 ^hNBugFyE
 
-service方法 ^kYo8j9A8
+service 方法 ^kYo8j9A8
 
-destroy方法 ^ndwy8y1j
+destroy 方法 ^ndwy8y1j
 
 守护进程 ^4ZXBKxI1
 
@@ -38,15 +38,15 @@ destroy方法 ^ndwy8y1j
 
 与数据库对比 ^5kdMhCWx
 
-如果正确，则生成一个jwt ^05jQmCKF
+如果正确，则生成一个 jwt ^05jQmCKF
 
-响应jwt给前端 ^NYP5p57W
+响应 jwt 给前端 ^NYP5p57W
 
-请求时携带token ^cCVvNlx7
+请求时携带 token ^cCVvNlx7
 
-解析token，获取id ^gAYov3za
+解析 token，获取 id ^gAYov3za
 
-根据id获取用户权限信息 ^gjIoO4ON
+根据 id 获取用户权限信息 ^gjIoO4ON
 
 响应资源给前端 ^yRH94qNY
 
@@ -68,43 +68,43 @@ API ^oO28AtJF
 
 过滤器链 ^ueIBvPwJ
 
-事务A ^4tDpMJze
+事务 A ^4tDpMJze
 
-执行任务C ^KNwEyW5c
+执行任务 C ^KNwEyW5c
 
 出现异常 ^pdOqh0Ip
 
-不执行任务D ^3u6iqT7u
+不执行任务 D ^3u6iqT7u
 
-但是会执行finally中的内容 ^DrkTroJy
+但是会执行 finally 中的内容 ^DrkTroJy
 
-由于REQUIRED的特性，
-B会加入到A的事务 ^fIP2GLWA
+由于 REQUIRED 的特性，
+B 会加入到 A 的事务 ^fIP2GLWA
 
-执行完B之后，B和C一起回滚 ^kEQx8Ejy
+执行完 B 之后，B 和 C 一起回滚 ^kEQx8Ejy
 
-事务A ^9G0lKPV5
+事务 A ^9G0lKPV5
 
-执行任务C ^M8cSZTmT
+执行任务 C ^M8cSZTmT
 
 出现异常 ^ZvZvXXAN
 
-不执行任务D ^beQleT2x
+不执行任务 D ^beQleT2x
 
-但是会执行finally中的内容 ^MKYXWo4o
+但是会执行 finally 中的内容 ^MKYXWo4o
 
-由于REQUIRED_NEW的特性，
-创建新事务B，停止事务A ^A1UAHR47
+由于 REQUIRED_NEW 的特性，
+创建新事务 B，停止事务 A ^A1UAHR47
 
-事务B ^0ld0ZJd3
+事务 B ^0ld0ZJd3
 
-执行任务B ^vQkHE4QJ
+执行任务 B ^vQkHE4QJ
 
-事务B提交 ^eVR4J2yo
+事务 B 提交 ^eVR4J2yo
 
-开启事务A ^lZhsY2AP
+开启事务 A ^lZhsY2AP
 
-回滚任务C ^llhOGnSD
+回滚任务 C ^llhOGnSD
 
 连接点 ^VThTVkeC
 
@@ -112,11 +112,11 @@ B会加入到A的事务 ^fIP2GLWA
 
 连接点 ^pBqodcLz
 
-A方法 ^ieA65ddF
+A 方法 ^ieA65ddF
 
-B方法 ^6QLo5wkz
+B 方法 ^6QLo5wkz
 
-对象A ^j4yQpiDF
+对象 A ^j4yQpiDF
 
 目标对象 ^naRJBPqr
 
@@ -126,7 +126,7 @@ B方法 ^6QLo5wkz
 
 通知 ^503G0EwF
 
-Spring主项目 ^5y0krdQ9
+Spring 主项目 ^5y0krdQ9
 
 org.springframework.boot.
 autoconfigure.
@@ -140,7 +140,7 @@ AutoConfiguration.imports ^eeFznvk8
 
 配置类 3 ^X352AYaU
 
-依赖管理包下的pom.xml ^20o3iKPb
+依赖管理包下的 pom.xml ^20o3iKPb
 
 <dependency>
 
@@ -152,7 +152,7 @@ AutoConfiguration.imports ^eeFznvk8
 
 不分模块设计 ^PBrf6Ken
 
-Java项目 ^HGsJ9mNc
+Java 项目 ^HGsJ9mNc
 
 商品模块 ^VrzEM7Al
 
@@ -164,21 +164,21 @@ Java项目 ^HGsJ9mNc
 
 分模块设计 ^4g4Gd0Pv
 
-项目1 ^diXYCZ60
+项目 1 ^diXYCZ60
 
 商品模块 ^lsCpVAiO
 
-项目2 ^LryyZFqh
+项目 2 ^LryyZFqh
 
 搜索模块 ^QhwlSx3e
 
-项目3 ^dpS2gjHH
+项目 3 ^dpS2gjHH
 
 购物车模块 ^z5EN0Dua
 
 …… ^fcfLXYuv
 
-项目5 ^tKu05NcE
+项目 5 ^tKu05NcE
 
 通用模块 ^M64huwhE
 
@@ -238,11 +238,11 @@ p 管道
 
 380 ^1bxT7nMx
 
-5元 ^AfhB2zAf
+5 元 ^AfhB2zAf
 
 中奖概率 - 2% ^zEeFlMnv
 
-50元 ^wDHTaAn7
+50 元 ^wDHTaAn7
 
 设销售了 x 张 ^LmZJGZ56
 

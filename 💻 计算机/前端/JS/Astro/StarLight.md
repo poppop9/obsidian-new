@@ -9,7 +9,7 @@ title: Starlight
 - `npm install` 
 - `npm run dev` 
 
->[!hint] 更新 `npx @astrojs/upgrade` 
+> [!hint] 更新 `npx @astrojs/upgrade` 
 
 # ❤️ 页面
 ## 💛 md 页面

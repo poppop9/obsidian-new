@@ -1,6 +1,6 @@
 
 > [!quote] CSS 语法
->
+> 
 > * 注释：`/* 我是注释 */`
 > * 使用多个引号时，注意双引号里要使用单引号
 
@@ -62,7 +62,7 @@
 ```
 
 > [!NOTE] 选择器的组合使用
->
+> 
 > ```css
 > /* 只有具有 class="center" 的 <p\> 元素会居中对齐 */ 
 > p.center {
@@ -285,15 +285,15 @@ h1 {
 	* `hsla(9, 100%, 64%, 0.5)`
 
 # ❤ 框模型
-元素总宽度 = width + 左右padding + 左右border + 左右margin + outline ![600](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202402022232532.png)
+元素总宽度 = width + 左右 padding + 左右 border + 左右 margin + outline ![600](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202402022232532.png)
 
 > [!summary] 属性
->
+> 
 > * `background` 背景
 > * `border` 边框
 > * `margin` 外边距【允许负值】
 > * `padding` 内边距【_**呈现元素的背景**_，不允许负值】
-> * `width` 宽度【只是内容，_**不包括padding，margin，border**_】
+> * `width` 宽度【只是内容，_**不包括 padding，margin，border**_】
 > * `height` 高度
 > * `box-sizing` 设定 width 和 height 指的是哪个盒子
 >   * `content-box` 【默认值】仅包括内容区域
@@ -304,11 +304,11 @@ h1 {
 
 ## 背景
 > [!quote] 背景
->
+> 
 > > 背景 = padding + 内容
->
+> 
 > * **内容为颜色**
->   * `background-color` 指定背景色【可以为任何HTML元素设置背景颜色】
+>   * `background-color` 指定背景色【可以为任何 HTML 元素设置背景颜色】
 >     * `opacity` 指定透明度【会影响子元素，**使用 RGBa 不会**】
 > * **内容为图片**
 >   * `background-image: url('链接')` 指定背景图像
@@ -373,9 +373,9 @@ background-clip: content-box;
 ```
 
 > [!NOTE] 多重背景
->
+> 
 > > 可以为背景指定多张图片
->
+> 
 > ```css
 > #example1 {
 > 	background-image: url(/i/photo/flower.gif), url(/i/paper.jpg);
@@ -389,7 +389,7 @@ background-clip: content-box;
 ## 边框
 
 > [!summary] 属性
->
+> 
 > * `border-style` 边框的样式
 > * `border-width` 宽度
 > * `border-color`
@@ -449,7 +449,7 @@ p {
 <p style="border-style: groove; border-color: red green blue yellow;">hello</p>
 ```
 
-> [!NOTE] 如果不要颜色的话可以指定为 `color:transparent;` ，表示_**透明色**_
+> [!NOTE] 如果不要颜色的话可以指定为 `color:transparent;` ，表示 _**透明色**_
 
 ***
 
@@ -476,21 +476,21 @@ p {
 
 ## 轮廓
 > [!summary] 属性
->
+> 
 > * `outline-style` 样式
->   * `dotted`  点状轮廓
->   * `dashed`  虚线轮廓
->   * `solid`  实线轮廓
->   * `double`  双线轮廓
+>   * `dotted` 点状轮廓
+>   * `dashed` 虚线轮廓
+>   * `solid` 实线轮廓
+>   * `double` 双线轮廓
 >   * `groove`  3D 凹槽轮廓
 >   * `ridge`  3D 凸槽轮廓
 >   * `inset`  3D 凹边轮廓
 >   * `outset`  3D 凸边轮廓
->   * `none`  无轮廓
->   * `hidden`  隐藏轮廓
+>   * `none` 无轮廓
+>   * `hidden` 隐藏轮廓
 > * `outline-color`
 > * `outline-width`
-> * `outline-offset` 轮廓偏移【轮廓与border之间的空间】
+> * `outline-offset` 轮廓偏移【轮廓与 border 之间的空间】
 
 # ❤ 文本
 ## 基础属性

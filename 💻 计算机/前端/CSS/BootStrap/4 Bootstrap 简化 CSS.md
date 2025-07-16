@@ -132,7 +132,7 @@
 ```
 
 # 表格
->将 `.table` 添加到 `<table>` 标签
+> 将 `.table` 添加到 `<table>` 标签
 
 - **颜色**
 	- `.table-primary/danger……`
@@ -199,8 +199,8 @@
 	- `.img-fluid` 响应式图像
 
 # 纵横比
->根据父容器的宽度，响应式处理子容器的视频或幻灯片
->![500](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403161650391.png)
+> 根据父容器的宽度，响应式处理子容器的视频或幻灯片
+> ![500](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403161650391.png)
 
 - `ratio` 设置 ratio 父容器
 - `ratio-1x1` 父容器的比率为 1:1，子容器会响应式的适应父容器

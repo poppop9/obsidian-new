@@ -1,4 +1,4 @@
->JSON 是存储和传输数据的格式
+> JSON 是存储和传输数据的格式
 
 # 语法
 ```js
@@ -11,8 +11,8 @@
 	]
 }
 ```
-# JSON 与 JS对象
-JSON 格式在语法上与创建 JS对象 的代码相同。所以，JavaScript 程序可以很容易地将 JSON 转换成本地的 JS对象
+# JSON 与 JS 对象
+JSON 格式在语法上与创建 JS 对象 的代码相同。所以，JavaScript 程序可以很容易地将 JSON 转换成本地的 JS 对象
 
 ```js
 //json

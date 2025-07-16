@@ -14,11 +14,11 @@
 
 ![图片](https://cubox.pro/c/filters:no_upscale()?imageUrl=https%3A%2F%2Fmmbiz.qpic.cn%2Fmmbiz_png%2F8qSCRB5ghic6KYyLXl5iaicwN9FPPEtj3xYq69B6f9skeq2wOc9hDhdVg8tJbL5Tj9Gc2J2iaODOBNQhq4RjHcibe5g%2F640%3Fwx_fmt%3Dpng&valid=false)
 
-姓名可以随意填写，邮箱请务必填写常用的地址，用于接收礼卡兑换码。填完之后进入右图的流程，最低 2$ 起购。在红框位置输入你要换购的$金额，点击『立即购买』。
+姓名可以随意填写，邮箱请务必填写常用的地址，用于接收礼卡兑换码。填完之后进入右图的流程，最低 2$ 起购。在红框位置输入你要换购的$ 金额，点击『立即购买』。
 
 ![图片](https://cubox.pro/c/filters:no_upscale()?imageUrl=https%3A%2F%2Fmmbiz.qpic.cn%2Fmmbiz_png%2F8qSCRB5ghic5ibEQYVWyBKeWicv6G1n7ibAwj3jv8Aoa1x8mcPwjWv9NfRV3qsUsCEhQMrj2Na6GA6JicOhf8TbuAgA%2F640%3Fwx_fmt%3Dpng&valid=false)
 
-付款兑换$就行了。
+付款兑换 $ 就行了。
 
 ![图片](https://cubox.pro/c/filters:no_upscale()?imageUrl=https%3A%2F%2Fmmbiz.qpic.cn%2Fmmbiz_png%2F8qSCRB5ghic5ibEQYVWyBKeWicv6G1n7ibAwRtibCRuhfDCplfLsaxvwXWcvENibl5Yfl39TGVmydo5G9rFXsdBGweqQ%2F640%3Fwx_fmt%3Dpng&valid=false)
 

@@ -1,6 +1,6 @@
 
->[!quote] Optional\<T> 类
->Optional 类是一个<u>可以为 null 的容器对象</u>，使我们不用显式进行判空，很好的解决了空指针异常
+> [!quote] Optional\<T> 类
+> Optional 类是一个<u>可以为 null 的容器对象</u>，使我们不用显式进行判空，很好的解决了空指针异常
 
 # ❤️ 静态方法
 - `of(T t)` 传递泛型 T 返回一个指定的 Optional，**如果泛型 T 为 null 会报错**

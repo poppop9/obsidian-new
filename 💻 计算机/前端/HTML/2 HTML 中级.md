@@ -3,13 +3,13 @@
 ## 表单\<form>
 
 > \[!hint] 表单按钮在 `<form>` 中，还是外
->
+> 
 > * **表单按钮在 `<form>` 中**：提交表单时会刷新页面
 > * **表单按钮在 `<form>` 外**：提交表单时不会刷新页面
 
 * `action` 指定表单提交时去往的 URL 地址
 * `method` 表单数据的提交方式
-  *   **get** 会在URL后面拼接表单数据【当表单数据很长时不推荐】
+  *   **get** 会在 URL 后面拼接表单数据【当表单数据很长时不推荐】
 
       ```html
       <form action="去往的url" method="get">        //action不写默认提交到当前页面
@@ -251,7 +251,7 @@ cxt.fillRect(0,0,150,75);
 ```
 
 > \[!hint] 优缺点
->
+> 
 > * 由于基于像素绘制，依赖分辨率
 > * 由于基于像素绘制，不支持事件处理
 > * 适合需要频繁重绘场景【因为只需要修改部分像素】
@@ -263,11 +263,11 @@ https://www.w3school.com.cn/graphics/canvas\_intro.asp
 > SVG 指可伸缩矢量图形，使用 XML 格式定义图形
 
 > \[!hint] SVG 的优点
->
+> 
 > * 支持事件处理
 > * SVG 图像可通过文本编辑器来创建和修改
-> * SVG 图像可被脚本化【利用JavaScript实现交互性，动态效果】
-> * **SVG放大，其图形质量不会有损失**
+> * SVG 图像可被脚本化【利用 JavaScript 实现交互性，动态效果】
+> * **SVG 放大，其图形质量不会有损失**
 > * 不如 `canvas` 快
 
 https://www.w3school.com.cn/graphics/svg\_intro.asp

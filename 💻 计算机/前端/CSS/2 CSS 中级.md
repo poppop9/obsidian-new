@@ -1,12 +1,12 @@
 # 布局
 ## display
-每个HTML元素都有一个默认的 display 值【具体取决于它的元素类型，大多数元素为 `block` 或 `inline`】
+每个 HTML 元素都有一个默认的 display 值【具体取决于它的元素类型，大多数元素为 `block` 或 `inline`】
 
 ### 块级元素 block
-总是从新行开始，并占据可用的全部宽度。_**HTML会自动地在块级元素前后添加一个额外的空行**_
+总是从新行开始，并占据可用的全部宽度。_**HTML 会自动地在块级元素前后添加一个额外的空行**_
 
 > [!NOTE] 常见的块级元素标签
->
+> 
 > * `<div>`
 > * `<h1>` - `<h6>`
 > * `<p>`
@@ -36,12 +36,12 @@
 
 ### 行内元素 inline
 > 不从新行开始，仅占用所需的宽度
->
+> 
 > * **不允许在元素上设置宽度和高度**
 > * 不保留上下内外边距
 
 > [!NOTE] 常见的行内元素
->
+> 
 > * `<span>`
 > * `<a>`
 > * `<img>`
@@ -80,12 +80,12 @@ h1.hidden {
 ## position
 
 > [!NOTE] 属性值
->
+> 
 > * `static`【默认】：不受 top、bottom、left 和 right 属性的影响，始终根据页面的正常流进行定位
 > * `relative`：相对于其正常位置进行定位
 > * `fixed`：相对于视口定位【意味着即使滚动页面，也始终位于同一位置】
-> * `absolute`：相对于最近的定位祖先元素【除`static`】进行定位，如果没有祖先则祖先为整个文档主体`body`，==会从正常流中删除，意味着会出现重叠==
-> * `sticky`：根据用户的滚动位置进行定位【起先会被`relative`，而后为`fixed`】
+> * `absolute`：相对于最近的定位祖先元素【除 `static`】进行定位，如果没有祖先则祖先为整个文档主体 `body`，==会从正常流中删除，意味着会出现重叠==
+> * `sticky`：根据用户的滚动位置进行定位【起先会被 `relative`，而后为 `fixed`】
 
 ```css
 div.static {
@@ -128,8 +128,8 @@ div.sticky {
 }
 ```
 
-> [!NOTE] 定义position的注意点
->
+> [!NOTE] 定义 position 的注意点
+> 
 > * 一般会把父元素定义为 `relative` ，子元素定义为 `absolute` ，这样子元素就会在父元素的里面进行绝对定位，而不是相对于整个文档
 
 ## 重叠
@@ -161,7 +161,7 @@ img {
 
 ## 溢出 overflow
 
-* `overflow` 元素内容太大而无法放入指定区域时是_**剪裁内容**_还是_**添加滚动条**_，==仅适用于具有指定高度的块元素==
+* `overflow` 元素内容太大而无法放入指定区域时是 _**剪裁内容**_ 还是 _**添加滚动条**_，==仅适用于具有指定高度的块元素==
   * `visible` _**默认**_，溢出没有被剪裁，==内容在元素框外渲染==
   * `hidden` 溢出被剪裁，其余内容将不可见
   * `scroll` 溢出被剪裁，同时在水平竖直都添加滚动条以查看其余内容
@@ -188,7 +188,7 @@ div {
 ## 浮动 float
 
 > [!NOTE] 属性值
->
+> 
 > * `left` 元素浮动到其容器的左侧，碰到边框就会停下
 > * `right` 元素浮动在其容器的右侧
 > * `none` 【默认值】，元素不会浮动（将显示在文本中刚出现的位置）
@@ -217,7 +217,7 @@ img {
 ## 清除 clear
 
 > [!NOTE] 属性值
->
+> 
 > * `none` 【默认值】允许两侧都有浮动元素
 > * `left` 左侧不允许浮动元素
 > * `right` 右侧不允许浮动元素
@@ -242,7 +242,7 @@ img {
 !\[\[Excalidraw/计算机/JavaWeb Draw.md#^group=sgLQHiif|700]]
 
 # Flexbox
-`Flexbox` 可以更轻松地设计灵活的响应式布局结构，无需 `float`  和 `position`
+`Flexbox` 可以更轻松地设计灵活的响应式布局结构，无需 `float` 和 `position`
 
 ```css
 .flex-container {
@@ -276,21 +276,21 @@ img {
 	* `row-reverse`
 * `flex-wrap` _**规定是否应该对 flex 项目换行**_
 	* `wrap` 在必要时进行换行
-	* `nowrap` 【默认】，不对flex项目换行
-	* `wrap-reverse` 在必要时，flex项目将从下到上换行
-* `justify-content` _**用于水平对齐flex项目**_
-	* `center` 将flex项目在flex容器里居中
+	* `nowrap` 【默认】，不对 flex 项目换行
+	* `wrap-reverse` 在必要时，flex 项目将从下到上换行
+* `justify-content` _**用于水平对齐 flex 项目**_
+	* `center` 将 flex 项目在 flex 容器里居中
 	* `flex-start` 【默认】
 	* `flex-end` 在末端对齐
-	* `space-around` 在每个flex项目的两侧都添加空间
-	* `space-between` 第一个flex项目的左侧不添加空间，最后一个flex项目的右侧不添加空间，其他都类似 `space-around`
-* `align-items` _**用于垂直对齐flex项目**_
+	* `space-around` 在每个 flex 项目的两侧都添加空间
+	* `space-between` 第一个 flex 项目的左侧不添加空间，最后一个 flex 项目的右侧不添加空间，其他都类似 `space-around`
+* `align-items` _**用于垂直对齐 flex 项目**_
 	* `center`
 	* `flex-start`
 	* `flex-end`
-	* `stretch` 【默认】，拉伸flex项目填充满整个高度
+	* `stretch` 【默认】，拉伸 flex 项目填充满整个高度
 	* `baseline` 根据文本的底部线居中对齐
-* `align-content` _**用于不同行之间的flex项目应该如何垂直对齐**_
+* `align-content` _**用于不同行之间的 flex 项目应该如何垂直对齐**_
 	* `stretch` 【默认】，拉伸每一行以填充满整个高度
 	* `space-around` 在有多行时，每一行的上下都添加相同间距
 	* `space-between` 在有多行时，第一行的上面无间距，最后一行的下面无间距，其他行平分间距
@@ -299,12 +299,12 @@ img {
 	* `flex-end` 每一行都挤到下面
 
 ## 弹性项目
-* `order` 规定flex项目的顺序
-* `flex-grow` 规定某个 flex 项目相对于其余 flex 项目将增长多少，_**默认值为1，0表示不可增长**_， https://www.w3school.com.cn/tiy/t.asp?f=css3\_flexbox\_flex-grow
-* `flex-shrink` 规定某个 flex 项目相对于其余 flex 项目将收缩多少，_**默认值为1，0表示不可收缩**_
-* `flex-basis` 规定flex项目的初始长度
+* `order` 规定 flex 项目的顺序
+* `flex-grow` 规定某个 flex 项目相对于其余 flex 项目将增长多少，_**默认值为 1，0 表示不可增长**_， https://www.w3school.com.cn/tiy/t.asp?f=css3\_flexbox\_flex-grow
+* `flex-shrink` 规定某个 flex 项目相对于其余 flex 项目将收缩多少，_**默认值为 1，0 表示不可收缩**_
+* `flex-basis` 规定 flex 项目的初始长度
 * `flex` 是 `flex-grow`，`flex-shrink` ， `flex-basis` 的简写
-* `align-self` 覆盖容器的`align-items`的对齐方式
+* `align-self` 覆盖容器的 `align-items` 的对齐方式
 
 ```html
 /* order */
@@ -340,13 +340,13 @@ img {
 
 # 状态选择器
 伪类用于定义元素的**特殊状态**，根据元素处于什么状态来设置不同样式：
-* `:link`  未访问过的链接
-* `:visited`  访问过的链接
-* `:hover`  鼠标悬停时
-* `:active`  被点击时
+* `:link` 未访问过的链接
+* `:visited` 访问过的链接
+* `:hover` 鼠标悬停时
+* `:active` 被点击时
 
 > [!attention]
->
+> 
 > * a:hover 必须定义在 a:link 和 a:visited 之后，以确保鼠标悬停时的优先级高
 > * a:active 必须定义在 a:hover 之后，以确保点击时的优先级高于悬停时
 
@@ -406,7 +406,7 @@ a:active {
 }
 ```
 
-> [!attention] 链接的状态属性不是html的属性，所以不能使用行内样式
+> [!attention] 链接的状态属性不是 html 的属性，所以不能使用行内样式
 
 * 提示悬停
 ```css
@@ -455,8 +455,8 @@ li[data-line]:nth-child(n+10) {
 <p>元素太长会换行，则第一行会被设置为红色
 ```
 
-> [!NOTE] 适用于`::first-line`的属性
->
+> [!NOTE] 适用于 `::first-line` 的属性
+> 
 > * 字体，颜色，背景
 > * word-spacing
 > * letter-spacing
@@ -476,8 +476,8 @@ p::first-letter {
 }
 ```
 
-> [!NOTE] 适用于`::first-letter`的属性
->
+> [!NOTE] 适用于 `::first-letter` 的属性
+> 
 > * 字体，颜色，背景
 > * 内外边距
 > * 边框
@@ -518,8 +518,8 @@ h1::before {
 }
 ```
 
-> [!NOTE] 适用于`::selection`的属性
->
+> [!NOTE] 适用于 `::selection` 的属性
+> 
 > * `color`
 > * `background`
 > * `cursor`
@@ -529,8 +529,8 @@ h1::before {
 导航栏基本上是链接列表
 
 > [!NOTE] 设置导航时的注意点
->
-> * `display: block;` 将链接显示为块元素_**可以使整个链接区域都可以被单击**_，我们还可以指定更多的参数
+> 
+> * `display: block;` 将链接显示为块元素 _**可以使整个链接区域都可以被单击**_，我们还可以指定更多的参数
 > * `width: 60px;` 默认情况下，块元素会占用全部可用宽度，我们需要指定合适的 width
 > * `position: fixed;` 固定导航栏
 
@@ -615,10 +615,10 @@ a {
 
 # 计数器
 计数器使您可以根据内容在文档中的位置来调整其外观
-* `counter-reset`  创建或重置计数器
-* `counter-increment`  递增计数器值
-* `content`  插入生成的内容
-* `counter()` /`counters()`  将计数器的值添加到元素
+* `counter-reset` 创建或重置计数器
+* `counter-increment` 递增计数器值
+* `content` 插入生成的内容
+* `counter()` /`counters()` 将计数器的值添加到元素
 
 ***
 
@@ -663,11 +663,11 @@ h2::before {
 ```
 
 # 冲突
-如果有两条或两条以上指向同一元素的冲突CSS规则，则浏览器将遵循一些原则来确定应用哪一条
+如果有两条或两条以上指向同一元素的冲突 CSS 规则，则浏览器将遵循一些原则来确定应用哪一条
 
 > [!NOTE] 冲突规则
->
-> * 以下优先级_**由高到低**_
+> 
+> * 以下优先级 _**由高到低**_
 >   * 行内样式 - 行内（内联）样式直接附加到要设置样式的元素
 >     * `<h1 style="color: #ffffff;">`
 >   * ID
@@ -680,5 +680,5 @@ h2::before {
 >     * `div`
 >     * `:before`
 > * 在优先级相同的情况下，后定义的规则优先级更高
-> * 行内样式 > HTML文内`<style>标签` > 外部CSS
+> * 行内样式 > HTML 文内 `<style>标签` > 外部 CSS
 > * 通用选择器，被继承的值 _**优先级最低**_

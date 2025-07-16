@@ -9,8 +9,8 @@
 当引入起步依赖后，Maven 会根据起步依赖进行依赖传递，把 Web 开发相关的依赖都传递进来
 
 # 自动配置
->[!quote] 自动配置
->自动配置 就是 Spring 容器启动后，会自动将一些<u>配置类</u>，<u>Bean 对象</u>放入到 IOC 容器中，我们就可以直接使用
+> [!quote] 自动配置
+> 自动配置 就是 Spring 容器启动后，会自动将一些<u>配置类</u>，<u>Bean 对象</u>放入到 IOC 容器中，我们就可以直接使用
 
 ## 自定义依赖导入
 ### 依赖包项目
@@ -51,11 +51,11 @@ public class SpringAopApplication {
 
 ## @SpringBootApplication
 - `@SpringBootApplication`
-	- `@Target({ElementType.TYPE})`  源注解，用于描述注解的使用范围【可以指定注解可以用于类、方法、字段……】
-	- `@Retention(RetentionPolicy.RUNTIME)`  源注解，用于描述注解的生命周期【可以指定注解在编译时、运行时或两者都保留】
-	- `@Documented`  源注解，用于描述注解是否应该包含在Javadoc中
-	- `@Inherited`  源注解，用于描述注解是否应该继承到子类中
-	- `@SpringBootConfiguration`  表示是一个<u>配置类</u>【所以可以在启动类里配置第三方 Bean，不过不推荐】
+	- `@Target({ElementType.TYPE})` 源注解，用于描述注解的使用范围【可以指定注解可以用于类、方法、字段……】
+	- `@Retention(RetentionPolicy.RUNTIME)` 源注解，用于描述注解的生命周期【可以指定注解在编译时、运行时或两者都保留】
+	- `@Documented` 源注解，用于描述注解是否应该包含在 Javadoc 中
+	- `@Inherited` 源注解，用于描述注解是否应该继承到子类中
+	- `@SpringBootConfiguration` 表示是一个<u>配置类</u>【所以可以在启动类里配置第三方 Bean，不过不推荐】
 	- `@EnableAutoConfiguration`  
 		- `@AutoConfigurationPackage` 
 		- `@Import({AutoConfigurationImportSelector.class})` 导入了一个 `ImportSelector接口` 的实现类，`ImportSelector接口` 的其中一个方法的返回值是一个 `String[]` ，里面是导入到 IOC 容器中的类

@@ -125,7 +125,7 @@ text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
 ```
 
 > [!hint] 阴影可以制造出围绕文本的效果 上下左右都偏移出阴影
->
+> 
 > ```css
 > text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 > ```
@@ -237,16 +237,16 @@ transform: skew(0deg,20deg);
 | [perspective-origin](https://www.w3school.com.cn/cssref/pr\_perspective-origin.asp)   | 规定 3D 元素的底部位置       |
 | [backface-visibility](https://www.w3school.com.cn/cssref/pr\_backface-visibility.asp) | 定义元素在不面对屏幕时是否可见     |
 
-| transform的函数                         | 描述              |
+| transform 的函数                         | 描述              |
 | ------------------------------------ | --------------- |
 | translate3d(_x_,y,z)                 | 定义 3D 转化        |
 | scale3d(x,y,z)                       | 定义 3D 缩放转换      |
-| rotate3d(x,y,z,angle)                | 以3D方式旋转         |
+| rotate3d(x,y,z,angle)                | 以 3D 方式旋转         |
 | perspective(n)                       | 定义 3D 转换元素的透视视图 |
 | \`\`\`css                            |                 |
 | /\* 看不到了 \*/                         |                 |
 | transform: rotate3d(150deg, 0, 0);   |                 |
-| /\* 就是顺时针转了90度 \*/                   |                 |
+| /\* 就是顺时针转了 90 度 \*/                   |                 |
 | transform: rotate3d(0deg, 0, 90deg); |                 |
 | \`\`\`                               |                 |
 
@@ -255,12 +255,12 @@ transform: skew(0deg,20deg);
 * `transition` 指定需要过渡效果的属性，过渡时间
 * `transition-delay` 延迟
 * `transition-timing-function` 过渡效果的速度曲线
-  * `ease`  【默认】慢-快-慢
-  * `linear`  匀速
+  * `ease`  【默认】慢 - 快 - 慢
+  * `linear` 匀速
   * `ease-in` 慢开始
-  * `ease-out`  慢结束
-  * `ease-in-out`  慢开始-慢结束
-  * `cubic-bezier(n,n,n,n)`  在三次贝塞尔函数中定义自己的值
+  * `ease-out` 慢结束
+  * `ease-in-out` 慢开始 - 慢结束
+  * `cubic-bezier(n,n,n,n)` 在三次贝塞尔函数中定义自己的值
 
 ```css
 div {
@@ -297,12 +297,12 @@ div:hover {
 # 动画
 
 > 动画使元素逐渐从一种样式变为另一种样式，_**而不使用 JavaScript 或 Flash**_
->
+> 
 > * 编写动画代码
 > * 将动画代码绑定到需要产生效果的元素上
 
 * `@keyframes`
-  * 使用`from to`
+  * 使用 `from to`
   * 使用百分比
 * `animation-name` 用于元素指定动画名
 * `animation-duration` 动画持续时间
@@ -315,17 +315,17 @@ div:hover {
   * `alternate` 动画先向前播放，然后向后
   * `alternate-reverse` 动画先向后播放，然后向前
 * `animation-timing-function` 动画速度曲线
-  * `ease`  【默认】慢-快-极慢
-  * `linear`  匀速
+  * `ease`  【默认】慢 - 快 - 极慢
+  * `linear` 匀速
   * `ease-in` 慢开始
-  * `ease-out`  慢结束
-  * `ease-in-out`  慢开始-慢结束
-  * `cubic-bezier(n,n,n,n)`  在三次贝塞尔函数中定义自己的值
+  * `ease-out` 慢结束
+  * `ease-in-out` 慢开始 - 慢结束
+  * `cubic-bezier(n,n,n,n)` 在三次贝塞尔函数中定义自己的值
 * `animation-fill-mode`
   * `none` 【默认】动画执行之后保持原样
   * `forwards` 元素会保留动画执行之后最后一个关键帧的样式值
   * `backwards` 在动画延迟期间元素将应用第一个关键帧的样式值
-  * `both` 结合了`forward` + `backwards`
+  * `both` 结合了 `forward` + `backwards`
 
 ```css
 /* 动画代码 */
@@ -354,12 +354,12 @@ div {
 
 # 提示
 
-> 提示 通常用于_**提供某内容的额外信息**_ !\[\[Excalidraw/计算机/JavaWeb Draw.md#^group=MOa3PP06|200]]
+> 提示 通常用于 _**提供某内容的额外信息**_ !\[\[Excalidraw/计算机/JavaWeb Draw.md#^group=MOa3PP06|200]]
 
 > [!hint] 提示的思路
->
+> 
 > * 在父元素里包含提示元素
->   * 一般将父元素设置为`position: relative;` ，提示元素设置为`position: absolute;`
+>   * 一般将父元素设置为 `position: relative;` ，提示元素设置为 `position: absolute;`
 >   * 提示元素的层级一般高于父元素【`z-index: 1;`】
 > * 将提示元素设置为隐藏 `display: none;`
 > * 悬浮父元素时，将提示元素设置为显示 `display: inline-block;`
@@ -400,7 +400,7 @@ div {
 
 ## 提示框箭头
 
-> 边框的上下左右其中_**只有一边有颜色，并且没有内容，就会变成一个箭头**_
+> 边框的上下左右其中 _**只有一边有颜色，并且没有内容，就会变成一个箭头**_
 
 ```css
 .tooltip .tooltiptext {
@@ -421,25 +421,25 @@ div {
 
 # 图像视频容器
 
-> `object-fit`指定应如何调整 \<img> 或 \<video> 的大小以适合其容器
+> `object-fit` 指定应如何调整 \<img> 或 \<video> 的大小以适合其容器
 
 > [!hint] 属性值
->
+> 
 > * `fill` 【默认】如有必要，将拉伸或挤压物体以适应该对象
-> * `contain` 保持宽高比，不会剪裁。将图像的width缩放至恰好适合容器
+> * `contain` 保持宽高比，不会剪裁。将图像的 width 缩放至恰好适合容器
 > * `cover` 保证图像不会变形，_**但是会裁剪并填满**_【即使窗口大小发生变化】
 > * `none` 不会变形，会裁切。不对内容进行任何操作，图像将按照其原始尺寸显示在原始容器，多的裁切，少的也不填充
-> * `scale-down` 保持宽高比，不会剪裁。如果图像的尺寸>容器的尺寸，就为`cover` ；如果图像尺寸<容器尺寸，则按原尺寸显示，不会放大图像
+> * `scale-down` 保持宽高比，不会剪裁。如果图像的尺寸>容器的尺寸，就为 `cover` ；如果图像尺寸<容器尺寸，则按原尺寸显示，不会放大图像
 
 实例： https://www.w3school.com.cn/tiy/t.asp?f=css3\_object-fit\_all
 
 # 按钮
 
 > [!hint] 设置按钮的基本原则
->
+> 
 > * 悬停时出现字体颜色与背景颜色的反转
 > * 悬停时出现同色系的阴影效果/黑白灰色系的阴影效果
-> * 禁用某个按钮时，_**降低**_`opacity`透明度
+> * 禁用某个按钮时，_**降低**_`opacity` 透明度
 > * 点击时，出现涟漪效果
 > * 点击时，出现按钮被按下的效果
 
@@ -491,8 +491,8 @@ div {
 
 # 导航，分页
 
-> * 使用`<div>`中包含`<a>`
-> * 使用`<ul>`无序列表
+> * 使用 `<div>` 中包含 `<a>`
+> * 使用 `<ul>` 无序列表
 
 ## 分页
 
@@ -538,7 +538,7 @@ ul.breadcrumb li+li:before {
 
 * `column-count` 规定元素应被划分的列数
 * `column-gap` 规定列之间的间隔大小
-* `column-rule` _**类比为border**_
+* `column-rule` _**类比为 border**_
   * `column-rule-style` 规定列之间的分隔样式
   * `column-rule-width` 规定列之间的分隔样式的宽度
   * `column-rule-color` 规定列之间的分隔样式的颜色
@@ -580,7 +580,7 @@ resize: none;    /* 禁止用户调整 */
 ## 媒体查询
 
 > [!hint] 媒体查询可用于检查
->
+> 
 > * 视口的宽度和高度
 > * 设备的宽度和高度
 > * 方向【平板电脑/手机处于横向/纵向模式】
@@ -591,7 +591,7 @@ resize: none;    /* 禁止用户调整 */
   * `print` 打印机
   * `screen` 计算机屏幕、平板电脑、智能手机等等
   * `speech` 大声“读出”页面的屏幕阅读器
-* `expressions` 表达式的值可以为true / false
+* `expressions` 表达式的值可以为 true / false
 
 ```css
 /* 语法 */
@@ -665,7 +665,7 @@ resize: none;    /* 禁止用户调整 */
 # CSS 变量
 
 > `var(name, [value])`，`name` 必须以两个破折号“--”开头，且区分大小写
->
+> 
 > _**CSS 变量可以访问 DOM，所以可以使用 JavaScript 来修改变量，以及基于媒体查询来修改变量**_
 
 * 创建具有全局作用域的变量，在 `:root选择器` 中声明

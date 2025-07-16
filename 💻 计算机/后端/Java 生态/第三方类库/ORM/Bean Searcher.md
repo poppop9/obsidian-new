@@ -6,7 +6,7 @@
 </dependency>
 ```
 
->[!warning] 使用 Bean Searcher 来简化 JPA 的复杂条件查询
+> [!warning] 使用 Bean Searcher 来简化 JPA 的复杂条件查询
 
 # ❤️ 配置
 - 让 BeanSearcher 适配 JPA
@@ -68,7 +68,7 @@ public class BeanSearcherConfig {
 - `Contain` 
 - `InList` / `NotIn` 多值
 
->[!warning] 如果传入的值为 null，则忽略该条件【~~比如下方的 title 为 null，则会忽略模糊查询~~】
+> [!warning] 如果传入的值为 null，则忽略该条件【~~比如下方的 title 为 null，则会忽略模糊查询~~】
 
 ```java
 @Resource  

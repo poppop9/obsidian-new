@@ -1,6 +1,6 @@
 rsync 的最大特点是会检查发送方和接收方已有的文件，仅传输有变动的部分
 
-通过远程shell如rsh和ssh复制文件。同时要求必须在远程和和本地系统上都安装sync。
+通过远程 shell 如 rsh 和 ssh 复制文件。同时要求必须在远程和和本地系统上都安装 sync。
 
 
 - `sudo apt-get install rsync` 安装

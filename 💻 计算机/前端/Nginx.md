@@ -1,8 +1,8 @@
 
->[!hint] nginx 中的进程
->nginx 中的进程分为：
->- `master` ：主进程，负责读取配置文件，管理 `worker` 进程，~~只有一个~~
->- `worker` ：工作进程，负责处理请求，~~可以有多个，在 `nginx.conf` 里配置~~
+> [!hint] nginx 中的进程
+> nginx 中的进程分为：
+> - `master` ：主进程，负责读取配置文件，管理 `worker` 进程，~~只有一个~~
+> - `worker` ：工作进程，负责处理请求，~~可以有多个，在 `nginx.conf` 里配置~~
 
 - `nginx` 
 	- `conf` 
@@ -44,9 +44,9 @@ docker run \
 			- `auth_request 鉴权路径` 对于访问 location 的请求，再发送子请求给鉴权路径，如果返回 2xx，则会继续处理这个原始请求；否则 4xx
 			- `proxy_pass 请求地址` 将 location 的请求转发到另一个请求地址
 
->[!hint] `location = /auth { ... }` 与 `location /auth { ... }` 的区别
->- `location = /auth { ... }`：只会匹配 /auth
->- `location /auth { ... }`：会匹配以 /auth 开头的所有路径，及其所有子路径下的 index.html
+> [!hint] `location = /auth { ... }` 与 `location /auth { ... }` 的区别
+> - `location = /auth { ... }`：只会匹配 /auth
+> - `location /auth { ... }`：会匹配以 /auth 开头的所有路径，及其所有子路径下的 index.html
 
 ---
 
@@ -110,9 +110,9 @@ server {
 }
 ```
 
->[!quote] 负载均衡的三种方式
->- **轮询**【~~默认~~】
->- **权重**
+> [!quote] 负载均衡的三种方式
+> - **轮询**【~~默认~~】
+> - **权重**
 > ```yml
 > # 接收请求的比例就是3：1：1
 > upstream backend {  
@@ -221,8 +221,8 @@ server {
 ```
 
 ## 鉴权
->[!quote] 鉴权
->鉴权 可以对请求进行身份验证，进行对某个用户的限频限次
+> [!quote] 鉴权
+> 鉴权 可以对请求进行身份验证，进行对某个用户的限频限次
 
 - 在 `server 块` 中的 `location 块` 中配置
 
@@ -266,10 +266,10 @@ http://localhost/sage?token=succ  ❌
 ## HTTPS
 HTTPS = HTTP + SSL
 
->[!quote] SSL
->>SSL 是一种安全协议，提供了各种<u>安全保障</u>【数据加密，服务器身份验证，消息完整性检查 ……】，对我们在网页中输入的<u>敏感信息</u>【密码、信用卡号 ……】进行加密，让它们不容易被解读
->
->一般申请到的 SSL 有两个文件：密钥文件，证书文件
+> [!quote] SSL
+> > SSL 是一种安全协议，提供了各种<u>安全保障</u>【数据加密，服务器身份验证，消息完整性检查 ……】，对我们在网页中输入的<u>敏感信息</u>【密码、信用卡号 ……】进行加密，让它们不容易被解读
+> 
+> 一般申请到的 SSL 有两个文件：密钥文件，证书文件
 
 ---
 

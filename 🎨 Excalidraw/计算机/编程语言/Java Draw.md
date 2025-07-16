@@ -10,7 +10,7 @@ tags:
 ## Text Elements
 int arr[] = new int[3]; ^42MCVJNO
 
-说明数组的元素类型是int ^Vx0x1cwd
+说明数组的元素类型是 int ^Vx0x1cwd
 
 数组的名称 ^hSxAN23F
 

@@ -1,7 +1,7 @@
 
 # 对比 Ajax
 > [!quote] Ajax
->>Ajax 是异步的 JavaScript 和 XML，是一种在不重新加载整个页面的情况下，允许通过 JS 向服务器发送请求并处理服务器响应的技术
+> > Ajax 是异步的 JavaScript 和 XML，是一种在不重新加载整个页面的情况下，允许通过 JS 向服务器发送请求并处理服务器响应的技术
 > 
 > <u>特点</u> ：
 > - 实现在不加载网页的情况下，使网页实现动态更新
@@ -23,11 +23,11 @@
 > 	- 3：正在处理请求；
 > 	- 4：请求已完成且响应已就绪
 > - **status** 返回请求的状态号【200: "OK"；403: "Forbidden"；404: "Not Found"】
->- **responseText** 以字符串形式返回响应数据
+> - **responseText** 以字符串形式返回响应数据
 
  [Axios](https://axios-http.com/zh/docs/intro) 对原生的 Ajax 进行了封装，简化了书写
 
-# ❤️ 安装Axios
+# ❤️ 安装 Axios
 ## 工程化 Axios
 * 在项目目录下的 cmd 输入 `npm install axios`
 * 需要 Axios 时，在 `script标签` 中导入
@@ -39,11 +39,11 @@
 * 然后就可以在 `script标签` 中使用 axios 了
 
 ## 局部化 Axios
-*   在 `head标签` 中导入 `axios.js` 文件
+* 在 `head标签` 中导入 `axios.js` 文件
     ```html
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     ```
-* 然后就可以在 `script标签` 中使用axios了
+* 然后就可以在 `script标签` 中使用 axios 了
 
 # ❤️ 配置 · 使用
 <u>配置</u> ：

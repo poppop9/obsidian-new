@@ -6,17 +6,17 @@
 </dependency>           
 ```
 
->[!quote] Lombok
->Lombok 可以通过注解来简化 Java 类的编写，提高代码的可读性和简洁性
+> [!quote] Lombok
+> Lombok 可以通过注解来简化 Java 类的编写，提高代码的可读性和简洁性
 
 # 构造方法
-- `@NoArgsConstructor`  为实体类生成无参构造方法
+- `@NoArgsConstructor` 为实体类生成无参构造方法
 	- `force` 
 		- true 即使该类有一个 final 字段也强制生成一个无参构造
 	- `access` 设置无参构造的访问修饰符
 		- lombok.AccessLevel.PROTECTED
 		- lombok.AccessLevel.PRIVATE
-- `@AllArgsConstructor`  为实体类生成除了 static 修饰的字段之外带有所有参数的构造方法
+- `@AllArgsConstructor` 为实体类生成除了 static 修饰的字段之外带有所有参数的构造方法
 	- `access` 设置有参构造的访问修饰符
 - `@RequiredArgsConstructor` 生成只有 final，或者 `@NonNull` 标注的参数构造方法
 
@@ -35,10 +35,10 @@ public class User implements Serializable {
 
 # 属性
 ## @Data
-- `@Data`  是 @Getter+@Setter+@ToString+@EqualsAndHashCode 的集合
-	- `@Getter/@Setter`  为所有属性提供 get/set 方法
-	- `@ToString`  给类自动生成的 toString 方法
-	- `@EqualsAndHashCode`  根据类所拥有的非静态字段重写 equals 方法和 hashCode 方法
+- `@Data` 是 @Getter+@Setter+@ToString+@EqualsAndHashCode 的集合
+	- `@Getter/@Setter` 为所有属性提供 get/set 方法
+	- `@ToString` 给类自动生成的 toString 方法
+	- `@EqualsAndHashCode` 根据类所拥有的非静态字段重写 equals 方法和 hashCode 方法
 
 ## @Builder
 `@Builder` 可以自动生成一个建造者模式相关的代码【~~不需要手动 setter 构建对象，而是链式调用来构建对象~~】，使得对象的构建更加简洁

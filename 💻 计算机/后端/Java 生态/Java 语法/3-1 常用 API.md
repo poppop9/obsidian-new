@@ -28,10 +28,10 @@ Arrays 里包含了操作数组的多种方法
 
 > [!hint] 属性 `Math.PI` 圆周率
 
-> [!hint] 方法 `public static int abs(int a)` 返回参数的绝对值 `public static double ceil(double a)` 返回大于或等于参数的最小double值，等于一个整数 `public static double floor(double a)` 返回小于或等于参数的最大double值，等于一个整数 `public static int round(float a)` 按照四舍五入返回最接近参数的int `public static int max(int a,int b)` 返回两个int值中的较大值 `public static int min(int a,int b)` 返回两个int值中的较小值 `public static double pow(double a,double b)` 返回a的b次幂的值 `public static double random()` 返回值为double的正值，[0.0，1.0）
+> [!hint] 方法 `public static int abs(int a)` 返回参数的绝对值 `public static double ceil(double a)` 返回大于或等于参数的最小 double 值，等于一个整数 `public static double floor(double a)` 返回小于或等于参数的最大 double 值，等于一个整数 `public static int round(float a)` 按照四舍五入返回最接近参数的 int `public static int max(int a,int b)` 返回两个 int 值中的较大值 `public static int min(int a,int b)` 返回两个 int 值中的较小值 `public static double pow(double a,double b)` 返回 a 的 b 次幂的值 `public static double random()` 返回值为 double 的正值，[0.0，1.0）
 
 ## System
-> [!hint] 方法 `System.exit(0)` 可以终止java虚拟机的运行 `System。CurrentTimeMillis()` 计算1970年，1月1日与当前时间的差值，单位为 `ms`
+> [!hint] 方法 `System.exit(0)` 可以终止 java 虚拟机的运行 `System。CurrentTimeMillis()` 计算 1970 年，1 月 1 日与当前时间的差值，单位为 `ms`
 
 ## Object
 > [!hint] 方法 `toString()` 在类中创建此方法，可以在打印对象名称时更加的简明 `equals()` 用来比较两个对象【包含字符串】的内容【而不是地址】，在比较对象的内容时，需要在对象所属类里重写 `equals()`，`hashcode()`

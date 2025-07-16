@@ -17,7 +17,7 @@ implementation group: 'com.alibaba.cola', name: 'cola-component-statemachine', v
 - COLA
 	- 无状态的，轻量化的
 
->[!quote] 状态机
+> [!quote] 状态机
 > 状态机 能明确地定义状态、事件、转移条件以及状态之间的转移过程，可以有效地管理和控制系统的复杂性
 > 
 > - **状态 State** ：系统在某一时刻的具体条件或情形（~~“待支付”、“已支付”、“待发货”、“已发货”~~）

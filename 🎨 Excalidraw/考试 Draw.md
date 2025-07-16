@@ -75,19 +75,19 @@ P2 ^WEspPtt7
 
 8 ^IeH00EaB
 
-发现bug，new ^1YuF2laO
+发现 bug，new ^1YuF2laO
 
-开发经理确认bug ^NzUcZuWV
+开发经理确认 bug ^NzUcZuWV
 
-将bug置为reject ^S8CceOm4
+将 bug 置为 reject ^S8CceOm4
 
 N ^kEDYGJnA
 
 Y ^YXs1QQFP
 
-将bug置为open ^4CYzmj0m
+将 bug 置为 open ^4CYzmj0m
 
-程序员修复为fixed ^M0ovMU1O
+程序员修复为 fixed ^M0ovMU1O
 
 测试人员验证 ^R05kxF8C
 
@@ -151,9 +151,9 @@ E3 ^v9V4Wd6S
 
 ~ ^1GnWZrCE
 
-信息N ^A9vCqVln
+信息 N ^A9vCqVln
 
-信息M ^ElUnybMC
+信息 M ^ElUnybMC
 
 原因 ^M7q0WRll
 

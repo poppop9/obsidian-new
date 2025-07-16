@@ -53,15 +53,15 @@ retry ……
 ```
 
 ## 重试机制
->[!quote] `@Retryable`
->你可以定义当方法出现何种异常时，如何重试 ：
->- `retryFor` 指明需要重试的异常
->- `noRetryFor` 排除不需要重试的异常
->- `recover` 指定恢复方法
->- `exceptionExpression` 进行更加细粒度的控制，指明是否要重试
->- `notRecoverable` 指明哪些异常不需要恢复方法
->
-><u>特点</u> :
+> [!quote] `@Retryable`
+> 你可以定义当方法出现何种异常时，如何重试 ：
+> - `retryFor` 指明需要重试的异常
+> - `noRetryFor` 排除不需要重试的异常
+> - `recover` 指定恢复方法
+> - `exceptionExpression` 进行更加细粒度的控制，指明是否要重试
+> - `notRecoverable` 指明哪些异常不需要恢复方法
+> 
+> <u>特点</u> :
 > - 不指定异常，即为重试所有异常
 > - 默认重试三次，每次间隔 1s
 > - 一旦达到最大尝试次数，但仍有异常，就会抛出 `ExhaustedRetryException`
@@ -84,8 +84,8 @@ public interface MyService {
 ```
 
 ## 恢复机制
->[!quote] `@Recover`
->你可以定义当方法重试后依旧失败时，要执行的方法 ：
+> [!quote] `@Recover`
+> 你可以定义当方法重试后依旧失败时，要执行的方法 ：
 > - 恢复方法的第一个参数是异常类，后续参数按照重试方法的参数来写
 > - 恢复方法的返回值，要和重试方法的返回值保持一致
 > - 由于被 @Recover 注释的方法处理了异常，所以最后并不会抛出异常
@@ -102,7 +102,7 @@ public interface MyService {
 }
 ```
 
->[!hint] 如果 recover 方法中，需要到重试方法的某些信息，我们可以自定义 Exception，然后把这些信息 set 进去，之后在 recover 方法中捕获时 get
+> [!hint] 如果 recover 方法中，需要到重试方法的某些信息，我们可以自定义 Exception，然后把这些信息 set 进去，之后在 recover 方法中捕获时 get
 > ```java
 > @Recover
 > public Boolean recordErrorLog(RetryException retryException, DepartmentPO departmentPO) throws Exception {
@@ -176,7 +176,7 @@ public RetryListener createRetryListener() {
 
 
 ## 熔断器
->[!quote] `@CircuitBreaker` 
+> [!quote] `@CircuitBreaker` 
 
 ```java
 @Service
@@ -198,12 +198,12 @@ class ShakyBusinessService {
 ```
 
 # ❤️ 工具类方式 - RetryTemplate
->[!warning] 什么时候要使用 RetryTemplate 替代注解，来实现重试机制呢 ?
->- 不使用 IOC 容器时
->- 场景复杂时
->- 在重试时，并且抛出的异常不是自定义时，但是需要保存某些信息时
->- 使用监听器 Listener 时
->- 需要统计分析
+> [!warning] 什么时候要使用 RetryTemplate 替代注解，来实现重试机制呢 ?
+> - 不使用 IOC 容器时
+> - 场景复杂时
+> - 在重试时，并且抛出的异常不是自定义时，但是需要保存某些信息时
+> - 使用监听器 Listener 时
+> - 需要统计分析
 
 ---
 

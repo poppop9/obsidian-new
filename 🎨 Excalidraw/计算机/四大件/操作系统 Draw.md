@@ -26,21 +26,21 @@ tags: [excalidraw]
 
 发起之后就被阻塞了 ^e03kQ2OF
 
-当I/O完成了，
-系统也决定不切换回Process0，
-而是先运行完Process1 ^HLLBvgGb
+当 I/O 完成了，
+系统也决定不切换回 Process0，
+而是先运行完 Process1 ^HLLBvgGb
 
 目前还不清楚这是不是一个很好的决定 ^HdkSqwvW
 
-A的周转时间为10 ^MhAath92
+A 的周转时间为 10 ^MhAath92
 
-B的周转时间是20 ^9z061qqw
+B 的周转时间是 20 ^9z061qqw
 
-C的周转时间是30 ^f4iyWtOc
+C 的周转时间是 30 ^f4iyWtOc
 
-所以平均周转时间为20 ^mG0oQvM6
+所以平均周转时间为 20 ^mG0oQvM6
 
-平均周转时间为110 ^TQvfup9D
+平均周转时间为 110 ^TQvfup9D
 
 （10+20+120）/3=50 ^KAdgCxNx
 
@@ -52,15 +52,15 @@ C的周转时间是30 ^f4iyWtOc
 
 平均响应时间：（0+1+2）/3=1 ^cfsaKuZR
 
-这里的时间片长度为1 ^YVP4Jram
+这里的时间片长度为 1 ^YVP4Jram
 
-IO操作占用的时间 ^DmyZqJbE
+IO 操作占用的时间 ^DmyZqJbE
 
-采用STCF，把A分解成了5个子任务。
-当A完成时，则会调用B【重叠】 ^rgOvQoGA
+采用 STCF，把 A 分解成了 5 个子任务。
+当 A 完成时，则会调用 B【重叠】 ^rgOvQoGA
 
-如果A的优先级 > B的优先级，运行A
-如果A的优先级 = B的优先级，轮转运行A和B ^OwaWQP2e
+如果 A 的优先级 > B 的优先级，运行 A
+如果 A 的优先级 = B 的优先级，轮转运行 A 和 B ^OwaWQP2e
 
 一个队列中可以有多个工作 ^fW50daGl
 
@@ -76,7 +76,7 @@ IO操作占用的时间 ^DmyZqJbE
 密集型工作 ^MYUE1qIw
 
 定期提升优先级，
-保证了Q2上的长任务有机会执行 ^v9YaSvNj
+保证了 Q2 上的长任务有机会执行 ^v9YaSvNj
 
 在此刻加入了 2 个交互型任务后，
 这个长任务就没有机会执行了 ^DLDzDS37
@@ -85,26 +85,26 @@ IO操作占用的时间 ^DmyZqJbE
 
 这个任务打擦边球，
 在高优先级一直占
-用CPU ^CwvZs3S9
+用 CPU ^CwvZs3S9
 
 时间份额用完，降低优先级 ^rjfDbLvF
 
 时间份额用完，降低优先级 ^MyfwWWIS
 
-2个任务优先级相同，
+2 个任务优先级相同，
 轮转运行 ^dBmA5gCq
 
-B只占用了20%，而不是25%。 ^abM8uh58
+B 只占用了 20%，而不是 25%。 ^abM8uh58
 
 大家行程值都相同，随机运行 ^fCy4FSNu
 
-C的行程值最少，运行C ^WyPe77Xy
+C 的行程值最少，运行 C ^WyPe77Xy
 
 正好是票数比例：200：100：50 ^DlhrJSer
 
 物理内存 ^xNYtLlHM
 
-同时放进进程A,B,C ^haj0Q2jl
+同时放进进程 A,B,C ^haj0Q2jl
 
 堆和栈都会增长，
 所以放在首尾 ^iJEbhNnt
@@ -132,9 +132,9 @@ C的行程值最少，运行C ^WyPe77Xy
 记录了内存中的空闲空间 ^VCOzUOze
 
 申请一块 1 字节的空间，
-对malloc()的调用返回20 ^4Q83cSMf
+对 malloc() 的调用返回 20 ^4Q83cSMf
 
-调用free(10) ^96apIcZw
+调用 free(10) ^96apIcZw
 
 分割 ^tau57uKD
 
@@ -149,20 +149,20 @@ C的行程值最少，运行C ^WyPe77Xy
 什么都没有分配的堆，
 已经有了一块头块【就是空闲列表】 ^OhHXyy46
 
-head指针，
+head 指针，
 永远指向最
 新释放空间
 的空闲列表 ^DN22q8o9
 
 分配了一个
-100字节
+100 字节
 的空间 ^RPX2gkTz
 
-8字节 ^Ztxvw7Do
+8 字节 ^Ztxvw7Do
 
-8字节 ^DUFF65Ov
+8 字节 ^DUFF65Ov
 
-再多分配两块100字节的空间 ^dITK0Dp8
+再多分配两块 100 字节的空间 ^dITK0Dp8
 
 free(16500) ^U00k7YMD
 
@@ -170,36 +170,36 @@ free(16500) ^U00k7YMD
 
 16500 ^kaElSfA7
 
-head指针指向了最近空闲的内存块，
-next指针指向了下一个空闲空间 ^yn1S2BAQ
+head 指针指向了最近空闲的内存块，
+next 指针指向了下一个空闲空间 ^yn1S2BAQ
 
 效率太低，进行改进 ^hTkWhbS1
 
-有一个15字节的内存请求 ^9tleUbQN
+有一个 15 字节的内存请求 ^9tleUbQN
 
-有一个15字节的内存请求 ^wDdTu4s3
+有一个 15 字节的内存请求 ^wDdTu4s3
 
-请求7KB空间时 ^3iX0xWbR
+请求 7KB 空间时 ^3iX0xWbR
 
-由于是64字节的虚拟地址空间，
-所以需要6位 ^dMBD23zU
+由于是 64 字节的虚拟地址空间，
+所以需要 6 位 ^dMBD23zU
 
-1页是16字节，我们许需要4个页，
-所以是2位 ^ZHuOcDcF
+1 页是 16 字节，我们许需要 4 个页，
+所以是 2 位 ^ZHuOcDcF
 
-1页是16字节，需要4位 ^Dv28gwor
+1 页是 16 字节，需要 4 位 ^Dv28gwor
 
 通过检索页表，
-查看第1页对应的物理内存
+查看第 1 页对应的物理内存
 的页帧是多少 ^EsYfloZR
 
 转换成汇编语言 ^NZXMgOdr
 
 一次循环，
-有10次内存访问【
-取指令4次，
-更新数组内容1次，
-为取指令和更新数组内容转换地址访问页表5次】 ^0SqMivvV
+有 10 次内存访问【
+取指令 4 次，
+更新数组内容 1 次，
+为取指令和更新数组内容转换地址访问页表 5 次】 ^0SqMivvV
 
 左侧是虚拟地址 ^jAeC0Mnb
 

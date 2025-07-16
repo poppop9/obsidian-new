@@ -9,10 +9,10 @@ $$
 
 ---
 
->[!hint] 有的时候可以使用 日志打印 代替 注解
+> [!hint] 有的时候可以使用 日志打印 代替 注解
 
->[!hint] 为什么要选择抽象层的 SLF4J，而不是实现类【log4j，logback】？
->假设 A 开发了一个通用组件，他在程序中使用的是 log4j，B 之前开发的的业务模块使用的是 logback。突然有一天 B 要在自己的业务系统中使用 A 的通用组件，那就很麻烦了，<u>那么解决方案就是使用 SLF4J</u>
+> [!hint] 为什么要选择抽象层的 SLF4J，而不是实现类【log4j，logback】？
+> 假设 A 开发了一个通用组件，他在程序中使用的是 log4j，B 之前开发的的业务模块使用的是 logback。突然有一天 B 要在自己的业务系统中使用 A 的通用组件，那就很麻烦了，<u>那么解决方案就是使用 SLF4J</u>
 
 ## 日志级别
 - `fatal` 灾难级的，因为代码异常导致程序退出执行的事件；系统级别，程序无法打印
@@ -22,7 +22,7 @@ $$
 - `debug` 需要调试时候的关键信息
 - `trace` 级别最低
 
->[!hint] 当某个项目目录设置了日志级别，我们只能得到`此级别及更高级别`的日志，SpringBoot 的默认级别是 `info`
+> [!hint] 当某个项目目录设置了日志级别，我们只能得到 `此级别及更高级别` 的日志，SpringBoot 的默认级别是 `info`
 
 ## 日志格式
 日志 = 日志打印时间 + 日志级别 + 线程 id + 线程名称 + 日志所在类 + 日志内容
@@ -164,7 +164,7 @@ public class StrategyArmoryDispatch {
 ```
 
 ## 链式编程记录日志
->[!hint] 这种方式可以使用 `addKeyValue(key, value)` 给日志添加键值对，更有利于后续分析
+> [!hint] 这种方式可以使用 `addKeyValue(key, value)` 给日志添加键值对，更有利于后续分析
 
 `atTrace()`，`atDebug()`，`atInfo()`，`atWarn()` ，`atError()`，`atFatal()` 方法都会返回一个 `LoggingEventBuilder` 实例
 

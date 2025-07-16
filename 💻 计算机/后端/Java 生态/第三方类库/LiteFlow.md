@@ -6,21 +6,21 @@
 </dependency>
 ```
 
->[!quote] LiteFlow
->> [LiteFlow](https://liteflow.cc/) 是一个业务规则编排引擎，而不是流程引擎
->> ![300](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/20241104005204.png)
->
->- 通过统一的 xml 文件编排逻辑规则，使得逻辑类之间松耦合，不用互相引用
->- LiteFlow 相当于瀑布流，没有办法暂停
+> [!quote] LiteFlow
+> > [LiteFlow](https://liteflow.cc/) 是一个业务规则编排引擎，而不是流程引擎
+> > ![300](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/20241104005204.png)
+> 
+> - 通过统一的 xml 文件编排逻辑规则，使得逻辑类之间松耦合，不用互相引用
+> - LiteFlow 相当于瀑布流，没有办法暂停
 
->[!warning] 如果你使用 JDK11 及其以上的版本，要在 jvm 参数加上 ：
+> [!warning] 如果你使用 JDK11 及其以上的版本，要在 jvm 参数加上 ：
 > ```bash
 > --add-opens java.base/sun.reflect.annotation=ALL-UNNAMED
 > ```
 
->[!warning] LiteFlow 是一个业务规则编排引擎，而不是流程引擎
->流程引擎 : 流程是有角色的，比如说审批流
->规则引擎 : 规则是一套相对复杂的逻辑块
+> [!warning] LiteFlow 是一个业务规则编排引擎，而不是流程引擎
+> 流程引擎 : 流程是有角色的，比如说审批流
+> 规则引擎 : 规则是一套相对复杂的逻辑块
 
 # ❤️ 快速开始
 - 定义组件
@@ -85,7 +85,7 @@ liteflow:
 ```
 
 # ❤️ 组件
->[!warning] 所有在组件中定义的方法都是有类型的~~【处理方法，预处理方法，前置处理方法 ……】~~，所有的这些方法的返回值都要按照 NodeComponent 来写
+> [!warning] 所有在组件中定义的方法都是有类型的~~【处理方法，预处理方法，前置处理方法 ……】~~，所有的这些方法的返回值都要按照 NodeComponent 来写
 
 ## 💛 普通组件
 - `process` 该组件的业务逻辑方法
@@ -204,7 +204,7 @@ liteflow:
 流程入参能做的数据上下文都能实现
 
 # ❤️ 数据上下文
->[!hint] 所有的组件需要用到其他组件的数据时，都是利用数据上下文去取，而不是依赖于其他组件
+> [!hint] 所有的组件需要用到其他组件的数据时，都是利用数据上下文去取，而不是依赖于其他组件
 
 `DefaultContext` ：是默认实现的数据上下文，你也可以自己定义
 - `setData` 传入参数
@@ -256,9 +256,9 @@ private FlowExecutor flowExecutor;
 - `LiteflowResponse execute2Resp(String chainId, Object param, Class<?>... contextBeanClazzArray)` 第一个参数为流程 ID，第二个参数为流程入参，后面可以传入多个上下文 class
 - `LiteflowResponse execute2Resp(String chainId, Object param, Object... contextBeanArray)` 第一个参数为流程 ID，第二个参数为流程入参，后面可以传入多个上下文的 Bean
 
->[!quote] LiteflowResponse
->LiteflowResponse 是执行器的执行结果
->- `getContextBean(上下文class对象)` 获取上下文
+> [!quote] LiteflowResponse
+> LiteflowResponse 是执行器的执行结果
+> - `getContextBean(上下文class对象)` 获取上下文
 
 ## 💛 非阻塞执行
 - `Future<LiteflowResponse> execute2Future(String chainId, Object param, Object... contextBeanArray)` 
@@ -286,7 +286,7 @@ public class CustomThreadBuilder implements ExecutorBuilder {
 决策路由会并行执行你指定的多条 chain，若 route 为 false，则终止执行
 
 - `List<LiteflowResponse> executeRouteChain(流程入参, 数据上下文)` 会执行所有带有 `<route>` 标签的 chain
-- `List<LiteflowResponse> executeRouteChain(命名空间, 流程入参, 数据上下文)` 会执行指定命名空间下的所有带  `<route>` 标签的 chain
+- `List<LiteflowResponse> executeRouteChain(命名空间, 流程入参, 数据上下文)` 会执行指定命名空间下的所有带 `<route>` 标签的 chain
 
 ```java
 <chain name="chain1" namespace="n1">
