@@ -367,6 +367,13 @@ EasyExcel.write(response.getOutputStream())
 ```
 
 ### 💙 列宽行高
+- 统一设置
+```java
+.registerWriteHandler(new SimpleColumnWidthStyleStrategy(17))
+.registerWriteHandler(new SimpleRowHeightStyleStrategy((short) 25, (short) 25))
+```
+
+- 设置具体行，具体列
 ```java
 .registerWriteHandler(new SheetWriteHandler() {
 	@Override
