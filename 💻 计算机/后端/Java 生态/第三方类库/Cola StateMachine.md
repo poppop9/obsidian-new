@@ -126,7 +126,6 @@ public class StateMachineConfig {
 
 # 事件中心
 - 状态机发布事件，默认是阻塞的
-
 ```java
 /**
  * 状态机事件中心
