@@ -322,10 +322,10 @@ EasyExcel.write(fileName, DemoData.class)
 ### 💙 向 Web 写入
 ```java
 @GetMapping("/getExcel")  
-public void getExcel(HttpServletResponse response) {  
+public void getExcel(HttpServletResponse response) {
+	String fileName = URLEncoder.encode("提单列表数据.xlsx", StandardCharsets.UTF_8);  
 	response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 	response.setCharacterEncoding("utf-8");
-	String fileName = URLEncoder.encode("提单列表数据.xlsx", StandardCharsets.UTF_8);  
 	response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"; filename*=UTF-8''" + fileName);
 	
 	EasyExcel.write(response.getOutputStream(), DemoData.class)  
@@ -342,6 +342,18 @@ public void getExcel(HttpServletResponse response) {
 ## 💛 无实体类写入
 ```java
 EasyExcel.write("E:\\文档\\测试一下.xlsx")
+		.head(List.of(  
+		        List.of("标题"),  
+		        List.of("数字")
+		))
+		.sheet()
+		.doWrite(List.of(
+			Arrays.asList("吃饭", 23d),
+			Arrays.asList("睡觉", 2d),
+			Arrays.asList("敲代码", 299d)
+		));
+
+EasyExcel.write(response.getOutputStream())
 		.head(List.of(  
 		        List.of("标题"),  
 		        List.of("数字")
