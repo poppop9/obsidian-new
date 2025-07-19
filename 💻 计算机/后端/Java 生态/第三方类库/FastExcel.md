@@ -376,17 +376,6 @@ EasyExcel.write(response.getOutputStream())
 		sheet.setColumnWidth(1, 88 * 256);  // 设置第二列宽度为 88
 	}
 })
-
-// 一次性设置所有列宽
-.registerWriteHandler(new SheetWriteHandler() {
-    @Override
-    public void afterSheetCreate(WriteWorkbookHolder writeWorkbookHolder, WriteSheetHolder writeSheetHolder) {
-	Sheet sheet = writeSheetHolder.getSheet();
-	for (int i = 0; i < sheet.getPhysicalNumberOfRows(); i++) {
-	    sheet.setColumnWidth(i, 17 * 256);  // 设置第二列宽度为 88
-	}
-    }
-})
 ```
 
 ### 💙 居中
