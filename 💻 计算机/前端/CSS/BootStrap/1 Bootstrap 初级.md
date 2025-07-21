@@ -15,7 +15,7 @@ https://v5.bootcss.com/docs/getting-started/introduction/#quick-start
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" />
 </head>
 
 <body>
@@ -68,24 +68,23 @@ import 'bootstrap';
 
 > 利用 `flexbox` ，共有 12 列【会根据屏幕大小，自动重排】 ![800](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202402051753353.png)
 
-> [!NOTE] 如果页面底部出现水平的滚动条，就在 `.row` 的 `<div>` 中加入 `.mx-auto`
-> 
-> ```html
-> <div class="row mx-auto">
-> 	\<div class="col-9 mx-auto">
-> 		\<div class="row">
-> 			\<div class="col-2">
-> 			\</div>
-> 			\<div class="col-8">
-> 				<span>慕课网</span>
-> 			\</div>
-> 			\<div class="col-2">
-> 				\<span>免费学习来自名校名师的精品课程\</span>
-> 			\</div>
-> 		\</div>
-> 	\</div>
-> </div>
-> ```
+如果页面底部出现水平的滚动条，就在 `.row` 的 `<div>` 中加入 `.mx-auto`
+```html
+<div class="row mx-auto">
+  <div class="col-9 mx-auto">
+    <div class="row">
+      <div class="col-2">
+      </div>
+      <div class="col-8">
+        <span>慕课网</span>
+      </div>
+      <div class="col-2">
+        <span>免费学习来自名校名师的精品课程</span>
+      </div>
+    </div>
+  </div>
+</div>
+```
 
 * **行**
   * `.row` 宽度是自动的，可能会超出父容器的宽度
@@ -189,8 +188,8 @@ import 'bootstrap';
 
 ```html
 <div class="alert alert-success alert-dismissible">
-	<strong>成功！</strong>此警报框表示成功或积极的动作
-	<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>成功！</strong> 此警报框表示成功或积极的动作
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 </div>
 ```
 
