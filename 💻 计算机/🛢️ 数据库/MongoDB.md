@@ -24,7 +24,7 @@ docker run -d --name mongodb -p 27017:27017 -v mongodb_data:/data/db -e MONGO_IN
 # ❤️ GUI
 [https://www.mongodb.com/try/download/compass](https://www.mongodb.com/try/download/compass)
 
-# 基本概念
+# ❤ 基本概念
 - MongoDB 会为每个文档自动生成的唯一标识符，不需要我们手动管理 (生成、存储与查询)
 - 可以为集合中的某些字段设置 TTL，以自动删除旧数据
 
@@ -40,5 +40,19 @@ docker run -d --name mongodb -p 27017:27017 -v mongodb_data:/data/db -e MONGO_IN
 - 文档 Document ：集合中的一个数据记录（行），以 BSON 格式存储
 - 域名 field ：就是数据字段
 - 主键 ：MongoDB 自动将 `_id` 字段设置为主键
+
+## 集合
+🧩 集合的注意事项 ：
+- 集合名不能是空字符串，也不能含有空字符，这个字符表示集合名的结尾
+- 集合名不能以"system."开头，这是为系统集合保留的前缀
+- 用户创建的集合名字不能含有保留字符 $
+
+🧩 Capped 集合 ：Capped 集合就是固定大小的集合，单位是字节
+- 有很高的性能，以及队列过期特性
+- 当我们更新 Capped  集合中文档的时候，更新后的文档不可以超过之前文档的大小（这样才能确保所有文档在磁盘上的位置一直保持不变）
+- Capped 集合不能删除部分文档，只能一次性全部删除
+
+## 文档
+
 
 # ❤️ 功能
