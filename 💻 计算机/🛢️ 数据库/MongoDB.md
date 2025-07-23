@@ -24,7 +24,7 @@ docker run -d --name mongodb -p 27017:27017 -v mongodb_data:/data/db -e MONGO_IN
 # ❤️ GUI
 [https://www.mongodb.com/try/download/compass](https://www.mongodb.com/try/download/compass)
 
-# ❤ 基本概念
+# ❤️ 基本概念
 - MongoDB 会为每个文档自动生成的唯一标识符，不需要我们手动管理 (生成、存储与查询)
 - 可以为集合中的某些字段设置 TTL，以自动删除旧数据
 
@@ -32,6 +32,29 @@ docker run -d --name mongodb -p 27017:27017 -v mongodb_data:/data/db -e MONGO_IN
 - admin ：要是将一个用户添加到这个数据库，这个用户自动继承所有数据库的权限。一些特定的服务器端命令也只能从这个数据库运行，比如列出所有的数据库或者关闭服务器
 - local ：这个数据永远不会被复制，可以用来存储限于本地单台服务器的任意集合
 - config ：当 Mongo 用于分片设置时，config 数据库在内部使用，用于保存分片的相关信息
+
+# ❤ 数据类型
+- Object ID：MongoDB 中存储的文档必须有一个 _id 键。这个键的值可以是任何类型的，默认是个 ObjectId 对象。由于 ObjectId 中保存了创建的时间戳，所以你不需要为你的文档保存时间戳字段。这个 id 不是自动递增的
+  - ObjectId 类似唯一主键，可以很快的去生成和排序，包含 12 bytes，组成：
+    - 前 4 个字节表示创建 unix 时间戳，格林尼治时间 UTC 时间，比北京时间晚了 8 个小时
+    - 接下来的 3 个字节是机器标识码
+    - 紧接的两个字节由进程 id 组成 PID
+    - 最后三个字节是随机数
+-  String：字符串，必须是 UTF-8 编码
+- Integer：整型数值
+- Boolean：布尔值
+- Double：双精度浮点数
+- Date：日期时间，表示当前距离 Unix 新纪元（1970年1月1日）的毫秒数，负数表示 1970 年之前的日期
+- Timestamp：时间戳，用于记录文档添加或修改的时间。前 32 位是一个 time_t 值（与Unix新纪元相差的秒数），后 32 位是在某秒中操作的一个递增的序数
+  - 在单个 mongod 实例中，时间戳值通常是唯一的
+- Min/Max keys：用于将值与 BSON 的最小值或最大值进行比较
+- Array：数组或列表，可以存储多个值
+- Object：内嵌文档，用于嵌套结构
+- Null：空值
+- Symbol：符号类型，类似字符串，一般用于某些特殊语言
+- Binary Data：二进制数据
+- Code：JavaScript 代码
+- Regular Expression：正则表达式
 
 # ❤️ 数据结构
 🧩 MongoDB 的数据格式是 BSON (Binary JSON)，是二进制形式的 JSON ：
@@ -41,7 +64,7 @@ docker run -d --name mongodb -p 27017:27017 -v mongodb_data:/data/db -e MONGO_IN
 - 域名 field ：就是数据字段
 - 主键 ：MongoDB 自动将 `_id` 字段设置为主键
 
-## 集合
+## 💛 集合
 🧩 集合的注意事项 ：
 - 集合名不能是空字符串，也不能含有空字符，这个字符表示集合名的结尾
 - 集合名不能以"system."开头，这是为系统集合保留的前缀
@@ -52,7 +75,13 @@ docker run -d --name mongodb -p 27017:27017 -v mongodb_data:/data/db -e MONGO_IN
 - 当我们更新 Capped  集合中文档的时候，更新后的文档不可以超过之前文档的大小（这样才能确保所有文档在磁盘上的位置一直保持不变）
 - Capped 集合不能删除部分文档，只能一次性全部删除
 
-## 文档
-
+## 💛 文档
+🧩 文档的注意事项 ：
+- 文档中的键值对是有序的
+- 文档不能有重复的键
+- 文档的键是字符串。除了少数例外情况，键可以使用任意 UTF-8 字符
+  - 键不能含有空字符，因为这个字符用来表示键的结尾
+  - 和 $ 有特别的意义，只有在特定环境下才能使用
+  - 避免使用 _ 开头的键，以免与系统字段冲突
 
 # ❤️ 功能
