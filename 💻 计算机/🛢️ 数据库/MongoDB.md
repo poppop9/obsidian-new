@@ -33,7 +33,7 @@ docker run -d --name mongodb -p 27017:27017 -v mongodb_data:/data/db -e MONGO_IN
 - local ：这个数据永远不会被复制，可以用来存储限于本地单台服务器的任意集合
 - config ：当 Mongo 用于分片设置时，config 数据库在内部使用，用于保存分片的相关信息
 
-# ❤ 数据类型
+# ❤️ 数据类型
 - Object ID：MongoDB 中存储的文档必须有一个 _id 键。这个键的值可以是任何类型的，默认是个 ObjectId 对象。由于 ObjectId 中保存了创建的时间戳，所以你不需要为你的文档保存时间戳字段。这个 id 不是自动递增的
   - ObjectId 类似唯一主键，可以很快的去生成和排序，包含 12 bytes，组成：
     - 前 4 个字节表示创建 unix 时间戳，格林尼治时间 UTC 时间，比北京时间晚了 8 个小时
