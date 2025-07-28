@@ -141,6 +141,27 @@ transactionTemplate.execute(status -> {
 	}
 	return null; // 如果需要返回值，可以返回具体数据
 });
+
+List<Long> collect = transactionTemplate.execute(status -> {
+    try {
+	// 1. 获取数据
+	List<ScannedFiles> scannedFiles = JsonUtils.parseArray(message.getPayload(), ScannedFiles.class);
+	List<Long> collectTemp = scannedFiles.stream().map(ScannedFileSimple::getId).collect(Collectors.toList());
+
+	// 2. 将所有图片状态改为处理中
+	scannedFiles.forEach(item -> volFilesMapper.update(
+		VolFiles.builder().status("处理中").build(),
+		new LambdaQueryWrapper<VolFiles>().eq(VolFiles::getId, item.getId())
+	));
+
+	// 3. 批量处理
+	imageProcessingService.batchProcessImage(scannedFiles);
+	return collectTemp;
+    } catch (Exception e) {
+	status.setRollbackOnly();
+	return null;
+    }
+});
 ```
 
 ## 💛 事务失效
