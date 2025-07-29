@@ -583,6 +583,9 @@ String stringSignTemp = "AAA";
 String MD5 = SecureUtil.md5(stringSignTemp);
 ```
 
+# ❤️ 网络 NetUtil
+- `getLocalMacAddress()` 获取本机的 mac 地址
+
 # ❤️ 缓存 CacheUtil
 Cache 有五个实现类：
 - `newTimedCache` 
@@ -626,10 +629,7 @@ public class PicPathGlobalCache {
 }
 ```
 
-
-
 # ❤ 断言 Assert
-
 > [!hint] Java 原生的 Assert 的缺点
 > 断言 本意上是在调式时使用，而不是生产环境
 > 
