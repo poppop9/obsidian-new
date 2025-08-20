@@ -12,3 +12,8 @@ PingReplyDetails (RTT) : 0 ms
 TcpTestSucceeded       : False
 ```
 
+- 如果你想重启 WinNAT（Windows NAT Driver / 服务）
+```bash
+net stop winnat
+net start winnat
+```
