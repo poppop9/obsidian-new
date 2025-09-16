@@ -1,0 +1,53 @@
+{
+  "confirmDeletion": false,
+  "showAddCommand": true,
+  "debug": false,
+  "editorMenu": [],
+  "fileMenu": [],
+  "leftRibbon": [
+    {
+      "id": "open-with-default-app:show",
+      "icon": "lucide-files",
+      "name": "在系统资源管理器中显示",
+      "mode": "any"
+    }
+  ],
+  "rightRibbon": [],
+  "titleBar": [],
+  "statusBar": [],
+  "pageHeader": [
+    {
+      "id": "editor:open-search-replace",
+      "icon": "lucide-search",
+      "name": "在当前笔记中查找并替换",
+      "mode": "any"
+    }
+  ],
+  "macros": [],
+  "explorer": [],
+  "hide": {
+    "statusbar": [
+      "keyboard-analyzer",
+      "obsidian-git",
+      "obsidian-git",
+      "properties"
+    ],
+    "leftRibbon": [
+      "新建 Excalidraw 绘图",
+      "打开快速切换",
+      "新建绘图文件",
+      "Create new drawing"
+    ]
+  },
+  "spacing": "8",
+  "advancedToolbar": {
+    "rowHeight": 48,
+    "rowCount": 1,
+    "spacing": 0,
+    "buttonWidth": 48,
+    "columnLayout": false,
+    "mappedIcons": [],
+    "tooltips": false,
+    "heightOffset": 0
+  }
+}
