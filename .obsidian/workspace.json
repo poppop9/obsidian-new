@@ -84,8 +84,8 @@
               "state": {
                 "file": "🖌️ Diagram/订单系统分析.svg"
               },
-              "icon": "lucide-file",
-              "title": "订单系统分析.svg"
+              "icon": "lucide-ghost",
+              "title": "diagram-edit"
             }
           }
         ],
@@ -249,8 +249,8 @@
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "command-palette:打开命令面板": false,
-      "obsidian-excalidraw-plugin:新建绘图文件": false,
       "cmdr:在系统资源管理器中显示": false,
+      "obsidian-excalidraw-plugin:新建绘图文件": false,
       "obsidian-kanban:创建新看板": false
     }
   },
