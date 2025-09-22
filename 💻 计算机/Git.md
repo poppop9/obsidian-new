@@ -453,47 +453,25 @@ temp/
 > - `revert` 回退
 > - `build` 打包
 
-# ❤️ idea
-
-> [!hint]+ 拉取
-> - ![300](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403211339240.png)
-> - 拉取别人仓库![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403211342220.png)
-> - 拉取自己账号里的仓库![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403211340541.png)
-> - 选择拉取到本地的地址![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403211340313.png)
-> - 拉取项目最新变化 ![350](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202407082100467.png)
-
-> [!hint]+ 提交
-> ![300](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403211648397.png)
-
-> [!hint]+ 推送
-> ![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403211649783.png)
-
-> [!hint] 拉分支 / 切换分支
-> - 新拉一个分支
-> ![250](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202406282300256.png)
-> 
-> - 切换到某个分支
-> ![300](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202406282302895.png)
-> 
-> - 合并分支
-> ![300](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202406282303141.png)
-> 
-> - 推送该分支的合并请求
-> - 切换到 main 分支
-> - 在 main 分支上拉取请求
-
-# ❤️ 错误
+# ❤️ 问题
 <u>Failed to connect to 127.0.0.1 port 7897 after 2052 ms: Could not connect to server</u> 或者 <u>Failed to connect to github.com port 443</u> ：git 代理错误
  - `git config --global http.proxy 127.0.0.1:7890` 端口号是 clash 的端口号，或者使用 hiddify 则是 12334
  - `git config --global https.proxy 127.0.0.1:7890` 
 
+# ❤️ 场景
+✨️ 需要删除 dev 分支中的某个 feat 分支 merge 过来的代码
+- 切换到 dev 分支
+- 找到 feat 分支 merge 到 dev 的那一次的提交的 hash
+- `git revert -m 1 abc1234` 
+- `git push origin dev` 
 
+✨️ 把 `dev-backup` 分支的内容完全覆盖掉 `dev` 分支
+- 切换到 dev 分支
+- `git reset --hard dev-backup` 
+- `git push origin dev --force` 
 
-
-
-
-
-
+✨️ 撤销最近一次的提交，但保留代码改动（回到工作区和暂存区）
+- `git reset --soft HEAD^`
 
 
 
