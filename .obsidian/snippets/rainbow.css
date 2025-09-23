@@ -89,6 +89,7 @@ yaml header settings
 headers settings
 */
 
+#write h3,
 #write h4 {
     text-decoration: underline dotted var(--h-border-color) 0.2rem;
 }
@@ -784,15 +785,15 @@ h2,
 
 /* 标题3 */
 div.HyperMD-header.HyperMD-header-3.cm-line {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-bottom: 3px !important;
     text-align: center;
 }
 
 span.cm-header.cm-header-3 {
     font-size: 1.25rem !important;
-    font-family: "BorderlineWhite", sans-serif;
+    /* border-bottom: #3481c57e 3px solid; */
+    padding-right: 5px;
+    text-align: center;
 }
 
 
@@ -802,16 +803,9 @@ span.cm-header.cm-header-3 {
 }
 
 h3 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-size: 1.25rem !important;
-    font-family: "BorderlineWhite", sans-serif !important;
-
-    margin-block-start: 0.5rem;
-    margin-block-end: 0.1rem !important;
+    margin-bottom: 0.5rem !important;
     text-align: center;
-    position: relative;
 }
 
 
@@ -869,10 +863,17 @@ h4 {
     padding-top: 0;
 }
 
+h3,
+.markdown-rendered h3,
 h4,
 .markdown-rendered h4 {
     margin-block-start: 0rem;
     margin-block-end: 0.1rem !important;
+}
+
+h3,
+.markdown-rendered h3 {
+    text-align: center;
 }
 
 /* -------------------------------------------------------------- */
