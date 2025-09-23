@@ -736,7 +736,7 @@ h1,
 div.HyperMD-header.HyperMD-header-2.cm-line {
     padding: 0.2rem 0 0 0rem;
     border-top: 0.4rem solid transparent;
-    margin-bottom: 0 !important;
+    margin-bottom: 1rem !important;
 }
 
 span.cm-header.cm-header-2 {
@@ -763,7 +763,7 @@ h2,
 .markdown-rendered h2 {
     font-size: 1.5rem !important;
     padding: 0.4rem 0 0 0rem;
-    margin-bottom: 0 !important;
+    margin-bottom: 1rem !important;
     color: #004faa;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 
