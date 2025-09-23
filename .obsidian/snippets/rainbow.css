@@ -646,7 +646,7 @@ span.cm-em.cm-strong {
 
 .markdown-rendered p {
     margin-block-start: 0;
-    /* margin-block-end: 0.5rem; */
+    margin-block-end: 0.5rem;
 }
 
 /* ----------------------------------------------------------------------------------------------- */
@@ -741,17 +741,14 @@ div.HyperMD-header.HyperMD-header-2.cm-line {
 span.cm-header.cm-header-2 {
     color: #004faa;
     font-weight: bold;
-    font-size: 1.83rem !important;
+    font-size: 1.5rem !important;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 
     position: relative;
     display: inline-block;
 }
 
-span.cm-header.cm-header-2::first-letter {
-    font-size: 2.7rem !important;
-    letter-spacing: -0.03em;
-}
+
 
 /* .theme-dark span.cm-header.cm-header-2 {
 	text-shadow: 3px 2px 0.1rem #ededed, -2px -2px 0.1rem #ededed;
@@ -763,7 +760,7 @@ span.cm-header.cm-header-2::first-letter {
 
 h2,
 .markdown-rendered h2 {
-    font-size: 1.86rem !important;
+    font-size: 1.5rem !important;
     padding: 0.4rem 0 0 0rem;
     margin-bottom: 0 !important;
     color: #004faa;
@@ -774,10 +771,7 @@ h2,
     margin-block-start: 0.7rem;
 }
 
-h2::first-letter {
-    font-size: 2.7rem !important;
-    letter-spacing: -0.03em;
-}
+
 
 .theme-dark h2,
 .theme-dark .markdown-rendered h2 {
@@ -797,21 +791,11 @@ div.HyperMD-header.HyperMD-header-3.cm-line {
 }
 
 span.cm-header.cm-header-3 {
-    font-size: 1.5rem !important;
+    font-size: 1.25rem !important;
     font-family: "BorderlineWhite", sans-serif;
 }
 
-div.HyperMD-header.HyperMD-header-3.cm-line span.cm-header.cm-header-3:last-child:not(.cm-formatting-escape.cm-header.cm-header-3.cm-hmd-escape-backslash):not(span.cm-escape.cm-header.cm-header-3.cm-hmd-escape-char)::before {
-    content: '###';
-    font-size: 1.5rem;
-    font-style: italic;
-    color: #3481c5;
 
-    opacity: 70%;
-    border-radius: 0.6rem;
-
-    margin-right: 0.5rem;
-}
 
 .markdown-rendered div:has(> :is(p, pre, table, ul, ol)) + div > :is(h3) {
     margin-top: 0.7rem;
@@ -821,7 +805,7 @@ h3 {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.5rem !important;
+    font-size: 1.25rem !important;
     font-family: "BorderlineWhite", sans-serif !important;
 
     margin-block-start: 0.5rem;
@@ -830,15 +814,7 @@ h3 {
     position: relative;
 }
 
-h3::before {
-    content: '###';
-    font-size: 1.5rem;
-    font-style: italic;
-    color: #3481c5;
-    opacity: 70%;
-    display: inline-block;
-    margin-right: 0.5rem;
-}
+
 
 .HyperMD-header-2.cm-line + .HyperMD-header-3.cm-line {
     padding-top: 0.2rem;
@@ -1065,10 +1041,7 @@ div.cm-line:not([class*="HyperMD-list-line"]) + div.HyperMD-list-line.HyperMD-li
     padding-top: 0.8rem !important;
 }
 
-.cm-formatting.cm-formatting-list.cm-formatting-list-ul.cm-list-1 {
-    margin-right: 0.4rem;
-}
-
+/* 那个点 */
 .cm-list-1 > .list-bullet::after {
     background-color: #ed6c60;
     height: 0.4rem;
@@ -1088,12 +1061,13 @@ div.cm-line:not([class*="HyperMD-list-line"]) + div.HyperMD-list-line.HyperMD-li
 }
 
 div.HyperMD-list-line {
-    transform: translate(17px, 0px);
+    /* transform: translate(-14px, 0px); */
+    transform: translate(11px, 0px);
 }
 
 /* 阅读模式 */
 .markdown-rendered ul > li {
-    margin-inline-start: 5.0ch;
+    margin-inline-start: 4.4ch;
 }
 
 /* 一级无序列表 */
