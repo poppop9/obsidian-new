@@ -826,6 +826,16 @@ h3 {
     margin-top: 0.1rem !important;
 }
 
+/* 编辑模式下二级标题的下边距调整，使其与阅读模式保持一致 */
+.markdown-source-view.mod-cm6 .HyperMD-header-2.cm-line {
+    margin-bottom: 1rem !important;
+}
+
+/* 编辑模式下，当 h2 后面紧跟其他内容时的间距调整 */
+.markdown-source-view.mod-cm6 .HyperMD-header-2.cm-line:not(:has(+ .HyperMD-header-3.cm-line)) {
+    margin-bottom: 1rem !important;
+}
+
 
 /* 标题4 */
 /* 编辑模式 */
