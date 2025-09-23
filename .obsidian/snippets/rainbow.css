@@ -736,7 +736,12 @@ h1,
 div.HyperMD-header.HyperMD-header-2.cm-line {
     padding: 0.2rem 0 0 0rem;
     border-top: 0.4rem solid transparent;
-    margin-bottom: 1rem !important;
+    margin-bottom: 0.3rem !important;
+}
+
+/* 当 h2 后面紧跟 h3 时，减少 h2 的下边距，与阅读模式保持一致 */
+div.HyperMD-header.HyperMD-header-2.cm-line:has(+ .HyperMD-header-3.cm-line) {
+    margin-bottom: 0.2rem !important;
 }
 
 span.cm-header.cm-header-2 {
@@ -799,7 +804,7 @@ span.cm-header.cm-header-3 {
 
 
 .markdown-rendered div:has(> :is(p, pre, table, ul, ol)) + div > :is(h3) {
-    margin-top: 0.7rem;
+    margin-top: 0.2rem;
 }
 
 h3 {
@@ -811,7 +816,14 @@ h3 {
 
 
 .HyperMD-header-2.cm-line + .HyperMD-header-3.cm-line {
-    padding-top: 0.2rem;
+    padding-top: 0rem;
+    margin-top: 0.1rem !important;
+    border-top: none !important;
+}
+
+/* 阅读模式下，h2 后紧跟 h3 的间距调整 */
+.markdown-rendered h2 + h3 {
+    margin-top: 0.1rem !important;
 }
 
 
@@ -869,6 +881,12 @@ h4,
 .markdown-rendered h4 {
     margin-block-start: 0rem;
     margin-block-end: 0.1rem !important;
+}
+
+/* 进一步减少 h3 上方间距 */
+h3,
+.markdown-rendered h3 {
+    margin-top: 0.2rem !important;
 }
 
 h3,
