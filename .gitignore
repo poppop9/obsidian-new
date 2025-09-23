@@ -1,3 +1,12 @@
 .trash
 .obsidian/workspace.json
 .obsidian/plugins/recent-files-obsidian/data.json
+.obsidian/app.json
+.obsidian/appearance.json
+.obsidian/community-plugins.json
+.obsidian/core-plugins.json
+.obsidian/plugins/cmdr/data.json
+.obsidian/plugins/editing-toolbar/data.json
+.obsidian/plugins/obsidian-excalidraw-plugin/data.json
+.obsidian/plugins/obsidian-linter/data.json
+.obsidian/types.json
