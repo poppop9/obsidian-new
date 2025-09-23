@@ -473,8 +473,17 @@ temp/
 ✨️ 撤销最近一次的提交，但保留代码改动（回到工作区和暂存区）
 - `git reset --soft HEAD^`
 
+✨️ 添加到 `.gitignore` 的文件依然被跟踪
+```
+# 1. 移除所有文件的跟踪状态
+git rm --cached -r .
 
+# 2. 重新添加文件（会遵循 .gitignore 规则）
+git add .
 
+git commit
+git push
+```
 
 
 
