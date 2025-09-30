@@ -20,7 +20,6 @@
 > MyBatis 偏向于定制化开发，MyBatis Plus 也不是用来替换 MyBatis 的，是在 MyBatis 的基础上提供的一套增强功能，<u>而且只适合单表的 CRUD</u>，对于多表还是需要手写 SQL 语句
 
 # 常用注解
-
 > [!hint] MyBatis Plus 中的默认处理方式
 > - MP 默认会把实体类名的驼峰命名转下划线作为表名【~~UserInfo 转为 user_info~~】
 > - 实体类的变量名驼峰命名转下划线作为字段名
@@ -75,7 +74,6 @@ public class User {
 ```
 
 # 常用配置
-
 > [!hint] 大部分配置都是默认的，不用自己配，除非特殊需求要用到
 
 ```yml
