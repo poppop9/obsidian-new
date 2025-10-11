@@ -10,3 +10,6 @@
 .obsidian/plugins/obsidian-excalidraw-plugin/data.json
 .obsidian/plugins/obsidian-linter/data.json
 .obsidian/types.json
+.obsidian/plugins/obsidian-excalidraw-plugin/main.js
+.obsidian/plugins/obsidian-excalidraw-plugin/manifest.json
+.obsidian/plugins/obsidian-excalidraw-plugin/styles.css
