@@ -41,6 +41,9 @@ Task currentTask = taskService.createTaskQuery()
 ## RuntimeService
 运行时服务（负责启动、查询、控制流程实例的运行）
 
+- `Object getVariable(实例id, variableName)` 拿到某个实例指定的上下文
+- `setVariable(实例id, key, value)` 直接更新流程变量
+- 查询流程实例（只能查询正在运行中的流程实例）
 ```java
 ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
     .processInstanceBusinessKey(applicationId)
@@ -50,7 +53,7 @@ ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
 ## TaskService
 任务服务（审批、签收、查询待办任务）
 
-🏷️ 查询
+🏷️ 查询（只能查询正在进行中的 task）
 - 查询条件
 - 查询结果
 	- `list()` 
@@ -81,4 +84,68 @@ taskService.createTaskQuery()
 - 节点不会被标记完成
 - 流程不会推进到下一个节点
 
+# 动态创建流程
+## Call Activity
+- 当 Call Activity 的所有实例都走完后，后续就不能再动态创建实例了
 
+
+## 事件子流程
+
+
+# 例子
+- 一旦 overallInvoiceStatus == 'FULLY_INVOICED' 并且父流程通过条件事件结束了发票容器：
+	- 已经存在的事件子流程可以继续完成，不会中断
+	- 新的发票事件子流程无法再创建
+```xml
+<!-- ==================== 分支1：发票处理容器（包含事件子流程） ==================== -->
+<subProcess id="invoiceProcessContainer" name="发票处理流程容器">
+
+	<!-- 容器内主流程：等待发票完成 -->
+	<startEvent id="invoiceContainerStart" name="发票流程开始"/>
+
+	<!-- 等待发票全部完成的中间事件 -->
+	<intermediateCatchEvent id="waitInvoiceComplete" name="等待发票完成">
+		<conditionalEventDefinition>
+			<condition xsi:type="tFormalExpression">
+				${overallInvoiceStatus == 'FULLY_INVOICED'}
+			</condition>
+		</conditionalEventDefinition>
+	</intermediateCatchEvent>
+
+	<sequenceFlow id="invoiceContainerFlow1" sourceRef="invoiceContainerStart" targetRef="waitInvoiceComplete"/>
+
+	<endEvent id="invoiceContainerEnd" name="发票流程结束"/>
+	<sequenceFlow id="invoiceContainerFlow2" sourceRef="waitInvoiceComplete" targetRef="invoiceContainerEnd"/>
+
+	<!-- ==================== 事件子流程：动态处理每个发票 ==================== -->
+	<subProcess id="invoiceEventSubProcess" name="发票处理事件子流程" triggeredByEvent="true">
+
+		<!-- 消息启动事件（非中断） -->
+		<startEvent id="invoiceMessageStart" name="收到上传发票请求" isInterrupting="false">
+			<messageEventDefinition messageRef="uploadInvoiceMessage"/>
+		</startEvent>
+
+		<!-- 上传发票任务 -->
+		<userTask id="uploadInvoice" name="上传发票" flowable:assignee="${invoiceUser}">
+			<extensionElements>
+				<flowable:taskListener event="create" class="com.example.listener.InvoiceUploadListener"/>
+			</extensionElements>
+		</userTask>
+		<sequenceFlow id="eventInvFlow1" sourceRef="invoiceMessageStart" targetRef="uploadInvoice"/>
+
+		<!-- 确认发票任务 -->
+		<userTask id="confirmInvoice" name="确认发票" flowable:assignee="${invoiceManager}">
+			<extensionElements>
+				<flowable:taskListener event="complete" class="com.example.listener.InvoiceConfirmListener"/>
+			</extensionElements>
+		</userTask>
+		<sequenceFlow id="eventInvFlow2" sourceRef="uploadInvoice" targetRef="confirmInvoice"/>
+
+		<!-- 结束事件 -->
+		<endEvent id="invoiceEventEnd" name="单个发票处理完成"/>
+		<sequenceFlow id="eventInvFlow3" sourceRef="confirmInvoice" targetRef="invoiceEventEnd"/>
+
+	</subProcess>
+
+</subProcess>
+```
