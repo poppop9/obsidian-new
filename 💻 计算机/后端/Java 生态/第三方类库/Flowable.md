@@ -69,14 +69,21 @@ taskService.createTaskQuery()
     .singleResult();
 ```
 
-# 其他
-## 监听器
-监听器和 Flowable 流程推进默认是在同一个线程同一个事务中，是强关联的（如果监听器中抛出异常，Flowable 的流程推进会回滚，整个操作失败）
+# 监听器
+## TaskListener
+任务自动指派、任务属性修改、消息通知
+
+TaskListener 和 Flowable 流程推进默认是在同一个线程同一个事务中，是强关联的（如果 TaskListener 中抛出异常，Flowable 的流程推进会回滚，整个操作失败）
 
 🏷️ 事件类型
 - create 任务创建
 - assignment 任务被指派
 - complete 任务完成
+
+## AbstractFlowableEventListener
+记录流程日志、审计、监控、业务状态同步
+
+# 其他
 
 ## JavaDelegate
 如果 JavaDelegate 抛出异常：
