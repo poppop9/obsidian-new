@@ -14,31 +14,25 @@
 </dependency>
 ```
 
-## 方案一：通过业务关联查询
-如果你在启动流程时使用了 `businessKey` 关联申请单 ID：
+# 📚 BPMN
+## 📖 任务类型
+- `<userTask>` 用户任务
+- `<serviceTask>` 服务任务（自动执行）
+- `<scriptTask>` 脚本任务，执行一段内嵌脚本（Groovy、JavaScript 等）
+- `<receiveTask>` 接收任务，等待外部系统通过 API 回调触发继续执行流程
+- `<manualTask>` 手工任务（引擎只记录，不会分配或等待完成，用于说明性任务）
+- `<businessRuleTask>` 业务规则任务（调用规则引擎（如 Drools）进行判断决策）
+- `<callActivity>` 调用子流程
+- `<sendTask>` 发送任务（向外发送消息）
+- `<mailTask>` 邮件任务
+- `<httpTask>` HTTP 调用任务
 
-```java
-// 启动流程时
-ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(
-    "processDefinitionKey", 
-    businessKey,  // 申请单ID
-    variables
-);
-
-// 查询当前任务
-Task currentTask = taskService.createTaskQuery()
-    .processInstanceBusinessKey(businessKey)  // 通过业务key查询
-    .active()  // 只查询活动的任务
-    .singleResult();  // 获取单个结果
-```
-
-# 常用类
-## RepositoryService
+# 📚 常用类
+## 📖 RepositoryService
 仓库服务（管理所有流程图文件（.bpmn）的部署与版本）
 
 
-
-## RuntimeService
+## 📖 RuntimeService
 运行时服务（负责启动、查询、控制流程实例的运行）
 
 - `Object getVariable(实例id, variableName)` 拿到某个实例指定的上下文
@@ -50,14 +44,14 @@ ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
     .singleResult();
 ```
 
-## TaskService
+## 📖 TaskService
 任务服务（审批、签收、查询待办任务）
 
 🏷️ 查询（只能查询正在进行中的 task）
 - 查询条件
 - 查询结果
 	- `list()` 
-	- `singleResult()` 
+	- `singleResult()` 存在多个报错
 
 ```java
 taskService.createTaskQuery()
@@ -69,8 +63,16 @@ taskService.createTaskQuery()
     .singleResult();
 ```
 
-# 监听器
-## TaskListener
+```java
+// 查询当前任务
+Task currentTask = taskService.createTaskQuery()
+    .processInstanceBusinessKey(businessKey)  // 通过业务key查询
+    .active()  // 只查询活动的任务
+    .singleResult();  // 获取单个结果
+```
+
+# 📚 监听器
+## 📖 TaskListener
 任务自动指派、任务属性修改、消息通知
 
 TaskListener 和 Flowable 流程推进默认是在同一个线程同一个事务中，是强关联的（如果 TaskListener 中抛出异常，Flowable 的流程推进会回滚，整个操作失败）
@@ -80,26 +82,26 @@ TaskListener 和 Flowable 流程推进默认是在同一个线程同一个事务
 - assignment 任务被指派
 - complete 任务完成
 
-## AbstractFlowableEventListener
+## 📖 FlowableEventListener
 记录流程日志、审计、监控、业务状态同步
 
-# 其他
+# 📚 其他
 
-## JavaDelegate
+## 📖 JavaDelegate
 如果 JavaDelegate 抛出异常：
 - 当前事务会回滚
 - 节点不会被标记完成
 - 流程不会推进到下一个节点
 
-# 动态创建流程
-## Call Activity
+# 📚 动态创建流程
+## 📖 Call Activity
 - 当 Call Activity 的所有实例都走完后，后续就不能再动态创建实例了
 
 
-## 事件子流程
+## 📖 事件子流程
 
 
-# 例子
+# 📚 例子
 - 一旦 overallInvoiceStatus == 'FULLY_INVOICED' 并且父流程通过条件事件结束了发票容器：
 	- 已经存在的事件子流程可以继续完成，不会中断
 	- 新的发票事件子流程无法再创建
