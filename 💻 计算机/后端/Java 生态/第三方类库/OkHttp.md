@@ -8,6 +8,12 @@ $$
     <artifactId>okhttp</artifactId>
     <version>5.0.0-alpha.12</version>
 </dependency>
+
+<dependency>
+    <groupId>com.squareup.okhttp3</groupId>
+    <artifactId>okhttp</artifactId>
+    <version>5.3.0</version>
+</dependency>
 ```
 
 > [!quote] 同步请求，异步请求

@@ -4,6 +4,12 @@
     <artifactId>liteflow-spring-boot-starter</artifactId>
     <version>2.12.4.1</version>
 </dependency>
+
+<dependency>
+    <groupId>com.yomahub</groupId>
+    <artifactId>liteflow-spring-boot-starter</artifactId>
+    <version>2.15.1</version>
+</dependency>
 ```
 
 > [!quote] LiteFlow
@@ -86,7 +92,6 @@ liteflow:
 ```
 
 # ❤️ 组件
-
 > [!warning] 所有在组件中定义的方法都是有类型的~~【处理方法，预处理方法，前置处理方法 ……】~~，所有的这些方法的返回值都要按照 NodeComponent 来写
 
 ## 💛 普通组件
@@ -206,7 +211,6 @@ liteflow:
 流程入参能做的数据上下文都能实现
 
 # ❤️ 数据上下文
-
 > [!hint] 所有的组件需要用到其他组件的数据时，都是利用数据上下文去取，而不是依赖于其他组件
 
 `DefaultContext` ：是默认实现的数据上下文，你也可以自己定义
