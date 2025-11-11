@@ -173,8 +173,13 @@ List<Long> collect = transactionTemplate.execute(status -> {
 - 解决办法 2 ：最终一致性，允许数据在一段时间内不一致，但是后续会通过补偿机制来确保一致性
 - 解决办法 3 ：多线程事务就是分布式事务，最好的解决办法就是不要有 !!!
 
-
 # ❤️ AOP
+```xml
+<dependency>  
+    <groupId>org.springframework.boot</groupId>  
+    <artifactId>spring-boot-starter-aop</artifactId>  
+</dependency>
+```
 
 > [!quote] AOP
 > AOP 是面向切面编程。当你想操作项目中的所有方法时【比如<u>计算各个方法的耗时</u>，<u>记录方法的参数，返回值</u>，<u>权限控制</u>】，可以不用一个一个添加，而是可以在 AOP 中统一管理
@@ -188,7 +193,6 @@ List<Long> collect = transactionTemplate.execute(status -> {
 ![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403021349901.png)
 
 ### 连接点
-
 > [!quote] 连接点
 > 连接点 是可以被 AOP 控制的所有方法，在 AOP 类中可以使用连接点获取<u>相关信息</u>【目标对象的类名，方法名，方法参数……】
 
@@ -210,15 +214,14 @@ joinPoint.getSignature().getName(); 方法名
 joinPoint.proceed() 的返回值，就是源方法的返回值
 
 ### 切入点
-
 > [!quote] 切入点
 > 切入点 是被 AOP 声明为要控制的方法
-
-#### 表达式
-- `execution((方法修饰符) 返回值 包名.类名.方法名(方法参数) (throws 异常))`
-	- `*` 可以通配任意类型的一个参数，`execution(* 包名.类名.update*(*)` 匹配任意返回值的，指定包名类名下，以 `update` 开头的只能有一个任意类型参数的方法
-	- `..` 通配任意数量的任意类型参数，`execution(* com..类名.update(..)` 匹配任意返回值的，com 包下任意层级的指定类名的 `update(..)` 方法
-- `@annotation(……)` **用于标识带有特定注解的方法**
+> 
+> 🏷️ 表达式
+> - `execution((方法修饰符) 返回值 包名.类名.方法名(方法参数) (throws 异常))`
+> 	- `*` 可以通配任意类型的一个参数，`execution(* 包名.类名.update*(*)` 匹配任意返回值的，指定包名类名下，以 `update` 开头的只能有一个任意类型参数的方法
+> 	- `..` 通配任意数量的任意类型参数，`execution(* com..类名.update(..)` 匹配任意返回值的，com 包下任意层级的指定类名的 `update(..)` 方法
+> - `@annotation(……)` **用于标识带有特定注解的方法**
 
 > [!hint] 多个表达式条件可以使用 `+` 连接
 
@@ -232,7 +235,7 @@ joinPoint.proceed() 的返回值，就是源方法的返回值
 
 通知的类型有 <u>5</u> 种：
 - **前后**
-	- `@Around` 围绕目标方法执行，通知方法在目标方法的前，后都执行。**必须指定返回值为 `Object`，来接收原始方法的返回值**
+	- `@Around` 围绕目标方法执行，通知方法在目标方法的前，后都执行。必须指定返回值为 `Object`，来接收原始方法的返回值
 - **前**
 	- `@Before` 在目标方法执行之前执行
 - **后**
@@ -243,25 +246,13 @@ joinPoint.proceed() 的返回值，就是源方法的返回值
 > [!warning] 后 4 种方法无需考虑目标方法的执行
 
 ### 切面
-
 > [!quote] 切面
 > 切面 = 切入点 + 通知
 
-## 引入依赖
-```xml
-<dependency>  
-    <groupId>org.springframework.boot</groupId>  
-    <artifactId>spring-boot-starter-aop</artifactId>  
-</dependency>
-```
-
 ## 通知顺序
-当多个切面类中的切入点相同时，<u>默认</u>：在 `Before` 通知类型时优先执行类名靠前的 AOP 类；在 `After` 通知类型时，优先执行类名靠后的 AOP 类
+🏷️ 当多个切面类中的切入点相同时，<u>默认</u>：在 `Before` 通知类型时优先执行类名靠前的 AOP 类；在 `After` 通知类型时，优先执行类名靠后的 AOP 类
 
-### 自定义通知顺序
-
-> 在 AOP 类前加上 `@Order(*)` 注解，**数字越小，`Before` 通知类型越先执行，`After` 通知类型越后执行**
-
+🏷️ 自定义通知顺序 ：在 AOP 类前加上 `@Order(*)` 注解，数字越小，`Before` 通知类型越先执行，`After` 通知类型越后执行
 ```java
 @Component  // 交给IOC容器管理
 @Aspect    // 声明为aop类
@@ -272,11 +263,8 @@ public class TimeAspect {
 ```
 
 ## 例子
-### 计算各个方法的耗时
-- 创建 aop 包，aop 类
+🏷️ 计算各个方法的耗时
 ```java
-package com.example.spring_aop.aop;
-
 @Component  // 交给IOC容器管理
 @Aspect    // 声明为aop类
 public class TimeAspect {
@@ -299,7 +287,7 @@ public class TimeAspect {
 }
 ```
 
-### 在各个方法运行结束，打印方法名
+🏷️ 在各个方法运行结束，打印方法名
 ```java
 package com.example.spring_aop.aop;
 
@@ -313,7 +301,6 @@ public class NameAspect {
     }
 }
 ```
-
 
 
 
