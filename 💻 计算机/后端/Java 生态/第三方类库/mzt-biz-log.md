@@ -92,7 +92,6 @@ public void insertPurchaseApplicationWorker(NodeComponent bindCmp) {
 }
 ```
 
-
 # 📚 高阶技巧
 ## 📖 修改操作自动对比差异
 ```java

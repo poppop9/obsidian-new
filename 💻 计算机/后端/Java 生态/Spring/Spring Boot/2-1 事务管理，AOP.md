@@ -1,5 +1,4 @@
 # ❤️ 事务管理
-
 > [!quote] 事务管理
 > 
 > > SpringBoot 中的事务管理与 `Mysql` 中相同，事务是一组操作，要么同时成功，要么同时失败
@@ -139,7 +138,7 @@ transactionTemplate.execute(status -> {
 		// 显式标记事务回滚
 		status.setRollbackOnly();
 	}
-	return null; // 如果需要返回值，可以返回具体数据
+	return null;  // 如果需要返回值，可以返回具体数据
 });
 
 List<Long> collect = transactionTemplate.execute(status -> {

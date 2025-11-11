@@ -266,6 +266,8 @@ private FlowExecutor flowExecutor;
 > [!quote] LiteflowResponse
 > LiteflowResponse 是执行器的执行结果
 > - `getContextBean(上下文class对象)` 获取上下文
+> - `isSuccess()` 流程执行是否成功
+> - `Exception getCause()` 获取异常信息
 
 ## 💛 非阻塞执行
 - `Future<LiteflowResponse> execute2Future(String chainId, Object param, Object... contextBeanArray)` 
