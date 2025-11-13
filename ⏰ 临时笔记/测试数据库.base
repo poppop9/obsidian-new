@@ -1,7 +1,15 @@
 views:
   - type: table
+    name: 视图 3 2
+  - type: table
+    name: 视图 3
+  - type: table
     name: 表格
   - type: cards
     name: 视图
   - type: table
     name: 视图 2
+  - type: map
+    name: map
+    center: "[9.45921, 17.68199]"
+    defaultZoom: 3.2

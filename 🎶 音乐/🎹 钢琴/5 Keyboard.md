@@ -1,4 +1,3 @@
-
 🎹 钢琴 Piano
 
 🎹 电钢琴 Digital Piano
@@ -12,6 +11,6 @@
 - Mellotron ：通过按下键盘上的按键来触发预录制的磁带片段，从而模拟其他乐器的声音
 	- 其中 Flute（长笛）音色很特别
 
-
-
+🎹 MIDI 键盘
+- MiDi PLUS X6 PRO
 
