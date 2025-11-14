@@ -27,6 +27,10 @@
 - `<mailTask>` 邮件任务
 - `<httpTask>` HTTP 调用任务
 
+# 📚 基本概念
+- 在 flowable 中生成的实例流程 ID 是全局唯一的（包括所有的父子流程）
+
+
 # 📚 常用类
 ## 📖 RepositoryService
 仓库服务（管理所有流程图文件（.bpmn）的部署与版本）
