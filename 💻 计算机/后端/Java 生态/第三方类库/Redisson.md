@@ -4,6 +4,12 @@
     <artifactId>redisson-spring-boot-starter</artifactId>
     <version>3.45.1</version>
 </dependency>
+
+<dependency>
+    <groupId>org.redisson</groupId>
+    <artifactId>redisson-spring-boot-starter</artifactId>
+    <version>3.52.0</version>
+</dependency>
 ```
 
 <u>引入 Redis 主要就是两方面的作用</u> ：
