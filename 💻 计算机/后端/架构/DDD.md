@@ -189,12 +189,6 @@ public class User {
 > [!hint] 在领域与领域之间，如果需要某个充血模型，要把 <u>充血模型</u> 使用工厂组装成 <u>贫血模型</u> 进行传输
 
 ## 💛 基础层 infrastructure
-- `infrastructure` **基础层**，包含了数据库，缓存，网关，第三方工具…… ==Mapper==
-	- `Mapper` 
-	- `PO` 
-	- `redis` 
-	- `repository` 使用 `@Repository` 标记
-
 > [!note] infrastructure 与 domain 的关系
 > infrastructure 与 domain 之间通过仓储 Repository 来解耦
 > - `domain` 
@@ -206,16 +200,24 @@ public class User {
 > 	- 【repository】
 > 		- RaffleRepository：RaffleRepository 实现了 IRaffleRepository 接口；然后再调用多个实体优先的 Repository 来整合形成自己的业务
 
+- `infrastructure` **基础层**，包含了数据库，缓存，网关，第三方工具…… ==Mapper==
+	- `Mapper` 
+	- `PO` 
+	- `redis` 
+	- `repository` 使用 `@Repository` 标记
+
+🏷️repository 的方法要尽可能的少，要可以复用，比如新增，修改可以写成一个方法批量持久化 saveList
+
+🏷️repository 的方法要事务一致性，比如有主订单，子订单，那 repository 是不会提供单独持久化子订单的方法的，要修改子订单就必须通过主订单的方法
+
 ## 💛 类型层 types
 types 层用来定义一系列自定义的，用于所有层的公共对象（~~异常类，全局参数类，全局配置类 ……~~）
 
 # 🧩 扩展
-
 > [!hint] 除非你的系统过于复杂，无法作为单体进行管理，否则不要考虑微服务
 
-微服务创始人说过：
 - **单体架构优先**：单体架构能用，不要用微服务
-- **项目不要一开始就构建微服务**：所有成功的微服务案例，都是从单体架构演变的【因为你只有做好了单体架构，你才熟悉业务流程，知道哪块臃肿了，要拆出去，如果一上来就微服务，一不下心拆错了，后期就难改了】
+- **项目不要一开始就构建微服务**：所有成功的微服务案例，都是从单体架构演变的（因为你只有做好了单体架构，你才熟悉业务流程，知道哪块臃肿了，要拆出去，如果一上来就微服务，拆错了，后期就难改了）
 
 
 [教程](https://zq99299.github.io/note-book2/ddd/01/02.html)
