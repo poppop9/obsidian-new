@@ -425,154 +425,111 @@ EasyExcel.write("E:\\文档\\测试一下.xlsx")
 		));
 ```
 
-### 💙 合并上下单元格相同的数据
+## 💛 常用策略
 ```java
-EasyExcel.write(response.getOutputStream())
-		.head(List.of(
-				List.of("字符串"),
-				List.of("数字"),
-				List.of("日期")
-		))
-		.registerWriteHandler(new CellWriteHandler() {
-			private final int[] mergeColumnIndex = new int[]{0, 1, 2};  // 合并字段的下标。如第一到五列new int[]{0,1,2,3,4}
-			private final int mergeRowIndex = 1;  // 从第几行开始合并。如果表头占两行，这个数字就是2
-
-			private void mergeWithPrevRow(WriteSheetHolder writeSheetHolder, Cell cell, int curRowIndex, int curColIndex) {
-				// 获取当前行的当前列的数据和上一行的当前列列数据，通过上一行数据是否相同进行合并
-				Object curData = cell.getCellTypeEnum() == CellType.STRING ? cell.getStringCellValue() : cell.getNumericCellValue();
-				Cell preCell = cell.getSheet().getRow(curRowIndex - 1).getCell(curColIndex);
-				Object preData = preCell.getCellTypeEnum() == CellType.STRING ? preCell.getStringCellValue() : preCell.getNumericCellValue();
-
-				// 比较当前行的第一列的单元格与上一行是否相同，相同合并当前单元格与上一行
-				if (curData.equals(preData)) {
-					Sheet sheet = writeSheetHolder.getSheet();
-					List<CellRangeAddress> mergeRegions = sheet.getMergedRegions();
-					boolean isMerged = false;
-					for (int i = 0; i < mergeRegions.size() && !isMerged; i++) {
-						CellRangeAddress cellRangeAddr = mergeRegions.get(i);
-						// 若上一个单元格已经被合并，则先移出原有的合并单元，再重新添加合并单元
-						if (cellRangeAddr.isInRange(curRowIndex - 1, curColIndex)) {
-							sheet.removeMergedRegion(i);
-							cellRangeAddr.setLastRow(curRowIndex);
-							sheet.addMergedRegion(cellRangeAddr);
-							isMerged = true;
-						}
-					}
-
-					// 若上一个单元格未被合并，则新增合并单元
-					if (!isMerged) {
-						CellRangeAddress cellRangeAddress = new CellRangeAddress(curRowIndex - 1, curRowIndex, curColIndex, curColIndex);
-						sheet.addMergedRegion(cellRangeAddress);
-					}
-				}
-			}
-
-			@Override
-			public void afterCellDispose(WriteSheetHolder writeSheetHolder, WriteTableHolder writeTableHolder, List<WriteCellData<?>> cellDataList, Cell cell, Head head, Integer relativeRowIndex, Boolean isHead) {
-				int curRowIndex = cell.getRowIndex();
-				int curColIndex = cell.getColumnIndex();
-
-				if (curRowIndex > mergeRowIndex) {
-					for (int columnIndex : mergeColumnIndex) {
-						if (curColIndex == columnIndex) {
-							mergeWithPrevRow(writeSheetHolder, cell, curRowIndex, curColIndex);
-							break;
-						}
-					}
-				}
-			}
-		})
-		.sheet("工作表 1")
-		.doWrite(Arrays.asList(
-				Arrays.asList("字符串1", 123, LocalDate.now()),
-				Arrays.asList("字符串2", 123, LocalDate.now()),
-				Arrays.asList("字符串3", 789, LocalDate.now())
-		));
+/**  
+ * Excel 导出的 strategy 类  
+ */  
+public class ExcelStrategy {  
+  
+    /**  
+     * 创建默认的样式策略  
+     * 表头：居中、灰色背景、加粗  
+     * 内容：居中  
+     */  
+    public static HorizontalCellStyleStrategy horizontalCellStyleStrategy() {  
+        // 表头样式  
+        WriteCellStyle headStyle = new WriteCellStyle();  
+        headStyle.setHorizontalAlignment(HorizontalAlignment.CENTER);  
+        headStyle.setVerticalAlignment(VerticalAlignment.CENTER);  
+        headStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());  
+        headStyle.setFillPatternType(FillPatternType.SOLID_FOREGROUND);  
+        WriteFont headFont = new WriteFont();  
+        headFont.setBold(true);  
+        headFont.setFontHeightInPoints((short) 11);  
+        headStyle.setWriteFont(headFont);  
+  
+        // 内容样式  
+        WriteCellStyle contentStyle = new WriteCellStyle();  
+        contentStyle.setHorizontalAlignment(HorizontalAlignment.CENTER);  
+        contentStyle.setVerticalAlignment(VerticalAlignment.CENTER);  
+  
+        return new HorizontalCellStyleStrategy(headStyle, contentStyle);  
+    }  
+  
+    /**  
+     * 通用的合并策略，根据指定字段合并前几列  
+     *  
+     * @param <T> 数据类型  
+     */  
+    public static class GenericMergeStrategy<T> implements SheetWriteHandler {  
+  
+        private final List<T> data;  
+        private final int mergeColumnCount;  
+        private final Function<T, String> keyExtractor;  
+  
+        /**  
+         * @param data             数据列表  
+         * @param mergeColumnCount 要合并的列数  
+         * @param keyExtractor     提取合并key的函数（如：PurchaseOrderAggregateVO::getOrderNo）  
+         */  
+        public GenericMergeStrategy(List<T> data, int mergeColumnCount, Function<T, String> keyExtractor) {  
+            this.data = data;  
+            this.mergeColumnCount = mergeColumnCount;  
+            this.keyExtractor = keyExtractor;  
+        }  
+  
+        @Override  
+        public void afterSheetCreate(WriteWorkbookHolder writeWorkbookHolder, WriteSheetHolder writeSheetHolder) {  
+            Sheet sheet = writeSheetHolder.getSheet();  
+  
+            if (data == null || data.size() <= 1) {  
+                return;  
+            }  
+  
+            int startRow = 1; // 数据起始行（第2行，索引为1）  
+            int count = 1;    // 当前key的行数  
+  
+            for (int i = 1; i < data.size(); i++) {  
+                String currentKey = keyExtractor.apply(data.get(i));  
+                String previousKey = keyExtractor.apply(data.get(i - 1));  
+  
+                if (currentKey != null && currentKey.equals(previousKey)) {  
+                    // 相同的key，累计行数  
+                    count++;  
+                } else {  
+                    // 不同了，处理前面累计的行  
+                    mergeRows(sheet, startRow, count);  
+                    startRow = i + 1; // 新组的起始行  
+                    count = 1;  
+                }  
+            }  
+  
+            // 处理最后一组  
+            mergeRows(sheet, startRow, count);  
+        }  
+  
+        /**  
+         * 合并指定行  
+         *  
+         * @param sheet    Excel sheet  
+         * @param startRow 起始行（从1开始）  
+         * @param rowCount 要合并的行数  
+         */  
+        private void mergeRows(Sheet sheet, int startRow, int rowCount) {  
+            // 只有行数>=2时才合并  
+            if (rowCount >= 2) {  
+                int endRow = startRow + rowCount - 1;  
+                for (int col = 0; col < mergeColumnCount; col++) {  
+                    CellRangeAddress region = new CellRangeAddress(startRow, endRow, col, col);  
+                    sheet.addMergedRegion(region);  
+                }  
+            }  
+        }  
+    }  
+  
+}
 ```
-
-### 💙 以前一列为单位，合并上下单元格相同的数据
-每一列的数据以前一列的数据为单位进行合并 ：比如如果第 3 列的第 10 行，和第 3 列的第 11 行的数据相同，但是第 2 列的第 10 行，和第 2 列的第 11 行没有合并成一个单元格，那即使它们数据相同，那也不要合并它们
-
-```java
-return new CellWriteHandler() {
-	private void mergeWithPrevRow(WriteSheetHolder writeSheetHolder, Cell cell, int curRowIndex, int curColIndex) {
-		// 获取当前行的当前列的数据和上一行的当前列列数据
-		Object curData = cell.getCellTypeEnum() == CellType.STRING ? cell.getStringCellValue() : cell.getNumericCellValue();
-		Cell preCell = cell.getSheet().getRow(curRowIndex - 1).getCell(curColIndex);
-		Object preData = preCell.getCellTypeEnum() == CellType.STRING ? preCell.getStringCellValue() : preCell.getNumericCellValue();
-
-		// 获取前一列的数据并检查是否已合并
-		if (curColIndex > 0) {
-			Cell prevCell = cell.getSheet().getRow(curRowIndex).getCell(curColIndex - 1);
-			Object prevData = prevCell.getCellTypeEnum() == CellType.STRING ? prevCell.getStringCellValue() : prevCell.getNumericCellValue();
-			// 检查前一列是否已合并
-			Sheet sheet = writeSheetHolder.getSheet();
-			List<CellRangeAddress> mergeRegions = sheet.getMergedRegions();
-			boolean isPrevMerged = false;
-			for (int i = 0; i < mergeRegions.size() && !isPrevMerged; i++) {
-				CellRangeAddress cellRangeAddr = mergeRegions.get(i);
-				if (cellRangeAddr.isInRange(curRowIndex - 1, curColIndex - 1) && cellRangeAddr.isInRange(curRowIndex, curColIndex - 1)) {
-					isPrevMerged = true;
-				}
-			}
-			if (!isPrevMerged) {
-				return; // 如果前一列未合并，则跳过当前列合并
-			}
-		}
-
-		// 比较当前行的第一列的单元格与上一行是否相同，相同合并当前单元格与上一行
-		if (curData.equals(preData)) {
-			Sheet sheet = writeSheetHolder.getSheet();
-			List<CellRangeAddress> mergeRegions = sheet.getMergedRegions();
-			boolean isMerged = false;
-			for (int i = 0; i < mergeRegions.size() && !isMerged; i++) {
-				CellRangeAddress cellRangeAddr = mergeRegions.get(i);
-				// 若上一个单元格已经被合并，则先移出原有的合并单元，再重新添加合并单元
-				if (cellRangeAddr.isInRange(curRowIndex - 1, curColIndex)) {
-					sheet.removeMergedRegion(i);
-					cellRangeAddr.setLastRow(curRowIndex);
-					sheet.addMergedRegion(cellRangeAddr);
-					isMerged = true;
-				}
-			}
-
-			// 若上一个单元格未被合并，则新增合并单元
-			if (!isMerged) {
-				CellRangeAddress cellRangeAddress = new CellRangeAddress(curRowIndex - 1, curRowIndex, curColIndex, curColIndex);
-				sheet.addMergedRegion(cellRangeAddress);
-			}
-		}
-	}
-
-	@Override
-	public void afterCellDispose(WriteSheetHolder writeSheetHolder, WriteTableHolder writeTableHolder,
-								 List<WriteCellData<?>> cellDataList, Cell cell, Head head,
-								 Integer relativeRowIndex, Boolean isHead) {
-		int curRowIndex = cell.getRowIndex();
-		int curColIndex = cell.getColumnIndex();
-
-		if (curRowIndex > mergeRowIndex) {
-			for (int columnIndex : mergeColumnIndex) {
-				if (curColIndex == columnIndex) {
-					// 在这里检查当前列与后一列的合并状态
-					if (curColIndex < cell.getSheet().getRow(curRowIndex).getPhysicalNumberOfCells() - 1) {
-						Cell nextCell = cell.getSheet().getRow(curRowIndex).getCell(curColIndex + 1);
-						Object nextData = nextCell.getCellTypeEnum() == CellType.STRING ? nextCell.getStringCellValue() : nextCell.getNumericCellValue();
-
-						// 如果当前列没有合并则后续列也不合并
-						if (!cell.getStringCellValue().equals(nextData)) {
-							break;
-						}
-					}
-					mergeWithPrevRow(writeSheetHolder, cell, curRowIndex, curColIndex);
-					break;
-				}
-			}
-		}
-	}
-};
-```
-
 
 # 实验功能
 ## 自适应行高
