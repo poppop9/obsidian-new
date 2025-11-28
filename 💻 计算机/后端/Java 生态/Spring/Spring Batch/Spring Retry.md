@@ -30,7 +30,6 @@ public class SpringAopApplication {
 ```java
 @Service
 public class RetryService {
-
     @Retryable
     public void retry(String s) {
         String ss = null;
@@ -95,7 +94,6 @@ public interface MyService {
 ```java
 @Service
 public interface MyService { 
-
     @Retryable(retryFor = SQLException.class)
     void retryServiceWithRecovery(String sql) throws SQLException; 
 

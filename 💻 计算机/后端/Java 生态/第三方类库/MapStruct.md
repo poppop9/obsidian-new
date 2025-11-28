@@ -54,6 +54,27 @@ PrdBrandBO bo = brandConverter.toBO(dto)
 
 
 # 📚 高级特性
+## 📖 @AfterMapping
+- @AfterMapping 可以在转换对象后，执行一些逻辑处理
+```java
+/**  
+ * 在所有的 dto 转到 bo 的方法中，添加这段逻辑
+ */
+@AfterMapping
+default void afterDtoToBO(ProductDTO dto, @MappingTarget ProductBO bo) {
+	// 追踪分类列表
+	boolean isNewProduct = (bo.getId() == null);
+	if (bo.getPrdCategoryList() != null) {
+		if (isNewProduct) {
+			bo.getPrdCategoryList().forEach(bo::trackAdd);
+		} else {
+			bo.getPrdCategoryList().forEach(bo::trackModify);
+		}
+	}
+}
+```
+
+
 🏷️ 只映射非null字段
 
 🏷️ 使用表达式进行自定义逻辑

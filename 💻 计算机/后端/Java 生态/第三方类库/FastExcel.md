@@ -462,22 +462,12 @@ public class ExcelStrategy {
      *  
      * @param <T> 数据类型  
      */  
+    @AllArgsConstructor
     public static class GenericMergeStrategy<T> implements SheetWriteHandler {  
   
-        private final List<T> data;  
-        private final int mergeColumnCount;  
-        private final Function<T, String> keyExtractor;  
-  
-        /**  
-         * @param data             数据列表  
-         * @param mergeColumnCount 要合并的列数  
-         * @param keyExtractor     提取合并key的函数（如：PurchaseOrderAggregateVO::getOrderNo）  
-         */  
-        public GenericMergeStrategy(List<T> data, int mergeColumnCount, Function<T, String> keyExtractor) {  
-            this.data = data;  
-            this.mergeColumnCount = mergeColumnCount;  
-            this.keyExtractor = keyExtractor;  
-        }  
+		private final List<T> data;                      // 数据列表  
+		private final int mergeColumnCount;              // 要合并的列数  
+		private final Function<T, String> keyExtractor;  // 提取合并 key 的函数（如：PurchaseOrderAggregateVO::getOrderNo）
   
         @Override  
         public void afterSheetCreate(WriteWorkbookHolder writeWorkbookHolder, WriteSheetHolder writeSheetHolder) {  

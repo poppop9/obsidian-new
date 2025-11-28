@@ -11,7 +11,7 @@ $$
 ✨️ 业务优先 ：MVC 架构的项目结构，一看是不知道这一块是干嘛的，DDD 架构是按业务划分的
 
 # 💥 类爆炸
-## 💛 方法一
+## 📖 方法一
 看完 DDD 架构的设计原则，会发现本来 MVC 用一个 `Controller`，一个 `Service` 能解决的问题，DDD 要用 `interfaces`，`application`，充血模型，仓库，工厂……很多类来解决，所以我们引入了 <u>聚合</u>
 
 > [!quote] 聚合
@@ -27,7 +27,7 @@ $$
 - **购物车的把手【订单实体，即聚合根】**：顾客通过购物车的把手来推动购物车，而不是直接拿着商品走，购物车的把手是操作整个购物车的唯一方式【无论你是要添加商品、移除商品，还是查看支付信息】
 - **商品和支付信息【订单项，支付方式值对象】**：它们属于购物车，但你不会直接拿着商品走向收银台支付，而是通过推动整个购物车来进行结算
 
-## 💛 方法二
+## 📖 方法二
 只有引起实体类属性值变化的业务【新增，删除……】才去按照 DDD 架构的条条框框去做，如果这个实体类只有查询，排序……，这些不引起实体类属性值变化的业务，那我们可以不要<u>充血模型</u>，`repository` ……，避免引入更多的类
 
 
@@ -36,7 +36,7 @@ $$
 - **开放封闭原则**：对扩展开放，对修改封闭【未来增加功能时，做到增加类，而不修改类】
 - **依赖反转原则**：程序之间只依赖于抽象接口，而不依赖于具体的实现
 
-## 💛 充血模型
+## 📖 充血模型
 
 > [!quote] 贫血模型
 > 贫血模型就是只有属性，和 `get()` ，`set()` 方法的 POJO
@@ -96,7 +96,7 @@ $$
 > 字段：属性1 属性2 属性3 属性4
 > ```
 
-## 💛 聚合
+## 📖 聚合
 > [!quote] 聚合
 > 聚合 是一组具有内聚性的相关<u>对象的集合</u>。当你对数据库的操作需要使用到多个实体时，可以创建聚合
 > 
@@ -134,10 +134,153 @@ public class User {
 // 收货地址值对象 ……
 ```
 
+### 📝 领域事件
+
+
+
+### 📝 变更追踪
+有时聚合内实体的变化（增删改）难以追踪，我们要用变更追踪器来管理，这样在 Repository 中 save 时可以更加容易
+
+- 定义 EntityChangeTracker
+```java
+/**
+ * 实体变更追踪 - 聚合根实现此接口，即可获得聚合内实体的变更追踪
+ */
+public interface EntityChangeTracker {
+    
+    // ============= 抽象方法：实现类需提供存储 =============
+    Map<Class<?>, ChangeSet<?>> getChangesMap();
+    
+    // ============= 默认方法：追踪操作 =============
+    default <T extends BaseEntity> void trackAdd(T entity) {
+        getOrCreateChangeSet(entity.getClass()).getAdded().add(entity);
+    }
+    
+    default <T extends BaseEntity> void trackRemove(T entity) {
+        getOrCreateChangeSet(entity.getClass()).getRemoved().add(entity);
+    }
+    
+    default <T extends BaseEntity> void trackModify(T entity) {
+        getOrCreateChangeSet(entity.getClass()).getModified().add(entity);
+    }
+
+    // ============= 私有辅助方法（Java 9+）=============
+    @SuppressWarnings("unchecked")
+    private <T> ChangeSet<T> getOrCreateChangeSet(Class<?> clazz) {
+        return (ChangeSet<T>) getChangesMap().computeIfAbsent(clazz, k -> new ChangeSet<>());
+    }
+    
+    // ============= 默认方法：查询变更 =============
+    @SuppressWarnings("unchecked")
+    default <T extends BaseEntity> ChangeSet<T> getChanges(Class<T> entityClass) {
+        ChangeSet<?> changeSet = getChangesMap().get(entityClass);
+        return changeSet != null ? (ChangeSet<T>) changeSet : ChangeSet.empty();
+    }
+    
+    default boolean hasChanges() {
+        return getChangesMap().values().stream().anyMatch(cs -> !cs.isEmpty());
+    }
+    
+    default void clearChanges() {
+        getChangesMap().clear();
+    }
+    
+    // ============= 内部类：变更集合 =============
+    @Getter
+    class ChangeSet<T> {
+        private final Set<T> added = new HashSet<>();
+        private final Set<T> removed = new HashSet<>();
+        private final Set<T> modified = new HashSet<>();
+        
+        private static final ChangeSet<?> EMPTY = new ChangeSet<Object>() {
+            @Override
+            public Set<Object> getAdded() { return Collections.emptySet(); }
+            @Override
+            public Set<Object> getRemoved() { return Collections.emptySet(); }
+            @Override
+            public Set<Object> getModified() { return Collections.emptySet(); }
+        };
+        
+        @SuppressWarnings("unchecked")
+        public static <T> ChangeSet<T> empty() {
+            return (ChangeSet<T>) EMPTY;
+        }
+        
+        public boolean isEmpty() {
+            return added.isEmpty() && removed.isEmpty() && modified.isEmpty();
+        }
+    }
+
+}
+```
+
+- 聚合根实现
+```java
+/**  
+ * 商品聚合对象 BO  
+ */
+@Data  
+@SuperBuilder  
+@NoArgsConstructor  
+@AllArgsConstructor  
+public class PrdProductAggregateBO implements EntityChangeTracker {  
+  
+    private final Map<Class<?>, ChangeSet<?>> changesMap = new HashMap<>();  // 实体变更追踪  
+
+    private Long id;                              // 主键ID  
+    private String productCode;                   // 商品编码  
+    private String productName;                   // 商品名称  
+    private String specification;                 // 规格型号    
+  
+    /**  
+     * 聚合内实体 - 商品分类  
+     */  
+    private List<PrdCategoryBO> prdCategoryList;  // 商品分类  
+  
+  
+    // ==================== 业务方法 ====================
+    public void addCategoryItem(PrdCategoryBO category) {  
+        this.prdCategoryList.add(category);  
+        trackAdd(category);  // 直接使用接口默认方法  
+    }  
+  
+    public void removeCategoryItem(PrdCategoryBO category) {  
+        this.prdCategoryList.remove(category);  
+        trackRemove(category);  // 直接使用接口默认方法  
+    }  
+  
+    public void modifyCategoryItem(PrdCategoryBO category) {  
+        this.prdCategoryList.remove(category);  
+        this.prdCategoryList.add(category);  
+        trackModify(category);  // 直接使用接口默认方法  
+    }  
+  
+}
+```
+
+- 在 repository 的使用
+```java
+@Transactional
+public void save(Order order) {
+	// 1. 保存聚合根
+	orderMapper.insertOrUpdate(toOrderPO(order));
+	
+	// 2. 保存各类子实体的变更（直接调用接口方法）
+	saveOrderItemChanges(order.getChanges(OrderItem.class));
+	savePaymentItemChanges(order.getChanges(PaymentItem.class));
+	savePurchaseItemChanges(order.getChanges(PurchaseItem.class));
+	
+	// 3. 清理变更记录
+	order.clearChanges();
+}
+```
+
+
+
 # 🧱 项目结构
 ![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/20250123210739.png)
 
-## 💛 触发器层 trigger
+## 📖 触发器层 trigger
 <u>我们可以根据触发动作进行分类</u>：
 - **接口调用**（HTTP / RPC）
 	- HTTP 接口：通过 RESTful API ，外部系统可以直接调用领域服务。适合需要同步响应的场景
@@ -147,19 +290,19 @@ public class User {
 
 > [!hint] 如果这个应用程序只有接口调用，那可以把 `trigger` 换成 `interfaces`
 
-## 💛 接口层 api
+## 📖 接口层 api
 - 提供统一的外部接口 ：API 层负责将系统的内部功能通过一组清晰的接口暴露给外部（如前端、移动端、第三方系统等），而屏蔽内部实现细节，仅暴露出客户端需要的功能和数据，保证了系统的安全性和可维护性
 - 让领域层专注于业务逻辑，而不用处理低层的通信协议问题
 - 支持多种客户端的需求：系统可能需要支持多种客户端（如 Web 前端、移动端、第三方合作伙伴等），而不同的客户端可能通信协议，数据格式不同，API 层可以协调
 
-## 💛 应用层 application
+## 📖 应用层 application
 > [!note] application 层不能被引入，并且要直接或间接地引入所有模块
 
 `application` **应用层** ：
 - 在没有 trigger 层时：用来组合领域层之间的业务，形成完整的业务【比如有一个领域是知识星球领域，另一个领域是 ChatGPT 领域，我要进行两个领域的对接，就在应用层实现】
 - 有 trigger 层时：则由 trigger 负责组合领域层之间的业务，application 层负责协调一些全局的配置，配置 resource 资源目录，以及编写测试用例
 
-## 💛 领域层 domain
+## 📖 领域层 domain
 > [!note] domain 层不能引入任何模块
 
 - `domain` **领域层** ==Service==
@@ -187,7 +330,7 @@ public class User {
 
 > [!hint] 在领域与领域之间，如果需要某个充血模型，要把 <u>充血模型</u> 使用工厂组装成 <u>贫血模型</u> 进行传输
 
-## 💛 基础层 infrastructure
+## 📖 基础层 infrastructure
 > [!note] infrastructure 与 domain 的关系
 > infrastructure 与 domain 之间通过仓储 Repository 来解耦
 > - `domain` 
@@ -209,7 +352,7 @@ public class User {
 
 🏷️repository 的方法要事务一致性，比如有主订单，子订单，那 repository 是不会提供单独持久化子订单的方法的，要修改子订单就必须通过主订单的方法
 
-## 💛 类型层 types
+## 📖 类型层 types
 types 层用来定义一系列自定义的，用于所有层的公共对象（~~异常类，全局参数类，全局配置类 ……~~）
 
 # 🧩 扩展
