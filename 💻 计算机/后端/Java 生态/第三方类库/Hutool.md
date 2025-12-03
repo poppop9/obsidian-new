@@ -14,17 +14,18 @@
 </dependency>
 ```
 
-| 模块             | 介绍                                             |
-| -------------- | ---------------------------------------------- |
-| hutool-cache   | 简单缓存实现                                         |
-| hutool-core    | Bean 操作、日期、各种 Util                             |
-| hutool-crypto  | 加密解密模块，提供对称、非对称和摘要算法封装                         |
-| hutool-dfa     | 基于 DFA 模型的多关键字查找                               |
-| hutool-extra   | 扩展模块，对第三方封装（模板引擎、邮件、Servlet、二维码、Emoji、FTP、分词等） |
-| hutool-script  | 脚本执行封装，例如 Javascript                           |
-| hutool-system  | 系统参数调用封装（JVM 信息等）                              |
-| hutool-captcha | 图片验证码                                          |
-| hutool-jwt     | JWT 封装                                         |
+| 模块             | 介绍                               |
+| -------------- | -------------------------------- |
+| hutool-cache   | 简单缓存实现                           |
+| hutool-core    | Bean 操作、日期、各种 Util               |
+| hutool-crypto  | 加密解密模块，提供对称、非对称和摘要算法封装           |
+| hutool-dfa     | 基于 DFA 模型的多关键字查找                 |
+| hutool-extra   | 模板引擎、邮件、Servlet、二维码、Emoji、FTP、分词 |
+| hutool-script  | 脚本执行封装，例如 Javascript             |
+| hutool-system  | 系统参数调用封装（JVM 信息）                 |
+| hutool-captcha | 图片验证码                            |
+| hutool-jwt     | JWT 封装                           |
+| hutool-poi     | excel                            |
 
 # ❤ 工具类
 ## 💛 唯一键 IdUtil
