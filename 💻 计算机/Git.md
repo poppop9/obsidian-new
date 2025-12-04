@@ -454,10 +454,27 @@ temp/
 > - `build` 打包
 
 # ❤️ 问题
-<u>Failed to connect to 127.0.0.1 port 7897 after 2052 ms: Could not connect to server</u> 或者 <u>Failed to connect to github.com port 443</u> ：git 代理错误
+✨️ Failed to connect to 127.0.0.1 port 7897 after 2052 ms: Could not connect to server 或者 Failed to connect to github.com port 443 ：git 代理错误
  - `git config --global http.proxy 127.0.0.1:7890` 端口号是 clash 的端口号，或者使用 hiddify 则是 12334
  - `git config --global https.proxy 127.0.0.1:7890` 
 
+✨️ ref 损坏
+```bash
+# 删除本地仓库里记录 `origin/HEAD` 的文件
+rm .git/refs/remotes/origin/HEAD
+
+# 递归删除本地 .git/refs/remotes/origin 目录，连同其中记录的所有远程分支引用
+rm -rf .git/refs/remotes/origin
+
+# 移除打包引用的记录
+rm .git/packed-refs
+
+git fetch origin
+
+git checkout -b main origin/main
+
+git branch --set-upstream-to=origin/main main
+```
 # ❤️ 场景
 ✨️ 需要删除 dev 分支中的某个 feat 分支 merge 过来的代码
 - 切换到 dev 分支
