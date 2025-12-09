@@ -147,21 +147,26 @@ public class User {
  * 实体变更追踪 - 聚合根实现此接口，即可获得聚合内实体的变更追踪
  */
 public interface EntityChangeTracker {
-    
+
     // ============= 抽象方法：实现类需提供存储 =============
     Map<Class<?>, ChangeSet<?>> getChangesMap();
-    
+
     // ============= 默认方法：追踪操作 =============
     default <T extends BaseEntity> void trackAdd(T entity) {
         getOrCreateChangeSet(entity.getClass()).getAdded().add(entity);
     }
-    
+
     default <T extends BaseEntity> void trackRemove(T entity) {
         getOrCreateChangeSet(entity.getClass()).getRemoved().add(entity);
     }
-    
+
     default <T extends BaseEntity> void trackModify(T entity) {
         getOrCreateChangeSet(entity.getClass()).getModified().add(entity);
+    }
+
+    // [新增] 特殊处理追踪
+    default <T extends BaseEntity> void trackSpecial(T entity) {
+        getOrCreateChangeSet(entity.getClass()).getSpecial().add(entity);
     }
 
     // ============= 私有辅助方法（Java 9+）=============
@@ -169,48 +174,78 @@ public interface EntityChangeTracker {
     private <T> ChangeSet<T> getOrCreateChangeSet(Class<?> clazz) {
         return (ChangeSet<T>) getChangesMap().computeIfAbsent(clazz, k -> new ChangeSet<>());
     }
-    
+
     // ============= 默认方法：查询变更 =============
     @SuppressWarnings("unchecked")
     default <T extends BaseEntity> ChangeSet<T> getChanges(Class<T> entityClass) {
         ChangeSet<?> changeSet = getChangesMap().get(entityClass);
         return changeSet != null ? (ChangeSet<T>) changeSet : ChangeSet.empty();
     }
-    
+
     default boolean hasChanges() {
         return getChangesMap().values().stream().anyMatch(cs -> !cs.isEmpty());
     }
-    
+
     default void clearChanges() {
         getChangesMap().clear();
     }
-    
-    // ============= 内部类：变更集合 =============
+
+    default <T extends BaseEntity> void clearChanges(Class<T> entityClass) {
+        getChangesMap().remove(entityClass);
+    }
+
     @Getter
     class ChangeSet<T> {
         private final Set<T> added = new HashSet<>();
         private final Set<T> removed = new HashSet<>();
         private final Set<T> modified = new HashSet<>();
-        
-        private static final ChangeSet<?> EMPTY = new ChangeSet<Object>() {
+        private final Set<T> special = new HashSet<>();
+
+        private static final ChangeSet<?> EMPTY = new ChangeSet<>() {
             @Override
-            public Set<Object> getAdded() { return Collections.emptySet(); }
+            public Set<Object> getAdded() {
+                return Collections.emptySet();
+            }
             @Override
-            public Set<Object> getRemoved() { return Collections.emptySet(); }
+            public Set<Object> getRemoved() {
+                return Collections.emptySet();
+            }
             @Override
-            public Set<Object> getModified() { return Collections.emptySet(); }
+            public Set<Object> getModified() {
+                return Collections.emptySet();
+            }
+            @Override
+            public Set<Object> getSpecial() {
+                return Collections.emptySet();
+            }
         };
-        
+
         @SuppressWarnings("unchecked")
         public static <T> ChangeSet<T> empty() {
             return (ChangeSet<T>) EMPTY;
         }
-        
+
         public boolean isEmpty() {
-            return added.isEmpty() && removed.isEmpty() && modified.isEmpty();
+            return added.isEmpty() && removed.isEmpty() && modified.isEmpty() && special.isEmpty();
+        }
+
+        public ChangeSet<T> merge(ChangeSet<T> other) {
+            this.added.addAll(other.getAdded());
+            this.removed.addAll(other.getRemoved());
+            this.modified.addAll(other.getModified());
+            this.special.addAll(other.getSpecial());
+            return this;
+        }
+
+        public static <T> Collector<ChangeSet<T>, ChangeSet<T>, ChangeSet<T>> toMergedChangeSet() {
+            return Collector.of(ChangeSet::new, ChangeSet::merge,
+                    (cs1, cs2) -> {
+                        cs1.merge(cs2);
+                        return cs1;
+                    }
+            );
         }
     }
-
 }
 ```
 
