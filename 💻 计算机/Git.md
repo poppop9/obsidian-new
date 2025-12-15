@@ -460,20 +460,16 @@ temp/
 
 ✨️ ref 损坏
 ```bash
-# 删除本地仓库里记录 `origin/HEAD` 的文件
-rm .git/refs/remotes/origin/HEAD
-
-# 递归删除本地 .git/refs/remotes/origin 目录，连同其中记录的所有远程分支引用
-rm -rf .git/refs/remotes/origin
-
-# 移除打包引用的记录
-rm .git/packed-refs
-
 git fetch origin
 
-git checkout -b main origin/main
+rm .git/refs/heads/main
+rm .git/refs/remotes/origin/main
+rm .git/refs/remotes/origin/HEAD
 
-git branch --set-upstream-to=origin/main main
+git fetch origin
+git branch main origin/main
+git checkout main
+git status
 ```
 # ❤️ 场景
 ✨️ 需要删除 dev 分支中的某个 feat 分支 merge 过来的代码
