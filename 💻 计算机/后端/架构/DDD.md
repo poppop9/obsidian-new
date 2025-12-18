@@ -135,8 +135,26 @@ public class User {
 ```
 
 ### 📝 领域事件
+领域事件代表了 domain 中有对象的状态变化而触发的一个具有业务意义的事件
 
+```java
+/**
+ * 领域事件发布 - 聚合根实现此接口，即可获得领域事件发布能力
+ */
+public interface DomainEventPublisher {
+    
+    // List<DomainEvent> getDomainEvents();
+    //
+    // default void registerEvent(DomainEvent event) {
+    //     getDomainEvents().add(event);
+    // }
+    //
+    // default void clearDomainEvents() {
+    //     getDomainEvents().clear();
+    // }
 
+}
+```
 
 ### 📝 变更追踪
 有时聚合内实体的变化（增删改）难以追踪，我们要用变更追踪器来管理，这样在 Repository 中 save 时可以更加容易
