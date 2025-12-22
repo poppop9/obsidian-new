@@ -228,7 +228,7 @@ String decode = QrCodeUtil.decode(FileUtil.file("d:/qrcode.jpg"));
 - `removeSuffix(字符串，字符)` 去除这个字符串最后一个该字符
 
 ## 💛 旧 - 日期时间
-<u>范围</u> ：
+🔴 范围 ：
 - `rangeToList(开始时间，结束时间，单位)` 获取到两个时间之间的时间集合
 ```java
 List<DateTime> dateTimes = DateUtil.rangeToList(
@@ -240,7 +240,7 @@ dateTimes.forEach(System.out::println);
 ```
 
 ## 💛 新 - 日期时间
-<u>格式化，解析</u> ：
+🔴 格式化，解析 ：
 - `LocalDateTime parse(时间字符串，时间格式)` 字符串 -> LocalDateTime
 ```java
 LocalDateTime localDateTime2 = LocalDateTimeUtil.parse("2020-01-23 12:23:56", DatePattern.NORM_DATETIME_FORMATTER);
@@ -251,9 +251,7 @@ LocalDateTime localDateTime2 = LocalDateTimeUtil.parse("2020-01-23 12:23:56", Da
 LocalDateTimeUtil.format(LocalDateTimeUtil.beginOfDay(LocalDateTime.parse("2024-09-01T00:00:00")), DatePattern.NORM_DATETIME_PATTERN)
 ```
 
-
-<u>偏移时间量</u> ：
-
+🔴 偏移时间量 ：
 - `offset(时间，偏移量，偏移单位)` 
 ```java
 LocalDateTime localDateTime = LocalDateTime.of(2021, 1, 1, 0, 0, 30);
@@ -268,15 +266,11 @@ System.out.println(offset);
 2020-12-31T23:30:30
 ```
 
----
-
-<u>开始 / 结束</u> ：
+🔴 开始 / 结束 ：
 - `LocalDateTime beginOfDay(时间)` 例如 "2020-01-23T00:00"
 - `LocalDateTime endOfDay(时间)` 例如 "2020-01-23T23:59:59.999999999"
 
----
-
-<u>时间间隔</u> ：
+🔴 时间间隔 ：
 - `Duration between(开始时间，结束时间)` 计算时间差值
 
 ```java
@@ -299,10 +293,7 @@ System.out.println(between.toMillis());
 205200000
 ```
 
----
-
-<u>判断范围</u> ：
-
+🔴 判断范围 ：
 - `isIn(需要判断的时间，开始时间点，结束时间点，是否包含开始时间，是否包含结束时间)` 判断某个时间是否在某个范围中
 - `isSameDay(日期1，日期2)` 比较两个时间是否是同一天，~~支持 LocalDateTime，LocalDate~~
 - `isWeekend(时间)` 判断这一天是否为周末，~~支持 LocalDateTime，LocalDate~~
@@ -318,7 +309,7 @@ boolean in = LocalDateTimeUtil.isIn(
 ```
 
 # ❤️ 集合
-<u>流式 Map 创建</u> 
+🔴 流式 Map 创建
 ```java
 Map<String, Integer> map = MapBuilder.create(new HashMap<String, Integer>())
 		.put("a", 1)
@@ -327,12 +318,16 @@ Map<String, Integer> map = MapBuilder.create(new HashMap<String, Integer>())
 ```
 
 ## CollUtil
-<u>判空</u> ：
+🔴 判空 ：
 - `isEmpty()` 
 - `isNotEmpty()` 
 
+🔴 计算
+- `intersection(a, b)` 返回 a 和 b 的交集
+- `subtract(a, b)` a 集合 - b 集合
+
 ## ListUtil
-<u>分割集合</u> ：
+🔴 分割集合 ：
 - `List<集合A> ListUtil.partition(集合A, 多少为一组);` 将集合 A 分割成以 n 为一组的集合
 ```java
 // finalUserIds有108个元素，将拆成3个finalUserIds，分别有50，50，8
