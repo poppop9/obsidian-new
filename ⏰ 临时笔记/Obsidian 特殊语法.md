@@ -94,3 +94,4 @@ tag:问题
 - _**Style Settings**_ 对于主题的 css 设置
 - `Linter` 格式化文档
 - `Code Styler` 
+- `chat view` 聊天气泡
