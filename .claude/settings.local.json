@@ -1,0 +1,23 @@
+{
+  "env": {
+    "HTTP_PROXY": "http://127.0.0.1:7897",
+    "HTTPS_PROXY": "http://127.0.0.1:7897",
+    "CLAUDE_CODE_GIT_BASH_PATH": "D:\\Git\\bin\\bash.exe",
+    "ANTHROPIC_AUTH_TOKEN": "sk-nLnJwCKHu8t3yM3AH6ft8qE7WJojso2HslpARwin5nAaj7WR",
+    "ANTHROPIC_API_KEY": "sk-nLnJwCKHu8t3yM3AH6ft8qE7WJojso2HslpARwin5nAaj7WR",
+    "ANTHROPIC_BASE_URL": "https://anyrouter.top",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": true,
+    "API_TIMEOUT_MS": 600000
+  },
+  "model": "claude-opus-4-5-20251101",
+  "permissions": {
+    "allow": [
+      "Bash(npm run dev)",
+      "Bash(npx tsc:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(git -C \"E:/webstorm_project/canrd-erp-front\" diff --name-only)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

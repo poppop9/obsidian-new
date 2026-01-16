@@ -1149,6 +1149,16 @@ blockquote ul {
     padding-inline-start: 1.3rem !important;
 }
 
+/* 阅读模式下引用块内的无序列表缩进修复 */
+.markdown-rendered blockquote ul > li {
+    margin-inline-start: 1ch;
+}
+
+/* 阅读模式下引用块内的有序列表缩进修复 */
+.markdown-rendered blockquote ol > li {
+    margin-inline-start: 2ch;
+}
+
 .callout-content > ul > li:last-child {
     margin-bottom: -15px;
 }
