@@ -1291,6 +1291,28 @@ ol > li > ol > li > ol > li > ol > li > ol > li::marker {
 
 .HyperMD-quote-1 {
     background-color: #88b9e63d !important;
+    border-radius: 0;
+    padding-left: 1rem;
+    padding-right: 0.5rem;
+}
+
+/* 引用块第一行 - 添加上内边距和上圆角 */
+.cm-line:not(.HyperMD-quote-1) + .HyperMD-quote-1,
+.cm-content > .HyperMD-quote-1:first-child {
+    padding-top: 0.8rem;
+    border-radius: 0 0.3rem 0 0;
+}
+
+/* 引用块最后一行 - 添加下内边距和下圆角 */
+.HyperMD-quote-1:has(+ .cm-line:not(.HyperMD-quote-1)),
+.HyperMD-quote-1:last-child {
+    padding-bottom: 0.8rem;
+    border-radius: 0 0 0.3rem 0;
+}
+
+/* 单行引用块 - 四角圆角 */
+.cm-line:not(.HyperMD-quote-1) + .HyperMD-quote-1:has(+ .cm-line:not(.HyperMD-quote-1)),
+.cm-content > .HyperMD-quote-1:first-child:last-child {
     border-radius: 0 0.3rem 0.3rem 0;
 }
 
