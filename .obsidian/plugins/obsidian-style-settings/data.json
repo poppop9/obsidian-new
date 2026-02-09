@@ -1,5 +1,4 @@
 {
-  "minimal-style@@bold-weight": 600,
   "minimal-style@@tx2@@light": "#000000D4",
   "minimal-style@@tx3@@light": "#720991",
   "minimal-style@@file-header-font-weight": 400,
@@ -43,7 +42,6 @@
   "minimal-style@@bg1@@light": "#FCFCFC",
   "minimal-style@@bg3@@light": "#E1E1E1",
   "minimal-mobile@@mobile-toolbar-off": false,
-  "minimal-advanced@@styled-scrollbars": false,
   "minimal-advanced@@cursor": "default",
   "minimal-advanced@@font-ui-small": 13,
   "minimal-advanced@@font-ui-smaller": 11,
@@ -199,5 +197,6 @@
   "Components@@tab-title-bar-autohide": false,
   "Components@@vault-profile-autohide": false,
   "Appearance-light@@card-layout-open-light": false,
-  "Appearance-light@@theme-light-style-select": "theme-light-background-default"
+  "Appearance-light@@theme-light-style-select": "theme-light-background-default",
+  "baseline-style@@active-line-style": "active-line-off"
 }
