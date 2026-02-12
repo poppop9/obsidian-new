@@ -1,0 +1,43 @@
+name: Sync to C repository subfolder
+on:
+  push:
+    branches:
+      - main  # 监听B仓库main分支的更改
+jobs:
+  sync:
+    runs-on: ubuntu-22.04
+    steps:
+      # Step 1: 检出 B 仓库的代码
+      - name: Checkout obsidian-new repository
+        uses: actions/checkout@v3
+        with:
+          path: source-repo  # 将B仓库检出到 source-repo 文件夹
+        
+      # Step 2: 克隆 C 仓库到本地
+      - name: Clone vitePress repository
+        run: |
+          git clone https://${{ secrets.ACCESS_TOKEN }}@github.com/poppop9/vitePress.git
+          cd vitePress
+          git checkout main
+          
+      # Step 3: 完全清空目标文件夹并复制新内容
+      - name: Replace C repository subfolder with B repository content
+        run: |
+          # 删除目标文件夹中的所有内容（保留文件夹本身）
+          rm -rf vitePress/src/notes/*
+          rm -rf vitePress/src/notes/.[!.]*  # 删除隐藏文件（排除 . 和 ..）
+          
+          # 复制 B 仓库的所有内容到目标文件夹
+          cp -r source-repo/* vitePress/src/notes/
+          # 如果需要复制隐藏文件，取消下面这行的注释
+          # cp -r source-repo/.[!.]* vitePress/src/notes/ 2>/dev/null || true
+          
+      # Step 4: 提交并推送更改到 C 仓库
+      - name: Commit and Push changes to C repository
+        run: |
+          cd vitePress
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add src/notes
+          git commit -m "Sync from obsidian-new repository (full replacement)" || echo "No changes to commit"
+          git push origin main
