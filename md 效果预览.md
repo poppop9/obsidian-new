@@ -27,8 +27,6 @@
 
 > ### 引用中可以包含标题
 > 
-> 甚至可以嵌套引用：
-> 
 > > 这是嵌套的引用内容
 
 ---
@@ -173,6 +171,7 @@ async function fetchData(url) {
 ---
 
 ## Callout（提示框）
+> [!quote] 描述某个名词，概念
 
 > [!NOTE] 这是一个笔记类型的 Callout，用于提供额外信息。
 
@@ -184,7 +183,33 @@ async function fetchData(url) {
 
 > [!INFO] 这是一个信息 Callout，提供背景知识。
 
----
+> [!todo] 
+
+> [!example] 描述例子
+
+> [!fail] 测试
+
+> [!success] 测试
+
+> [!summary] 测试
+
+> [!faq] 测试
+
+> [!bug] 测试
+
+- quote、cite
+- note
+- tip、hint、important
+- warning、attention、caution
+- error、danger
+- info
+- todo
+- example
+- fail、failure、missing
+- success、check、done
+- summary、abstract、tldr
+- faq、help、question
+- bug
 
 ## 脚注
 
@@ -210,5 +235,17 @@ async function fetchData(url) {
 © ® ™   < > &
 
 ### Emoji
-
-😀 😃 😄 😁 🎉 🎊 ✨ 🚀 📝 📚
+➜ ➤ ←
+🧩
+📍
+💡
+💬🗨️🗯️💭🗯 🗨👁‍🗨
+💤
+🪶
+☄️ 彗星
+🥏 飞碟
+✨️
+📝
+🎯
+⚠️
+🌞⭐🌟
