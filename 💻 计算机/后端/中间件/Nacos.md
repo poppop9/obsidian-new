@@ -39,25 +39,27 @@ Nacos 是构建云原生应用的**动态服务发现**、**配置管理**、**�
 # ❤️ 实战
 ## 💛 Server
 <u>docker 部署</u> ：
-- 创建好数据库 nacos ，[执行 sql 语句](https://github.com/alibaba/nacos/blob/master/distribution/conf/mysql-schema.sql)
+- 创建好数据库 nacos ，[执行 sql 语句](https://github.com/alibaba/nacos/blob/2.5.0/distribution/conf/mysql-schema.sql)
 - 运行 docker 命令
 	- `9848` 客户端 gRPC 请求服务端端口，用于客户端向服务端发起连接和请求
 	- `9849` 服务端 gRPC 请求服务端端口，用于服务间同步 ……
 ```bash
-docker run -d -p 8848:8848 -p 9848:9848 -p 9849:9849 --name nacos \
-  -e JVM_XMS=256m \  # 指定 JVM 的初始堆内存大小为 256MB
-  -e JVM_XMX=256m \  # 指定 JVM 的最大堆内存大小为 256MB
-  -e MODE=standalone \  # 单机模式
-  -e SPRING_DATASOURCE_PLATFORM=mysql \  # 数据库平台
-  -e MYSQL_SERVICE_HOST=192.168.0.12 \  # 主机ip
+docker run -d \
+  -p 8848:8848 \
+  -p 9848:9848 \
+  -p 9849:9849 \
+  --name nacos \
+  -e JVM_XMS=256m \
+  -e JVM_XMX=256m \
+  -e MODE=standalone \
+  -e SPRING_DATASOURCE_PLATFORM=mysql \
+  -e MYSQL_SERVICE_HOST=host.docker.internal \
   -e MYSQL_SERVICE_PORT=3306 \
   -e MYSQL_SERVICE_DB_NAME=nacos \
   -e MYSQL_SERVICE_USER=root \
   -e MYSQL_SERVICE_PASSWORD=root \
-  -e MYSQL_SERVICE_DB_PARAM="serverTimezone=Asia/Shanghai&characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true"
+  -e MYSQL_SERVICE_DB_PARAM="serverTimezone=Asia/Shanghai&characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true" \
   nacos/nacos-server:v2.5.0
-
-docker run -d -p 8848:8848 -p 9848:9848 -p 9849:9849 --name nacos -e JVM_XMS=256m -e JVM_XMX=256m -e MODE=standalone -e SPRING_DATASOURCE_PLATFORM=mysql -e MYSQL_SERVICE_HOST=192.168.0.12 -e MYSQL_SERVICE_PORT=3306 -e MYSQL_SERVICE_DB_NAME=nacos -e MYSQL_SERVICE_USER=root -e MYSQL_SERVICE_PASSWORD=134 -e MYSQL_SERVICE_DB_PARAM="serverTimezone=Asia/Shanghai&characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true" nacos/nacos-server:v2.5.0
 ```
 - 管理页面地址 http://localhost:8848/nacos
 
