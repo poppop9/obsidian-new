@@ -10,10 +10,9 @@ https://www.cnblogs.com/hellxz/p/17359828.html#minio%E5%AE%A2%E6%88%B7%E7%AB%AF%
 docker run --name minio \
     -p 9000:9000 \
     -p 9001:9001 \
-    -v /path/to/minio-persistence:/bitnami/minio/data \
-    -e MINIO_ROOT_USER=用户名
-    -e MINIO_ROOT_PASSWORD=密码
-    bitnami/minio:latest
+    -e MINIO_ROOT_USER=admin \
+    -e MINIO_ROOT_PASSWORD=13433026660 \
+    minio/minio server /data --console-address ":9001"
 ```
 
 > [!warning] minIO 的密码要设置超过 8 位，要不然会报错

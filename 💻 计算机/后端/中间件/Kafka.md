@@ -9,7 +9,6 @@
 > - 存储 - Kafka 可以作为一个安全的分布式存储
 
 # ❤️ Broker
-
 > [!quote] Broker
 > 一个独立的 Kafka 服务器被称为 Broker，一个 Kafka 集群会有多个 Broker
 
