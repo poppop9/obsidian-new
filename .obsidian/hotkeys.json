@@ -32,14 +32,6 @@
       "key": "Q"
     }
   ],
-  "editing-toolbar:format-eraser": [
-    {
-      "modifiers": [
-        "Mod"
-      ],
-      "key": "E"
-    }
-  ],
   "markdown:toggle-preview": [
     {
       "modifiers": [
@@ -105,14 +97,6 @@
   ],
   "workspace:goto-tab-6": [],
   "editing-toolbar:header0-text": [],
-  "editor:toggle-code": [
-    {
-      "modifiers": [
-        "Mod"
-      ],
-      "key": "`"
-    }
-  ],
   "editor:save-file": [],
   "file-explorer:new-file": [],
   "workspace:goto-tab-7": [],
@@ -185,6 +169,14 @@
         "Mod"
       ],
       "key": "L"
+    }
+  ],
+  "editor:toggle-code": [
+    {
+      "modifiers": [
+        "Ctrl"
+      ],
+      "key": "`"
     }
   ]
 }
