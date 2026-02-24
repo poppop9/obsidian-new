@@ -78,21 +78,19 @@
 - 修改选项 > 日志 > 将日志输出到文件
 
 # ❤ 插件
-- `Mybatis`
-- 中文简体
-- `leetcode editor` 在 idea 里做题
+- `MybatisX`
 - `Thief-book` 摸鱼神器【在终端看书】
 - `sequence diagram` 右键某个类，查看方法的代码流程
 - `codeGlance pro` 右上角的小地图
 - `json parser` 格式化 json 性能最高的，大 json 不会卡住
 - `jpa buddy` 辅助 jpa
 - `Show Comment` 在文件夹中展示类的注解
-- `Jump ToLine` 可以 debug 到任意一行
+- `Jump To Line` 可以 debug 到任意一行
 	- 按住 `ctrl` ，拖动光标到指定行
 - `Rainbow Brackets` 彩虹括号，yml 文件分级配色
 - `CamelCase` 转换大小写，shift + alt + u
 - `Maven helper` 可以分析依赖冲突
-- `fitten code` 自动代码补全
+- `lingma` 阿里代码自动补全
 
 
 
