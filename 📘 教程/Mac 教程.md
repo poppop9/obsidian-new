@@ -43,12 +43,12 @@
 |`Command + Shift + 5`|截屏 / 录屏工具|
 
 ## 文本编辑
-|快捷键|功能|
-|---|---|
-|`Command + ←`|光标移到行首（Home）|
-|`Command + →`|光标移到行末（End）|
-|`Command + Shift + Option + V`|粘贴并匹配样式（不带格式）|
-|`Fn + Backspace`|向后删除（Delete）|
+| 快捷键                   | 功能            |
+| --------------------- | ------------- |
+| `Command + ←`         | 光标移到行首（Home）  |
+| `Command + →`         | 光标移到行末（End）   |
+| `Command + Shift + V` | 粘贴并匹配样式（不带格式） |
+| `Fn + Backspace`      | 向后删除（Delete）  |
 
 
 ## 访达
