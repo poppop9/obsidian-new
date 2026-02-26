@@ -1,9 +1,9 @@
-# ❤ 设置
+# 📚 设置
 - 编辑器 - 常规 - 编辑器标签页 - 在以下位置显示标签页 - 多行
 - 让注释的时候，// 符号紧贴代码前面 : editor > code style > java > code generation > 取消勾选 line comment at first column
 - 显示方法分割线 : editor > general > appearance > show method separators
 
-# ❤ 快捷键
+# 📚 快捷键
 ## 生成语句
 - 快速生成 main() 方法 `psvm`
 - 生成输出语句 `sout`
@@ -18,8 +18,8 @@
 - 批量选中相同代码 `shift + F6` 
 - `ctrl + shift + ↑` 将光标所在行上移
 - `ctrl + d` 将光标所在代码行复制到下一行
-- `ctrl + w` 扩展选中区域
-- `ctrl + shift + w` 减小选中区域
+- `ctrl + w` `option + ↑` 扩展选中区域
+- `ctrl + shift + w` `option + ↓` 减小选中区域
 - `ctrl + alt + o` `⌘ + Option + O` 删除没有使用的导包
 - `ctrl + x` 删除当前行
 - `shift + enter` 无视光标换行
@@ -37,7 +37,7 @@
 - 查看类的结构信息 `alt + 7`
 - 查看某个类的所有方法 `ctrl + f12`
 - 查看接口的所有实现类 `ctrl + alt + 左键` 
-- `alt + ⬇` 转到下个方法出
+- `alt + ↓` 转到下个方法出
 
 🔴 **搜索**
 - `ctrl + F` 在当前类中，进行搜索
@@ -45,7 +45,7 @@
 - `shift + shift` 全局搜索
 - `ctrl + r` 在该文件中搜索
 
-# ❤ Debug
+# 📚 Debug
 - `F2` 跳转到报错位置
 - `F7` 步入
 - `shift+F7` 智能步入，~~当一行上有多个方法时，可以自己选择要步入的方法~~
@@ -68,12 +68,12 @@
 设置异常断点后，只要那一行代码会报这个异常，代码就会停在哪一行
 ![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202409022210239.png)
 
-# ❤️ 技巧
-✨️ 将日志输出到文件 ：
+# 📚 技巧
+🔴 将日志输出到文件
 - 找到 App 运行配置，编辑配置
 - 修改选项 > 日志 > 将日志输出到文件
 
-# ❤ 插件
+# 📚 插件
 - `MybatisX`
 - `Thief-book` 摸鱼神器【在终端看书】
 - `sequence diagram` 右键某个类，查看方法的代码流程
