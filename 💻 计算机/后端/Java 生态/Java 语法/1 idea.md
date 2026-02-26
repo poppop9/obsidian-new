@@ -11,43 +11,39 @@
 - 生成左边对象 `ctrl+alt+v` / 在对象后面输入 `.var`
 
 ## 快捷操作
-- **编辑**
-	- 单行注释 `ctrl+/`
-	- 多行注释 `ctrl+shift+/`
-	- 格式化代码 `ctrl+alt+L`
-	- 批量选中相同代码 `shift+F6` 
-	- `ctrl+shift+↑` 将光标所在行上移
-	- `ctrl+d` 将光标所在代码行复制到下一行
-	- `ctrl+w` 扩展选中区域
-	- `ctrl+shift+w` 减小选中区域
-	- `ctrl+alt+o` 删除没有使用的导包
-	- `ctrl+x` 删除当前行
-	- `shift + enter` 无视光标换行
-	- `ctrl + alt + n` 将变量内联到代码中
+🔴 **编辑**
+- 单行注释 `ctrl + /` `⌘ + /`
+- 多行注释 `ctrl + shift + /` `⌘ + option + /`
+- 格式化代码 `ctrl + alt + L` `⌘ + Option + L`
+- 批量选中相同代码 `shift + F6` 
+- `ctrl + shift + ↑` 将光标所在行上移
+- `ctrl + d` 将光标所在代码行复制到下一行
+- `ctrl + w` 扩展选中区域
+- `ctrl + shift + w` 减小选中区域
+- `ctrl + alt + o` `⌘ + Option + O` 删除没有使用的导包
+- `ctrl + x` 删除当前行
+- `shift + enter` 无视光标换行
+- `ctrl + alt + n` 将变量内联到代码中
 
----
+🔴 **查看**
+- 在左侧的文件目录窗口，直接键盘输入就可以搜索类
+- `ctrl + p` 在调用方法时，提示需要传入的参数类型
+- `ctrl + B` 进入
+- `ctrl + alt + B` 查看实现
+- `ctrl + alt + ←` `⌘ + option + ←` 返回上一个类
+- `ctrl + alt + →` `⌘ + option + ←` 返回下一个类
+- `ctrl + -` 折叠方法体
+- `ctrl + +` 打开方法体
+- 查看类的结构信息 `alt + 7`
+- 查看某个类的所有方法 `ctrl + f12`
+- 查看接口的所有实现类 `ctrl + alt + 左键` 
+- `alt + ⬇` 转到下个方法出
 
-- **查看**
-	- 在左侧的文件目录窗口，直接键盘输入就可以搜索类
-	- `ctrl+p` 在调用方法时，提示需要传入的参数类型
-	- `ctrl+B` 进入
-	- `ctrl + alt + B` 查看实现
-	- `ctrl + alt + ←` 返回上一个类
-	- `ctrl + alt + →` 返回下一个类
-	- `ctrl + -` 折叠方法体
-	- `ctrl + +` 打开方法体
-	- 查看类的结构信息 `alt+7`
-	- 查看某个类的所有方法 `ctrl+f12`
-	- 查看接口的所有实现类 `ctrl+alt+左键` 
-	- `alt + ⬇` 转到下个方法出
-
----
-
-- **搜索**
-	- `ctrl+F` 在当前类中，进行搜索
-	- `ctrl + r` 当前类中，替换
-	- `shift + shift` 全局搜索
-	- `ctrl+r` 在该文件中搜索
+🔴 **搜索**
+- `ctrl + F` 在当前类中，进行搜索
+- `ctrl + r` 当前类中，替换
+- `shift + shift` 全局搜索
+- `ctrl + r` 在该文件中搜索
 
 # ❤ Debug
 - `F2` 跳转到报错位置
@@ -91,6 +87,8 @@
 - `CamelCase` 转换大小写，shift + alt + u
 - `Maven helper` 可以分析依赖冲突
 - `lingma` 阿里代码自动补全
+- `LiteFlow-Helper` liteflow 组件的插件
+
 
 
 
