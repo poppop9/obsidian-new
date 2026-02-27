@@ -178,5 +178,13 @@
       ],
       "key": "`"
     }
+  ],
+  "editor:clear-formatting": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "E"
+    }
   ]
 }
