@@ -12,10 +12,10 @@
 
 ## 快捷操作
 🔴 **编辑**
-- 单行注释 `ctrl + /` `⌘ + /`
-- 多行注释 `ctrl + shift + /` `⌘ + option + /`
-- 格式化代码 `ctrl + alt + L` `⌘ + Option + L`
-- 批量选中相同代码 `shift + F6` 
+- `ctrl + /` `⌘ + /` 单行注释
+- `ctrl + shift + /` `⌘ + option + /` 多行注释
+- `ctrl + alt + L` `⌘ + Option + L` 格式化代码
+- `shift + F6` 批量选中相同代码
 - `ctrl + shift + ↑` 将光标所在行上移
 - `ctrl + d` 将光标所在代码行复制到下一行
 - `ctrl + w` `option + ↑` 扩展选中区域
@@ -23,7 +23,7 @@
 - `ctrl + alt + o` `⌘ + Option + O` 删除没有使用的导包
 - `ctrl + x` 删除当前行
 - `shift + enter` 无视光标换行
-- `ctrl + alt + n` 将变量内联到代码中
+- `ctrl + alt + n` `⌘ + option + n` 将变量内联到代码中
 
 🔴 **查看**
 - 在左侧的文件目录窗口，直接键盘输入就可以搜索类
@@ -37,7 +37,7 @@
 - 查看类的结构信息 `alt + 7`
 - 查看某个类的所有方法 `ctrl + f12`
 - 查看接口的所有实现类 `ctrl + alt + 左键` 
-- `alt + ↓` 转到下个方法出
+- `alt + ↓` 转到下个方法处
 
 🔴 **搜索**
 - `ctrl + F` 在当前类中，进行搜索
