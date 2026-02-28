@@ -88,9 +88,23 @@
 | `Command + Option + I`  | 打开开发者工具  |
 
 # 📚 系统功能
-- 触发角：系统设置 → 桌面与程序坞 → 触发角，可将鼠标移到屏幕四角触发快捷操作（如显示桌面、锁屏、启动屏保 ……）
+🔴 触发角：系统设置 → 桌面与程序坞 → 触发角，可将鼠标移到屏幕四角触发快捷操作（如显示桌面、锁屏、启动屏保 ……）
 
 
+🔴 加速 macOS Dock 栏自动隐藏/显示速度
+```bash
+# 去掉 Dock 出现前的「延迟时间」
+defaults write com.apple.dock autohide-delay -float 0
+# 加速 Dock 的「动画时间」
+defaults write com.apple.dock autohide-time-modifier -float 0.15
+# 重启 Dock 使设置生效
+killall Dock
+
+# 恢复默认
+defaults delete com.apple.dock autohide-delay
+defaults delete com.apple.dock autohide-time-modifier
+killall Dock
+```
 
 
 
