@@ -463,6 +463,47 @@ System.out.println(objectNode.toPrettyString());
 json 树形结构
 ```
 
+## Table
+双 key Map
+
+
+## MultiValueMap
+一 key 多 value
+
+
+## 📖 Pair
+🔴 使用场景 ：有时方法需要返回两个相互关联的数据，但不想定义一个新类
+
+```java
+// 构建 Pair
+public Pair<User, Order> loadUserAndOrder(Long id) {
+    User user = userService.findById(id);
+    Order order = orderService.findByUserId(id);
+    return Pair.of(user, order);  // 不变
+}
+
+// 使用 Pair
+Pair<User, Order> pair = loadUserAndOrder(1L);
+User user = pair.getKey();   
+Order order = pair.getValue(); 
+```
+
+## 📖 Dict
+🔴 适合临时、动态、一次性的数据聚合场景
+
+```java
+// 创建
+Dict dict = Dict.create()
+                .set("name", "张三")
+                .set("age", 18)
+                .set("active", true);
+
+// 取值（自动转型）
+String name = dict.getStr("name");
+Integer age = dict.getInt("age");
+Boolean active = dict.getBool("active");
+```
+
 # ❤ Bean
 Bean 就是有 setter，getter 的 Java 类
 

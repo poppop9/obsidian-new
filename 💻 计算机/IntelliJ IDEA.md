@@ -62,11 +62,11 @@
 
 ## 条件断点
 设置条件断点后，只有当条件符合，才会 debug 住，否则会继续往下执行
-![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202409022212739.png)
+![466](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202409022212739.png)
 
 ## 异常断点
 设置异常断点后，只要那一行代码会报这个异常，代码就会停在哪一行
-![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202409022210239.png)
+![271](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202409022210239.png)
 
 # 📚 技巧
 🔴 将日志输出到文件
