@@ -33,6 +33,16 @@
 - Free-NTFS-for-Mac u 盘中，ntfs 格式是 win 用的，但是这个格式和 mac 不兼容，但是这个软件就可以解决这个问题
 - ibar 显示隐藏的任务栏图标
 
+## Claude
+- `双击 option` 打开对话框
+
+## PixPin
+- `control + 1` 进入截图界面
+- `control + 2` 钉住截图
+
+## 欧陆词典
+- `option + 空格` 进入翻译界面
+
 # 📚 快捷键
 ## 通用操作
 | 快捷键                      | 功能              |

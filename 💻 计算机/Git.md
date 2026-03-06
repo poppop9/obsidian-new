@@ -483,10 +483,13 @@ git status
 - `git push origin dev --force` 
 
 ✨️ 撤销最近一次的提交，但保留代码改动（回到工作区和暂存区）
-- `git reset --soft HEAD^`
+```bash
+git reset --soft HEAD~1
+git push origin dev --force
+```
 
 ✨️ 添加到 `.gitignore` 的文件依然被跟踪
-```
+```bash
 # 1. 移除所有文件的跟踪状态
 git rm --cached -r .
 
