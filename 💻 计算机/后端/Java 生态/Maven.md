@@ -54,14 +54,12 @@
 
 ## 在 idea 中创建 Maven 项目
 - 新建 Maven 模块
-![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403031422374.png)
+![464](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403031422374.png)
 - 设置信息
-![400](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403031422705.png)
+![293](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403031422705.png)
 
 # 基本概念
-
-> [!quote] Maven
-> Maven 是构建和管理 Java 项目的工具
+Maven 是构建和管理 Java 项目的工具
 
 ## 作用
 ### 更好的依赖管理
@@ -71,6 +69,7 @@
 		- 没有，则从私服仓库下载到本地仓库，然后引用
 			- 若私服仓库没有，则从中央仓库下载到私服仓库，再到本地仓库 
 - 后续需要更新 `jar` 包的版本也只需要更改声明中的版本号即可，不需要手动连锁改动
+
 ### 统一项目结构
 Maven 规定了一套统一的 Java 开发目录，这样**可以让不同开发软件开发出来的项目可以互相移植**
 
@@ -109,16 +108,14 @@ Maven 规定了一套统一的 Java 开发目录，这样**可以让不同开发
 ```
 
 ## 依赖传递
-![600](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403031423203.png)
+![488](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403031423203.png)
 
 ### 查看依赖关系
 右键 `pom.xml`，选择 `diagrams` 的 `show dependencies`
-![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403031423533.png)
+![508](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/202403031423533.png)
 
 ### 排除依赖
-
-> [!quote] 排除依赖
-> 排除依赖 就是，`A项目` 引用了 `B项目` 但是不想引用 `B项目` 底下的 jar 包
+排除依赖 就是，`A项目` 引用了 `B项目` 但是不想引用 `B项目` 底下的 jar 包
 
 ```xml
 <dependencies>  
@@ -195,13 +192,8 @@ Maven 有三套独立的生命周期，每一套都有若干个阶段。**同一
 	3. `post-site`：在生成站点之后运行的阶段。在此阶段，可以执行一些后处理操作，例如复制附加资源到生成的站点目录或进行站点发布的准备工作
 	4. `site-deploy`：将生成的站点文档部署到指定的服务器或远程仓库的阶段。在此阶段，可以将生成的站点文档发布到远程服务器，以供他人访问
 
-> [!warning] 如何运行生命周期的某个阶段 ？
-> 在 Maven 的侧边栏中运行
-> ![[JavaWeb Draw#^group=QqvDzj8c|300]]
-
-## 依赖冲突
-- 使用工具分析哪个依赖冲突
-![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/20250227005433.png)
+🔴 如何运行生命周期的某个阶段 —— 在 Maven 的侧边栏中运行
+![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/20260309134801128.png)
 
 # ❤ 构建
 - `<build>` 部分定义了如何构建和打包项目，主要使用 [[#❤️ 插件]] 来构建

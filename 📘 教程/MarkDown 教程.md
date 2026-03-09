@@ -83,7 +83,9 @@
 obsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidian![obsidian|inlL|100](https://img1.baidu.com/it/u=2473858672,2989677650&fm=253&fmt=auto&app=138&f=PNG?w=192&h=192)obsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidian
 ## 内部超链接
 ### 链接文件
+```
 [[测试]]
+```
 
 ### 链接标题
 [[#三、超链接]]
@@ -98,7 +100,7 @@ obsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidian
 ```
 查找有包含存储，运算，控制这三个关键词的语句
 ```
-![[作业2#^6bccc9]]
+
 ## 网页超链接
 <iframe src="https://player.bilibili.com/player.html?aid=485269699&bvid=BV1hT411n7gG&cid=1104774731&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="450"> </iframe>
 <div style="position: relative; width: 100%; height: 0; padding-top: 56.2500%;

@@ -114,8 +114,11 @@ async function fetchData(url) {
 ---
 
 ## 链接
-- [普通链接](https://github.com/)
-- [[Obsidian 双链接]]
+```
+[普通链接](https://github.com/)
+
+[[Obsidian 双链接]]
+```
 
 ## Callout（提示框）
 > [!quote] 描述某个名词，概念

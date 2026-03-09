@@ -1,11 +1,11 @@
 {
   "collapse-filter": false,
   "search": "",
-  "showTags": true,
+  "showTags": false,
   "showAttachments": false,
   "hideUnresolved": false,
-  "showOrphans": true,
-  "collapse-color-groups": true,
+  "showOrphans": false,
+  "collapse-color-groups": false,
   "colorGroups": [
     {
       "query": "path:Excalidraw",
@@ -22,7 +22,7 @@
       }
     },
     {
-      "query": "",
+      "query": "path:\"📚 读书笔记\"  ",
       "color": {
         "a": 1,
         "rgb": 14069084
@@ -88,6 +88,6 @@
   "repelStrength": 9.15800415800416,
   "linkStrength": 0,
   "linkDistance": 30,
-  "scale": 0.9031048658596692,
+  "scale": 1.653513114016684,
   "close": false
 }
