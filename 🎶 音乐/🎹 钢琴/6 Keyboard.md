@@ -1,6 +1,9 @@
 🎹 钢琴 Piano
 
 🎹 电钢琴 Digital Piano
+- Korg Grandstage X
+- Korg SV-2S
+- Yamaha CK 61
 - Rhodes Piano 很有梦幻的感觉
 	- 方大同 - 爱爱爱
 
