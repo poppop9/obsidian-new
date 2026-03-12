@@ -119,5 +119,8 @@ defaults delete com.apple.dock autohide-time-modifier
 killall Dock
 ```
 
+🔴 键盘 > 开启键盘导航
+
+
 
 
