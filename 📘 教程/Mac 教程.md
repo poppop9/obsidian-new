@@ -27,6 +27,7 @@
 - `CrossOver` 可以运行 exe 文件
 - `MenubarX` 菜单栏浏览器
 - `slidepad` 滑盖侧边栏浏览器
+- `Transync ai` 同声传译
 
 ---
 
