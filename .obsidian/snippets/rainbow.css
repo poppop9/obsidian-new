@@ -107,7 +107,7 @@ tables settings
 }
 
 #write table th,
-td {
+#write table td {
     text-align: center;
     border: 0.13rem dashed var(--table-border-color);
     padding: 0.5rem;
@@ -608,19 +608,19 @@ del {
 
 /* 粗体 */
 .theme-light .cm-strong {
-    color: #004faa !important;
+    color: inherit !important;
 }
 
 .theme-dark .cm-strong {
-    color: #3481c5 !important;
+    color: inherit !important;
 }
 
 strong {
-    color: #004faa !important;
+    color: inherit !important;
 }
 
 .theme-dark strong {
-    color: #3481c5 !important;
+    color: inherit !important;
 }
 
 strong {
@@ -1291,25 +1291,30 @@ div.table-wrapper {
     margin: 0 auto !important;
 }
 
-div.cm-embed-block.cm-table-widget.markdown-rendered {
+div.cm-table-widget.markdown-rendered {
     padding-top: 0;
     padding-bottom: 0;
 }
 
-div.cm-embed-block.cm-table-widget {
+div.cm-table-widget {
     margin-top: -0.8rem !important;
     margin-bottom: 0 !important;
 }
 
-:is(.markdown-preview-view, .markdown-rendered) table {
+:is(.markdown-preview-view, .markdown-rendered, .cm-table-widget) table {
     box-shadow: none;
+    border-collapse: collapse;
 }
 
 .markdown-rendered table {
-    border-collapse: collapse;
     line-height: 1.5;
     margin: 1rem auto !important;
     overflow: auto;
+}
+
+.cm-table-widget table {
+    line-height: 1.5;
+    margin: 0 auto !important;
 }
 
 .el-table {
@@ -1321,6 +1326,15 @@ div.cm-embed-block.cm-table-widget {
 .markdown-rendered td {
     border: 1px solid #dfe2e5;
     padding: 6px 13px;
+}
+
+.cm-table-widget th,
+.cm-table-widget td {
+    border: 1px solid #dfe2e5;
+    padding: 6px 13px !important;
+    line-height: 1.5 !important;
+    font-size: 1em !important;
+    min-width: 0 !important;
 }
 
 .theme-light .markdown-rendered th {
@@ -1360,6 +1374,33 @@ div.cm-embed-block.cm-table-widget {
 
 div.el-table > table{
     margin: 0 auto;
+}
+
+/* 让编辑模式表格不自动拉伸，与阅读模式一致 */
+.cm-table-widget table {
+    width: auto !important;      /* 关键：取消默认的 100% 宽度 */
+    table-layout: auto !important;
+}
+
+/* 消除编辑模式单元格内部编辑容器的额外间距 */
+.cm-table-widget td > div,
+.cm-table-widget th > div {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* 确保单元格不被撑大 */
+.cm-table-widget th,
+.cm-table-widget td {
+    min-width: 0 !important;
+    width: auto !important;
+    box-sizing: border-box !important;
+}
+
+/* 表格外层容器也不要强制撑满 */
+div.table-wrapper {
+    width: auto !important;
+    max-width: 100%;
 }
 
 /* ---------------------------------------------------------------------------------- */
