@@ -91,7 +91,7 @@ headers settings
 
 #write h3,
 #write h4 {
-    text-decoration: underline dotted var(--h-border-color) 0.2rem;
+    text-decoration: underline dotted #eaecef 0.2rem;  /* 原来是 var(--h-border-color) 粉色 */
 }
 
 /*
@@ -676,10 +676,10 @@ div.math.math-block {
 
 .HyperMD-header-1 {
     text-align: center;
-    border-bottom-style: groove;
-    border-color: #004faa;
-    border-width: 0.2rem;
-    padding-bottom: 0.1rem !important;
+    border-bottom-style: solid;                /* groove → solid */
+    border-color: #eaecef;                     /* #004faa → #eaecef */
+    border-width: 1px;                         /* 0.2rem → 1px */
+    padding-bottom: 0.3em !important;          /* 0.1rem → 0.3em */
     line-height: 2.4rem;
 }
 
@@ -691,17 +691,17 @@ h1,
 .markdown-rendered h1 {
     text-align: center;
     font-size: 2em !important;
-    border-bottom-style: groove;
-    border-color: #004faa;
-    border-width: 0.2rem;
-    padding-bottom: 0 !important;
+    border-bottom-style: solid;                /* groove → solid */
+    border-color: #eaecef;                     /* #004faa → #eaecef */
+    border-width: 1px;                         /* 0.2rem → 1px */
+    padding-bottom: 0.3em !important;          /* 0 → 0.3em */
     line-height: 2.9rem;
     margin-block-end: 0.5rem;
-
     position: relative;
-
     font-family: 'dymht';
+    color: #24292e;                            /* 新增：GitHub 黑色 */
 }
+
 div.HyperMD-header.HyperMD-header-2.cm-line {
     padding: 0.2rem 0 0 0rem;
     border-top: 0.4rem solid transparent;
@@ -713,17 +713,16 @@ div.HyperMD-header.HyperMD-header-2.cm-line:has(+ .HyperMD-header-3.cm-line) {
 }
 
 span.cm-header.cm-header-2 {
-    color: #004faa;
+    color: #24292e;                            /* #004faa → #24292e */
     font-weight: bold;
     font-size: 1.5rem !important;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-
     position: relative;
     display: inline-block;
 }
 
 .theme-dark span.cm-header.cm-header-2 {
-    color: #3481c5;
+    color: #c9d1d9;                            /* #3481c5 → #c9d1d9 */
 }
 
 h2,
@@ -731,22 +730,24 @@ h2,
     font-size: 1.5rem !important;
     padding: 0.4rem 0 0 0rem;
     margin-bottom: 1rem !important;
-    color: #004faa;
+    color: #24292e;                            /* #004faa → #24292e */
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-
     position: relative;
-
     margin-block-start: 0.7rem;
+    border-bottom: 1px solid #eaecef;          /* 新增：GitHub 风格下边框 */
+    padding-bottom: 0.3em;                     /* 新增 */
 }
 
 .theme-dark h2,
 .theme-dark .markdown-rendered h2 {
-    color: #3481c5;
+    color: #c9d1d9;                            /* #3481c5 → #c9d1d9 */
+    border-bottom-color: #373e47;              /* 新增：暗色模式边框 */
 }
 
 .markdown-rendered div:has(> :is(p, pre, table, ul, ol)) + div > :is(h2) {
     margin-top: 1rem !important;
 }
+
 div.HyperMD-header.HyperMD-header-3.cm-line {
     margin-bottom: 3px !important;
     text-align: center;
@@ -756,6 +757,11 @@ span.cm-header.cm-header-3 {
     font-size: 1.25rem !important;
     padding-right: 5px;
     text-align: center;
+    color: #24292e;                            /* 新增：确保 h3 也是黑色 */
+}
+
+.theme-dark span.cm-header.cm-header-3 {
+    color: #c9d1d9;                            /* 新增：暗色模式 */
 }
 
 .markdown-rendered div:has(> :is(p, pre, table, ul, ol)) + div > :is(h3) {
@@ -766,6 +772,11 @@ h3 {
     font-size: 1.25rem !important;
     margin-bottom: 0.5rem !important;
     text-align: center;
+    color: #24292e;                            /* 新增 */
+}
+
+.theme-dark h3 {
+    color: #c9d1d9;                            /* 新增 */
 }
 
 .HyperMD-header-2.cm-line + .HyperMD-header-3.cm-line {
@@ -786,7 +797,6 @@ h3 {
     margin-bottom: 1rem !important;
 }
 
-
 /* 标题4 */
 /* 编辑模式 */
 div.HyperMD-header.HyperMD-header-4.cm-line {
@@ -795,39 +805,25 @@ div.HyperMD-header.HyperMD-header-4.cm-line {
 
 span.cm-header.cm-header-4 {
     font-size: 1.25rem !important;
-    /* border-bottom: #3481c57e 3px solid; */
     padding-right: 5px;
+    color: #24292e;                            /* 新增 */
+}
+
+.theme-dark span.cm-header.cm-header-4 {
+    color: #c9d1d9;                            /* 新增 */
 }
 
 /* 阅读模式 */
 h4 {
     font-size: 1.25rem !important;
     margin-bottom: 0.5rem !important;
+    color: #24292e;                            /* 新增 */
 }
 
-/* Fix: Removed .cm-line.HyperMD-header { padding-top: 0; } which causes overlap */
-.cm-s-obsidian .cm-line.HyperMD-header {
-    padding-top: 0;
+.theme-dark h4 {
+    color: #c9d1d9;                            /* 新增 */
 }
 
-
-h3,
-.markdown-rendered h3,
-h4,
-.markdown-rendered h4 {
-    margin-block-start: 0rem;
-    margin-block-end: 0.1rem !important;
-}
-
-h3,
-.markdown-rendered h3 {
-    margin-top: 0.2rem !important;
-}
-
-h3,
-.markdown-rendered h3 {
-    text-align: center;
-}
 */
 /* -------------------------------------------------------------- */
 /*
