@@ -1210,12 +1210,12 @@ ol > li > ol > li > ol > li > ol > li > ol > li::marker {
 /* 编辑模式 */
 .markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote:before,
 .markdown-source-view.mod-cm6 .cm-blockquote-border:before {
-    border-left: 0.27rem solid #004faa;
+    border-left: 0.25rem solid #dfe2e5;
     position: absolute;
 }
 
 .HyperMD-quote-1 {
-    background-color: #88b9e63d !important;
+    background-color: transparent !important;
     border-radius: 0;
     padding-left: 1rem;
     padding-right: 0.5rem;
@@ -1223,19 +1223,24 @@ ol > li > ol > li > ol > li > ol > li > ol > li::marker {
 
 .cm-line:not(.HyperMD-quote-1) + .HyperMD-quote-1,
 .cm-content > .HyperMD-quote-1:first-child {
-    padding-top: 0.8rem;
-    border-radius: 0 0.3rem 0 0;
+    padding-top: 0.2rem;
+    border-radius: 0;
 }
 
 .HyperMD-quote-1:has(+ .cm-line:not(.HyperMD-quote-1)),
 .HyperMD-quote-1:last-child {
-    padding-bottom: 0.8rem;
-    border-radius: 0 0 0.3rem 0;
+    padding-bottom: 0.2rem;
+    border-radius: 0;
 }
 
 .cm-line:not(.HyperMD-quote-1) + .HyperMD-quote-1:has(+ .cm-line:not(.HyperMD-quote-1)),
 .cm-content > .HyperMD-quote-1:first-child:last-child {
-    border-radius: 0 0.3rem 0.3rem 0;
+    border-radius: 0;
+}
+
+.HyperMD-quote-1 .cm-quote-1,
+.HyperMD-quote-1 {
+    color: #6a737d;
 }
 
 .HyperMD-quote-1 .cm-quote-1 {
@@ -1244,13 +1249,14 @@ ol > li > ol > li > ol > li > ol > li > ol > li::marker {
 
 /* 阅读模式 */
 .markdown-rendered blockquote {
-    border-left: 0.27rem solid #004faa;
-    background-color: #88b9e63d !important;
+    border-left: 0.25rem solid #dfe2e5;
+    background-color: transparent !important;
+    color: #6a737d;
 
-    padding: 0.8rem 0.5rem 0.8rem 1rem;
-    margin-left: 0.1rem;
+    padding: 0 1rem;
+    margin-left: 0;
 
-    border-radius: 0 0.3rem 0.3rem 0;
+    border-radius: 0;
 }
 
 blockquote {
