@@ -722,9 +722,14 @@ h1,
 }
 
 div.HyperMD-header.HyperMD-header-2.cm-line {
-    padding: 0.2rem 0 0 0rem;
+    padding: 0.2rem 0 0.3em 0rem !important;
     border-top: 0.4rem solid transparent;
     margin-bottom: 0.3rem !important;
+    border-bottom: 1px solid #eaecef;          /* 新增：GitHub 风格下边框 */
+}
+
+.theme-dark div.HyperMD-header.HyperMD-header-2.cm-line {
+    border-bottom-color: #373e47;              /* 新增：暗色模式边框 */
 }
 
 div.HyperMD-header.HyperMD-header-2.cm-line:has(+ .HyperMD-header-3.cm-line) {
