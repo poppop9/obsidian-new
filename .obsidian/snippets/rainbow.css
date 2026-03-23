@@ -1288,7 +1288,7 @@ div.callout-title div.callout-title-inner {
 /* 表格 */
 /* 编辑模式 */
 div.table-wrapper {
-    margin: 0 auto;
+    margin: 0 auto !important;
 }
 
 div.cm-embed-block.cm-table-widget.markdown-rendered {
@@ -1296,39 +1296,66 @@ div.cm-embed-block.cm-table-widget.markdown-rendered {
     padding-bottom: 0;
 }
 
+div.cm-embed-block.cm-table-widget {
+    margin-top: -0.8rem !important;
+    margin-bottom: 0 !important;
+}
+
 :is(.markdown-preview-view, .markdown-rendered) table {
-    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: none;
 }
 
 .markdown-rendered table {
     border-collapse: collapse;
-    line-height: 1.3;
+    line-height: 1.5;
+    margin: 1rem auto !important;
+    overflow: auto;
+}
+
+.el-table {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+}
+
+.markdown-rendered th,
+.markdown-rendered td {
+    border: 1px solid #dfe2e5;
+    padding: 6px 13px;
 }
 
 .theme-light .markdown-rendered th {
     text-align: center;
-    background-color: #81a1c13c !important;
+    background-color: #f6f8fa !important;
+    font-weight: 600;
 }
 
 .theme-dark .markdown-rendered th {
     text-align: center;
-    background-color: #8fb2d56c !important;
+    background-color: #2d333b !important;
+    font-weight: 600;
 }
 
 .theme-light .markdown-rendered tbody tr {
-    background-color: #f2f2f2;
+    background-color: #ffffff;
+    border-top: 1px solid #dfe2e5;
 }
 
-.theme-light .markdown-rendered tbody tr:nth-child(odd) {
-    background-color: #ffffff;
+.theme-light .markdown-rendered tbody tr:nth-child(even) {
+    background-color: #f6f8fa;
 }
 
 .theme-dark .markdown-rendered tbody tr {
-    background-color: #444444;
+    background-color: #22272e;
+    border-top: 1px solid #373e47;
 }
 
-.theme-dark .markdown-rendered tbody tr:nth-child(odd) {
-    background-color: #252525;
+.theme-dark .markdown-rendered tbody tr:nth-child(even) {
+    background-color: #2d333b;
+}
+
+.theme-dark .markdown-rendered th,
+.theme-dark .markdown-rendered td {
+    border-color: #373e47;
 }
 
 div.el-table > table{
