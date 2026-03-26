@@ -6,7 +6,6 @@
 - `Parallels Desktop` 虚拟机
 - `IINA` 播放器
 - `keka` 解压缩工具
-- `AlDente` 电池管理
 - `coconutBattery` 测电池健康数据
 - `pdfgear`
 - 编程
@@ -28,6 +27,7 @@
 - `MenubarX` 菜单栏浏览器
 - `slidepad` 滑盖侧边栏浏览器
 - `Transync ai` 同声传译
+- `文件夹夹` 可以将 finder 快捷固定到刘海
 
 ---
 
