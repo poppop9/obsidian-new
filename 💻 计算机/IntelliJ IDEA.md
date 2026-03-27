@@ -2,6 +2,7 @@
 - 编辑器 - 常规 - 编辑器标签页 - 在以下位置显示标签页 - 多行
 - 让注释的时候，// 符号紧贴代码前面 : editor > code style > java > code generation > 取消勾选 line comment at first column
 - 显示方法分割线 : editor > general > appearance > show method separators
+- 编辑器 > 外观 > 使用平滑文本光标移动
 
 # 📚 快捷键
 ## 生成语句
@@ -88,6 +89,7 @@
 - `Maven helper` 可以分析依赖冲突
 - `lingma` 阿里代码自动补全
 - `LiteFlow-Helper` liteflow 组件的插件
+- `Flowable BPMN visualizer` flowable 的插件
 
 
 
