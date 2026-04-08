@@ -25,8 +25,9 @@ docker run -d --name mongodb -p 27017:27017 -v mongodb_data:/data/db -e MONGO_IN
 [https://www.mongodb.com/try/download/compass](https://www.mongodb.com/try/download/compass)
 
 # ❤️ 基本概念
-- MongoDB 会为每个文档自动生成的唯一标识符，不需要我们手动管理 (生成、存储与查询)
-- 可以为集合中的某些字段设置 TTL，以自动删除旧数据
+🔴 MongoDB 会为每个文档自动生成的唯一标识符，不需要我们手动管理 (生成、存储与查询)
+
+🔴 可以为集合中的某些字段设置 TTL，以自动删除旧数据
 
 🔴 **初始化的数据库** ：如果在操作时没有指定数据库，MongoDB 会使用一个名为 test 的默认数据库，该数据库存储在 data 目录中
 - admin ：要是将一个用户添加到这个数据库，这个用户自动继承所有数据库的权限。一些特定的服务器端命令也只能从这个数据库运行，比如列出所有的数据库或者关闭服务器
@@ -57,7 +58,7 @@ docker run -d --name mongodb -p 27017:27017 -v mongodb_data:/data/db -e MONGO_IN
 - Regular Expression：正则表达式
 
 # ❤️ 数据结构
-🧩 MongoDB 的数据格式是 BSON (Binary JSON)，是二进制形式的 JSON
+🔴 MongoDB 的数据格式是 BSON (Binary JSON)，是二进制形式的 JSON
 - 数据库 Database ：存储数据的容器（数据库）
 - 集合 Collection ：数据库中的一个集合（表）
 - 文档 Document ：集合中的一个数据记录（行），以 BSON 格式存储
@@ -65,18 +66,18 @@ docker run -d --name mongodb -p 27017:27017 -v mongodb_data:/data/db -e MONGO_IN
 - 主键 ：MongoDB 自动将 `_id` 字段设置为主键
 
 ## 💛 集合
-🧩 集合的注意事项 ：
+🔴 集合的注意事项 ：
 - 集合名不能是空字符串，也不能含有空字符，这个字符表示集合名的结尾
 - 集合名不能以"system."开头，这是为系统集合保留的前缀
 - 用户创建的集合名字不能含有保留字符 $
 
-🧩 Capped 集合 ：Capped 集合就是固定大小的集合，单位是字节
+🔴 Capped 集合 ：Capped 集合就是固定大小的集合，单位是字节
 - 有很高的性能，以及队列过期特性
 - 当我们更新 Capped  集合中文档的时候，更新后的文档不可以超过之前文档的大小（这样才能确保所有文档在磁盘上的位置一直保持不变）
 - Capped 集合不能删除部分文档，只能一次性全部删除
 
 ## 💛 文档
-🧩 文档的注意事项 ：
+🔴 文档的注意事项
 - 文档中的键值对是有序的
 - 文档不能有重复的键
 - 文档的键是字符串。除了少数例外情况，键可以使用任意 UTF-8 字符
