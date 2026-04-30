@@ -5,9 +5,11 @@
 - `CleanShot X` 截图录屏
 - `Parallels Desktop` 虚拟机
 - `IINA` 播放器
-- `keka` 解压缩工具
 - `coconutBattery` 测电池健康数据
 - `pdfgear`
+- 解压缩
+	- `keka` 简介好看
+	- `BetterZip` 可预览
 - 编程
 	- `Homebrew` 包管理器
 	- `navicat` 数据库连接工具
@@ -16,9 +18,9 @@
 	- `xterminal` 终端工具
 - `alcove` 灵动岛
 - `motrix` 磁力下载
+- `downie` 视频下载器
 - `mountain duck` 磁盘挂载
 - `permute` 媒体格式转换器
-- `downie` 视频下载器
 - `Logic Pro` 编曲软件
 - `blip` 传输工具
 - `超级右键` 可以右键创建文件 ……
