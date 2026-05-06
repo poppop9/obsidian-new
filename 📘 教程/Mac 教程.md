@@ -1,11 +1,14 @@
 # 📚 软件
 - `cleanmymac`
+- `appcleaner`
 - `paste` 剪贴板
 - `pixpin` 截屏工具
 - `CleanShot X` 截图录屏
 - `Parallels Desktop` 虚拟机
 - `IINA` 播放器
-- `coconutBattery` 测电池健康数据
+- `Logic Pro` 编曲软件
+- `cotEditer` 文本编辑软件
+- `CrossOver` 可以运行 exe 文件
 - `pdfgear`
 - 解压缩
 	- `keka` 简介好看
@@ -16,20 +19,20 @@
 	- `offset explorer 3` kafka 客户端工具
 	- `redis insight` redis 客户端工具
 	- `xterminal` 终端工具
-- `alcove` 灵动岛
+- 辅助工具
+	- `超级右键` 可以右键创建文件 ……
+	- `Menuist` 超级右键
+	- `文件夹夹` 可以将 finder 快捷固定到刘海
+	- `coconutBattery` 测电池健康数据
+	- `MenubarX` 菜单栏浏览器
+	- `slidepad` 滑盖侧边栏浏览器
 - `motrix` 磁力下载
 - `downie` 视频下载器
 - `mountain duck` 磁盘挂载
 - `permute` 媒体格式转换器
-- `Logic Pro` 编曲软件
 - `blip` 传输工具
-- `超级右键` 可以右键创建文件 ……
-- `cotEditer` 文本编辑软件
-- `CrossOver` 可以运行 exe 文件
-- `MenubarX` 菜单栏浏览器
-- `slidepad` 滑盖侧边栏浏览器
 - `Transync ai` 同声传译
-- `文件夹夹` 可以将 finder 快捷固定到刘海
+
 
 ---
 
