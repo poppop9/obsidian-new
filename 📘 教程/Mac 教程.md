@@ -16,8 +16,8 @@
 - 编程
 	- `Homebrew` 包管理器
 	- `navicat` 数据库连接工具
-	- `offset explorer 3` kafka 客户端工具
-	- `redis insight` redis 客户端工具
+	- `offset explorer 3` kafka 可视化
+	- `redis insight` redis 可视化
 	- `xterminal` 终端工具
 - 辅助工具
 	- `超级右键` 可以右键创建文件 ……
