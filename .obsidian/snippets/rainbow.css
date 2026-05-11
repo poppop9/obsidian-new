@@ -91,7 +91,7 @@ headers settings
 
 #write h3,
 #write h4 {
-    text-decoration: underline dotted #eaecef 0.2rem;  /* 原来是 var(--h-border-color) 粉色 */
+    text-decoration: underline dotted #eaecef 0.2rem;
 }
 
 /*
@@ -235,9 +235,9 @@ selected texts in code blocks settings
 /*
 diagrams settings
 */
-#write pre[lang=’sequence’],
-#write pre[lang=’flow’],
-#write pre[lang=’mermaid’] {
+#write pre[lang='sequence'],
+#write pre[lang='flow'],
+#write pre[lang='mermaid'] {
     background-color: var(--code-bg-color);
     border-radius: 0.4rem;
     box-shadow: var(--block-shadow);
@@ -252,7 +252,7 @@ deletes settings
 
 /* 文字间隔 */
 /* span {
-	letter-spacing: 1.1px;
+	l]etter-spacing: 1.1px;
 }
 
 div {
@@ -646,9 +646,9 @@ span.cm-em.cm-strong {
 .markdown-rendered p {
     margin-block-start: 0;
     margin-block-end: 0.5rem;
-    text-indent: 0;        /* 添加这行 */
-    padding-left: 0;       /* 添加这行 */
-    margin-left: 0;        /* 添加这行 */
+    text-indent: 0;
+    padding-left: 0;
+    margin-left: 0;
 }
 
 .markdown-preview-view .markdown-preview-sizer {
@@ -674,9 +674,7 @@ u {
     text-decoration-thickness: 0.22rem;
     text-decoration-color: #3481c5;
     text-underline-offset: 0.24em;
-    /* 调整下划线与文字之间的距离 */
     text-decoration-skip-ink: auto;
-    /* 控制下划线避开文字的部分 */
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -695,10 +693,10 @@ div.math.math-block {
 
 .HyperMD-header-1 {
     text-align: center;
-    border-bottom-style: solid;                /* groove → solid */
-    border-color: #eaecef;                     /* #004faa → #eaecef */
-    border-width: 1px;                         /* 0.2rem → 1px */
-    padding-bottom: 0.3em !important;          /* 0.1rem → 0.3em */
+    border-bottom-style: solid;
+    border-color: #eaecef;
+    border-width: 1px;
+    padding-bottom: 0.3em !important;
     line-height: 2.4rem;
 }
 
@@ -710,26 +708,26 @@ h1,
 .markdown-rendered h1 {
     text-align: center;
     font-size: 2em !important;
-    border-bottom-style: solid;                /* groove → solid */
-    border-color: #eaecef;                     /* #004faa → #eaecef */
-    border-width: 1px;                         /* 0.2rem → 1px */
-    padding-bottom: 0.3em !important;          /* 0 → 0.3em */
+    border-bottom-style: solid;
+    border-color: #eaecef;
+    border-width: 1px;
+    padding-bottom: 0.3em !important;
     line-height: 2.9rem;
     margin-block-end: 0.5rem;
     position: relative;
     font-family: 'dymht';
-    color: #24292e;                            /* 新增：GitHub 黑色 */
+    color: #24292e;
 }
 
 div.HyperMD-header.HyperMD-header-2.cm-line {
     padding: 0.2rem 0 0.3em 0rem !important;
     border-top: 0.4rem solid transparent;
     margin-bottom: 0.3rem !important;
-    border-bottom: 1px solid #eaecef;          /* 新增：GitHub 风格下边框 */
+    border-bottom: 1px solid #eaecef;
 }
 
 .theme-dark div.HyperMD-header.HyperMD-header-2.cm-line {
-    border-bottom-color: #373e47;              /* 新增：暗色模式边框 */
+    border-bottom-color: #373e47;
 }
 
 div.HyperMD-header.HyperMD-header-2.cm-line:has(+ .HyperMD-header-3.cm-line) {
@@ -737,7 +735,7 @@ div.HyperMD-header.HyperMD-header-2.cm-line:has(+ .HyperMD-header-3.cm-line) {
 }
 
 span.cm-header.cm-header-2 {
-    color: #24292e;                            /* #004faa → #24292e */
+    color: #24292e;
     font-weight: bold;
     font-size: 1.5rem !important;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -746,7 +744,7 @@ span.cm-header.cm-header-2 {
 }
 
 .theme-dark span.cm-header.cm-header-2 {
-    color: #c9d1d9;                            /* #3481c5 → #c9d1d9 */
+    color: #c9d1d9;
 }
 
 h2,
@@ -754,18 +752,18 @@ h2,
     font-size: 1.5rem !important;
     padding: 0.4rem 0 0 0rem;
     margin-bottom: 1rem !important;
-    color: #24292e;                            /* #004faa → #24292e */
+    color: #24292e;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     position: relative;
     margin-block-start: 0.7rem;
-    border-bottom: 1px solid #eaecef;          /* 新增：GitHub 风格下边框 */
-    padding-bottom: 0.3em;                     /* 新增 */
+    border-bottom: 1px solid #eaecef;
+    padding-bottom: 0.3em;
 }
 
 .theme-dark h2,
 .theme-dark .markdown-rendered h2 {
-    color: #c9d1d9;                            /* #3481c5 → #c9d1d9 */
-    border-bottom-color: #373e47;              /* 新增：暗色模式边框 */
+    color: #c9d1d9;
+    border-bottom-color: #373e47;
 }
 
 .markdown-rendered div:has(> :is(p, pre, table, ul, ol)) + div > :is(h2) {
@@ -781,11 +779,11 @@ span.cm-header.cm-header-3 {
     font-size: 1.25rem !important;
     padding-right: 5px;
     text-align: center;
-    color: #24292e;                            /* 新增：确保 h3 也是黑色 */
+    color: #24292e;
 }
 
 .theme-dark span.cm-header.cm-header-3 {
-    color: #c9d1d9;                            /* 新增：暗色模式 */
+    color: #c9d1d9;
 }
 
 .markdown-rendered div:has(> :is(p, pre, table, ul, ol)) + div > :is(h3) {
@@ -796,11 +794,11 @@ h3 {
     font-size: 1.25rem !important;
     margin-bottom: 0.5rem !important;
     text-align: center;
-    color: #24292e;                            /* 新增 */
+    color: #24292e;
 }
 
 .theme-dark h3 {
-    color: #c9d1d9;                            /* 新增 */
+    color: #c9d1d9;
 }
 
 .HyperMD-header-2.cm-line + .HyperMD-header-3.cm-line {
@@ -830,25 +828,24 @@ div.HyperMD-header.HyperMD-header-4.cm-line {
 span.cm-header.cm-header-4 {
     font-size: 1.25rem !important;
     padding-right: 5px;
-    color: #24292e;                            /* 新增 */
+    color: #24292e;
 }
 
 .theme-dark span.cm-header.cm-header-4 {
-    color: #c9d1d9;                            /* 新增 */
+    color: #c9d1d9;
 }
 
 /* 阅读模式 */
 h4 {
     font-size: 1.25rem !important;
     margin-bottom: 0.5rem !important;
-    color: #24292e;                            /* 新增 */
+    color: #24292e;
 }
 
 .theme-dark h4 {
-    color: #c9d1d9;                            /* 新增 */
+    color: #c9d1d9;
 }
 
-*/
 /* -------------------------------------------------------------- */
 /*
 行内代码
@@ -1316,8 +1313,14 @@ div.cm-table-widget.markdown-rendered {
     padding-bottom: 0;
 }
 
+/*
+ * [修复] 表格光标偏移问题
+ * 原来: margin-top: -0.8rem  → 负 margin 会让表格视觉上移，但点击区域不跟着移动，
+ *        导致点击表格上方第1行时，实际选中的是上方第2行。
+ * 修复: 去掉负 margin-top，改为 0，彻底消除视觉位置与点击区域的偏移。
+ */
 div.cm-table-widget {
-    margin-top: -0.8rem !important;
+    margin-top: 0 !important;
     margin-bottom: 0 !important;
 }
 
@@ -1398,7 +1401,7 @@ div.el-table > table{
 
 /* 让编辑模式表格不自动拉伸，与阅读模式一致 */
 .cm-table-widget table {
-    width: auto !important;      /* 关键：取消默认的 100% 宽度 */
+    width: auto !important;
     table-layout: auto !important;
 }
 
