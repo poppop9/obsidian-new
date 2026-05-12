@@ -19,6 +19,7 @@
 	- `offset explorer 3` kafka 可视化
 	- `redis insight` redis 可视化
 	- `xterminal` 终端工具
+	- 
 - 辅助工具
 	- `超级右键` 可以右键创建文件 ……
 	- `Menuist` 超级右键
