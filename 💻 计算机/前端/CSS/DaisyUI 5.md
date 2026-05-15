@@ -7,6 +7,7 @@ DaisyUI 5 完全兼容 Tailwind CSS 4
 	themes: light --default, dark --prefersdark;
 }
 ```
+
 # ❤️ 按钮
 <u>颜色，样式</u> ：
 - 深色背景按钮
