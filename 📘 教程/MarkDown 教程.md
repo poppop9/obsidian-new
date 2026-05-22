@@ -145,7 +145,7 @@ obsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidian
 > - [ ] 这是一个未完成的项目 
 > ```
 > 
-> - [x] 支持 #标签 ，[链接]()，**样式** 
+> - [x] [链接]()，**样式** 
 > - [x] 这是一个已经完成的项目  
 > - [ ] 这是一个未完成的项目 
 
