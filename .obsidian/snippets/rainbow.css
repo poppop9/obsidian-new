@@ -1315,9 +1315,12 @@ div.cm-table-widget.markdown-rendered {
 
 /*
  * [修复] 表格光标偏移问题
- * 原来: margin-top: -0.8rem  → 负 margin 会让表格视觉上移，但点击区域不跟着移动，
- *        导致点击表格上方第1行时，实际选中的是上方第2行。
- * 修复: 去掉负 margin-top，改为 0，彻底消除视觉位置与点击区域的偏移。
+ * 根本原因：表格容器上存在负 margin 或与实际渲染位置不一致的 margin，
+ * 导致表格视觉位置与 CodeMirror 内部记录的点击区域错位。
+ * 修复原则：
+ *   - div.cm-table-widget 的 margin 必须为 0，由外层 .el-table 统一控制上下间距
+ *   - .el-table 的上下间距改用 padding 而非 margin，
+ *     因为 padding 会随元素一起参与布局，不会造成点击区域偏移
  */
 div.cm-table-widget {
     margin-top: 0 !important;
@@ -1340,9 +1343,16 @@ div.cm-table-widget {
     margin: 0 auto !important;
 }
 
+/*
+ * [修复] 改用 padding 代替 margin 提供表格上下间距。
+ * margin 会在 CodeMirror 的点击坐标计算中造成偏移（点击 "aaa" 却跳到上上行），
+ * padding 则属于元素自身布局区域，点击判定与视觉位置保持一致。
+ */
 .el-table {
-    margin-top: 1rem !important;
-    margin-bottom: 1rem !important;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
 }
 
 .markdown-rendered th,
