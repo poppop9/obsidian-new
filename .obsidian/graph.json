@@ -8,13 +8,6 @@
   "collapse-color-groups": false,
   "colorGroups": [
     {
-      "query": "path:Excalidraw",
-      "color": {
-        "a": 1,
-        "rgb": 0
-      }
-    },
-    {
       "query": "path:计算机",
       "color": {
         "a": 1,
@@ -29,7 +22,7 @@
       }
     },
     {
-      "query": "",
+      "query": "path:\"🎶 音乐\"  ",
       "color": {
         "a": 1,
         "rgb": 11392604
@@ -88,6 +81,6 @@
   "repelStrength": 9.15800415800416,
   "linkStrength": 0,
   "linkDistance": 30,
-  "scale": 1.653513114016684,
+  "scale": 1.1518420725517893,
   "close": false
 }
