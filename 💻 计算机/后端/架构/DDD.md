@@ -343,14 +343,7 @@ public void save(Order order) {
 
 > [!hint] 如果这个应用程序只有接口调用，那可以把 `trigger` 换成 `interfaces`
 
-## 📖 接口层 api
-- 提供统一的外部接口 ：API 层负责将系统的内部功能通过一组清晰的接口暴露给外部（如前端、移动端、第三方系统等），而屏蔽内部实现细节，仅暴露出客户端需要的功能和数据，保证了系统的安全性和可维护性
-- 让领域层专注于业务逻辑，而不用处理低层的通信协议问题
-- 支持多种客户端的需求：系统可能需要支持多种客户端（如 Web 前端、移动端、第三方合作伙伴等），而不同的客户端可能通信协议，数据格式不同，API 层可以协调
-
 ## 📖 应用层 application
-> [!note] application 层不能被引入，并且要直接或间接地引入所有模块
-
 `application` **应用层** ：
 - 在没有 trigger 层时：用来组合领域层之间的业务，形成完整的业务【比如有一个领域是知识星球领域，另一个领域是 ChatGPT 领域，我要进行两个领域的对接，就在应用层实现】
 - 有 trigger 层时：则由 trigger 负责组合领域层之间的业务，application 层负责协调一些全局的配置，配置 resource 资源目录，以及编写测试用例
@@ -418,13 +411,40 @@ types 层用来定义一系列自定义的，用于所有层的公共对象（~~
 [教程](https://zq99299.github.io/note-book2/ddd/01/02.html)
 
 
+# 未整理
+## CQRS
+CQRS 就是把"写数据"和"读数据"分成两套独立的模型和流程来处理，好处就是写操作保证规则、数据正确，读操作保证流程简单、速度快
+
+### 写操作
+写操作会走领域模型，保证规则正确，Command -> Handler -> 聚合根 -> 仓储 -> DB
+
+### 读操作
+读操作会跳过领域模型，直接查数据，Query -> Handler -> 直查DB / 缓存 / ES -> 直接返回 DTO
+
+```text
+project/
+├── interfaces/
+│   └── rest/
+│       └── OrderQueryController.java        ← Controller
+│
+├── application/
+│   └── query/
+│       ├── OrderQuery.java                  ← Query 对象
+│       ├── OrderResult.java                 ← Query 结果
+│       └── OrderQueryHandler.java           ← 查询 Handler
+│
+└── infrastructure/
+    └── persistent/
+        ├── mapper/
+        │   └── OrderMapper.java             ← MyBatis Mapper 接口
+        └── po/
+            └── OrderPO.java                 ← 数据库查询结果映射
+```
 
 
+---
 
-
-
-
-
+Domain 好像是不能直接调用数据库的，只能 application 才可以，因为如果 Domain 依赖了数据库，它就和某个具体技术绑定了
 
 
 
