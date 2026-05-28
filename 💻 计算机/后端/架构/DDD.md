@@ -134,28 +134,6 @@ public class User {
 // 收货地址值对象 ……
 ```
 
-### 📝 领域事件
-领域事件代表了 domain 中有对象的状态变化而触发的一个具有业务意义的事件
-
-```java
-/**
- * 领域事件发布 - 聚合根实现此接口，即可获得领域事件发布能力
- */
-public interface DomainEventPublisher {
-    
-    // List<DomainEvent> getDomainEvents();
-    //
-    // default void registerEvent(DomainEvent event) {
-    //     getDomainEvents().add(event);
-    // }
-    //
-    // default void clearDomainEvents() {
-    //     getDomainEvents().clear();
-    // }
-
-}
-```
-
 ### 📝 变更追踪
 有时聚合内实体的变化（增删改）难以追踪，我们要用变更追踪器来管理，这样在 Repository 中 save 时可以更加容易
 
@@ -328,6 +306,7 @@ public void save(Order order) {
 }
 ```
 
+## 📖 事件风暴
 
 
 # 🧱 项目结构
@@ -413,36 +392,57 @@ types 层用来定义一系列自定义的，用于所有层的公共对象（~~
 
 # 未整理
 ## CQRS
-CQRS 就是把"写数据"和"读数据"分成两套独立的模型和流程来处理，好处就是写操作保证规则、数据正确，读操作保证流程简单、速度快
+CQRS（Command Query Responsibility Segregation）就是把"写数据"和"读数据"分成两套独立的模型和流程来处理，好处就是写操作保证规则、数据正确，读操作保证流程简单、速度快
 
 ### 写操作
 写操作会走领域模型，保证规则正确，Command -> Handler -> 聚合根 -> 仓储 -> DB
 
 ### 读操作
-读操作会跳过领域模型，简单直接，不分太多层，直接查数据，Query -> Handler -> 直查DB / 缓存 / ES -> 直接返回 DTO
+**读操作会跳过领域模型，简单直接，不分太多层，直接查数据，Query -> Handler -> DB / 缓存 / ES -> 返回 Result**
+
+🔴 **涉及多张表如何查询** —— 直接 mapper 查出来映射到 application 层的 Result、在 application 层的 handler 调用多张表的 mapper 然后聚合数据
 
 ```text
 project/
 ├── interfaces/
 │   └── rest/
-│       └── OrderQueryController.java    ← Controller
+│       └── OrderQueryController.java   ← Controller
 │
 ├── application/
 │   └── query/
-│       ├── OrderQuery.java              ← Query 对象
-│       ├── OrderResult.java             ← Query 结果（数据库查出来直接映射到这里）
-│       └── OrderQueryHandler.java       ← 查询 Handler
+│       ├── OrderQuery.java             ← Query 对象
+│       └── OrderResult.java            ← Query 结果（数据库查出来直接映射到这里）
+│       └── OrderQueryHandler.java      ← 查询 Handler
 │
 └── infrastructure/
     └── persistent/
         ├── mapper/
-        │   └── OrderMapper.java         ← MyBatis Mapper 接口
+        │   └── OrderMapper.java        ← MyBatis Mapper 接口
         └── po/
-            └── OrderPO.java             ← 数据库映射
+            └── OrderPO.java            ← 数据库映射
 ```
 
 
 ---
+
+```text
+project/
+├── domain/              # 纯领域层，零依赖
+│   ├── model/           # 聚合根、实体、值对象
+│   ├── repository/      # 仓储接口（只是接口）
+│   └── service/         # 领域服务
+├── application/         # 应用层，编排用例
+│   ├── command/         # 写操作
+│   ├── query/           # 读操作（CQRS）
+│   └── event/           # 领域事件处理
+├── infrastructure/      # 基础设施层
+│   ├── persistence/     # 仓储实现、DO映射
+│   ├── messaging/       # 事件发布
+│   └── external/        # 第三方集成
+└── interfaces/          # 接口层
+    ├── rest/            # Controller
+    └── dto/             # 请求/响应DTO
+```
 
 Domain 好像是不能直接调用数据库的，只能 application 才可以，因为如果 Domain 依赖了数据库，它就和某个具体技术绑定了
 
