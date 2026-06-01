@@ -134,6 +134,14 @@ killall Dock
 
 🔴 键盘 > 开启键盘导航
 
+# 📚 brew
+- `tree` 可以打印项目的树形目录结构
+```
+brew install tree
 
+# 显示 4 层目录
+# 排除不重要目录/文件
+tree -L 4 -I 'target|.git|.idea|*.class|*.log'
+```
 
 

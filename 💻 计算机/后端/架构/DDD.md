@@ -310,8 +310,6 @@ public void save(Order order) {
 
 
 # 🧱 项目结构
-![](https://obsidian-1307744200.cos.ap-guangzhou.myqcloud.com/%E5%9B%BE%E7%89%87/20250123210739.png)
-
 ## 📖 触发器层 trigger
 <u>我们可以根据触发动作进行分类</u>：
 - **接口调用**（HTTP / RPC）
@@ -327,10 +325,9 @@ public void save(Order order) {
 - 在没有 trigger 层时：用来组合领域层之间的业务，形成完整的业务【比如有一个领域是知识星球领域，另一个领域是 ChatGPT 领域，我要进行两个领域的对接，就在应用层实现】
 - 有 trigger 层时：则由 trigger 负责组合领域层之间的业务，application 层负责协调一些全局的配置，配置 resource 资源目录，以及编写测试用例
 
-## 📖 领域层 domain
-> [!note] domain 层不能引入任何模块
-
-- `domain` **领域层** ==Service==
+## 📖 核心领域层 domain
+domain 层不能引入任何模块
+- `domain` **领域层**
 	- `model` **领域模型**，定义了领域对象、聚合和值对象
 		- `bo` 业务对象
 		- `vo` 值对象
@@ -355,6 +352,10 @@ public void save(Order order) {
 
 > [!hint] 在领域与领域之间，如果需要某个充血模型，要把 <u>充血模型</u> 使用工厂组装成 <u>贫血模型</u> 进行传输
 
+## 📖 支撑领域层 support
+
+
+
 ## 📖 基础层 infrastructure
 > [!note] infrastructure 与 domain 的关系
 > infrastructure 与 domain 之间通过仓储 Repository 来解耦
@@ -367,18 +368,18 @@ public void save(Order order) {
 > 	- 【repository】
 > 		- RaffleRepository：RaffleRepository 实现了 IRaffleRepository 接口；然后再调用多个实体优先的 Repository 来整合形成自己的业务
 
-- `infrastructure` **基础层**，包含了数据库，缓存，网关，第三方工具…… ==Mapper==
+- `infrastructure` **基础层**，包含了数据库，缓存，网关，第三方工具…… 
 	- `Mapper` 
 	- `PO` 
 	- `redis` 
 	- `repository` 使用 `@Repository` 标记
 
-🏷️repository 的方法要尽可能的少，要可以复用，比如新增，修改可以写成一个方法批量持久化 saveList
+repository 的方法要尽可能的少，要可以复用，比如新增，修改可以写成一个方法批量持久化 saveList
 
-🏷️repository 的方法要事务一致性，比如有主订单，子订单，那 repository 是不会提供单独持久化子订单的方法的，要修改子订单就必须通过主订单的方法
+repository 的方法要事务一致性，比如有主订单，子订单，那 repository 是不会提供单独持久化子订单的方法的，要修改子订单就必须通过主订单的方法
 
 ## 📖 类型层 types
-types 层用来定义一系列自定义的，用于所有层的公共对象（~~异常类，全局参数类，全局配置类 ……~~）
+types 层用来定义一系列自定义的，用于所有层的公共对象，例如异常类，全局参数类，全局配置类 ……
 
 # 🧩 扩展
 > [!hint] 除非你的系统过于复杂，无法作为单体进行管理，否则不要考虑微服务
