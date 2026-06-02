@@ -1,17 +1,25 @@
 # 📚 软件
-- `cleanmymac`
-- `appcleaner`
 - `paste` 剪贴板
 - `pixpin` 截屏工具
 - `CleanShot X` 截图录屏
-- `Parallels Desktop` 虚拟机
 - `IINA` 播放器
 - `Logic Pro` 编曲软件
 - `cotEditer` 文本编辑软件
 - `CrossOver` 可以运行 exe 文件
 - `pdfgear`
+- `windows app` 可以远程 windows 桌面
+- `Parallels Desktop` 虚拟机
+- `motrix` 磁力下载
+- `downie` 视频下载器
+- `mountain duck` 磁盘挂载
+- `permute` 媒体格式转换器
+- `blip` 传输工具
+- `Transync ai` 同声传译
+- 清理
+	- `cleanmymac`
+	- `appcleaner`
 - 解压缩
-	- `keka` 简介好看
+	- `keka` 简洁好看
 	- `BetterZip` 可预览
 - 编程
 	- `Homebrew` 包管理器
@@ -27,19 +35,8 @@
 	- `coconutBattery` 测电池健康数据
 	- `MenubarX` 菜单栏浏览器
 	- `slidepad` 滑盖侧边栏浏览器
-- `motrix` 磁力下载
-- `downie` 视频下载器
-- `mountain duck` 磁盘挂载
-- `permute` 媒体格式转换器
-- `blip` 传输工具
-- `Transync ai` 同声传译
-
-
----
-
-- Royal TSX Mac上最强大的远程管理软件
+- Royal TSX 远程管理软件
 - memory bar 可以把重要的链接放到菜单栏
-
 
 ## Claude
 - `双击 option` 打开对话框
@@ -53,8 +50,6 @@
 
 # 📚 快捷键
 `⇧ Shift` + `⌥ Option` + `F11 / F12` 细微调节音量
-
-
 
 ## 通用操作
 | 快捷键                | 功能              |
