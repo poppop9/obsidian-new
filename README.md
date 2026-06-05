@@ -123,9 +123,11 @@ async function fetchData(url) {
 ## Callout（提示框）
 > [!quote] 描述某个名词，概念
 
-> [!NOTE] 这是一个笔记类型的 Callout，用于提供额外信息。
+> [!NOTE]
+> 用于提供附加信息、补充说明或上下文
 
-> [!TIP] 这是一个提示 Callout，用于给出有用的建议。
+> [!TIP]
+> 用于提供有用的建议或提示
 
 > [!WARNING] 这是一个警告 Callout，用于提醒注意事项。
 

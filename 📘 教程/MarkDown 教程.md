@@ -41,12 +41,7 @@
 <font color ="FF00BB">使用十六进制颜色集</font>
 ```
 
----
-
 ## 斜体，粗体，删除线，下划线，高亮
-
-^7b4f97
-
 ```
 *斜体*
 **粗体**
@@ -61,12 +56,14 @@
 ~~删除线~~
 <u>下划线</u>
 ==高亮==
+
 ## 代码块
 `单行代码块`
 `` 内含`反引号`的代码块 ``
 ```
 多行代码块
 ```
+
 # 超链接
 ## 文本超链接
  [百度](https://www.baidu.com)
@@ -82,23 +79,21 @@
 ```
 obsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidian![obsidian|inlL|100](https://img1.baidu.com/it/u=2473858672,2989677650&fm=253&fmt=auto&app=138&f=PNG?w=192&h=192)obsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidian
 ## 内部超链接
-### 链接文件
+- 链接文件
 ```
 [[测试]]
 ```
-
-### 链接标题
+- 链接标题
+```
 [[#三、超链接]]
-
-### 链接章节详细内容
+```
+- 链接章节详细内容
+```
 ![[#^7b4f97]]
-
-### 链接全局
+```
+- 链接全局
 ```
 ![[^^存储 运算 控制]]
-```
-```
-查找有包含存储，运算，控制这三个关键词的语句
 ```
 
 ## 网页超链接
@@ -199,9 +194,9 @@ obsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidianobsidian
 ```
 
 | **标题 1** | **标题 2** |
-| -- | -- | 
-| 11 | 12 | 
-|21| 22 |
+| -------- | -------- |
+| 11       | 12       |
+| 21       | 22       |
 
 > [!hint] 表格内的文字换行
 > 使用 `<br>`
@@ -472,10 +467,12 @@ $e^{i\pi} + 1 = 0$
 $\ce{CO2 + C -> 2 CO}$
 $\ce{2Mg + O2 ->[燃烧] 2 MgO}$
 ```
+
 $x^2 + 2x + 5 + \sqrt x = 0$
 $e^{i\pi} + 1 = 0$
 $\ce{CO2 + C -> 2 CO}$
 $\ce{2Mg + O2 ->[燃烧] 2 MgO}$
+
 ## 公式块
 
 $$
