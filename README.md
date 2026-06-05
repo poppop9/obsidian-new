@@ -42,7 +42,6 @@
 ### 任务列表
 
 - [x] 已完成的任务
-- [x] 另一个已完成的任务
 - [ ] 待办事项
 - [ ] 另一个待办事项
     - [ ] 嵌套待办
@@ -111,7 +110,9 @@ async function fetchData(url) {
 | A      |  B   |    C |
 
 ## 水平分割线
+```
 ---
+```
 
 ## 链接
 ```
@@ -123,17 +124,23 @@ async function fetchData(url) {
 ## Callout（提示框）
 > [!quote] 描述某个名词，概念
 
+> [!Base]
+> 用于提供附加信息、补充说明
+
+> [!Title]
+> 用于提供附加信息、补充说明
+
 > [!NOTE]
 > 用于提供附加信息、补充说明
 
 > [!TIP]
 > 用于提供有用的建议或提示
 
-> [!WARNING] 这是一个警告 Callout，用于提醒注意事项。
+> [!WARNING] 这是一个警告 Callout，用于提醒注意事项
 
-> [!DANGER] 这是一个危险 Callout，用于标识严重问题。
+> [!DANGER] 这是一个危险 Callout，用于标识严重问题
 
-> [!INFO] 这是一个信息 Callout，提供背景知识。
+> [!INFO] 这是一个信息 Callout，提供背景知识
 
 > [!todo] 
 
@@ -162,13 +169,6 @@ async function fetchData(url) {
 - summary、abstract、tldr
 - faq、help、question
 - bug
-
-## 脚注
-这是一个包含脚注的句子[^1](https://claude.ai/chat/%E8%BF%99%E6%98%AF%E7%AC%AC%E4%B8%80%E4%B8%AA%E8%84%9A%E6%B3%A8%E7%9A%84%E5%86%85%E5%AE%B9%E3%80%82)。这是另一个脚注[^note](https://claude.ai/chat/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E5%91%BD%E5%90%8D%E8%84%9A%E6%B3%A8%E7%9A%84%E5%86%85%E5%AE%B9%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%8C%85%E5%90%AB%E5%A4%9A%E4%B8%AA%E6%AE%B5%E8%90%BD%E3%80%82)。
-
-```
-脚注可以包含多个段落，只需正确缩进。
-```
 
 ## 特殊字符
 
