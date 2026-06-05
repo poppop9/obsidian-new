@@ -701,7 +701,8 @@ div.math.math-block {
 }
 
 .markdown-source-view.mod-cm6 .cm-content > .HyperMD-header-1 {
-    margin: auto auto 0.3rem auto !important;
+    margin: auto auto 0 auto !important;
+    padding-bottom: 0.3rem !important;
 }
 
 h1,
@@ -720,9 +721,9 @@ h1,
 }
 
 div.HyperMD-header.HyperMD-header-2.cm-line {
-    padding: 0.2rem 0 0.3em 0rem !important;
+    padding: 0.2rem 0 calc(0.3em + 0.3rem) 0rem !important;
     border-top: 0.4rem solid transparent;
-    margin-bottom: 0.3rem !important;
+    margin-bottom: 0 !important;
     border-bottom: 1px solid #eaecef;
 }
 
@@ -731,7 +732,8 @@ div.HyperMD-header.HyperMD-header-2.cm-line {
 }
 
 div.HyperMD-header.HyperMD-header-2.cm-line:has(+ .HyperMD-header-3.cm-line) {
-    margin-bottom: 0.2rem !important;
+    margin-bottom: 0 !important;
+    padding-bottom: calc(0.3em + 0.2rem) !important;
 }
 
 span.cm-header.cm-header-2 {
@@ -771,7 +773,8 @@ h2,
 }
 
 div.HyperMD-header.HyperMD-header-3.cm-line {
-    margin-bottom: 3px !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 3px !important;
     text-align: center;
 }
 
@@ -802,8 +805,8 @@ h3 {
 }
 
 .HyperMD-header-2.cm-line + .HyperMD-header-3.cm-line {
-    padding-top: 0rem;
-    margin-top: 0.1rem !important;
+    padding-top: 0.1rem !important;
+    margin-top: 0 !important;
     border-top: none !important;
 }
 
@@ -812,17 +815,20 @@ h3 {
 }
 
 .markdown-source-view.mod-cm6 .HyperMD-header-2.cm-line {
-    margin-bottom: 1rem !important;
+    margin-bottom: 0 !important;
+    padding-bottom: calc(0.3em + 1rem) !important;
 }
 
 .markdown-source-view.mod-cm6 .HyperMD-header-2.cm-line:not(:has(+ .HyperMD-header-3.cm-line)) {
-    margin-bottom: 1rem !important;
+    margin-bottom: 0 !important;
+    padding-bottom: calc(0.3em + 1rem) !important;
 }
 
 /* 标题4 */
 /* 编辑模式 */
 div.HyperMD-header.HyperMD-header-4.cm-line {
-    margin-bottom: 3px !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 3px !important;
 }
 
 span.cm-header.cm-header-4 {
