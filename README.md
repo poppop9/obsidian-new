@@ -130,6 +130,9 @@ async function fetchData(url) {
 > [!TIP]
 > 用于提供有用的建议或提示
 
+> [!important]
+> 用于强调对用户很重要的关键信息
+
 > [!WARNING] 这是一个警告 Callout，用于提醒注意事项
 
 > [!DANGER] 这是一个危险 Callout，用于标识严重问题
@@ -152,7 +155,7 @@ async function fetchData(url) {
 
 - quote、cite
 - note
-- tip、hint、important
+- tip、hint、
 - warning、attention、caution
 - error、danger
 - info
