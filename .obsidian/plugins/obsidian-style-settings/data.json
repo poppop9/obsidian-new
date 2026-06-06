@@ -198,5 +198,5 @@
   "Components@@vault-profile-autohide": false,
   "Appearance-light@@card-layout-open-light": false,
   "Appearance-light@@theme-light-style-select": "theme-light-background-default",
-  "baseline-style@@active-line-style": "active-line-off"
+  "obsidian-velocity@@theme-paint-light": "velocity"
 }
