@@ -53,7 +53,6 @@ tag:问题
 - _**Excalidraw**_
 - _**Image auto upload Plugin**_ 图床
 - _**Keyboard Analyzer**_ 查看各种键的快捷键
-- _**Recent Files**_ 显示最近文件
 - _**Setting Search**_ ob 的原生搜素不全面，这个设置搜索好用
 - _**Style Settings**_ 对于主题的 css 设置
 - `Linter` 格式化文档
