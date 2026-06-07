@@ -1091,18 +1091,22 @@ div.HyperMD-list-line {
     width: 0.4rem;
 }
 
-/* callout里的无序列表 */
-blockquote ul {
-    padding-inline-start: 1.3rem !important;
+/* callout/引用块里的列表缩进和普通列表保持一致 */
+.markdown-rendered blockquote ul,
+.markdown-rendered blockquote ol,
+.markdown-rendered .callout-content ul,
+.markdown-rendered .callout-content ol {
+    margin-inline-start: 0 !important;
+    padding-inline-start: 0 !important;
 }
 
-/* 阅读模式下引用块内的无序列表缩进修复 */
-.markdown-rendered blockquote ul > li {
-    margin-inline-start: 1ch;
+.markdown-rendered blockquote ul > li,
+.markdown-rendered .callout-content ul > li {
+    margin-inline-start: 3.2ch;
 }
 
-/* 阅读模式下引用块内的有序列表缩进修复 */
-.markdown-rendered blockquote ol > li {
+.markdown-rendered blockquote ol > li,
+.markdown-rendered .callout-content ol > li {
     margin-inline-start: 2ch;
 }
 
