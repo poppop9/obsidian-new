@@ -1042,8 +1042,12 @@ div.HyperMD-list-line {
 }
 
 /* 阅读模式 */
+.markdown-rendered ul {
+    padding-inline-start: 2em;
+}
+
 .markdown-rendered ul > li {
-    margin-inline-start: 4.4ch;
+    margin-inline-start: 0;
 }
 
 /* 一级无序列表 */
@@ -1091,23 +1095,23 @@ div.HyperMD-list-line {
     width: 0.4rem;
 }
 
-/* callout/引用块里的列表缩进和普通列表保持一致 */
+/* callout/引用块里的列表缩进按 GitHub markdown 风格处理 */
 .markdown-rendered blockquote ul,
 .markdown-rendered blockquote ol,
 .markdown-rendered .callout-content ul,
 .markdown-rendered .callout-content ol {
     margin-inline-start: 0 !important;
-    padding-inline-start: 0 !important;
+    padding-inline-start: 2em !important;
 }
 
 .markdown-rendered blockquote ul > li,
 .markdown-rendered .callout-content ul > li {
-    margin-inline-start: 3.2ch;
+    margin-inline-start: 0;
 }
 
 .markdown-rendered blockquote ol > li,
 .markdown-rendered .callout-content ol > li {
-    margin-inline-start: 2ch;
+    margin-inline-start: 0;
 }
 
 .callout-content > ul > li:last-child {
@@ -1201,10 +1205,11 @@ div > ol > li[data-line] {
 /* 阅读模式 */
 .markdown-rendered ol {
     margin-block-start: 0.3rem;
+    padding-inline-start: 2em;
 }
 
 .markdown-rendered ol > li {
-    margin-inline-start: 6.5ch;
+    margin-inline-start: 0;
 }
 
 ol > li::marker {
