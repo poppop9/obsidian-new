@@ -1750,3 +1750,107 @@ body:not(.remove-custom-svg-icons) .workspace-leaf-content .view-header .view-ac
     background-image: linear-gradient(90deg, #6b6b6b40 3%, transparent 0), linear-gradient(#6b6b6b40 3%, transparent 0);
     background-size: 25px 25px;
 }
+
+/* ================================================================================== */
+/* Obsidian 左侧功能区与侧边栏自动隐藏与悬浮显示 (Auto-hide Left Ribbon & Sidebar on Hover) */
+/* ================================================================================== */
+
+/* 1. 为功能栏和侧边栏设置平滑的过渡动画，并设置鼠标离开时的延迟（防止误触关闭） */
+.workspace-ribbon.mod-left,
+.workspace-split.mod-left-split {
+    transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0.2s, 
+                min-width 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0.2s, 
+                max-width 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0.2s, 
+                opacity 0.25s ease-in-out 0.2s,
+                border 0.25s ease-in-out 0.2s !important;
+}
+
+/* 2. 默认收起/隐藏状态 (当没有悬停且没有焦点时) */
+
+/* 收起左侧功能栏 (保留 5px 的极窄悬停触发区域) */
+.workspace-ribbon.mod-left:not(:hover):not(:focus-within) {
+    width: 5px !important;
+    min-width: 5px !important;
+    max-width: 5px !important;
+    opacity: 0.1 !important;
+    background-color: transparent !important;
+    border-right: none !important;
+    overflow: hidden !important;
+    z-index: 99 !important; /* 确保置于顶层以响应悬停事件 */
+}
+
+/* 隐藏收起状态下的功能栏图标，避免图标被挤压变形 */
+.workspace-ribbon.mod-left:not(:hover):not(:focus-within) > * {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* 收起左侧侧边栏 */
+.workspace-split.mod-left-split:not(:hover):not(:focus-within) {
+    width: 0px !important;
+    min-width: 0px !important;
+    max-width: 0px !important;
+    opacity: 0 !important;
+    border-right: none !important;
+    overflow: hidden !important;
+}
+
+/* 3. 展开状态 (悬停或内部获得焦点时) - 消除延迟以实现即时响应 */
+
+/* 悬停在功能栏时展开功能栏 */
+.workspace-ribbon.mod-left:hover,
+.workspace-ribbon.mod-left:focus-within {
+    width: var(--ribbon-width, 48px) !important;
+    min-width: var(--ribbon-width, 48px) !important;
+    max-width: var(--ribbon-width, 48px) !important;
+    opacity: 1 !important;
+    background-color: var(--background-secondary) !important;
+    border-right: 1px solid var(--border-color) !important;
+    transition-delay: 0s !important;
+}
+.workspace-ribbon.mod-left:hover > *,
+.workspace-ribbon.mod-left:focus-within > * {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transition-delay: 0s !important;
+}
+
+/* 悬停在功能栏时，侧边栏也同步展开 */
+.workspace-ribbon.mod-left:hover + .workspace-split.mod-left-split,
+.workspace-ribbon.mod-left:focus-within + .workspace-split.mod-left-split {
+    width: 260px !important;
+    min-width: 260px !important;
+    max-width: 260px !important;
+    opacity: 1 !important;
+    border-right: 1px solid var(--border-color) !important;
+    transition-delay: 0s !important;
+}
+
+/* 悬停在侧边栏内部时，保持侧边栏展开 */
+.workspace-split.mod-left-split:hover,
+.workspace-split.mod-left-split:focus-within {
+    width: 260px !important;
+    min-width: 260px !important;
+    max-width: 260px !important;
+    opacity: 1 !important;
+    border-right: 1px solid var(--border-color) !important;
+    transition-delay: 0s !important;
+}
+
+/* 悬停在侧边栏时，功能栏也同步保持展开 (使用 :has 选择器) */
+.workspace:has(.workspace-split.mod-left-split:hover) .workspace-ribbon.mod-left,
+.workspace:has(.workspace-split.mod-left-split:focus-within) .workspace-ribbon.mod-left {
+    width: var(--ribbon-width, 48px) !important;
+    min-width: var(--ribbon-width, 48px) !important;
+    max-width: var(--ribbon-width, 48px) !important;
+    opacity: 1 !important;
+    background-color: var(--background-secondary) !important;
+    border-right: 1px solid var(--border-color) !important;
+    transition-delay: 0s !important;
+}
+.workspace:has(.workspace-split.mod-left-split:hover) .workspace-ribbon.mod-left > *,
+.workspace:has(.workspace-split.mod-left-split:focus-within) .workspace-ribbon.mod-left > * {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transition-delay: 0s !important;
+}
