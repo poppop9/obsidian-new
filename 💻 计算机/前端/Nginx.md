@@ -1,17 +1,7 @@
-
-> [!hint] nginx 中的进程
-> nginx 中的进程分为：
-> - `master` ：主进程，负责读取配置文件，管理 `worker` 进程，~~只有一个~~
-> - `worker` ：工作进程，负责处理请求，~~可以有多个，在 `nginx.conf` 里配置~~
-
-- `nginx` 
-	- `conf` 
-		- `conf.d` 【所有配置文件定义在这里就好，nginx.conf 会自动引入】
-			- default.conf
-		- nginx.conf
-	- `html` 
-	- `logs` 
-	- `ssl` 
+> [!NOTE]
+> **nginx 中的进程**
+> - master ：主进程，负责读取配置文件，管理 worker 进程，只有一个
+> - worker ：工作进程，负责处理请求，可以有多个，在 nginx.conf 里配置
 
 # ❤️ 部署安装
 ```bash
@@ -24,6 +14,18 @@ docker run \
   -v nginx_conf:/etc/nginx/conf.d \
   -v nginx_ssl:/etc/nginx/ssl \
   -d --restart=always nginx:1.28.0
+```
+
+# 📚 nginx 目录结构
+```
+nginx/
+├── conf/
+│   ├── conf.d/    # 配置文件定义在这里，nginx.conf 会自动引入
+│   │   └── default.conf
+│   └── nginx.conf
+├── html/
+├── logs/
+└── ssl/
 ```
 
 # ❤️ 配置文件
@@ -44,9 +46,9 @@ docker run \
 			- `auth_request 鉴权路径` 对于访问 location 的请求，再发送子请求给鉴权路径，如果返回 2xx，则会继续处理这个原始请求；否则 4xx
 			- `proxy_pass 请求地址` 将 location 的请求转发到另一个请求地址
 
-> [!hint] `location = /auth { ... }` 与 `location /auth { ... }` 的区别
-> - `location = /auth { ... }`：只会匹配 /auth
-> - `location /auth { ... }`：会匹配以 /auth 开头的所有路径，及其所有子路径下的 index.html
+location = /auth { ... } 与 location /auth { ... } 的区别
+- location = /auth { ... }：只会匹配 /auth
+- location /auth { ... }：会匹配以 /auth 开头的所有路径，及其所有子路径下的 index.html
 
 ---
 
@@ -85,6 +87,15 @@ http {
 	# 包含了其他的配置文件
     include /etc/nginx/conf.d/*.conf;
 }
+```
+
+## 📖 配置命令
+```bash
+# 检查配置是否正确
+nginx -t
+
+# 重新加载配置（不中断连接）
+nginx -s reload
 ```
 
 # ❤️ 功能
