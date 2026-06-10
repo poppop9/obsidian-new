@@ -1,4 +1,4 @@
-# 📚 标题
+# 📚 笔记编写规范
 ```
 - 一级标题：📚 (书本，表示整个学科/主题)
 - 二级标题：📖 (打开的书，表示章节)
@@ -14,6 +14,44 @@
 
 常用 emoji ：➜
 ```
+
+# 📚 Obsidian 特殊 md 语法
+## 📖 图片超链接
+![obsidian#right](https://img1.baidu.com/it/u=2473858672,2989677650&fm=253&fmt=auto&app=138&f=PNG?w=192&h=192 "我是提示信息")
+
+```
+![obsidian#right](https://img1.baidu.com/it/u=2473858672,2989677650&fm=253&fmt=auto&app=138&f=PNG?w=192&h=192 "我是提示信息")
+```
+
+## 📖 内部超链接
+- 链接文件
+```
+[[测试]]
+```
+- 链接标题
+```
+[[#三、超链接]]
+```
+- 链接章节详细内容
+```
+![[#^7b4f97]]
+```
+- 链接全局
+```
+![[^^存储 运算 控制]]
+```
+
+## 📖 网页超链接
+
+<iframe src="https://player.bilibili.com/player.html?aid=485269699&bvid=BV1hT411n7gG&cid=1104774731&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="450"> </iframe>
+<div style="position: relative; width: 100%; height: 0; padding-top: 56.2500%;
+ padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+ border-radius: 8px; will-change: transform;">
+  <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+    src="https:&#x2F;&#x2F;www.canva.cn&#x2F;design&#x2F;DAFmXTF2CKs&#x2F;view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+  </iframe>
+</div>
+<iframe src="https://www.bilibili.com/" style="width: 100%; height: 400px;"></iframe>
 
 # 📚 快捷键
 - 新建笔记 `ctrl+n`
