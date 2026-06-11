@@ -119,22 +119,24 @@ async function fetchData(url) {
 ```
 
 # Callout
-> [!quote] 描述某个名词，概念
-
 > [!NOTE]
 > 用于提供附加信息、补充说明
 
 > [!TIP]
 > 用于提供有用的建议、提示
 
-> [!important]
+> [!IMPORTANT]
 > 用于强调对用户很重要的关键信息
 
-> [!WARNING] 这是一个警告 Callout，用于提醒注意事项
+> [!WARNING]
+> 这是一个警告 Callout，用于提醒注意事项
 
-> [!DANGER] 这是一个危险 Callout，用于标识严重问题
+> [!CAUTION]
+> 这是一个危险 Callout，用于标识严重问题
 
-> [!INFO] 这是一个信息 Callout，提供背景知识
+> [!quote] 描述某个名词，概念
+
+> [!INFO]
 
 > [!todo] 
 
@@ -150,14 +152,10 @@ async function fetchData(url) {
 
 > [!bug] 测试
 
-- quote、cite
-- note
-- tip、hint、
-- warning、attention、caution
+- cite
+- attention、caution
 - error、danger
 - info
-- todo
-- example
 - fail、failure、missing
 - success、check、done
 - summary、abstract、tldr
