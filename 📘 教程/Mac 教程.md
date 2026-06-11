@@ -27,19 +27,16 @@
 	- `offset explorer 3` kafka 可视化
 	- `redis insight` redis 可视化
 	- `xterminal` 终端工具
-	- 
 - 辅助工具
 	- `超级右键` 可以右键创建文件 ……
 	- `Menuist` 超级右键
 	- `文件夹夹` 可以将 finder 快捷固定到刘海
-	- `coconutBattery` 测电池健康数据
+	- `coconutBattery` 测电池健康
 	- `MenubarX` 菜单栏浏览器
 	- `slidepad` 滑盖侧边栏浏览器
+	- `Tot` 菜单栏备忘录
 - Royal TSX 远程管理软件
-- memory bar 可以把重要的链接放到菜单栏
 
-## Claude
-- `双击 option` 打开对话框
 
 ## PixPin
 - `control + 1` 进入截图界面
