@@ -125,7 +125,7 @@ async function fetchData(url) {
 > 用于提供附加信息、补充说明
 
 > [!TIP]
-> 用于提供有用的建议或提示
+> 用于提供有用的建议、提示
 
 > [!important]
 > 用于强调对用户很重要的关键信息
