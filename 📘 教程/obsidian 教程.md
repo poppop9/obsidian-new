@@ -102,3 +102,4 @@ tag:问题
 - `Linter` 格式化文档
 - `Code Styler` 
 - `chat view` 聊天气泡
+- `Timeline` 时间轴渲染
