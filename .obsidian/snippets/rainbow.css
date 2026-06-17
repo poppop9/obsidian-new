@@ -55,6 +55,7 @@ root variables including colors, font-familys and a shadow style
     --code-bg-color: rgb(247, 247, 247);
     --del-color: rgb(151, 151, 151);
     --selection-bg-color: rgb(235, 227, 255);
+    --list-marker-color: #24292e;
     --block-shadow: 0.15rem 0.15rem 0.5rem rgb(150, 150, 150);
     --sans-serif-font: "Noto Sans SC Medium", "Noto Sans SC", sans-serif;
     --monospace-font: "Source Code Pro Regular", "Source Code Pro", monospace;
@@ -1019,19 +1020,19 @@ div.cm-line:not([class*="HyperMD-list-line"]) + div.HyperMD-list-line.HyperMD-li
 
 /* 那个点 */
 .cm-list-1 > .list-bullet::after {
-    background-color: #ed6c60;
+    background-color: var(--list-marker-color);
     height: 0.4rem;
     width: 0.4rem;
 }
 
 .cm-list-2 > .list-bullet::after {
-    background-color: #f7c151;
+    background-color: var(--list-marker-color);
     height: 0.4rem;
     width: 0.4rem;
 }
 
 .cm-list-3 > .list-bullet::after {
-    background-color: #64c856;
+    background-color: var(--list-marker-color);
     height: 0.4rem;
     width: 0.4rem;
 }
@@ -1052,45 +1053,45 @@ div.HyperMD-list-line {
 
 /* 一级无序列表 */
 .has-list-bullet > li > .list-bullet::after {
-    background-color: #ed6c60;
+    background-color: var(--list-marker-color);
     height: 0.4rem;
     width: 0.4rem;
 }
 
 /* 二级无序列表 */
 .has-list-bullet > li > .has-list-bullet > li > .list-bullet::after {
-    background-color: #f7c151;
+    background-color: var(--list-marker-color);
 }
 
 /* 三级无序列表 */
 .has-list-bullet > li > .has-list-bullet > li > .has-list-bullet > li > .list-bullet::after {
-    background-color: #64c856;
+    background-color: var(--list-marker-color);
 }
 
 /* 四级无序列表 */
 .has-list-bullet > li > .has-list-bullet > li > .has-list-bullet > li > .has-list-bullet > li > .list-bullet::after {
-    background-color: #ed6c60;
+    background-color: var(--list-marker-color);
     height: 0.4rem;
     width: 0.4rem;
 }
 
 /* 五级无序列表 */
 .has-list-bullet > li > .has-list-bullet > li > .has-list-bullet > li > .has-list-bullet > li > .has-list-bullet > li > .list-bullet::after {
-    background-color: #f7c151;
+    background-color: var(--list-marker-color);
     height: 0.4rem;
     width: 0.4rem;
 }
 
 /* 六级无序列表 */
 .has-list-bullet > li > .has-list-bullet > li > .has-list-bullet > li > .has-list-bullet > li > .has-list-bullet > li > .has-list-bullet > li > .list-bullet::after {
-    background-color: #64c856;
+    background-color: var(--list-marker-color);
     height: 0.4rem;
     width: 0.4rem;
 }
 
 /* 七级无序列表 */
 .has-list-bullet > li > .has-list-bullet > li > .has-list-bullet > li > .has-list-bullet > li > .has-list-bullet > li > .has-list-bullet > li > .has-list-bullet > li > .list-bullet::after {
-    background-color: #ed6c60;
+    background-color: var(--list-marker-color);
     height: 0.4rem;
     width: 0.4rem;
 }
@@ -1119,37 +1120,37 @@ div.HyperMD-list-line {
 }
 
 ul > li::marker {
-    color: #ed6c60;
+    color: var(--list-marker-color);
     font-weight: bold;
 }
 
 ul > li > ul > li::marker {
-    color: #f7c151;
+    color: var(--list-marker-color);
     font-weight: bold;
 }
 
 ul > li > ul > li > ul > li::marker {
-    color: #64c856;
+    color: var(--list-marker-color);
     font-weight: bold;
 }
 
 ul > li > ul > li > ul > li > ul > li::marker {
-    color: #ed6c60;
+    color: var(--list-marker-color);
     font-weight: bold;
 }
 
 ul > li > ul > li > ul > li > ul > li > ul > li::marker {
-    color: #f7c151;
+    color: var(--list-marker-color);
     font-weight: bold;
 }
 
 ul > li > ul > li > ul > li > ul > li > ul > li > ul > li::marker {
-    color: #64c856;
+    color: var(--list-marker-color);
     font-weight: bold;
 }
 
 ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li::marker {
-    color: #ed6c60;
+    color: var(--list-marker-color);
     font-weight: bold;
 }
 
@@ -1182,58 +1183,60 @@ ul > li.task-list-item[data-task="X"] {
 
 /* ---------------------------------------------------------------------------------- */
 /* 有序列表 */
-div > ol > li[data-line] {
+.markdown-source-view.mod-cm6 div > ol > li[data-line] {
     transform: translate(-22px, 0px);
 }
 
 /* 编辑模式 */
 .cm-list-1 > .list-number {
-    color: #ed6c60;
+    color: var(--list-marker-color);
     font-weight: bold;
 }
 
 .cm-list-2 > .list-number {
-    color: #f7c151;
+    color: var(--list-marker-color);
     font-weight: bold;
 }
 
 .cm-list-3 > .list-number {
-    color: #64c856;
+    color: var(--list-marker-color);
     font-weight: bold;
 }
 
 /* 阅读模式 */
 .markdown-rendered ol {
     margin-block-start: 0.3rem;
-    padding-inline-start: 2em;
+    margin-inline-start: 0;
+    padding-inline-start: 2.5em;
 }
 
 .markdown-rendered ol > li {
     margin-inline-start: 0;
+    padding-inline-start: 0.25em;
 }
 
 ol > li::marker {
-    color: #ed6c60;
+    color: var(--list-marker-color);
     font-weight: bold;
 }
 
 ol > li > ol > li::marker {
-    color: #f7c151;
+    color: var(--list-marker-color);
     font-weight: bold;
 }
 
 ol > li > ol > li > ol > li::marker {
-    color: #64c856;
+    color: var(--list-marker-color);
     font-weight: bold;
 }
 
 ol > li > ol > li > ol > li > ol > li::marker {
-    color: #ed6c60;
+    color: var(--list-marker-color);
     font-weight: bold;
 }
 
 ol > li > ol > li > ol > li > ol > li > ol > li::marker {
-    color: #f7c151;
+    color: var(--list-marker-color);
     font-weight: bold;
 }
 
