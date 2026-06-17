@@ -817,12 +817,12 @@ h3 {
 
 .markdown-source-view.mod-cm6 .HyperMD-header-2.cm-line {
     margin-bottom: 0 !important;
-    padding-bottom: calc(0.3em + 1rem) !important;
+    padding-bottom: calc(0.3em + 0.3rem) !important;
 }
 
 .markdown-source-view.mod-cm6 .HyperMD-header-2.cm-line:not(:has(+ .HyperMD-header-3.cm-line)) {
-    margin-bottom: 0 !important;
-    padding-bottom: calc(0.3em + 1rem) !important;
+    margin-bottom: 0.8rem !important;
+    padding-bottom: calc(0.3em + 0.3rem) !important;
 }
 
 /* 标题4 */
@@ -851,6 +851,15 @@ h4 {
 
 .theme-dark h4 {
     color: #c9d1d9;
+}
+
+/* 编辑模式：标题分割线下方保留和 GitHub 接近的正文间距 */
+.markdown-source-view.mod-cm6 .HyperMD-header-1.cm-line:not(:has(+ .HyperMD-header)),
+.markdown-source-view.mod-cm6 .HyperMD-header-3.cm-line:not(:has(+ .HyperMD-header)),
+.markdown-source-view.mod-cm6 .HyperMD-header-4.cm-line:not(:has(+ .HyperMD-header)),
+.markdown-source-view.mod-cm6 .HyperMD-header-5.cm-line:not(:has(+ .HyperMD-header)),
+.markdown-source-view.mod-cm6 .HyperMD-header-6.cm-line:not(:has(+ .HyperMD-header)) {
+    margin-bottom: 0.8rem !important;
 }
 
 /* -------------------------------------------------------------- */
