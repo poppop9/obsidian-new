@@ -159,6 +159,23 @@ async function fetchData(url) {
 - faq、help、question
 - bug
 
+# YAML Frontmatter
+这些属性不会直接显示在笔记正文里，而是作为笔记的元数据供 Obsidian、Dataview、搜索和插件使用
+```
+---
+source: https://example.com
+tags:
+  - AI
+  - Obsidian
+topic: 知识管理
+aliases:
+  - 黑曜石笔记
+cssclasses:
+  - wide-page
+title: Obsidian 属性说明
+---
+```
+
 # 注释
 这里是行内注释：%% 预览模式下你将看不到这句话%%
 
