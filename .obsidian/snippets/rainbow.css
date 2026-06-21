@@ -1767,6 +1767,7 @@ body:not(.remove-custom-svg-icons) .workspace-leaf-content .view-header .view-ac
 /* Obsidian 左侧侧边栏默认隐藏，悬停时显示 */
 /* ================================================================================== */
 
+/*
 :root {
     --left-sidebar-hover-width: 280px;
     --left-sidebar-trigger-width: 24px;
@@ -1800,3 +1801,4 @@ body:not(.remove-custom-svg-icons) .workspace-leaf-content .view-header .view-ac
     overflow: visible !important;
     border-right: 1px solid var(--background-modifier-border) !important;
 }
+*/
