@@ -8,4 +8,6 @@
 
 Areas 和 Resources —— Areas 是你需要负责的事情，Resources 是你感兴趣的事情。
 - Areas，你必须持续维护，否则会出问题
-- Resources，你不维护也不会出事。
+- Resources，你不维护也不会出事
+
+- Archives，曾经活跃，现在休眠的项目，而且 archive 一般是你不会主动去翻的地方
