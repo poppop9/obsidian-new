@@ -60,6 +60,11 @@ root variables including colors, font-familys and a shadow style
     --link-hover-bg-color: rgba(138, 164, 173, 0.16);
     --link-text-color: var(--bold-color, var(--text-normal, #24292e));
     --link-text-weight: var(--bold-weight, 700);
+    --inline-code-text-color: #2f4f8f;
+    --inline-code-bg-color: #f1f3f6;
+    --inline-code-hover-bg-color: #e9eef3;
+    --inline-code-border-color: rgba(96, 125, 139, 0.18);
+    --inline-code-shadow-color: rgba(31, 43, 52, 0.1);
     --list-marker-color: #24292e;
     --block-shadow: 0.15rem 0.15rem 0.5rem rgb(150, 150, 150);
     --sans-serif-font: "Noto Sans SC Medium", "Noto Sans SC", sans-serif;
@@ -544,7 +549,7 @@ div.cm-line.cm-line > span.cm-hmd-internal-link > span {
     font-weight: var(--link-text-weight);
     text-decoration-line: none;
 
-    border-bottom: 3px dashed var(--link-underline-color);
+    border-bottom: 3px solid var(--link-underline-color);
 }
 
 .cm-hmd-footnote.cm-link > .cm-underline {
@@ -577,7 +582,7 @@ div.cm-line.cm-line > span.cm-hmd-internal-link > span {
     color: var(--link-text-color);
     font-weight: var(--link-text-weight);
     text-decoration: none;
-    border-bottom: 3px dashed var(--link-underline-color);
+    border-bottom: 3px solid var(--link-underline-color);
 }
 
 @media (hover: hover) {
@@ -929,36 +934,71 @@ div.cm-active.cm-line .cm-s-obsidian .cm-formatting {
 /* 编辑模式 */
 .cm-s-obsidian .cm-inline-code:not(.cm-formatting) {
     font-family: "Source Code Pro Regular", "Source Code Pro", monospace;
-    padding: 0.1rem 0.17rem !important;
-    margin-left: 0.07rem !important;
-    margin-right: 0.2rem;
-    box-shadow: 0.12rem 0.02rem 0.4rem rgb(150, 150, 150);
+    color: var(--inline-code-text-color);
+    background-color: var(--inline-code-bg-color);
+    padding: 0.06rem 0.38rem 0.08rem !important;
+    margin-left: 0.1rem !important;
+    margin-right: 0.16rem;
+    border: 1px solid var(--inline-code-border-color);
+    border-radius: 0.34rem;
+    box-shadow: 0 0.08rem 0.2rem var(--inline-code-shadow-color);
+    font-size: 0.93em;
+    font-weight: 600;
+    line-height: 1.32;
+    vertical-align: 0.02em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .code-styler.code-styler-style-inline .cm-s-obsidian span.cm-inline-code {
-    padding: 0.1rem 0.17rem !important;
+    padding: 0.06rem 0.38rem 0.08rem !important;
 }
 
 .theme-light .cm-s-obsidian .cm-inline-code:not(.cm-formatting) {
-    background-color: rgb(247, 247, 247);
+    background-color: var(--inline-code-bg-color);
+}
+
+.cm-s-obsidian .cm-inline-code:not(.cm-formatting):hover {
+    background-color: var(--inline-code-hover-bg-color);
+    border-color: rgba(96, 125, 139, 0.3);
+    box-shadow: 0 0.1rem 0.26rem rgba(31, 43, 52, 0.14);
 }
 
 /* 阅读模式，行内代码 */
 .markdown-rendered code:not(pre code) {
-    margin-right: 0.25rem;
     font-family: "Source Code Pro Regular", "Source Code Pro", monospace;
-    box-shadow: 0.12rem 0.02rem 0.4rem rgb(150, 150, 150);
-    margin-left: 0.25rem;
-    margin-right: 0.28rem;
+    color: var(--inline-code-text-color);
+    background-color: var(--inline-code-bg-color);
+    padding: 0.06rem 0.38rem 0.08rem;
+    margin-left: 0.1rem;
+    margin-right: 0.16rem;
+    border: 1px solid var(--inline-code-border-color);
+    border-radius: 0.34rem;
+    box-shadow: 0 0.08rem 0.2rem var(--inline-code-shadow-color);
+    font-size: 0.93em;
+    font-weight: 600;
+    line-height: 1.32;
+    white-space: break-spaces;
+    vertical-align: 0.02em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .code-styler.code-styler-style-inline .markdown-rendered :not(pre) > code:not([class*=blur]) {
-    padding: 0.1em 0.25em !important;
+    padding: 0.06rem 0.38rem 0.08rem !important;
 }
 
 .theme-light .markdown-rendered code:not(pre code) {
     /* color: rgb(0, 0, 0); */
-    background-color: rgb(247, 247, 247);
+    background-color: var(--inline-code-bg-color);
+}
+
+.markdown-rendered code:not(pre code):hover {
+    background-color: var(--inline-code-hover-bg-color);
+    border-color: rgba(96, 125, 139, 0.3);
+    box-shadow: 0 0.1rem 0.26rem rgba(31, 43, 52, 0.14);
 }
 
 /* -------------------------------------------------------------- */
