@@ -1,6 +1,3 @@
-
-
-
 # 物理
 ```dataview
 LIST
@@ -18,7 +15,6 @@ FROM #问题
 LIST
 FROM #重构
 ```
-
 
 # 未整理
 ```dataview
