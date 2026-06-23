@@ -883,7 +883,7 @@ h3 {
 }
 
 .markdown-source-view.mod-cm6 .HyperMD-header-2.cm-line:not(:has(+ .HyperMD-header-3.cm-line)) {
-    margin-bottom: 0.8rem !important;
+    margin-bottom: 0 !important;
     padding-bottom: calc(0.3em + 0.3rem) !important;
 }
 
@@ -915,13 +915,29 @@ h4 {
     color: #c9d1d9;
 }
 
-/* 编辑模式：标题分割线下方保留和 GitHub 接近的正文间距 */
-.markdown-source-view.mod-cm6 .HyperMD-header-1.cm-line:not(:has(+ .HyperMD-header)),
+/* 编辑模式：标题后正文间距放在下一行，保留 GitHub 风格的分割线位置 */
+.markdown-source-view.mod-cm6 .HyperMD-header-1.cm-line:not(:has(+ .HyperMD-header)) {
+    margin-bottom: 0 !important;
+}
+
 .markdown-source-view.mod-cm6 .HyperMD-header-3.cm-line:not(:has(+ .HyperMD-header)),
-.markdown-source-view.mod-cm6 .HyperMD-header-4.cm-line:not(:has(+ .HyperMD-header)),
+.markdown-source-view.mod-cm6 .HyperMD-header-4.cm-line:not(:has(+ .HyperMD-header)) {
+    margin-bottom: 0 !important;
+    padding-bottom: 3px !important;
+}
+
 .markdown-source-view.mod-cm6 .HyperMD-header-5.cm-line:not(:has(+ .HyperMD-header)),
 .markdown-source-view.mod-cm6 .HyperMD-header-6.cm-line:not(:has(+ .HyperMD-header)) {
-    margin-bottom: 0.8rem !important;
+    margin-bottom: 0 !important;
+}
+
+.markdown-source-view.mod-cm6 .cm-content > .HyperMD-header-1.cm-line:not(:has(+ .HyperMD-header)) + *,
+.markdown-source-view.mod-cm6 .cm-content > .HyperMD-header-2.cm-line:not(:has(+ .HyperMD-header-3.cm-line)) + *,
+.markdown-source-view.mod-cm6 .cm-content > .HyperMD-header-3.cm-line:not(:has(+ .HyperMD-header)) + *,
+.markdown-source-view.mod-cm6 .cm-content > .HyperMD-header-4.cm-line:not(:has(+ .HyperMD-header)) + *,
+.markdown-source-view.mod-cm6 .cm-content > .HyperMD-header-5.cm-line:not(:has(+ .HyperMD-header)) + *,
+.markdown-source-view.mod-cm6 .cm-content > .HyperMD-header-6.cm-line:not(:has(+ .HyperMD-header)) + * {
+    padding-top: 0.8rem !important;
 }
 
 /* -------------------------------------------------------------- */
@@ -1613,45 +1629,6 @@ blockquote {
 /* 阅读模式 */
 .markdown-rendered hr {
     border-image: linear-gradient(to right, transparent 0%, hsl(210, 34%, 63%) 20%, hsl(210, 34%, 63%) 40%, hsl(210, 34%, 63%) 60%, hsl(210, 34%, 63%) 80%, transparent 100%) 1;
-}
-
-/* ---------------------------------------------------------------------------------------------- */
-/* Dataview */
-/*
- * [修复] Dataview 渲染块上方点击时光标跳到上方的问题。
- * Dataview 结果在 Live Preview 里会作为 markdown-rendered 嵌入块出现，
- * 其中列表/表格的默认 margin 容易和 CodeMirror 的点击坐标产生错位。
- */
-.markdown-source-view.mod-cm6 .cm-embed-block:has(.block-language-dataview),
-.markdown-source-view.mod-cm6 .cm-embed-block:has(.block-language-dataviewjs),
-.markdown-source-view.mod-cm6 .cm-preview-code-block:has(.block-language-dataview),
-.markdown-source-view.mod-cm6 .cm-preview-code-block:has(.block-language-dataviewjs) {
-    display: flow-root;
-    padding-top: 0.35rem !important;
-    padding-bottom: 0.35rem !important;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-}
-
-.markdown-source-view.mod-cm6 .block-language-dataview,
-.markdown-source-view.mod-cm6 .block-language-dataviewjs {
-    display: flow-root;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-}
-
-.markdown-source-view.mod-cm6 .block-language-dataview > :first-child,
-.markdown-source-view.mod-cm6 .block-language-dataviewjs > :first-child,
-.markdown-source-view.mod-cm6 .block-language-dataview :is(ul, ol, table):first-child,
-.markdown-source-view.mod-cm6 .block-language-dataviewjs :is(ul, ol, table):first-child {
-    margin-top: 0 !important;
-}
-
-.markdown-source-view.mod-cm6 .block-language-dataview > :last-child,
-.markdown-source-view.mod-cm6 .block-language-dataviewjs > :last-child,
-.markdown-source-view.mod-cm6 .block-language-dataview :is(ul, ol, table):last-child,
-.markdown-source-view.mod-cm6 .block-language-dataviewjs :is(ul, ol, table):last-child {
-    margin-bottom: 0 !important;
 }
 
 /* ---------------------------------------------------------------------------------------------- */
