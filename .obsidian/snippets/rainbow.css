@@ -55,6 +55,10 @@ root variables including colors, font-familys and a shadow style
     --code-bg-color: rgb(247, 247, 247);
     --del-color: rgb(151, 151, 151);
     --selection-bg-color: rgb(235, 227, 255);
+    --link-underline-color: #8aa4ad;
+    --link-underline-hover-color: #607d8b;
+    --link-text-color: var(--bold-color, var(--text-normal, #24292e));
+    --link-text-weight: var(--bold-weight, 700);
     --list-marker-color: #24292e;
     --block-shadow: 0.15rem 0.15rem 0.5rem rgb(150, 150, 150);
     --sans-serif-font: "Noto Sans SC Medium", "Noto Sans SC", sans-serif;
@@ -405,30 +409,34 @@ img[alt="1000"] {
 /* 编辑模式 */
 .cm-s-obsidian span.cm-url {
     text-decoration: none;
-    border-bottom: 2px solid #3481c5;
+    font-weight: var(--link-text-weight);
+    color: var(--link-text-color) !important;
+    border-bottom: 2px solid var(--link-underline-color);
 }
 
 .markdown-source-view.mod-cm6 .cm-link .cm-underline {
-    color: #3481c5;
+    color: var(--link-text-color);
+    font-weight: var(--link-text-weight);
 }
 
 .cm-s-obsidian span.cm-url {
-    color: #3481c5 !important;
+    color: var(--link-text-color) !important;
+    font-weight: var(--link-text-weight);
     text-decoration: none;
-    border-bottom: 2px solid #3481c5;
+    border-bottom: 2px solid var(--link-underline-color);
 }
 
 /* 光标在链接上时，鼠标悬浮时 */
 .cm-s-obsidian span.cm-url:hover {
-    color: #3481c5 !important;
+    color: var(--link-text-color) !important;
     text-decoration: none;
-    border-bottom: 4px solid #3481c5;
+    border-bottom: 4px solid var(--link-underline-hover-color);
 }
 
 /* 光标不在链接上时，鼠标悬浮时 */
 @media (hover: hover) {
     .markdown-source-view.mod-cm6 .cm-url .cm-underline:hover {
-        color: #3481c5;
+        color: var(--link-text-color);
         /* text-decoration-line: var(--link-external-decoration-hover); */
         text-decoration: none;
     }
@@ -436,15 +444,17 @@ img[alt="1000"] {
 
 @media (hover: hover) {
     .markdown-source-view.mod-cm6 .cm-url .cm-underline {
-        color: #3481c5;
+        color: var(--link-text-color);
+        font-weight: var(--link-text-weight);
         text-decoration: none;
         /* text-decoration-line: var(--link-external-decoration-hover); */
     }
 }
 
 .cm-s-obsidian span.cm-link {
-    color: #3481c5;
-    border-bottom: 2px solid #3481c5;
+    color: var(--link-text-color);
+    font-weight: var(--link-text-weight);
+    border-bottom: 2px solid var(--link-underline-color);
 }
 
 .markdown-source-view.mod-cm6 .cm-link .cm-underline,
@@ -454,70 +464,78 @@ img[alt="1000"] {
 
 @media (hover: hover) {
     .cm-s-obsidian span.cm-link:hover {
-        color: #3481c5;
+        color: var(--link-text-color);
         text-decoration-line: none;
     }
 }
 
 @media (hover: hover) {
     .markdown-source-view.mod-cm6 .cm-link .cm-underline:hover {
-        color: #3481c5;
+        color: var(--link-text-color);
         text-decoration-line: none;
-        border-bottom: 3.5px solid #3481c5;
+        border-bottom: 3.5px solid var(--link-underline-hover-color);
     }
 }
 
 /* 阅读模式 */
-a:link {
+a:link,
+a:visited {
     text-decoration: none;
-    color: #3481c5;
+    color: var(--link-text-color);
+    font-weight: var(--link-text-weight);
 }
 
 .external-link {
     padding-right: 0;
     background-image: none;
     text-decoration: none;
-    color: #3481c5;
+    color: var(--link-text-color);
+    font-weight: var(--link-text-weight);
 
-    border-bottom: 2px solid #3481c5;
+    border-bottom: 2px solid var(--link-underline-color);
 }
 
 a.external-link:hover {
     text-decoration: none;
-    color: #3481c5;
+    color: var(--link-text-color);
 
-    border-bottom: 4px solid #3481c5;
+    border-bottom: 4px solid var(--link-underline-hover-color);
 }
 
 /* 内链 */
 /* 编辑模式 */
 .cm-s-obsidian span.cm-hmd-internal-link {
-    color: #3481c5;
+    color: var(--link-text-color);
+    font-weight: var(--link-text-weight);
 }
 
 .cm-s-obsidian span.cm-hmd-internal-link:hover {
-    color: #3481c5;
+    color: var(--link-text-color);
     text-decoration-line: none;
-    border-bottom: 2px solid #3481c5;
+    border-bottom: 2px solid var(--link-underline-hover-color);
 }
 
 div.cm-active.cm-line > span.cm-hmd-internal-link > span {
-    color: #3481c5;
+    color: var(--link-text-color);
+    font-weight: var(--link-text-weight);
 }
 
 div.cm-line.cm-line > span.cm-hmd-internal-link > span {
-    color: #3481c5;
+    color: var(--link-text-color);
+    font-weight: var(--link-text-weight);
 }
 
 .markdown-source-view.mod-cm6 .cm-underline {
-    color: #3481c5;
+    color: var(--link-text-color);
+    font-weight: var(--link-text-weight);
     text-decoration-line: none;
 
-    border-bottom: 2px dashed #3481c5;
+    border-bottom: 2px dashed var(--link-underline-color);
 }
 
 .cm-hmd-footnote.cm-link > .cm-underline {
-    color: #3481c5;
+    color: var(--link-text-color);
+    font-weight: var(--link-text-weight);
 }
 
 @media (hover: hover) {
@@ -536,22 +554,24 @@ div.cm-line.cm-line > span.cm-hmd-internal-link > span {
 
 /* 阅读模式 */
 .markdown-rendered a.internal-link.is-unresolved {
-    color: #3481c5;
+    color: var(--link-text-color);
+    font-weight: var(--link-text-weight);
 }
 
 .markdown-rendered a.internal-link {
-    color: #3481c5;
+    color: var(--link-text-color);
+    font-weight: var(--link-text-weight);
     text-decoration: none;
-    border-bottom: 2px dashed hsla(210, 34%, 63%);
+    border-bottom: 2px dashed var(--link-underline-color);
 }
 
 @media (hover: hover) {
 
     .metadata-container .internal-link:hover,
     .markdown-rendered .internal-link:hover {
-        color: #3481c5;
+        color: var(--link-text-color);
         text-decoration: none;
-        border-bottom: 2px solid hsla(210, 34%, 63%);
+        border-bottom: 2px solid var(--link-underline-hover-color);
     }
 }
 
@@ -559,9 +579,9 @@ div.cm-line.cm-line > span.cm-hmd-internal-link > span {
 
     .metadata-container .internal-link.is-unresolved:hover,
     .markdown-rendered .internal-link.is-unresolved:hover {
-        color: #3481c5;
+        color: var(--link-text-color);
         text-decoration: none;
-        border-bottom: 2px solid hsla(210, 34%, 63%);
+        border-bottom: 2px solid var(--link-underline-hover-color);
     }
 }
 
