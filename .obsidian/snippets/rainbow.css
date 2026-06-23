@@ -57,6 +57,7 @@ root variables including colors, font-familys and a shadow style
     --selection-bg-color: rgb(235, 227, 255);
     --link-underline-color: #8aa4ad;
     --link-underline-hover-color: #607d8b;
+    --link-hover-bg-color: rgba(138, 164, 173, 0.16);
     --link-text-color: var(--bold-color, var(--text-normal, #24292e));
     --link-text-weight: var(--bold-weight, 700);
     --list-marker-color: #24292e;
@@ -411,7 +412,7 @@ img[alt="1000"] {
     text-decoration: none;
     font-weight: var(--link-text-weight);
     color: var(--link-text-color) !important;
-    border-bottom: 2px solid var(--link-underline-color);
+    border-bottom: 3px solid var(--link-underline-color);
 }
 
 .markdown-source-view.mod-cm6 .cm-link .cm-underline {
@@ -423,22 +424,27 @@ img[alt="1000"] {
     color: var(--link-text-color) !important;
     font-weight: var(--link-text-weight);
     text-decoration: none;
-    border-bottom: 2px solid var(--link-underline-color);
+    border-bottom: 3px solid var(--link-underline-color);
 }
 
 /* 光标在链接上时，鼠标悬浮时 */
 .cm-s-obsidian span.cm-url:hover {
     color: var(--link-text-color) !important;
+    background-color: var(--link-hover-bg-color);
     text-decoration: none;
-    border-bottom: 4px solid var(--link-underline-hover-color);
+    border-bottom-color: transparent;
+    border-radius: 0.18rem;
 }
 
 /* 光标不在链接上时，鼠标悬浮时 */
 @media (hover: hover) {
     .markdown-source-view.mod-cm6 .cm-url .cm-underline:hover {
         color: var(--link-text-color);
+        background-color: var(--link-hover-bg-color);
         /* text-decoration-line: var(--link-external-decoration-hover); */
         text-decoration: none;
+        border-bottom-color: transparent;
+        border-radius: 0.18rem;
     }
 }
 
@@ -454,7 +460,7 @@ img[alt="1000"] {
 .cm-s-obsidian span.cm-link {
     color: var(--link-text-color);
     font-weight: var(--link-text-weight);
-    border-bottom: 2px solid var(--link-underline-color);
+    border-bottom: 3px solid var(--link-underline-color);
 }
 
 .markdown-source-view.mod-cm6 .cm-link .cm-underline,
@@ -465,15 +471,19 @@ img[alt="1000"] {
 @media (hover: hover) {
     .cm-s-obsidian span.cm-link:hover {
         color: var(--link-text-color);
+        background-color: var(--link-hover-bg-color);
         text-decoration-line: none;
+        border-radius: 0.18rem;
     }
 }
 
 @media (hover: hover) {
     .markdown-source-view.mod-cm6 .cm-link .cm-underline:hover {
         color: var(--link-text-color);
+        background-color: var(--link-hover-bg-color);
         text-decoration-line: none;
-        border-bottom: 3.5px solid var(--link-underline-hover-color);
+        border-bottom-color: transparent;
+        border-radius: 0.18rem;
     }
 }
 
@@ -492,14 +502,16 @@ a:visited {
     color: var(--link-text-color);
     font-weight: var(--link-text-weight);
 
-    border-bottom: 2px solid var(--link-underline-color);
+    border-bottom: 3px solid var(--link-underline-color);
 }
 
 a.external-link:hover {
     text-decoration: none;
     color: var(--link-text-color);
+    background-color: var(--link-hover-bg-color);
 
-    border-bottom: 4px solid var(--link-underline-hover-color);
+    border-bottom-color: transparent;
+    border-radius: 0.18rem;
 }
 
 /* 内链 */
@@ -511,8 +523,10 @@ a.external-link:hover {
 
 .cm-s-obsidian span.cm-hmd-internal-link:hover {
     color: var(--link-text-color);
+    background-color: var(--link-hover-bg-color);
     text-decoration-line: none;
-    border-bottom: 2px solid var(--link-underline-hover-color);
+    border-bottom-color: transparent;
+    border-radius: 0.18rem;
 }
 
 div.cm-active.cm-line > span.cm-hmd-internal-link > span {
@@ -530,7 +544,7 @@ div.cm-line.cm-line > span.cm-hmd-internal-link > span {
     font-weight: var(--link-text-weight);
     text-decoration-line: none;
 
-    border-bottom: 2px dashed var(--link-underline-color);
+    border-bottom: 3px dashed var(--link-underline-color);
 }
 
 .cm-hmd-footnote.cm-link > .cm-underline {
@@ -540,6 +554,7 @@ div.cm-line.cm-line > span.cm-hmd-internal-link > span {
 
 @media (hover: hover) {
     .markdown-source-view.mod-cm6 .cm-hmd-internal-link .cm-underline:hover {
+        border-bottom-color: transparent;
         text-decoration-line: none;
     }
 }
@@ -562,7 +577,23 @@ div.cm-line.cm-line > span.cm-hmd-internal-link > span {
     color: var(--link-text-color);
     font-weight: var(--link-text-weight);
     text-decoration: none;
-    border-bottom: 2px dashed var(--link-underline-color);
+    border-bottom: 3px dashed var(--link-underline-color);
+}
+
+@media (hover: hover) {
+    .cm-s-obsidian span.cm-url:hover,
+    .cm-s-obsidian span.cm-link:hover,
+    .cm-s-obsidian span.cm-hmd-internal-link:hover,
+    .markdown-source-view.mod-cm6 .cm-url:hover .cm-underline,
+    .markdown-source-view.mod-cm6 .cm-link:hover .cm-underline,
+    .markdown-source-view.mod-cm6 .cm-hmd-internal-link:hover .cm-underline,
+    .metadata-container .internal-link:hover,
+    .markdown-rendered .internal-link:hover,
+    .markdown-rendered .external-link:hover {
+        border-bottom-color: transparent;
+        text-decoration: none;
+        text-decoration-line: none;
+    }
 }
 
 @media (hover: hover) {
@@ -570,8 +601,10 @@ div.cm-line.cm-line > span.cm-hmd-internal-link > span {
     .metadata-container .internal-link:hover,
     .markdown-rendered .internal-link:hover {
         color: var(--link-text-color);
+        background-color: var(--link-hover-bg-color);
         text-decoration: none;
-        border-bottom: 2px solid var(--link-underline-hover-color);
+        border-bottom-color: transparent;
+        border-radius: 0.18rem;
     }
 }
 
@@ -580,8 +613,10 @@ div.cm-line.cm-line > span.cm-hmd-internal-link > span {
     .metadata-container .internal-link.is-unresolved:hover,
     .markdown-rendered .internal-link.is-unresolved:hover {
         color: var(--link-text-color);
+        background-color: var(--link-hover-bg-color);
         text-decoration: none;
-        border-bottom: 2px solid var(--link-underline-hover-color);
+        border-bottom-color: transparent;
+        border-radius: 0.18rem;
     }
 }
 
