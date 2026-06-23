@@ -17,6 +17,16 @@ tags:
 # 🤔 思考
 
 
+# 🔗 反链
+```dataview
+LIST
+FROM [[]]
+SORT file.name ASC
+```
+
+
+
+
 
 
 
