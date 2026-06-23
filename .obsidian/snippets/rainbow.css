@@ -67,6 +67,8 @@ root variables including colors, font-familys and a shadow style
     --inline-code-hover-border-color: rgba(96, 125, 139, 0.32);
     --inline-code-shadow-color: rgba(52, 68, 76, 0.08);
     --inline-code-hover-shadow-color: rgba(52, 68, 76, 0.12);
+    --hr-soft-color: rgba(138, 164, 173, 0.24);
+    --hr-main-color: rgba(96, 125, 139, 0.48);
     --list-marker-color: #24292e;
     --block-shadow: 0.15rem 0.15rem 0.5rem rgb(150, 150, 150);
     --sans-serif-font: "Noto Sans SC Medium", "Noto Sans SC", sans-serif;
@@ -1623,12 +1625,12 @@ blockquote {
 /* 分割线 */
 /* 编辑模式 */
 .markdown-source-view.mod-cm6 hr {
-    border-image: linear-gradient(to right, transparent 0%, hsl(210, 34%, 63%) 20%, hsl(210, 34%, 63%) 40%, hsl(210, 34%, 63%) 60%, hsl(210, 34%, 63%) 80%, transparent 100%) 1;
+    border-image: linear-gradient(to right, transparent 0%, var(--hr-soft-color) 18%, var(--hr-main-color) 50%, var(--hr-soft-color) 82%, transparent 100%) 1;
 }
 
 /* 阅读模式 */
 .markdown-rendered hr {
-    border-image: linear-gradient(to right, transparent 0%, hsl(210, 34%, 63%) 20%, hsl(210, 34%, 63%) 40%, hsl(210, 34%, 63%) 60%, hsl(210, 34%, 63%) 80%, transparent 100%) 1;
+    border-image: linear-gradient(to right, transparent 0%, var(--hr-soft-color) 18%, var(--hr-main-color) 50%, var(--hr-soft-color) 82%, transparent 100%) 1;
 }
 
 /* ---------------------------------------------------------------------------------------------- */

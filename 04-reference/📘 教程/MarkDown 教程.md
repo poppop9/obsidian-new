@@ -105,6 +105,8 @@ async function fetchData(url) {
 | A      |  B   |    C |
 
 # 水平分割线
+---
+
 ```
 ---
 ```
