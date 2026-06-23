@@ -95,16 +95,15 @@ tag:问题
 ```
 
 # 📚 插件
-- _**Better footnote**_ 阅读视图时，脚注可以鼠标悬浮显示
-- _**Commander**_ 控制在侧边栏，底部，各处的按钮
-- _**Editing Toolbar**_ 悬浮的快捷编辑栏
-- _**Excalidraw**_
-- _**Image auto upload Plugin**_ 图床
-- _**Keyboard Analyzer**_ 查看各种键的快捷键
-- _**Setting Search**_ ob 的原生搜素不全面，这个设置搜索好用
-- _**Style Settings**_ 对于主题的 css 设置
+- `Better footnote` 阅读视图时，脚注可以鼠标悬浮显示
+- `Commander` 控制在侧边栏，底部，各处的按钮
+- `Editing Toolbar` 悬浮的快捷编辑栏
+- `Excalidraw`
+- `Image auto upload Plugin` 图床
+- `Keyboard Analyzer` 查看各种键的快捷键
+- `Setting Search` ob 的原生搜素不全面，这个设置搜索好用
+- `Style Settings` 对于主题的 css 设置
 - `Linter` 格式化文档
-- `Code Styler` 
 - `chat view` 聊天气泡
 - `Timeline` 时间轴渲染
 

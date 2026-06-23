@@ -60,11 +60,13 @@ root variables including colors, font-familys and a shadow style
     --link-hover-bg-color: rgba(138, 164, 173, 0.16);
     --link-text-color: var(--bold-color, var(--text-normal, #24292e));
     --link-text-weight: var(--bold-weight, 700);
-    --inline-code-text-color: #2f4f8f;
-    --inline-code-bg-color: #f1f3f6;
-    --inline-code-hover-bg-color: #e9eef3;
-    --inline-code-border-color: rgba(96, 125, 139, 0.18);
-    --inline-code-shadow-color: rgba(31, 43, 52, 0.1);
+    --inline-code-text-color: #435b66;
+    --inline-code-bg-color: #f3f6f7;
+    --inline-code-hover-bg-color: #e8eef1;
+    --inline-code-border-color: rgba(138, 164, 173, 0.24);
+    --inline-code-hover-border-color: rgba(96, 125, 139, 0.32);
+    --inline-code-shadow-color: rgba(52, 68, 76, 0.08);
+    --inline-code-hover-shadow-color: rgba(52, 68, 76, 0.12);
     --list-marker-color: #24292e;
     --block-shadow: 0.15rem 0.15rem 0.5rem rgb(150, 150, 150);
     --sans-serif-font: "Noto Sans SC Medium", "Noto Sans SC", sans-serif;
@@ -961,8 +963,8 @@ div.cm-active.cm-line .cm-s-obsidian .cm-formatting {
 
 .cm-s-obsidian .cm-inline-code:not(.cm-formatting):hover {
     background-color: var(--inline-code-hover-bg-color);
-    border-color: rgba(96, 125, 139, 0.3);
-    box-shadow: 0 0.1rem 0.26rem rgba(31, 43, 52, 0.14);
+    border-color: var(--inline-code-hover-border-color);
+    box-shadow: 0 0.1rem 0.26rem var(--inline-code-hover-shadow-color);
 }
 
 /* 阅读模式，行内代码 */
@@ -997,8 +999,8 @@ div.cm-active.cm-line .cm-s-obsidian .cm-formatting {
 
 .markdown-rendered code:not(pre code):hover {
     background-color: var(--inline-code-hover-bg-color);
-    border-color: rgba(96, 125, 139, 0.3);
-    box-shadow: 0 0.1rem 0.26rem rgba(31, 43, 52, 0.14);
+    border-color: var(--inline-code-hover-border-color);
+    box-shadow: 0 0.1rem 0.26rem var(--inline-code-hover-shadow-color);
 }
 
 /* -------------------------------------------------------------- */
