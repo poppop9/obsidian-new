@@ -14,7 +14,7 @@ inbox —— 放一些临时的灵感笔记
 
 literature —— 原始素材库。放置加工过提炼过的观点
 
-permanent —— 提炼后的观点。注意 ：从 literature 提炼观点到 permanent 后，literature 的原内容依然保留，不用因为重复而删除。具体笔记结构见 [permanent](../05-Assets/templates/permanent.md)
+permanent —— 提炼后的观点。注意 ：从 literature 提炼观点到 permanent 后，literature 的原内容依然保留，不用因为重复而删除。具体笔记结构见 [permanent](../templates/permanent.md)
 - 卡片里不需要做文件夹分类，因为知识其实是互通的，一张卡片可以同时属于多个分类
 
 ### 落地方案
