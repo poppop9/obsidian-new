@@ -50,7 +50,7 @@
       }
     },
     {
-      "query": "",
+      "query": "path:02-Permanent  ",
       "color": {
         "a": 1,
         "rgb": 6053078
@@ -81,6 +81,6 @@
   "repelStrength": 9.15800415800416,
   "linkStrength": 0,
   "linkDistance": 30,
-  "scale": 1.1596522954443131,
+  "scale": 0.7916049897324777,
   "close": false
 }
