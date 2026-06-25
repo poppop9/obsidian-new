@@ -58,8 +58,19 @@ root variables including colors, font-familys and a shadow style
     --link-underline-color: #8aa4ad;
     --link-underline-hover-color: #607d8b;
     --link-hover-bg-color: rgba(138, 164, 173, 0.16);
+    --metadata-link-text-color: var(--link-text-color);
     --link-text-color: var(--bold-color, var(--text-normal, #24292e));
     --link-text-weight: var(--bold-weight, 700);
+    --link-color: var(--link-text-color);
+    --link-color-hover: var(--link-text-color);
+    --link-unresolved-color: var(--link-text-color);
+    --link-unresolved-opacity: 1;
+    --link-decoration: none;
+    --link-decoration-hover: none;
+    --link-external-color: var(--link-text-color);
+    --link-external-color-hover: var(--link-text-color);
+    --link-external-decoration: none;
+    --link-external-decoration-hover: none;
     --inline-code-text-color: #435b66;
     --inline-code-bg-color: #f3f6f7;
     --inline-code-hover-bg-color: #e8eef1;
@@ -589,6 +600,63 @@ div.cm-line.cm-line > span.cm-hmd-internal-link > span {
     border-bottom: 3px solid var(--link-underline-color);
 }
 
+/* 属性 / YAML 元数据链接 */
+.metadata-container a,
+.metadata-container a:link,
+.metadata-container a:visited,
+.metadata-container .internal-link,
+.metadata-container .external-link,
+.metadata-property-value a,
+.metadata-property-value .internal-link,
+.metadata-property-value .external-link {
+    color: var(--metadata-link-text-color) !important;
+    font-weight: var(--link-text-weight);
+    text-decoration: none;
+}
+
+.metadata-container .internal-link,
+.metadata-container .external-link,
+.metadata-property-value .internal-link,
+.metadata-property-value .external-link {
+    border-bottom: 3px solid var(--link-underline-color);
+}
+
+.metadata-container .internal-link.is-unresolved,
+.metadata-property-value .internal-link.is-unresolved {
+    color: var(--metadata-link-text-color) !important;
+    opacity: 1;
+}
+
+.metadata-property-value .metadata-link,
+.metadata-property-value .metadata-link-inner,
+.metadata-property-value .metadata-link-flair,
+.metadata-property-value .metadata-link-text {
+    color: var(--metadata-link-text-color) !important;
+}
+
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-frontmatter .cm-hmd-internal-link,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-frontmatter .cm-hmd-internal-link .cm-underline,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-frontmatter .cm-link,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-frontmatter .cm-link .cm-underline,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-frontmatter .cm-url,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-frontmatter .cm-url .cm-underline,
+.cm-s-obsidian .HyperMD-frontmatter span.cm-hmd-internal-link,
+.cm-s-obsidian .HyperMD-frontmatter span.cm-link,
+.cm-s-obsidian .HyperMD-frontmatter span.cm-url {
+    color: var(--metadata-link-text-color) !important;
+    font-weight: var(--link-text-weight);
+    text-decoration: none;
+}
+
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-frontmatter .cm-hmd-internal-link .cm-underline,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-frontmatter .cm-link .cm-underline,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-frontmatter .cm-url .cm-underline,
+.cm-s-obsidian .HyperMD-frontmatter span.cm-hmd-internal-link,
+.cm-s-obsidian .HyperMD-frontmatter span.cm-link,
+.cm-s-obsidian .HyperMD-frontmatter span.cm-url {
+    border-bottom: 3px solid var(--link-underline-color);
+}
+
 @media (hover: hover) {
     .cm-s-obsidian span.cm-url:hover,
     .cm-s-obsidian span.cm-link:hover,
@@ -597,6 +665,9 @@ div.cm-line.cm-line > span.cm-hmd-internal-link > span {
     .markdown-source-view.mod-cm6 .cm-link:hover .cm-underline,
     .markdown-source-view.mod-cm6 .cm-hmd-internal-link:hover .cm-underline,
     .metadata-container .internal-link:hover,
+    .metadata-container .external-link:hover,
+    .metadata-property-value .internal-link:hover,
+    .metadata-property-value .external-link:hover,
     .markdown-rendered .internal-link:hover,
     .markdown-rendered .external-link:hover {
         border-bottom-color: transparent;
@@ -608,8 +679,11 @@ div.cm-line.cm-line > span.cm-hmd-internal-link > span {
 @media (hover: hover) {
 
     .metadata-container .internal-link:hover,
+    .metadata-container .external-link:hover,
+    .metadata-property-value .internal-link:hover,
+    .metadata-property-value .external-link:hover,
     .markdown-rendered .internal-link:hover {
-        color: var(--link-text-color);
+        color: var(--metadata-link-text-color) !important;
         background-color: var(--link-hover-bg-color);
         text-decoration: none;
         border-bottom-color: transparent;
