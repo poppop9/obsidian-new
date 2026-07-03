@@ -128,10 +128,10 @@ async function fetchData(url) {
 > 用于强调对用户很重要的关键信息
 
 > [!WARNING]
-> 这是一个警告 Callout，用于提醒注意事项
+> 规避潜在风险
 
 > [!CAUTION]
-> 这是一个危险 Callout，用于标识严重问题
+> 警示危险操作的后果
 
 > [!quote] 描述某个名词，概念
 
