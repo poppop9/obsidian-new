@@ -19,10 +19,3 @@ tags:
 
 # ❓ 存疑
 还没搞清楚的问题，留待日后填坑
-
-# 🔗 反链
-```dataview
-LIST
-FROM [[]]
-SORT file.name ASC
-```
