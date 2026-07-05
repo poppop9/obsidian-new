@@ -18,41 +18,25 @@ permanent —— 提炼后的观点。注意 ：从 literature 提炼观点到 p
 - 卡片里不需要做文件夹分类，因为知识其实是互通的，一张卡片可以同时属于多个分类
 
 ### 落地方案
-文献笔记链接永久笔记格式
-```
-> [!NOTE]
-> [人生成功取决于七种多元智能的综合发展](../../02-Permanent/未关联/人生成功取决于七种多元智能的综合发展.md)
-```
-
 这样写相对链接来链接具体标题
 ```
 [书-幸福的勇气](../../01-Sources/书/书-幸福的勇气.md#教育)
 ```
 
-文献笔记不应该引用任何永久笔记。我今天又觉得不对，是不是文献要引用永久笔记呢
-
 所有的笔记都会被直接 / 间接引用到一个主页面的 note 里
 
 用 yaml 的 tags 进行分类
-
-笔记中要关联，笔记末尾也要关联
 
 Frontmatter 元数据 - 有助于搜索和查询
 
 链接笔记一定要说明两个笔记之间的关系
 
 ```
-# Decision Making Framework
-
-## Related Concepts
+# Related Concepts
 - [[Confirmation Bias]] - 偏见如何影响决策
 - [[Time Pressure Effects]] - 紧迫感如何改变决策质量
 - [[Team Dynamics]] - 团队与个人决策的差异
 ```
-
-在每个笔记的下面用 dataview 来收集该笔记的反链
-
-把读书笔记里的分类给拆除掉，用 tags 替换
 
 ### Evergreen Notes 常青笔记
 常青笔记简单来说就是在 Zettelkasten 的基础上，将 permanent 笔记的名字改为一个「可以被反驳的观点」，并且这个 permanent 笔记一定与其他笔记有关联，不可以有孤立笔记
