@@ -37,7 +37,6 @@
 	- `Tot` 菜单栏备忘录
 - Royal TSX 远程管理软件
 
-
 ## PixPin
 - `control + 1` 进入截图界面
 - `control + 2` 钉住截图
