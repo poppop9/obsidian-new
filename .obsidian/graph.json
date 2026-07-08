@@ -18,14 +18,14 @@
       "query": "",
       "color": {
         "a": 1,
-        "rgb": 6084269
+        "rgb": 6073814
       }
     },
     {
-      "query": "",
+      "query": "path:\"04-Reference/💻 计算机\"  ",
       "color": {
         "a": 1,
-        "rgb": 6073814
+        "rgb": 14048429
       }
     },
     {
@@ -60,6 +60,6 @@
   "repelStrength": 9.15800415800416,
   "linkStrength": 0,
   "linkDistance": 30,
-  "scale": 0.6144003948493616,
+  "scale": 1.1954588636375294,
   "close": false
 }
