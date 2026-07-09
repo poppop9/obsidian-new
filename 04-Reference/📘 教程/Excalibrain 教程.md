@@ -1,4 +1,4 @@
-ExcaliBrain 把知识关系分成三类
+**ExcaliBrain 把知识关系分成三类**
 - 层级关系
 	- 父节点
 	- 子节点
