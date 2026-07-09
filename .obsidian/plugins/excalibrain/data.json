@@ -227,7 +227,6 @@
     "Next": {}
   },
   "navigationHistory": [
-    "05-Projects/交接文档_彭子奇.md",
     "01-Sources/书/书-论语-5-公冶长篇.md",
     "Excalidraw/ExcaliBrain Snapshot - 不要为他人的自由意志买单.excalidraw.md",
     "01-Sources/书/书-道德经.md",
@@ -236,7 +235,14 @@
     "01-Sources/事/事-za 欠钱多次爽约.md",
     "02-Permanent/不要勉强自己成全别人，敢于用温柔地拒绝让对方失望.md",
     "02-Permanent/00 未完成/人的精气神都是从眼睛散出去的.md",
-    "01-Sources/人/人-老子.md"
+    "01-Sources/人/人-老子.md",
+    "02-Permanent/01 未关联/人生成功取决于七种多元智能的综合发展.md",
+    "06-Assets/templates/permanent.md",
+    "01-Sources/书/书-论语-0-总览.md",
+    "04-Reference/📘 教程/Excalibrain 教程.md",
+    "04-Reference/📘 教程/PKM 教程.md",
+    "05-Projects/交接文档_彭子奇.md",
+    "00-Inbox/未命名 1.md"
   ],
   "allowOntologySuggester": true,
   "ontologySuggesterParentTrigger": "::p",
