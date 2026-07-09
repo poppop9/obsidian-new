@@ -2,7 +2,7 @@
   "compactView": false,
   "compactingFactor": 1.5,
   "minLinkLength": 18,
-  "excalibrainFilepath": "excalibrain.md",
+  "excalibrainFilepath": "03-MOC/excalibrain.md",
   "indexUpdateInterval": 60000,
   "hierarchy": {
     "exclusions": [
@@ -91,7 +91,7 @@
   "toggleEmbedTogglesAutoOpen": true,
   "showInferredNodes": true,
   "showAttachments": true,
-  "showURLNodes": true,
+  "showURLNodes": false,
   "showVirtualNodes": true,
   "showFolderNodes": false,
   "showTagNodes": false,
@@ -99,7 +99,7 @@
   "showNeighborCount": true,
   "showFullTagName": false,
   "maxItemCount": 30,
-  "renderSiblings": false,
+  "renderSiblings": true,
   "applyPowerFilter": false,
   "baseNodeStyle": {
     "prefix": "",
@@ -227,13 +227,16 @@
     "Next": {}
   },
   "navigationHistory": [
-    "01-Sources/人/人-老子.md",
     "05-Projects/交接文档_彭子奇.md",
     "01-Sources/书/书-论语-5-公冶长篇.md",
-    "01-Sources/书/书-道德经.md",
-    "02-Permanent/不要勉强自己成全别人，敢于用温柔地拒绝让对方失望.md",
     "Excalidraw/ExcaliBrain Snapshot - 不要为他人的自由意志买单.excalidraw.md",
-    "02-Permanent/不要为他人的自由意志买单.md"
+    "01-Sources/书/书-道德经.md",
+    "06-Assets/drawio/草稿纸 Draw.svg",
+    "02-Permanent/不要为他人的自由意志买单.md",
+    "01-Sources/事/事-za 欠钱多次爽约.md",
+    "02-Permanent/不要勉强自己成全别人，敢于用温柔地拒绝让对方失望.md",
+    "02-Permanent/00 未完成/人的精气神都是从眼睛散出去的.md",
+    "01-Sources/人/人-老子.md"
   ],
   "allowOntologySuggester": true,
   "ontologySuggesterParentTrigger": "::p",

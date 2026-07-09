@@ -1,8 +1,14 @@
 ---
 tags:
+parent:
+children:
+similar:
+opposes:
+source:
+author:
 ---
 # 📎 来源
-
+来源
 
 # 💡 核心观点
 用一句完整命题写出这张卡片的核心观点
