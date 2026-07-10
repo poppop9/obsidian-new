@@ -143,13 +143,13 @@ async function fetchData(url) {
 
 > [!fail] 测试
 
-> [!success] 测试
+> [!success]
 
-> [!summary] 测试
+> [!summary]
 
-> [!faq] 测试
+> [!faq]
 
-> [!bug] 测试
+> [!bug]
 
 - cite
 - attention、caution

@@ -110,7 +110,7 @@ tag:问题
 - `Linter` 格式化文档
 - `chat view` 聊天气泡
 - `Timeline` 时间轴渲染
-- `Influx` 可以在笔记最后自动生成反链
+- `Influx` 可以在笔记最后自动生成反链（有 bug：在选中表格时也会出现）
 
 # 📚 site
 https://demo.flowershow.app/

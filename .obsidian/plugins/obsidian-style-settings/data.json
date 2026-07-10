@@ -198,5 +198,8 @@
   "Components@@vault-profile-autohide": false,
   "Appearance-light@@card-layout-open-light": false,
   "Appearance-light@@theme-light-style-select": "theme-light-background-default",
-  "obsidian-velocity@@theme-paint-light": "velocity"
+  "obsidian-velocity@@theme-paint-light": "velocity",
+  "phycat-colors@@light-color-scheme": "theme-light-sky",
+  "phycat-layout@@layout-style": "layout-cards",
+  "phycat-layout@@rainbow-folders": true
 }
