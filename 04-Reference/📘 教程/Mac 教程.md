@@ -40,6 +40,7 @@
 ## PixPin
 - `control + 1` 进入截图界面
 - `control + 2` 钉住截图
+- 按住 `option` 框选：直接贴图
 
 ## 欧陆词典
 - `option + 空格` 进入翻译界面
