@@ -111,6 +111,10 @@ TOC 是一篇文章内部的目录，是线性的、有顺序的
 ## 位置索引
 
 # 落地方案
+## Folder
+Source：能给你带来思考、洞见、可演化的内容 → 进入 Zettelkasten / Permanent
+Reference：纯事实、工具说明、一次性资料 → 放在 Reference
+
 ## 分类
 - Tags：用于广义检索
 - Links：用于表达具体关系
@@ -128,13 +132,8 @@ TOC 是一篇文章内部的目录，是线性的、有顺序的
 |**source**|来源|我是从哪里学到的？|书名、文章链接|
 |**author**|提出者|是谁提出或主要传播了它？|卡罗尔·德韦克|
 # 未整理
-Source：能给你带来思考、洞见、可演化的内容 → 进入 Zettelkasten / Permanent
-Reference：纯事实、工具说明、一次性资料 → 放在 Reference
-
 如果我发现之前做的永久笔记是错误的，我要怎么处理 #未知 
 
-所有的笔记都会被直接 / 间接引用到一个主页面的 note 里
 
-用 yaml 的 tags 进行分类
 
-Frontmatter 元数据 - 有助于搜索和查询
+
