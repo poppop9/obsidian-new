@@ -1,13 +1,13 @@
-# 物理
+# 哲学
 ```dataview
 LIST
-FROM #物理
+FROM #哲学
 ```
 
-# 问题
+# 自然科学
 ```dataview
 LIST
-FROM #问题
+FROM #自然科学
 ```
 
 # 重构
@@ -20,11 +20,4 @@ FROM #重构
 ```dataview
 LIST
 FROM #未知
-```
-
-# 未关联的永久笔记
-```dataview
-LIST
-FROM "02-Permanent"
-WHERE length(file.inlinks) = 0
 ```
