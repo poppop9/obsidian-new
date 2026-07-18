@@ -134,6 +134,10 @@ Reference：纯事实、工具说明、一次性资料 → 放在 Reference
 # 未整理
 如果我发现之前做的永久笔记是错误的，我要怎么处理 #未知 
 
+现在好像加了一层 Concept 层，就是从 Inobox - Source - Concept - EverGreen
+
+其实我想把 EverGreen 改名为 Thinking
+
 
 
 
