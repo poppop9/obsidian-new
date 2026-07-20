@@ -33,4 +33,4 @@ literature 即文献笔记
 
 # 未整理
 - Source 与 Library：如果你开始整理、解释、建立自己的知识体系，它才进入 Library，否则就是 Source
-
+- 所有的 Library 笔记都会直接或间接的被引用到 `_index` 里
