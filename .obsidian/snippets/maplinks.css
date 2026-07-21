@@ -1,0 +1,7 @@
+/* 隐藏 Dataview 的“查询返回行数”，表头由查询显示真实链接数。 */
+.block-language-dataview
+  table:has(th .dataview-inline-query, th .dataview-inline)
+  th
+  > .dataview.small-text {
+  display: none;
+}
