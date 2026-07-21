@@ -8,28 +8,14 @@
   "collapse-color-groups": false,
   "colorGroups": [
     {
-      "query": "",
+      "query": "path:50-Maps  ",
       "color": {
         "a": 1,
         "rgb": 6073814
       }
     },
     {
-      "query": "",
-      "color": {
-        "a": 1,
-        "rgb": 6053078
-      }
-    },
-    {
-      "query": "",
-      "color": {
-        "a": 1,
-        "rgb": 11361494
-      }
-    },
-    {
-      "query": "",
+      "query": "path:21-Library  ",
       "color": {
         "a": 1,
         "rgb": 14048429
@@ -46,6 +32,6 @@
   "repelStrength": 9.15800415800416,
   "linkStrength": 0,
   "linkDistance": 30,
-  "scale": 0.5520415836019089,
+  "scale": 0.6448718839254448,
   "close": false
 }
