@@ -1,6 +1,5 @@
 ---
 tags:
-parent:
 children:
 similar:
 opposes:
