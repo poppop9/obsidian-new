@@ -140,11 +140,11 @@ span.va-annotation-rail.va-reading-rail {
   -webkit-mask-position: center;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-size: 100% 100%;
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='46' height='38' viewBox='0 0 46 38' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M23 4 C22 13 22 24 23 35' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M17 29 L23 36 L29 29' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='46' height='38' viewBox='0 0 46 38' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M23 1.5 C22 12 22 25 23 36' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M17 30 L23 37 L29 30' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   mask-position: center;
   mask-repeat: no-repeat;
   mask-size: 100% 100%;
-  mask-image: url("data:image/svg+xml,%3Csvg width='46' height='38' viewBox='0 0 46 38' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M23 4 C22 13 22 24 23 35' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M17 29 L23 36 L29 29' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg width='46' height='38' viewBox='0 0 46 38' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M23 1.5 C22 12 22 25 23 36' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M17 30 L23 37 L29 30' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   justify-self: center;
   margin: -0.1rem 0 0;
   transform: translateX(var(--va-arrow-shift, 0));
@@ -159,7 +159,7 @@ span.va-annotation-rail.va-reading-rail {
   grid-row: 2;
 }
 
-.va-side-bottom button.va-rail-note {
+.va-side-bottom .va-rail-note {
   grid-template-rows: var(--va-arrow-length, 38px) auto;
 }
 
@@ -188,7 +188,7 @@ span.va-annotation-rail.va-reading-rail {
   line-height: 1;
 }
 
-.va-annotation-rail button.va-rail-note {
+.va-annotation-rail .va-rail-note {
   appearance: none;
   position: relative;
   left: var(--va-marker-x, 50%);
@@ -199,7 +199,7 @@ span.va-annotation-rail.va-reading-rail {
   justify-self: start;
   overflow: visible;
   width: max-content;
-  max-width: min(30rem, 100%);
+  max-width: min(42rem, calc(100% - 1.5rem));
   height: auto;
   min-height: 4.25rem;
   margin: 0;
@@ -233,8 +233,12 @@ span.va-annotation-rail.va-reading-rail {
   transition: opacity 120ms ease, transform 120ms ease;
 }
 
-.va-annotation-rail button.va-rail-note:hover .va-rail-note-text,
-.va-annotation-rail button.va-rail-note:focus .va-rail-note-text {
+.va-editor-rail .va-rail-note {
+  cursor: pointer;
+}
+
+.va-editor-rail .va-rail-note:hover .va-rail-note-text,
+.va-editor-rail .va-rail-note:focus .va-rail-note-text {
   color: var(--va-color);
   background: transparent;
   box-shadow: none;
