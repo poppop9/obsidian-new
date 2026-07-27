@@ -1026,10 +1026,11 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
     };
     const run = ({ epoch = null, remainingFrames = 0 } = {}) => {
       const previousHeight = rail.style.height;
-      this.layoutAnnotationRail(rail);
+      const layoutResult = this.layoutAnnotationRail(rail) || {};
       if (
         editorView &&
-        rail.style.height !== previousHeight &&
+        (rail.style.height !== previousHeight ||
+          layoutResult.geometryChanged === true) &&
         typeof editorView.requestMeasure === "function"
       ) {
         editorView.requestMeasure();
@@ -1226,10 +1227,12 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
   }
 
   layoutAnnotationRail(rail) {
-    if (!rail.isConnected) return;
+    if (!rail.isConnected) return { geometryChanged: false };
     const railRect = rail.getBoundingClientRect();
-    if (!railRect.width) return;
+    if (!railRect.width) return { geometryChanged: false };
     const isTop = rail.dataset.vaPlacement !== "bottom";
+    const isEditor = rail.dataset.vaMode === "editor";
+    const usesLabelLayoutGap = isEditor && !isTop;
     const edgeGap = 4;
     const entries = Array.from(rail.querySelectorAll(".va-rail-item")).map((item) => {
       let ratio = Number(item.dataset.vaAnchorRatio || 0.5);
@@ -1251,6 +1254,9 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
             Number(noteText.offsetHeight) || 0,
             noteTextRect ? noteTextRect.height : 0
           )
+        : 0;
+      const labelLayoutGap = usesLabelLayoutGap
+        ? Math.max(0, Number(item.dataset.vaLabelLayoutGap) || 0)
         : 0;
       const topVisualOverflow =
         isTop &&
@@ -1275,8 +1281,9 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
         left: markerX - markerHalf,
         right: markerX + markerHalf,
         textHeight: noteTextHeight,
+        labelLayoutGap,
         topVisualOverflow,
-        height: Math.max(noteTextHeight + 38, 68)
+        height: Math.max(noteTextHeight + 38 + labelLayoutGap, 68)
       };
     });
 
@@ -1332,10 +1339,15 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
     // CodeMirror's inline boxes paint slightly closer to the connector than
     // Reading view. A small editor-only optical allowance makes the visible
     // gaps match while both modes keep the same target-aware geometry.
-    const isEditor = rail.dataset.vaMode === "editor";
     const targetGap = isEditor ? 7 : 5;
-    const labelGap = isEditor ? 8 : 6;
+    // CodeMirror needs the extra label-side allowance only for top rails.
+    // Applying it to a rotated bottom arrow clips another 2px from the
+    // label-facing shaft, making an otherwise clear upward connector look
+    // partially hidden. Bottom rails keep the same 6px label gap as Reading
+    // view while retaining the editor-specific target gap above.
+    const labelGap = isEditor && isTop ? 8 : 6;
     const connectorCorrections = [];
+    let geometryChanged = false;
     for (const entry of entries) {
       const arrow = entry.item.querySelector(".va-rail-arrow");
       if (!arrow) continue;
@@ -1382,16 +1394,43 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
           adjustedOffset = entry.connectorOffset - extension;
         }
       }
-      const maxLabelGap = Math.max(labelGap, adjustedLength - 8);
-      const adjustedLabelGap =
-        Math.round(
-          Math.max(labelGap, Math.min(maxLabelGap, requestedLabelGap)) * 2
-        ) / 2;
+      let adjustedLabelGap = null;
+      let adjustedLabelLayoutGap = null;
+      if (usesLabelLayoutGap) {
+        const desiredLayoutGap = Number.isFinite(noteBoundary)
+          ? Math.round(
+              Math.max(
+                0,
+                Math.min(
+                  96,
+                  entry.labelLayoutGap +
+                    arrowRect.bottom +
+                    labelGap -
+                    noteBoundary
+                )
+              ) * 2
+            ) / 2
+          : labelGap;
+        adjustedLabelLayoutGap =
+          Math.abs(desiredLayoutGap - entry.labelLayoutGap) >= 0.5
+            ? desiredLayoutGap
+            : entry.labelLayoutGap;
+        if (adjustedLabelLayoutGap !== entry.labelLayoutGap) {
+          geometryChanged = true;
+        }
+      } else {
+        const maxLabelGap = Math.max(labelGap, adjustedLength - 8);
+        adjustedLabelGap =
+          Math.round(
+            Math.max(labelGap, Math.min(maxLabelGap, requestedLabelGap)) * 2
+          ) / 2;
+      }
       connectorCorrections.push({
         entry,
         adjustedLength,
         adjustedOffset,
-        adjustedLabelGap
+        adjustedLabelGap,
+        adjustedLabelLayoutGap
       });
     }
     for (const correction of connectorCorrections) {
@@ -1403,11 +1442,22 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
         "--va-connector-offset",
         `${correction.adjustedOffset}px`
       );
-      correction.entry.item.style.setProperty(
-        "--va-label-arrow-gap",
-        `${correction.adjustedLabelGap}px`
-      );
+      if (correction.adjustedLabelLayoutGap !== null) {
+        correction.entry.item.dataset.vaLabelLayoutGap = String(
+          correction.adjustedLabelLayoutGap
+        );
+        correction.entry.item.style.setProperty(
+          "--va-label-layout-gap",
+          `${correction.adjustedLabelLayoutGap}px`
+        );
+      } else {
+        correction.entry.item.style.setProperty(
+          "--va-label-arrow-gap",
+          `${correction.adjustedLabelGap}px`
+        );
+      }
     }
+    return { geometryChanged };
   }
 
   selectRenderedAnnotation(annotation, callout) {

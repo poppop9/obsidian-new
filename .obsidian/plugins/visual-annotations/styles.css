@@ -161,6 +161,10 @@ span.va-annotation-rail.va-reading-rail {
   grid-template-rows: var(--va-arrow-length, 38px) auto;
 }
 
+.va-editor-rail.va-side-bottom .va-rail-note {
+  row-gap: var(--va-label-layout-gap, 0px);
+}
+
 .va-side-bottom .va-rail-note-text {
   grid-row: 2;
 }
@@ -169,6 +173,11 @@ span.va-annotation-rail.va-reading-rail {
   grid-row: 1;
   margin: 0;
   transform: translateX(var(--va-arrow-shift, 0)) rotate(180deg);
+}
+
+.va-editor-rail.va-side-bottom .va-rail-arrow {
+  -webkit-clip-path: none;
+  clip-path: none;
 }
 
 .va-rail-item.is-selected {
