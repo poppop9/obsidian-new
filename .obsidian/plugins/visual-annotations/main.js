@@ -1077,15 +1077,7 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
     const railRect = rail.getBoundingClientRect();
     if (!railRect.width) return;
     const isTop = rail.dataset.vaPlacement !== "bottom";
-    const view = rail.ownerDocument && rail.ownerDocument.defaultView;
-    const computedLineHeight =
-      view && typeof view.getComputedStyle === "function"
-        ? Number.parseFloat(view.getComputedStyle(rail).lineHeight)
-        : 0;
-    const edgeGap =
-      rail.dataset.vaMode === "editor"
-        ? Math.max(24, Number.isFinite(computedLineHeight) ? Math.ceil(computedLineHeight) : 0)
-        : 4;
+    const edgeGap = 4;
     const entries = Array.from(rail.querySelectorAll(".va-rail-item")).map((item) => {
       let ratio = Number(item.dataset.vaAnchorRatio || 0.5);
       const itemRect = item.getBoundingClientRect();
@@ -1102,8 +1094,19 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
       const noteText = item.querySelector(".va-rail-note-text");
       const noteTextRect = noteText ? noteText.getBoundingClientRect() : null;
       const noteTextHeight = noteText
-        ? Number(noteText.offsetHeight) || (noteTextRect ? noteTextRect.height : 0)
+        ? Math.max(
+            Number(noteText.offsetHeight) || 0,
+            noteTextRect ? noteTextRect.height : 0
+          )
         : 0;
+      const topVisualOverflow =
+        isTop &&
+        markerRect &&
+        noteTextRect &&
+        Number.isFinite(markerRect.top) &&
+        Number.isFinite(noteTextRect.top)
+          ? Math.max(0, markerRect.top - noteTextRect.top)
+          : 0;
       const markerWidth = Math.min(
         markerRect ? markerRect.width : 0,
         itemRect.width
@@ -1112,11 +1115,13 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
       const markerX = Math.max(markerHalf, Math.min(itemRect.width - markerHalf, desiredX));
       return {
         item,
+        target,
         markerX,
         arrowShift: desiredX - markerX,
         left: markerX - markerHalf,
         right: markerX + markerHalf,
         textHeight: noteTextHeight,
+        topVisualOverflow,
         height: Math.max(noteTextHeight + 38, 68)
       };
     });
@@ -1145,20 +1150,79 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
       const arrowLength = isTop
         ? Math.max(
             38,
-            laneHeight - entry.textHeight + edgeGap + connectorExtra + 2
+            laneHeight - entry.textHeight + edgeGap + connectorExtra
           )
         : 38 + connectorExtra + edgeGap;
+      const connectorOffset = isTop ? 0 : -(connectorExtra + edgeGap);
+      entry.arrowLength = arrowLength;
+      entry.connectorOffset = connectorOffset;
       entry.item.dataset.vaLane = String(displayLane);
       entry.item.style.setProperty("--va-marker-x", `${entry.markerX}px`);
       entry.item.style.setProperty("--va-arrow-shift", `${entry.arrowShift}px`);
       entry.item.style.setProperty("--va-arrow-length", `${arrowLength}px`);
       entry.item.style.setProperty(
         "--va-connector-offset",
-        `${isTop ? 0 : -(connectorExtra + edgeGap)}px`
+        `${connectorOffset}px`
       );
       entry.item.style.setProperty(
         "--va-lane-y",
-        `${edgeGap + displayLane * laneHeight}px`
+        `${edgeGap + displayLane * laneHeight + entry.topVisualOverflow}px`
+      );
+    }
+
+    // Theme margins, list indentation, and CodeMirror block spacing all sit
+    // outside the rail itself. Measure the final rendered target after the
+    // rail height is committed, then extend only the target-facing end of the
+    // connector. This gives Reading and Editing view the same visible gap
+    // without moving the handwritten label or reducing its safety space.
+    const targetGap = 1;
+    const connectorCorrections = [];
+    for (const entry of entries) {
+      if (!entry.target) continue;
+      const arrow = entry.item.querySelector(".va-rail-arrow");
+      if (!arrow) continue;
+      const targetRects = Array.from(entry.target.getClientRects());
+      const targetRect =
+        (isTop ? targetRects[0] : targetRects[targetRects.length - 1]) ||
+        entry.target.getBoundingClientRect();
+      const arrowRect = arrow.getBoundingClientRect();
+
+      if (isTop) {
+        if (!Number.isFinite(targetRect.top) || !Number.isFinite(arrowRect.bottom)) {
+          continue;
+        }
+        const rawExtension = targetRect.top - targetGap - arrowRect.bottom;
+        const extension = Math.round(
+          Math.max(38 - entry.arrowLength, Math.min(160, rawExtension)) * 2
+        ) / 2;
+        connectorCorrections.push({
+          entry,
+          adjustedLength: entry.arrowLength + extension,
+          adjustedOffset: entry.connectorOffset
+        });
+      } else {
+        if (!Number.isFinite(targetRect.bottom) || !Number.isFinite(arrowRect.top)) {
+          continue;
+        }
+        const rawExtension = arrowRect.top - (targetRect.bottom + targetGap);
+        const extension = Math.round(
+          Math.max(38 - entry.arrowLength, Math.min(160, rawExtension)) * 2
+        ) / 2;
+        connectorCorrections.push({
+          entry,
+          adjustedLength: entry.arrowLength + extension,
+          adjustedOffset: entry.connectorOffset - extension
+        });
+      }
+    }
+    for (const correction of connectorCorrections) {
+      correction.entry.item.style.setProperty(
+        "--va-arrow-length",
+        `${correction.adjustedLength}px`
+      );
+      correction.entry.item.style.setProperty(
+        "--va-connector-offset",
+        `${correction.adjustedOffset}px`
       );
     }
   }
