@@ -8,5 +8,4 @@ WHERE file.path = this.file.path
 
 # 分类
 - [哲学](02-🤔%20哲学/哲学.md)
-- [心理学](05-🧠%20心理学/心理学.md)
 
