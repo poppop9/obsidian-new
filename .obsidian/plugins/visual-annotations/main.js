@@ -25,6 +25,10 @@ const ANNOTATION_SOURCE =
   ')" data-va-note="([^"]*)"(?: data-va-id="([^"]*)")?>([\\s\\S]*?)<\\/span>';
 
 const DEFAULT_SETTINGS = { defaultColor: "blue" };
+const MAX_CONNECTOR_EXTENSION = 160;
+const PAINT_CLIP_SAFETY_MARGIN = 8;
+const RAIL_PAINT_CLIP_MARGIN =
+  MAX_CONNECTOR_EXTENSION + PAINT_CLIP_SAFETY_MARGIN;
 
 const COLOR_LABELS = {
   amber: "橙色",
@@ -917,6 +921,12 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
     rail.className = `va-annotation-rail va-${mode}-rail va-side-${placement}`;
     rail.dataset.vaPlacement = placement;
     rail.dataset.vaMode = mode;
+    // Obsidian paint-contains CodeMirror block widgets. Community themes can
+    // change line height enough for a target-facing connector to protrude
+    // outside that widget, so keep the paint edge beyond every connector the
+    // layout engine can create. Inline geometry also outranks ordinary theme
+    // selectors without relying on priority overrides.
+    rail.style.overflowClipMargin = `${RAIL_PAINT_CLIP_MARGIN}px`;
     rail.setAttribute("contenteditable", "false");
     rail.setAttribute("aria-label", "视觉批注栏");
 
@@ -1378,7 +1388,10 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
         ) {
           const rawExtension = targetRect.top - targetGap - arrowRect.bottom;
           const extension = Math.round(
-            Math.max(38 - entry.arrowLength, Math.min(160, rawExtension)) * 2
+            Math.max(
+              38 - entry.arrowLength,
+              Math.min(MAX_CONNECTOR_EXTENSION, rawExtension)
+            ) * 2
           ) / 2;
           adjustedLength = entry.arrowLength + extension;
         } else if (
@@ -1388,7 +1401,10 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
         ) {
           const rawExtension = arrowRect.top - (targetRect.bottom + targetGap);
           const extension = Math.round(
-            Math.max(38 - entry.arrowLength, Math.min(160, rawExtension)) * 2
+            Math.max(
+              38 - entry.arrowLength,
+              Math.min(MAX_CONNECTOR_EXTENSION, rawExtension)
+            ) * 2
           ) / 2;
           adjustedLength = entry.arrowLength + extension;
           adjustedOffset = entry.connectorOffset - extension;

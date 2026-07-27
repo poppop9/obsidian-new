@@ -78,6 +78,7 @@
    cover prose or change the prose's line wrapping. */
 span.va-annotation-rail.va-editor-rail,
 span.va-annotation-rail.va-reading-rail {
+  --va-arrow-mask-image: url("data:image/svg+xml,%3Csvg width='46' height='38' viewBox='0 0 46 38' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M23 1.25 C22 12 22 25 23 36' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M17 29.5 L23 36.75 L29 29.5' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   display: block;
   box-sizing: border-box;
   width: 100%;
@@ -89,9 +90,24 @@ span.va-annotation-rail.va-reading-rail {
   background: transparent;
   font-size: 1rem;
   line-height: 1;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-indent: 0;
   white-space: normal;
   position: relative;
   clear: both;
+  contain: none;
+  content-visibility: visible;
+  overflow: visible;
+  /* CodeMirror enforces paint containment on block widgets. The connector may
+     intentionally reach into the preceding or following line, so enlarge that
+     mandatory paint clip beyond the 160px layout cap. */
+  overflow-clip-margin: 168px;
+  clip: auto;
+  clip-path: none;
+  -webkit-mask-image: none;
+  mask-image: none;
+  filter: none;
 }
 
 .va-editor-rail,
@@ -125,6 +141,14 @@ span.va-annotation-rail.va-reading-rail {
   background: transparent;
   width: 100%;
   transform: none;
+  contain: none;
+  content-visibility: visible;
+  overflow: visible;
+  clip: auto;
+  clip-path: none;
+  -webkit-mask-image: none;
+  mask-image: none;
+  filter: none;
 }
 
 .va-annotation-rail .va-rail-arrow {
@@ -136,17 +160,29 @@ span.va-annotation-rail.va-reading-rail {
   -webkit-mask-position: center;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-size: 100% 100%;
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='46' height='38' viewBox='0 0 46 38' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M23 1.25 C22 12 22 25 23 36' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M17 29.5 L23 36.75 L29 29.5' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  -webkit-mask-image: var(--va-arrow-mask-image);
   mask-position: center;
   mask-repeat: no-repeat;
   mask-size: 100% 100%;
-  mask-image: url("data:image/svg+xml,%3Csvg width='46' height='38' viewBox='0 0 46 38' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M23 1.25 C22 12 22 25 23 36' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M17 29.5 L23 36.75 L29 29.5' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  mask-image: var(--va-arrow-mask-image);
   -webkit-clip-path: inset(var(--va-label-arrow-gap, 6px) 0 0 0);
   clip-path: inset(var(--va-label-arrow-gap, 6px) 0 0 0);
   justify-self: center;
   margin: 0;
   transform: translateX(var(--va-arrow-shift, 0));
   pointer-events: none;
+  box-sizing: border-box;
+  min-width: 46px;
+  max-width: 46px;
+  min-height: 0;
+  max-height: none;
+  padding: 0;
+  border: 0;
+  contain: none;
+  content-visibility: visible;
+  overflow: visible;
+  clip: auto;
+  filter: none;
 }
 
 .va-side-top .va-rail-note-text {
@@ -230,6 +266,12 @@ span.va-annotation-rail.va-reading-rail {
   font-weight: 400;
   font-synthesis: none;
   line-height: 1.15;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-indent: 0;
+  text-transform: none;
+  font-style: normal;
+  text-shadow: none;
   overflow-wrap: anywhere;
   text-align: center;
   text-overflow: clip;
@@ -238,14 +280,340 @@ span.va-annotation-rail.va-reading-rail {
   transform: rotate(var(--va-rotate, -3deg));
   transform-origin: 50% 70%;
   transition: opacity 120ms ease, transform 120ms ease;
+  contain: none;
+  content-visibility: visible;
+  overflow: visible;
+  clip: auto;
+  clip-path: none;
+  -webkit-mask-image: none;
+  mask-image: none;
+  filter: none;
+}
+
+/* Theme isolation. Some community themes apply paint containment, padding,
+   filters, masks, or decorative pseudo-elements to every button/span. Keep
+   those generic rules outside the annotation marker while remaining
+   compatible with Obsidian's plugin checks. */
+span.va-annotation-rail.va-editor-rail[data-va-mode="editor"][data-va-placement],
+span.va-annotation-rail.va-reading-rail[data-va-mode="reading"][data-va-placement] {
+  display: block;
+  position: relative;
+  clear: both;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 4.65rem;
+  margin-block: 0.1rem;
+  padding: 0.15rem 0.7rem 0;
+  border: 0;
+  background: transparent;
+  font-size: 1rem;
+  line-height: 1;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-indent: 0;
+  white-space: normal;
+  contain: none;
+  content-visibility: visible;
+  overflow: visible;
+  overflow-clip-margin: 168px;
+  clip: auto;
+  clip-path: none;
+  -webkit-mask: none;
+  mask: none;
+  filter: none;
+  translate: none;
+  rotate: none;
+  scale: none;
+}
+
+span.va-annotation-rail.va-side-top[data-va-mode][data-va-placement="top"] {
+  margin-bottom: 0.2rem;
+}
+
+span.va-annotation-rail.va-side-bottom[data-va-mode][data-va-placement="bottom"] {
+  margin-top: 0.2rem;
+  margin-bottom: 0.35rem;
+}
+
+span.va-annotation-rail[data-va-mode][data-va-placement]
+  > span.va-rail-item {
+  position: absolute;
+  inset-inline: 0;
+  top: var(--va-lane-y, 0);
+  display: grid;
+  grid-template-columns: 100%;
+  align-items: start;
+  justify-items: start;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 4.75rem;
+  max-width: 100%;
+  min-height: 4.25rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--va-color);
+  background: transparent;
+  transform: none;
+  contain: none;
+  content-visibility: visible;
+  overflow: visible;
+  clip: auto;
+  clip-path: none;
+  -webkit-mask-image: none;
+  mask-image: none;
+  filter: none;
+  translate: none;
+  rotate: none;
+  scale: none;
+}
+
+span.va-annotation-rail.va-editor-rail[data-va-mode="editor"]
+  > span.va-rail-item
+  > button.va-rail-note,
+span.va-annotation-rail.va-reading-rail[data-va-mode="reading"]
+  > span.va-rail-item
+  > span.va-rail-note {
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+  left: var(--va-marker-x, 50%);
+  display: inline-grid;
+  grid-template-rows: auto var(--va-arrow-length, 38px);
+  align-items: center;
+  justify-items: center;
+  justify-self: start;
+  width: max-content;
+  min-width: 0;
+  max-width: min(42rem, calc(100% - 1.5rem));
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: var(--va-color);
+  background: transparent;
+  box-shadow: none;
+  line-height: 1;
+  white-space: normal;
+  transform: translate(-50%, var(--va-connector-offset, 0px));
+  contain: none;
+  content-visibility: visible;
+  overflow: visible;
+  clip: auto;
+  clip-path: none;
+  -webkit-mask-image: none;
+  mask-image: none;
+  filter: none;
+  box-sizing: border-box;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-indent: 0;
+  text-transform: none;
+  vertical-align: top;
+  translate: none;
+  rotate: none;
+  scale: none;
+}
+
+span.va-annotation-rail.va-side-bottom[data-va-mode]
+  > span.va-rail-item
+  > .va-rail-note {
+  grid-template-rows: var(--va-arrow-length, 38px) auto;
+}
+
+span.va-annotation-rail.va-editor-rail.va-side-bottom[data-va-mode="editor"]
+  > span.va-rail-item
+  > button.va-rail-note {
+  row-gap: var(--va-label-layout-gap, 0px);
+}
+
+span.va-annotation-rail.va-editor-rail[data-va-mode="editor"]
+  > span.va-rail-item
+  > button.va-rail-note::before,
+span.va-annotation-rail.va-editor-rail[data-va-mode="editor"]
+  > span.va-rail-item
+  > button.va-rail-note::after,
+span.va-annotation-rail.va-reading-rail[data-va-mode="reading"]
+  > span.va-rail-item
+  > span.va-rail-note::before,
+span.va-annotation-rail.va-reading-rail[data-va-mode="reading"]
+  > span.va-rail-item
+  > span.va-rail-note::after {
+  content: none;
+  display: none;
+}
+
+span.va-annotation-rail[data-va-mode]
+  > span.va-rail-item
+  > .va-rail-note
+  > span.va-rail-note-text {
+  display: block;
+  position: static;
+  inset: auto;
+  box-sizing: border-box;
+  width: auto;
+  min-width: 0;
+  min-height: 0;
+  max-width: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: var(--va-color);
+  background: transparent;
+  box-shadow: none;
+  font-family: "VA Shantell Sans", "Shantell Sans", "VA LXGW WenKai Lite", "Kaiti SC", "STKaiti", "KaiTi", cursive;
+  font-size: 1rem;
+  font-weight: 400;
+  font-synthesis: none;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-indent: 0;
+  text-transform: none;
+  text-shadow: none;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  text-align: center;
+  text-overflow: clip;
+  white-space: normal;
+  opacity: 0.94;
+  transform: rotate(var(--va-rotate, -3deg));
+  transform-origin: 50% 70%;
+  contain: none;
+  content-visibility: visible;
+  clip: auto;
+  clip-path: none;
+  -webkit-mask-image: none;
+  mask-image: none;
+  filter: none;
+  translate: none;
+  rotate: none;
+  scale: none;
+}
+
+span.va-annotation-rail[data-va-mode]
+  > span.va-rail-item
+  > .va-rail-note
+  > span.va-rail-arrow {
+  display: block;
+  position: static;
+  inset: auto;
+  width: 46px;
+  height: var(--va-arrow-length, 38px);
+  min-width: 46px;
+  max-width: 46px;
+  min-height: 0;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: var(--va-color);
+  box-shadow: none;
+  opacity: 0.92;
+  -webkit-mask: var(--va-arrow-mask-image) center / 100% 100% no-repeat;
+  mask: var(--va-arrow-mask-image) center / 100% 100% no-repeat;
+  -webkit-clip-path: inset(var(--va-label-arrow-gap, 6px) 0 0 0);
+  clip-path: inset(var(--va-label-arrow-gap, 6px) 0 0 0);
+  justify-self: center;
+  transform: translateX(var(--va-arrow-shift, 0));
+  transform-origin: center;
+  contain: none;
+  content-visibility: visible;
+  overflow: visible;
+  clip: auto;
+  filter: none;
+  box-sizing: border-box;
+  font-size: 0;
+  line-height: 0;
+  vertical-align: top;
+  pointer-events: none;
+  translate: none;
+  rotate: none;
+  scale: none;
+}
+
+span.va-annotation-rail[data-va-mode]
+  > span.va-rail-item
+  > .va-rail-note
+  > span.va-rail-note-text::before,
+span.va-annotation-rail[data-va-mode]
+  > span.va-rail-item
+  > .va-rail-note
+  > span.va-rail-note-text::after,
+span.va-annotation-rail[data-va-mode]
+  > span.va-rail-item
+  > .va-rail-note
+  > span.va-rail-arrow::before,
+span.va-annotation-rail[data-va-mode]
+  > span.va-rail-item
+  > .va-rail-note
+  > span.va-rail-arrow::after {
+  content: none;
+  display: none;
+}
+
+span.va-annotation-rail.va-side-top[data-va-mode]
+  > span.va-rail-item
+  > .va-rail-note
+  > .va-rail-note-text {
+  grid-row: 1;
+}
+
+span.va-annotation-rail.va-side-top[data-va-mode]
+  > span.va-rail-item
+  > .va-rail-note
+  > span.va-rail-arrow {
+  grid-row: 2;
+}
+
+span.va-annotation-rail.va-side-bottom[data-va-mode]
+  > span.va-rail-item
+  > .va-rail-note
+  > .va-rail-note-text {
+  grid-row: 2;
+}
+
+span.va-annotation-rail.va-side-bottom[data-va-mode]
+  > span.va-rail-item
+  > .va-rail-note
+  > span.va-rail-arrow {
+  grid-row: 1;
+  transform: translateX(var(--va-arrow-shift, 0)) rotate(180deg);
+}
+
+span.va-annotation-rail.va-editor-rail.va-side-bottom[data-va-mode="editor"]
+  > span.va-rail-item
+  > button.va-rail-note
+  > span.va-rail-arrow {
+  -webkit-clip-path: none;
+  clip-path: none;
 }
 
 .va-editor-rail .va-rail-note {
   cursor: pointer;
 }
 
-.va-editor-rail .va-rail-note:hover .va-rail-note-text,
-.va-editor-rail .va-rail-note:focus .va-rail-note-text {
+span.va-annotation-rail.va-editor-rail[data-va-mode="editor"]
+  > span.va-rail-item
+  > button.va-rail-note {
+  cursor: pointer;
+}
+
+span.va-annotation-rail.va-editor-rail[data-va-mode="editor"]
+  > span.va-rail-item
+  > button.va-rail-note:hover
+  > span.va-rail-note-text,
+span.va-annotation-rail.va-editor-rail[data-va-mode="editor"]
+  > span.va-rail-item
+  > button.va-rail-note:focus
+  > span.va-rail-note-text {
   color: var(--va-color);
   background: transparent;
   box-shadow: none;
