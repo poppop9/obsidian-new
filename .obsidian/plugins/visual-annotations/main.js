@@ -1011,7 +1011,20 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
 
   scheduleAnnotationRailLayout(rail, editorView = null) {
     const view = rail.ownerDocument.defaultView;
-    const run = () => {
+    const scheduleFrame = (callback) => {
+      if (view && typeof view.requestAnimationFrame === "function") {
+        view.requestAnimationFrame(callback);
+      } else {
+        setTimeout(callback, 0);
+      }
+    };
+    const scheduleEditorSettle = (epoch, remainingFrames) => {
+      scheduleFrame(() => {
+        if (rail._vaLayoutEpoch !== epoch || !remainingFrames) return;
+        run({ epoch, remainingFrames });
+      });
+    };
+    const run = ({ epoch = null, remainingFrames = 0 } = {}) => {
       const previousHeight = rail.style.height;
       this.layoutAnnotationRail(rail);
       if (
@@ -1020,22 +1033,24 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
         typeof editorView.requestMeasure === "function"
       ) {
         editorView.requestMeasure();
-        const settle = () => this.layoutAnnotationRail(rail);
-        if (view && typeof view.requestAnimationFrame === "function") {
-          // CodeMirror applies the requested block-height measurement on its
-          // next animation frame. Re-read the target rect afterwards so the
-          // connector is calibrated against the prose's settled position.
-          view.requestAnimationFrame(settle);
-        } else {
-          setTimeout(settle, 0);
-        }
+        const nextEpoch = (Number(rail._vaLayoutEpoch) || 0) + 1;
+        rail._vaLayoutEpoch = nextEpoch;
+        // CodeMirror may need one frame to measure a changed block widget and
+        // another to write its final line positions. Four bounded passes cover
+        // that cycle plus a final calibration without creating a live loop.
+        scheduleEditorSettle(nextEpoch, 4);
+        return;
+      }
+      if (
+        editorView &&
+        epoch !== null &&
+        rail._vaLayoutEpoch === epoch &&
+        remainingFrames > 1
+      ) {
+        scheduleEditorSettle(epoch, remainingFrames - 1);
       }
     };
-    if (view && typeof view.requestAnimationFrame === "function") {
-      view.requestAnimationFrame(run);
-    } else {
-      setTimeout(run, 0);
-    }
+    scheduleFrame(() => run());
     const fonts = rail.ownerDocument.fonts;
     if (fonts && fonts.ready && typeof fonts.ready.then === "function") {
       fonts.ready.then(run).catch(() => {});
@@ -1314,8 +1329,12 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
     // rail height is committed, then extend only the target-facing end of the
     // connector. This gives Reading and Editing view the same visible gap
     // without moving the handwritten label or reducing its safety space.
-    const targetGap = 5;
-    const labelGap = 6;
+    // CodeMirror's inline boxes paint slightly closer to the connector than
+    // Reading view. A small editor-only optical allowance makes the visible
+    // gaps match while both modes keep the same target-aware geometry.
+    const isEditor = rail.dataset.vaMode === "editor";
+    const targetGap = isEditor ? 7 : 5;
+    const labelGap = isEditor ? 8 : 6;
     const connectorCorrections = [];
     for (const entry of entries) {
       const arrow = entry.item.querySelector(".va-rail-arrow");
