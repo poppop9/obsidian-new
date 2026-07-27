@@ -136,11 +136,11 @@ span.va-annotation-rail.va-reading-rail {
   -webkit-mask-position: center;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-size: 100% 100%;
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='46' height='38' viewBox='0 0 46 38' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M23 0.5 C22 12 22 25 23 36.5' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M17 30 L23 37.5 L29 30' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='46' height='38' viewBox='0 0 46 38' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M23 1.25 C22 12 22 25 23 36' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M17 29.5 L23 36.75 L29 29.5' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   mask-position: center;
   mask-repeat: no-repeat;
   mask-size: 100% 100%;
-  mask-image: url("data:image/svg+xml,%3Csvg width='46' height='38' viewBox='0 0 46 38' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M23 0.5 C22 12 22 25 23 36.5' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M17 30 L23 37.5 L29 30' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg width='46' height='38' viewBox='0 0 46 38' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M23 1.25 C22 12 22 25 23 36' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M17 29.5 L23 36.75 L29 29.5' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   -webkit-clip-path: inset(var(--va-label-arrow-gap, 6px) 0 0 0);
   clip-path: inset(var(--va-label-arrow-gap, 6px) 0 0 0);
   justify-self: center;
