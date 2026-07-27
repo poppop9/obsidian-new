@@ -131,19 +131,18 @@ span.va-annotation-rail.va-reading-rail {
   display: block;
   width: 46px;
   height: var(--va-arrow-length, 38px);
-  margin-top: -0.15rem;
   background: var(--va-color);
   opacity: 0.92;
-  -webkit-mask-position: center;
+  -webkit-mask-position: center bottom;
   -webkit-mask-repeat: no-repeat;
-  -webkit-mask-size: 100% 100%;
+  -webkit-mask-size: 100% calc(100% - 6px);
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='46' height='38' viewBox='0 0 46 38' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M23 0.5 C22 12 22 25 23 36.5' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M17 30 L23 37.5 L29 30' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  mask-position: center;
+  mask-position: center bottom;
   mask-repeat: no-repeat;
-  mask-size: 100% 100%;
+  mask-size: 100% calc(100% - 6px);
   mask-image: url("data:image/svg+xml,%3Csvg width='46' height='38' viewBox='0 0 46 38' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M23 0.5 C22 12 22 25 23 36.5' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M17 30 L23 37.5 L29 30' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   justify-self: center;
-  margin: -0.15rem 0 0;
+  margin: 0;
   transform: translateX(var(--va-arrow-shift, 0));
   pointer-events: none;
 }
@@ -166,7 +165,7 @@ span.va-annotation-rail.va-reading-rail {
 
 .va-annotation-rail.va-side-bottom .va-rail-arrow {
   grid-row: 1;
-  margin: 0 0 -0.15rem;
+  margin: 0;
   transform: translateX(var(--va-arrow-shift, 0)) rotate(180deg);
 }
 

@@ -1020,6 +1020,15 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
         typeof editorView.requestMeasure === "function"
       ) {
         editorView.requestMeasure();
+        const settle = () => this.layoutAnnotationRail(rail);
+        if (view && typeof view.requestAnimationFrame === "function") {
+          // CodeMirror applies the requested block-height measurement on its
+          // next animation frame. Re-read the target rect afterwards so the
+          // connector is calibrated against the prose's settled position.
+          view.requestAnimationFrame(settle);
+        } else {
+          setTimeout(settle, 0);
+        }
       }
     };
     if (view && typeof view.requestAnimationFrame === "function") {
@@ -1175,7 +1184,7 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
     // rail height is committed, then extend only the target-facing end of the
     // connector. This gives Reading and Editing view the same visible gap
     // without moving the handwritten label or reducing its safety space.
-    const targetGap = 1;
+    const targetGap = 5;
     const connectorCorrections = [];
     for (const entry of entries) {
       if (!entry.target) continue;
