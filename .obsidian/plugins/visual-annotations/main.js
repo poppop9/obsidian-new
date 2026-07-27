@@ -1081,6 +1081,135 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
     })[0];
   }
 
+  rotatedRectVerticalBoundsAtX(rect, angle, connectorX) {
+    if (
+      !rect ||
+      !Number.isFinite(connectorX) ||
+      !Number.isFinite(rect.left) ||
+      !Number.isFinite(rect.top)
+    ) {
+      return null;
+    }
+    const rectWidth = Number(rect.width) || Number(rect.right) - Number(rect.left);
+    const rectHeight = Number(rect.height) || Number(rect.bottom) - Number(rect.top);
+    if (!(rectWidth > 0) || !(rectHeight > 0)) return null;
+
+    const cos = Math.cos(angle);
+    const sin = Math.sin(angle);
+    const absCos = Math.abs(cos);
+    const absSin = Math.abs(sin);
+    const determinant = absCos * absCos - absSin * absSin;
+    if (Math.abs(determinant) < 0.05) {
+      if (connectorX < rect.left || connectorX > rect.right) return null;
+      return { top: rect.top, bottom: rect.bottom };
+    }
+
+    // Range rectangles are axis-aligned bounds after CSS transforms. Recover
+    // the line box's rotated quadrilateral so we can measure its boundary at
+    // the connector's actual x coordinate instead of using a far-away corner.
+    const boxWidth =
+      (rectWidth * absCos - rectHeight * absSin) / determinant;
+    const boxHeight =
+      (rectHeight * absCos - rectWidth * absSin) / determinant;
+    if (!(boxWidth > 0) || !(boxHeight > 0)) {
+      if (connectorX < rect.left || connectorX > rect.right) return null;
+      return { top: rect.top, bottom: rect.bottom };
+    }
+
+    const centerX = rect.left + rectWidth / 2;
+    const centerY = rect.top + rectHeight / 2;
+    const corners = [
+      [-boxWidth / 2, -boxHeight / 2],
+      [boxWidth / 2, -boxHeight / 2],
+      [boxWidth / 2, boxHeight / 2],
+      [-boxWidth / 2, boxHeight / 2]
+    ].map(([x, y]) => ({
+      x: centerX + x * cos - y * sin,
+      y: centerY + x * sin + y * cos
+    }));
+    const intersections = [];
+    for (let index = 0; index < corners.length; index += 1) {
+      const start = corners[index];
+      const end = corners[(index + 1) % corners.length];
+      const minX = Math.min(start.x, end.x) - 0.25;
+      const maxX = Math.max(start.x, end.x) + 0.25;
+      if (connectorX < minX || connectorX > maxX) continue;
+      const deltaX = end.x - start.x;
+      if (Math.abs(deltaX) < 0.001) {
+        if (Math.abs(connectorX - start.x) <= 0.25) {
+          intersections.push(start.y, end.y);
+        }
+        continue;
+      }
+      const ratio = (connectorX - start.x) / deltaX;
+      if (ratio >= -0.001 && ratio <= 1.001) {
+        intersections.push(start.y + (end.y - start.y) * ratio);
+      }
+    }
+    if (intersections.length < 2) return null;
+    return {
+      top: Math.min(...intersections),
+      bottom: Math.max(...intersections)
+    };
+  }
+
+  measureNoteBoundaryAtX(noteText, connectorX, isTop) {
+    if (!noteText) return null;
+    const doc = noteText.ownerDocument;
+    const view = doc && doc.defaultView;
+    let angle = 0;
+    try {
+      const transform =
+        view && typeof view.getComputedStyle === "function"
+          ? view.getComputedStyle(noteText).transform
+          : "";
+      const matrixMatch =
+        typeof transform === "string" &&
+        transform.match(/^matrix\(([^)]+)\)$/);
+      const matrix3dMatch =
+        typeof transform === "string" &&
+        transform.match(/^matrix3d\(([^)]+)\)$/);
+      const values = matrixMatch
+        ? matrixMatch[1].split(",").map(Number)
+        : matrix3dMatch
+          ? matrix3dMatch[1].split(",").map(Number)
+          : [];
+      if (values.length >= 2 && values.every(Number.isFinite)) {
+        angle = Math.atan2(values[1], values[0]);
+      }
+    } catch (error) {
+      // A partial test DOM may not expose computed styles.
+    }
+
+    let lineRects = [];
+    try {
+      if (doc && typeof doc.createRange === "function") {
+        const range = doc.createRange();
+        range.selectNodeContents(noteText);
+        lineRects = Array.from(range.getClientRects());
+        if (typeof range.detach === "function") range.detach();
+      }
+    } catch (error) {
+      // Fall back to the element rectangle below.
+    }
+    if (!lineRects.length && typeof noteText.getBoundingClientRect === "function") {
+      lineRects = [noteText.getBoundingClientRect()];
+    }
+
+    const connectorSamples = [connectorX - 2, connectorX, connectorX + 2];
+    const bounds = lineRects.flatMap((rect) =>
+      connectorSamples
+        .map((sampleX) =>
+          this.rotatedRectVerticalBoundsAtX(rect, angle, sampleX)
+        )
+        .filter(Boolean)
+    );
+    if (!bounds.length) return null;
+    return isTop
+      ? Math.max(...bounds.map((bound) => bound.bottom))
+      : Math.min(...bounds.map((bound) => bound.top));
+  }
+
   layoutAnnotationRail(rail) {
     if (!rail.isConnected) return;
     const railRect = rail.getBoundingClientRect();
@@ -1125,6 +1254,7 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
       return {
         item,
         target,
+        noteText,
         markerX,
         arrowShift: desiredX - markerX,
         left: markerX - markerHalf,
@@ -1185,44 +1315,65 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
     // connector. This gives Reading and Editing view the same visible gap
     // without moving the handwritten label or reducing its safety space.
     const targetGap = 5;
+    const labelGap = 6;
     const connectorCorrections = [];
     for (const entry of entries) {
-      if (!entry.target) continue;
       const arrow = entry.item.querySelector(".va-rail-arrow");
       if (!arrow) continue;
-      const targetRects = Array.from(entry.target.getClientRects());
-      const targetRect =
-        (isTop ? targetRects[0] : targetRects[targetRects.length - 1]) ||
-        entry.target.getBoundingClientRect();
       const arrowRect = arrow.getBoundingClientRect();
+      const connectorX = arrowRect.left + arrowRect.width / 2;
+      const noteBoundary = this.measureNoteBoundaryAtX(
+        entry.noteText,
+        connectorX,
+        isTop
+      );
+      const requestedLabelGap = Number.isFinite(noteBoundary)
+        ? isTop
+          ? noteBoundary + labelGap - arrowRect.top
+          : arrowRect.bottom + labelGap - noteBoundary
+        : labelGap;
+      let adjustedLength = entry.arrowLength;
+      let adjustedOffset = entry.connectorOffset;
 
-      if (isTop) {
-        if (!Number.isFinite(targetRect.top) || !Number.isFinite(arrowRect.bottom)) {
-          continue;
+      if (entry.target) {
+        const targetRects = Array.from(entry.target.getClientRects());
+        const targetRect =
+          (isTop ? targetRects[0] : targetRects[targetRects.length - 1]) ||
+          entry.target.getBoundingClientRect();
+        if (
+          isTop &&
+          Number.isFinite(targetRect.top) &&
+          Number.isFinite(arrowRect.bottom)
+        ) {
+          const rawExtension = targetRect.top - targetGap - arrowRect.bottom;
+          const extension = Math.round(
+            Math.max(38 - entry.arrowLength, Math.min(160, rawExtension)) * 2
+          ) / 2;
+          adjustedLength = entry.arrowLength + extension;
+        } else if (
+          !isTop &&
+          Number.isFinite(targetRect.bottom) &&
+          Number.isFinite(arrowRect.top)
+        ) {
+          const rawExtension = arrowRect.top - (targetRect.bottom + targetGap);
+          const extension = Math.round(
+            Math.max(38 - entry.arrowLength, Math.min(160, rawExtension)) * 2
+          ) / 2;
+          adjustedLength = entry.arrowLength + extension;
+          adjustedOffset = entry.connectorOffset - extension;
         }
-        const rawExtension = targetRect.top - targetGap - arrowRect.bottom;
-        const extension = Math.round(
-          Math.max(38 - entry.arrowLength, Math.min(160, rawExtension)) * 2
-        ) / 2;
-        connectorCorrections.push({
-          entry,
-          adjustedLength: entry.arrowLength + extension,
-          adjustedOffset: entry.connectorOffset
-        });
-      } else {
-        if (!Number.isFinite(targetRect.bottom) || !Number.isFinite(arrowRect.top)) {
-          continue;
-        }
-        const rawExtension = arrowRect.top - (targetRect.bottom + targetGap);
-        const extension = Math.round(
-          Math.max(38 - entry.arrowLength, Math.min(160, rawExtension)) * 2
-        ) / 2;
-        connectorCorrections.push({
-          entry,
-          adjustedLength: entry.arrowLength + extension,
-          adjustedOffset: entry.connectorOffset - extension
-        });
       }
+      const maxLabelGap = Math.max(labelGap, adjustedLength - 8);
+      const adjustedLabelGap =
+        Math.round(
+          Math.max(labelGap, Math.min(maxLabelGap, requestedLabelGap)) * 2
+        ) / 2;
+      connectorCorrections.push({
+        entry,
+        adjustedLength,
+        adjustedOffset,
+        adjustedLabelGap
+      });
     }
     for (const correction of connectorCorrections) {
       correction.entry.item.style.setProperty(
@@ -1232,6 +1383,10 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
       correction.entry.item.style.setProperty(
         "--va-connector-offset",
         `${correction.adjustedOffset}px`
+      );
+      correction.entry.item.style.setProperty(
+        "--va-label-arrow-gap",
+        `${correction.adjustedLabelGap}px`
       );
     }
   }
