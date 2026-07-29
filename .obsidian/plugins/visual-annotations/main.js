@@ -25,18 +25,157 @@ const ANNOTATION_SOURCE =
   ')" data-va-note="([^"]*)"(?: data-va-id="([^"]*)")?>([\\s\\S]*?)<\\/span>';
 
 const DEFAULT_SETTINGS = { defaultColor: "blue" };
-const MAX_CONNECTOR_EXTENSION = 160;
-const PAINT_CLIP_SAFETY_MARGIN = 8;
-const RAIL_PAINT_CLIP_MARGIN =
-  MAX_CONNECTOR_EXTENSION + PAINT_CLIP_SAFETY_MARGIN;
 
-const COLOR_LABELS = {
-  amber: "橙色",
-  blue: "蓝色",
-  green: "绿色",
-  red: "红色",
-  purple: "紫色"
+const MESSAGES = {
+  en: {
+    modal: {
+      addTitle: "Add annotation",
+      editTitle: "Edit annotation",
+      noteLabel: "Annotation text",
+      notePlaceholder: "Enter an annotation, for example: Key conclusion",
+      colorLabel: "Color",
+      targetLabel: "Selected text",
+      positionHint:
+        "The annotation appears in a separate rail outside the prose and does not cover it.",
+      cancel: "Cancel",
+      add: "Add",
+      save: "Save"
+    },
+    colors: {
+      amber: "Amber",
+      blue: "Blue",
+      green: "Green",
+      red: "Red",
+      purple: "Purple"
+    },
+    settings: {
+      defaultColor: "Default color",
+      defaultColorDescription: "Color selected by default when adding an annotation"
+    },
+    commands: {
+      add: "Add a handwritten annotation to selected text",
+      edit: "Edit the annotation at the selection or cursor",
+      remove: "Remove the annotation at the selection or cursor (keep text)"
+    },
+    actions: {
+      add: "Add annotation",
+      edit: "Edit",
+      editSelected: "Edit selected annotation",
+      remove: "Delete",
+      removeKeepText: "Delete annotation (keep text)",
+      removeSelectedKeepText: "Delete selected annotation (keep text)"
+    },
+    notices: {
+      enterNote: "Enter annotation text",
+      openMarkdown: "Open a Markdown note first",
+      selectText: "Select the text you want to annotate first",
+      alreadyAnnotated: "The selected text already has an annotation. Use edit or delete instead.",
+      singleLineOnly: "Annotations currently support single-line selections only",
+      incompatibleSelection: "The selection already contains an annotation or incompatible HTML",
+      whitespaceOnly: "The selection cannot contain only spaces",
+      added: "Annotation added",
+      updated: "Annotation updated",
+      removed: "Annotation deleted; the original text was kept",
+      fileNotFound: "The note containing this annotation could not be found",
+      annotationNotFound: "The selected annotation could not be found. Reopen the note and try again.",
+      annotationChanged: "The annotation has changed. Select it again."
+    },
+    accessibility: {
+      rail: "Handwritten annotation rail",
+      target: "Annotated text: {text}"
+    }
+  },
+  zh: {
+    modal: {
+      addTitle: "添加批注",
+      editTitle: "编辑批注",
+      noteLabel: "批注文字",
+      notePlaceholder: "输入批注，例如：核心结论",
+      colorLabel: "颜色",
+      targetLabel: "批注对象",
+      positionHint: "批注会显示在正文外的独立批注栏，不会遮住正文。",
+      cancel: "取消",
+      add: "添加",
+      save: "保存"
+    },
+    colors: {
+      amber: "橙色",
+      blue: "蓝色",
+      green: "绿色",
+      red: "红色",
+      purple: "紫色"
+    },
+    settings: {
+      defaultColor: "默认颜色",
+      defaultColorDescription: "添加批注时预先选中的颜色"
+    },
+    commands: {
+      add: "为所选文字添加手写批注",
+      edit: "编辑所选或光标处的批注",
+      remove: "删除所选或光标处的批注（保留正文）"
+    },
+    actions: {
+      add: "添加批注",
+      edit: "编辑",
+      editSelected: "编辑所选批注",
+      remove: "删除",
+      removeKeepText: "删除批注（保留正文）",
+      removeSelectedKeepText: "删除所选批注（保留正文）"
+    },
+    notices: {
+      enterNote: "请输入批注文字",
+      openMarkdown: "请先打开 Markdown 文档",
+      selectText: "请先选中要批注的文字",
+      alreadyAnnotated: "所选文字已经有批注；请使用编辑或删除",
+      singleLineOnly: "目前仅支持单行文字批注",
+      incompatibleSelection: "选区已经包含批注或不兼容的 HTML",
+      whitespaceOnly: "选区不能只包含空格",
+      added: "批注已添加",
+      updated: "批注已更新",
+      removed: "批注已删除，正文已保留",
+      fileNotFound: "找不到批注所在文档",
+      annotationNotFound: "找不到所选批注，请重新打开文档后再试",
+      annotationChanged: "批注已发生变化，请重新选择"
+    },
+    accessibility: {
+      rail: "手写批注栏",
+      target: "批注对象：{text}"
+    }
+  }
 };
+
+function normalizeLocale(locale) {
+  return /^zh(?:[-_]|$)/i.test(String(locale || "")) ? "zh" : "en";
+}
+
+function detectLocale() {
+  let storedLocale = "";
+  try {
+    storedLocale =
+      typeof window !== "undefined" && window.localStorage
+        ? window.localStorage.getItem("language") || ""
+        : "";
+  } catch (_error) {
+    storedLocale = "";
+  }
+  const browserLocale =
+    typeof navigator !== "undefined" && navigator.language ? navigator.language : "";
+  return normalizeLocale(storedLocale || browserLocale);
+}
+
+function getMessage(locale, key, variables = {}) {
+  const read = (catalog) =>
+    key
+      .split(".")
+      .reduce(
+        (value, part) => (value && value[part] !== undefined ? value[part] : null),
+        catalog
+      );
+  const message = read(MESSAGES[locale]) ?? read(MESSAGES.en) ?? key;
+  return String(message).replace(/\{(\w+)\}/g, (_match, name) =>
+    variables[name] === undefined ? `{${name}}` : String(variables[name])
+  );
+}
 
 function annotationRegex() {
   return new RegExp(ANNOTATION_SOURCE, "g");
@@ -160,17 +299,6 @@ function annotationAnchorOnLine(source, line, annotation) {
   return Math.max(0.02, Math.min(0.98, (before + target / 2) / total));
 }
 
-function lineAtOffset(source, offset) {
-  const safeOffset = Math.max(0, Math.min(Number(offset) || 0, source.length));
-  const previousBreak =
-    safeOffset > 0 ? source.lastIndexOf("\n", safeOffset - 1) : -1;
-  const nextBreak = source.indexOf("\n", safeOffset);
-  return {
-    from: previousBreak === -1 ? 0 : previousBreak + 1,
-    to: nextBreak === -1 ? source.length : nextBreak
-  };
-}
-
 function distributeAnnotations(annotations) {
   const distributed = { top: [], bottom: [] };
   const ordered = [...annotations].sort(
@@ -244,8 +372,7 @@ class AnnotationRailWidget extends WidgetType {
       this.sourcePath || getEditorSourcePath(view),
       doc,
       "editor",
-      this.placement,
-      { editorView: view }
+      this.placement
     );
   }
 
@@ -273,16 +400,12 @@ function buildEditorRailDecorations(state, plugin) {
   for (const { line, annotations } of grouped.values()) {
     const distributed = distributeAnnotations(annotations);
     if (distributed.top.length) {
-      const hasPreviousLine = line.from > 0;
-      const topBoundary = hasPreviousLine
-        ? state.doc.lineAt(line.from - 1).to
-        : line.from;
       decorations.push(
         Decoration.widget({
           widget: new AnnotationRailWidget(plugin, distributed.top, sourcePath, "top"),
           block: true,
-          side: hasPreviousLine ? 200 : -100
-        }).range(topBoundary)
+          side: -100
+        }).range(line.from)
       );
     }
     if (distributed.bottom.length) {
@@ -348,8 +471,9 @@ function createEditorRailExtension(plugin) {
 }
 
 class AnnotationModal extends Modal {
-  constructor(app, initial, onSubmit) {
+  constructor(app, plugin, initial, onSubmit) {
     super(app);
+    this.plugin = plugin;
     this.state = { ...initial };
     this.onSubmit = onSubmit;
     this.colorButtons = new Map();
@@ -361,17 +485,20 @@ class AnnotationModal extends Modal {
     contentEl.empty();
     contentEl.addClass("va-modal");
     contentEl.createEl("h2", {
-      text: this.state.editing ? "编辑批注" : "添加批注"
+      text: this.plugin.t(this.state.editing ? "modal.editTitle" : "modal.addTitle")
     });
 
     const field = contentEl.createDiv({ cls: "va-note-field" });
-    field.createEl("label", { text: "批注文字", attr: { for: "va-note-input" } });
+    field.createEl("label", {
+      text: this.plugin.t("modal.noteLabel"),
+      attr: { for: "va-note-input" }
+    });
     const input = field.createEl("textarea", {
       cls: "va-note-input",
       attr: {
         id: "va-note-input",
         rows: "3",
-        placeholder: "输入批注，例如：核心结论",
+        placeholder: this.plugin.t("modal.notePlaceholder"),
         autocomplete: "off",
         spellcheck: "false"
       }
@@ -382,15 +509,19 @@ class AnnotationModal extends Modal {
     });
 
     const colorSection = contentEl.createDiv({ cls: "va-color-section" });
-    colorSection.createDiv({ cls: "va-field-label", text: "颜色" });
+    colorSection.createDiv({
+      cls: "va-field-label",
+      text: this.plugin.t("modal.colorLabel")
+    });
     const palette = colorSection.createDiv({ cls: "va-color-palette" });
     for (const color of COLORS) {
+      const colorLabel = this.plugin.t(`colors.${color}`);
       const button = palette.createEl("button", {
         cls: `va-color-choice va-color-${color}`,
         attr: {
           type: "button",
-          "aria-label": COLOR_LABELS[color],
-          title: COLOR_LABELS[color]
+          "aria-label": colorLabel,
+          title: colorLabel
         }
       });
       button.createSpan({ cls: "va-color-swatch" });
@@ -405,29 +536,32 @@ class AnnotationModal extends Modal {
     const selectedText = this.state.text || "";
     const excerpt = selectedText.length > 42 ? `${selectedText.slice(0, 42)}…` : selectedText;
     const target = contentEl.createDiv({ cls: "va-selected-text" });
-    target.createSpan({ cls: "va-selected-text-label", text: "批注对象" });
+    target.createSpan({
+      cls: "va-selected-text-label",
+      text: this.plugin.t("modal.targetLabel")
+    });
     target.createSpan({ cls: "va-selected-text-value", text: excerpt });
 
     contentEl.createDiv({
       cls: "va-auto-position-hint",
-      text: "批注会显示在正文上方的独立批注栏，不会遮住正文。"
+      text: this.plugin.t("modal.positionHint")
     });
 
     const actions = contentEl.createDiv({ cls: "va-modal-actions" });
     const cancel = actions.createEl("button", {
-      text: "取消",
+      text: this.plugin.t("modal.cancel"),
       attr: { type: "button" }
     });
     cancel.addEventListener("click", () => this.close());
     const submit = actions.createEl("button", {
       cls: "mod-cta",
-      text: this.state.editing ? "保存" : "添加",
+      text: this.plugin.t(this.state.editing ? "modal.save" : "modal.add"),
       attr: { type: "button" }
     });
     const submitForm = () => {
       const note = (this.state.note || "").trim();
       if (!note) {
-        new Notice("请输入批注文字");
+        new Notice(this.plugin.t("notices.enterNote"));
         input.focus();
         return;
       }
@@ -471,10 +605,12 @@ class VisualAnnotationsSettingTab extends PluginSettingTab {
     containerEl.empty();
 
     new Setting(containerEl)
-      .setName("默认颜色")
-      .setDesc("添加批注时预先选中的颜色")
+      .setName(this.plugin.t("settings.defaultColor"))
+      .setDesc(this.plugin.t("settings.defaultColorDescription"))
       .addDropdown((dropdown) => {
-        for (const color of COLORS) dropdown.addOption(color, COLOR_LABELS[color]);
+        for (const color of COLORS) {
+          dropdown.addOption(color, this.plugin.t(`colors.${color}`));
+        }
         dropdown.setValue(this.plugin.settings.defaultColor).onChange(async (value) => {
           this.plugin.settings.defaultColor = value;
           await this.plugin.saveSettings();
@@ -485,14 +621,15 @@ class VisualAnnotationsSettingTab extends PluginSettingTab {
 
 module.exports = class VisualAnnotationsPlugin extends Plugin {
   async onload() {
+    this.locale = detectLocale();
     this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+    this.selectionDismissalDocuments = new WeakSet();
     this.registerEditorExtension(createEditorRailExtension(this));
 
     this.addCommand({
       id: "add-visual-annotation",
-      name: "为所选文字添加视觉批注",
+      name: this.t("commands.add"),
       editorCheckCallback: (checking, editor) => {
-        if (!this.isEditingModeActive()) return false;
         const selection = editor.getSelection();
         if (!selection || this.getActiveAnnotation(editor)) return false;
         if (!checking) this.addAnnotation(editor);
@@ -502,9 +639,8 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
 
     this.addCommand({
       id: "edit-visual-annotation",
-      name: "编辑所选或光标处的视觉批注",
+      name: this.t("commands.edit"),
       editorCheckCallback: (checking, editor) => {
-        if (!this.isEditingModeActive()) return false;
         const annotation = this.getActiveAnnotation(editor);
         if (!annotation) return false;
         if (!checking) this.editAnnotation(editor, annotation);
@@ -514,9 +650,8 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
 
     this.addCommand({
       id: "remove-visual-annotation",
-      name: "删除所选或光标处的视觉批注（保留正文）",
+      name: this.t("commands.remove"),
       editorCheckCallback: (checking, editor) => {
-        if (!this.isEditingModeActive()) return false;
         const annotation = this.getActiveAnnotation(editor);
         if (!annotation) return false;
         if (!checking) this.removeAnnotation(editor, annotation);
@@ -524,22 +659,18 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
       }
     });
 
-    this.addRibbonIcon("message-square-plus", "添加视觉批注", () => {
+    this.addRibbonIcon("message-square-plus", this.t("actions.add"), () => {
       const view = this.app.workspace.getActiveViewOfType(MarkdownView);
       if (!view) {
-        new Notice("请先打开 Markdown 文档");
-        return;
-      }
-      if (typeof view.getMode === "function" && view.getMode() !== "source") {
-        new Notice("阅读模式为只读；请切换到编辑模式");
+        new Notice(this.t("notices.openMarkdown"));
         return;
       }
       if (!view.editor.getSelection()) {
-        new Notice("请先选中要批注的文字");
+        new Notice(this.t("notices.selectText"));
         return;
       }
       if (this.getActiveAnnotation(view.editor)) {
-        new Notice("所选文字已经有批注；请使用编辑或删除");
+        new Notice(this.t("notices.alreadyAnnotated"));
         return;
       }
       this.addAnnotation(view.editor);
@@ -551,20 +682,20 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
         if (annotation) {
           menu.addItem((item) =>
             item
-              .setTitle("编辑所选批注")
+              .setTitle(this.t("actions.editSelected"))
               .setIcon("pencil")
               .onClick(() => this.editAnnotation(editor, annotation))
           );
           menu.addItem((item) =>
             item
-              .setTitle("删除所选批注（保留正文）")
+              .setTitle(this.t("actions.removeSelectedKeepText"))
               .setIcon("eraser")
               .onClick(() => this.removeAnnotation(editor, annotation))
           );
         } else if (editor.getSelection()) {
           menu.addItem((item) =>
             item
-              .setTitle("添加视觉批注")
+              .setTitle(this.t("actions.add"))
               .setIcon("message-square-plus")
               .onClick(() => this.addAnnotation(editor))
           );
@@ -583,9 +714,8 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
     await this.saveData(this.settings);
   }
 
-  isEditingModeActive() {
-    const view = this.app.workspace.getActiveViewOfType(MarkdownView);
-    return !view || typeof view.getMode !== "function" || view.getMode() === "source";
+  t(key, variables = {}) {
+    return getMessage(this.locale || "en", key, variables);
   }
 
   getActiveAnnotation(editor) {
@@ -599,15 +729,15 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
   addAnnotation(editor) {
     const selected = editor.getSelection();
     if (!selected) {
-      new Notice("请先选中要批注的文字");
+      new Notice(this.t("notices.selectText"));
       return;
     }
     if (/\r|\n/.test(selected)) {
-      new Notice("目前仅支持单行文字批注");
+      new Notice(this.t("notices.singleLineOnly"));
       return;
     }
     if (selected.includes('<span class="va-annotation') || selected.includes("</span>")) {
-      new Notice("选区已经包含批注或不兼容的 HTML");
+      new Notice(this.t("notices.incompatibleSelection"));
       return;
     }
 
@@ -615,12 +745,13 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
     const trailing = selected.match(/\s*$/)[0];
     const text = selected.slice(leading.length, selected.length - trailing.length);
     if (!text) {
-      new Notice("选区不能只包含空格");
+      new Notice(this.t("notices.whitespaceOnly"));
       return;
     }
 
     new AnnotationModal(
       this.app,
+      this,
       {
         editing: false,
         text,
@@ -632,7 +763,7 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
         const replacement =
           leading + buildAnnotation(text, note, color, "auto", createAnnotationId()) + trailing;
         editor.replaceSelection(replacement);
-        new Notice("视觉批注已添加");
+        new Notice(this.t("notices.added"));
       }
     ).open();
   }
@@ -640,6 +771,7 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
   editAnnotation(editor, annotation) {
     new AnnotationModal(
       this.app,
+      this,
       {
         editing: true,
         text: annotation.text,
@@ -662,7 +794,7 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
         const start = editor.offsetToPos(annotation.start);
         const end = editor.offsetToPos(annotation.start + replacement.length);
         editor.setSelection(start, end);
-        new Notice("视觉批注已更新");
+        new Notice(this.t("notices.updated"));
       }
     ).open();
   }
@@ -674,12 +806,13 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
     const start = editor.offsetToPos(annotation.start);
     const end = editor.offsetToPos(annotation.start + annotation.text.length);
     editor.setSelection(start, end);
-    new Notice("批注已删除，正文已保留");
+    new Notice(this.t("notices.removed"));
   }
 
   renderAnnotations(element, context) {
     const annotations = Array.from(element.querySelectorAll(".va-annotation"));
     if (!annotations.length) return;
+    this.ensureSelectionDismissalHandlers(element.ownerDocument);
 
     const grouped = new Map();
     for (const annotation of annotations) {
@@ -690,180 +823,72 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
     }
 
     for (const [container, items] of grouped) {
-      let sectionInfo = null;
-      if (context && typeof context.getSectionInfo === "function") {
-        for (const candidate of [container, items[0], element]) {
-          try {
-            sectionInfo = context.getSectionInfo(candidate);
-          } catch (error) {
-            sectionInfo = null;
-          }
-          if (sectionInfo && typeof sectionInfo.text === "string") break;
-        }
+      this.scheduleRenderedAnnotationRails(container, items, context.sourcePath);
+      for (const annotation of items) {
+        annotation.addClass("va-interactive");
+        annotation.setAttribute("role", "button");
+        annotation.setAttribute("tabindex", "0");
+        const identity = identityFromElement(annotation);
+        annotation.addEventListener("click", () => this.selectRenderedAnnotation(annotation, null));
+        annotation.addEventListener("dblclick", (event) => {
+          event.preventDefault();
+          this.editRenderedAnnotation(context.sourcePath, identity, annotation.ownerDocument);
+        });
+        annotation.addEventListener("contextmenu", (event) => {
+          event.preventDefault();
+          this.showRenderedAnnotationMenu(
+            event,
+            context.sourcePath,
+            identity,
+            annotation.ownerDocument
+          );
+        });
       }
-      const sourceMetrics = this.measureRenderedSourceFlow(
-        items,
-        sectionInfo && sectionInfo.text
-      );
-      this.scheduleRenderedAnnotationRails(
-        container,
-        items,
-        context.sourcePath,
-        sourceMetrics
-      );
     }
   }
 
-  scheduleRenderedAnnotationRails(container, items, sourcePath, sourceMetrics = new Map()) {
+  scheduleRenderedAnnotationRails(container, items, sourcePath) {
     const doc = container.ownerDocument;
     const view = doc.defaultView;
-    const railTagName = "span";
+    const maxMountAttempts = 12;
+    let mountAttempt = 0;
+    const schedule = (callback) => {
+      if (view && typeof view.requestAnimationFrame === "function") {
+        view.requestAnimationFrame(callback);
+      } else {
+        setTimeout(callback, 0);
+      }
+    };
     const render = () => {
-      const previousRails = new Set([
-        ...(container._vaReadingRails || []),
-        ...Array.from(container.children || []).filter((child) =>
-          child.classList.contains("va-reading-rail")
-        )
-      ]);
-      previousRails.forEach((rail) => {
-        if (rail) {
-          if (rail._vaResizeObserver) rail._vaResizeObserver.disconnect();
-          rail.remove();
-        }
-      });
-      container._vaReadingRails = [];
+      if (container.isConnected === false) {
+        mountAttempt += 1;
+        if (mountAttempt < maxMountAttempts) schedule(render);
+        return;
+      }
+      Array.from(container.children || [])
+        .filter((child) => child.classList.contains("va-reading-rail"))
+        .forEach((rail) => rail.remove());
 
       const containerRect = container.getBoundingClientRect();
-      const railItems = items.map((annotation) => {
-        const renderedMetrics = this.measureRenderedTarget(annotation, containerRect);
-        const sourceMetric = sourceMetrics.get(annotation);
-        return {
-          ...identityFromElement(annotation),
-          targetElement: annotation,
-          ...renderedMetrics,
-          anchorRatio: sourceMetric
-            ? sourceMetric.anchorRatio
-            : renderedMetrics.anchorRatio,
-          preferredSide: sourceMetric
-            ? sourceMetric.preferredSide
-            : this.measureRenderedTextFlow(annotation, container) <= 0.5
-              ? "top"
-              : "bottom"
-        };
-      });
+      const railItems = items.map((annotation) => ({
+        ...identityFromElement(annotation),
+        targetElement: annotation,
+        ...this.measureRenderedTarget(annotation, containerRect)
+      }));
       const distributed = distributeAnnotations(railItems);
       if (distributed.top.length) {
-        const topRail = this.createAnnotationRail(
-          distributed.top,
-          sourcePath,
-          doc,
-          "reading",
-          "top",
-          { tagName: railTagName }
+        container.prepend(
+          this.createAnnotationRail(distributed.top, sourcePath, doc, "reading", "top")
         );
-        const parentList =
-          container.tagName === "LI" && container.parentElement
-            ? container.parentElement
-            : null;
-        const previousListItem =
-          container.previousElementSibling &&
-          container.previousElementSibling.tagName === "LI"
-            ? container.previousElementSibling
-            : null;
-        const isFirstListItem =
-          parentList &&
-          parentList.parentNode &&
-          (parentList.tagName === "UL" || parentList.tagName === "OL") &&
-          parentList.firstElementChild === container;
-        if (isFirstListItem) {
-          parentList.before(topRail);
-          topRail.classList.add("va-list-edge-rail");
-        } else if (previousListItem) {
-          previousListItem.append(topRail);
-          topRail.classList.add("va-list-between-rail");
-        } else {
-          container.prepend(topRail);
-        }
-        container._vaReadingRails.push(topRail);
       }
       if (distributed.bottom.length) {
-        const bottomRail = this.createAnnotationRail(
-          distributed.bottom,
-          sourcePath,
-          doc,
-          "reading",
-          "bottom",
-          { tagName: railTagName }
+        container.append(
+          this.createAnnotationRail(distributed.bottom, sourcePath, doc, "reading", "bottom")
         );
-        container.append(bottomRail);
-        container._vaReadingRails.push(bottomRail);
       }
     };
 
-    // Markdown post-processors can run while Obsidian is still building a
-    // detached list fragment. Mount once synchronously so the rails travel
-    // with that fragment, then remeasure after it reaches the document.
-    render();
-    if (view && typeof view.requestAnimationFrame === "function") {
-      const renderWhenMounted = (remainingFrames) => {
-        view.requestAnimationFrame(() => {
-          if (container.isConnected !== false) {
-            render();
-          } else if (remainingFrames > 1) {
-            renderWhenMounted(remainingFrames - 1);
-          }
-        });
-      };
-      renderWhenMounted(8);
-    } else {
-      setTimeout(() => {
-        if (container.isConnected !== false) render();
-      }, 0);
-    }
-  }
-
-  measureRenderedSourceFlow(annotations, sourceText) {
-    const metrics = new Map();
-    if (typeof sourceText !== "string" || !sourceText) return metrics;
-
-    const sourceAnnotations = [];
-    const regex = annotationRegex();
-    let match;
-    while ((match = regex.exec(sourceText)) !== null) {
-      sourceAnnotations.push(annotationFromMatch(match));
-    }
-    const used = new Set();
-
-    for (const element of annotations) {
-      const identity = identityFromElement(element);
-      let sourceIndex = -1;
-      if (identity.id) {
-        sourceIndex = sourceAnnotations.findIndex(
-          (annotation, index) => !used.has(index) && annotation.id === identity.id
-        );
-      }
-      if (sourceIndex === -1) {
-        sourceIndex = sourceAnnotations.findIndex(
-          (annotation, index) =>
-            !used.has(index) &&
-            annotation.text === identity.text &&
-            annotation.note === identity.note &&
-            annotation.color === identity.color
-        );
-      }
-      if (sourceIndex === -1) continue;
-
-      used.add(sourceIndex);
-      const sourceAnnotation = sourceAnnotations[sourceIndex];
-      const line = lineAtOffset(sourceText, sourceAnnotation.start);
-      const anchorRatio = annotationAnchorOnLine(sourceText, line, sourceAnnotation);
-      metrics.set(element, {
-        anchorRatio,
-        preferredSide: anchorRatio <= 0.5 ? "top" : "bottom"
-      });
-    }
-
-    return metrics;
+    schedule(render);
   }
 
   measureRenderedTarget(annotation, containerRect) {
@@ -891,44 +916,13 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
     };
   }
 
-  measureRenderedTextFlow(annotation, container) {
-    const targetText = annotation.textContent || "";
-    const containerText = container.textContent || targetText;
-    const totalLength = Math.max(containerText.length, targetText.length, 1);
-    let beforeLength = Math.max(containerText.indexOf(targetText), 0);
-    const doc = container.ownerDocument;
-
-    if (doc && typeof doc.createRange === "function") {
-      try {
-        const range = doc.createRange();
-        range.selectNodeContents(container);
-        range.setEndBefore(annotation);
-        beforeLength = range.toString().length;
-      } catch (error) {
-        // Fall back to text lookup when a renderer exposes a partial DOM.
-      }
-    }
-
-    return Math.max(
-      0.02,
-      Math.min(0.98, (beforeLength + Math.max(targetText.length, 1) / 2) / totalLength)
-    );
-  }
-
-  createAnnotationRail(annotations, sourcePath, doc, mode, placement = "top", options = {}) {
-    const isEditable = mode === "editor";
-    const rail = doc.createElement(options.tagName || "span");
+  createAnnotationRail(annotations, sourcePath, doc, mode, placement = "top") {
+    this.ensureSelectionDismissalHandlers(doc);
+    const rail = doc.createElement("span");
     rail.className = `va-annotation-rail va-${mode}-rail va-side-${placement}`;
     rail.dataset.vaPlacement = placement;
-    rail.dataset.vaMode = mode;
-    // Obsidian paint-contains CodeMirror block widgets. Community themes can
-    // change line height enough for a target-facing connector to protrude
-    // outside that widget, so keep the paint edge beyond every connector the
-    // layout engine can create. Inline geometry also outranks ordinary theme
-    // selectors without relying on priority overrides.
-    rail.style.overflowClipMargin = `${RAIL_PAINT_CLIP_MARGIN}px`;
     rail.setAttribute("contenteditable", "false");
-    rail.setAttribute("aria-label", "视觉批注栏");
+    rail.setAttribute("aria-label", this.t("accessibility.rail"));
 
     annotations.forEach((annotation, index) => {
       const item = doc.createElement("span");
@@ -941,10 +935,10 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
       item.style.setProperty("--va-anchor-ratio", String(annotation.anchorRatio ?? 0.5));
       item._vaTargetElement = annotation.targetElement || null;
 
-      const noteButton = doc.createElement(isEditable ? "button" : "span");
+      const noteButton = doc.createElement("button");
       noteButton.className = "va-rail-note";
-      if (isEditable) noteButton.type = "button";
-      noteButton.title = `批注对象：${annotation.text}`;
+      noteButton.type = "button";
+      noteButton.title = this.t("accessibility.target", { text: annotation.text });
 
       const noteText = doc.createElement("span");
       noteText.className = "va-rail-note-text";
@@ -955,113 +949,52 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
       arrow.setAttribute("aria-hidden", "true");
       noteButton.append(noteText, arrow);
 
-      item.append(noteButton);
+      const actions = doc.createElement("span");
+      actions.className = "va-rail-actions";
+      const edit = doc.createElement("button");
+      edit.className = "va-rail-action";
+      edit.type = "button";
+      edit.textContent = this.t("actions.edit");
+      const remove = doc.createElement("button");
+      remove.className = "va-rail-action va-rail-delete";
+      remove.type = "button";
+      remove.textContent = this.t("actions.remove");
+      actions.append(edit, remove);
+      item.append(noteButton, actions);
       rail.append(item);
 
-      if (isEditable) {
-        const actions = doc.createElement("span");
-        actions.className = "va-rail-actions";
-        const edit = doc.createElement("button");
-        edit.className = "va-rail-action";
-        edit.type = "button";
-        edit.textContent = "编辑";
-        const remove = doc.createElement("button");
-        remove.className = "va-rail-action va-rail-delete";
-        remove.type = "button";
-        remove.textContent = "删除";
-        actions.append(edit, remove);
-        item.append(actions);
-
-        const select = (event) => {
-          event.stopPropagation();
-          rail.querySelectorAll(".va-rail-item.is-selected").forEach((node) => {
-            node.classList.remove("is-selected");
-          });
-          item.classList.add("is-selected");
-          if (annotation.targetElement) {
-            this.selectRenderedAnnotation(annotation.targetElement, null);
-          }
-        };
-        noteButton.addEventListener("click", select);
-        edit.addEventListener("click", (event) => {
-          event.stopPropagation();
-          this.editRenderedAnnotation(sourcePath, annotation, item.ownerDocument);
+      const select = (event) => {
+        event.stopPropagation();
+        rail.querySelectorAll(".va-rail-item.is-selected").forEach((node) => {
+          node.classList.remove("is-selected");
         });
-        remove.addEventListener("click", (event) => {
-          event.stopPropagation();
-          this.removeRenderedAnnotation(sourcePath, annotation);
-        });
-      }
+        item.classList.add("is-selected");
+        if (annotation.targetElement) {
+          this.selectRenderedAnnotation(annotation.targetElement, null);
+        }
+      };
+      noteButton.addEventListener("click", select);
+      edit.addEventListener("click", (event) => {
+        event.stopPropagation();
+        this.editRenderedAnnotation(sourcePath, annotation, item.ownerDocument);
+      });
+      remove.addEventListener("click", (event) => {
+        event.stopPropagation();
+        this.removeRenderedAnnotation(sourcePath, annotation);
+      });
     });
-    if (isEditable) this.ensureEditorSelectionDismissal(doc);
-    this.scheduleAnnotationRailLayout(rail, options.editorView || null);
+    this.scheduleAnnotationRailLayout(rail);
     return rail;
   }
 
-  ensureEditorSelectionDismissal(doc) {
-    if (!this._vaDismissDocuments) this._vaDismissDocuments = new WeakSet();
-    if (this._vaDismissDocuments.has(doc)) return;
-    this._vaDismissDocuments.add(doc);
-
-    this.registerDomEvent(doc, "pointerdown", (event) => {
-      const target = event.target;
-      if (
-        target &&
-        typeof target.closest === "function" &&
-        target.closest(".va-annotation, .va-rail-item")
-      ) {
-        return;
-      }
-      this.clearRenderedSelection(doc);
-    });
-    this.registerDomEvent(doc, "keydown", (event) => {
-      if (event.key === "Escape") this.clearRenderedSelection(doc);
-    });
-  }
-
-  scheduleAnnotationRailLayout(rail, editorView = null) {
+  scheduleAnnotationRailLayout(rail) {
     const view = rail.ownerDocument.defaultView;
-    const scheduleFrame = (callback) => {
-      if (view && typeof view.requestAnimationFrame === "function") {
-        view.requestAnimationFrame(callback);
-      } else {
-        setTimeout(callback, 0);
-      }
-    };
-    const scheduleEditorSettle = (epoch, remainingFrames) => {
-      scheduleFrame(() => {
-        if (rail._vaLayoutEpoch !== epoch || !remainingFrames) return;
-        run({ epoch, remainingFrames });
-      });
-    };
-    const run = ({ epoch = null, remainingFrames = 0 } = {}) => {
-      const previousHeight = rail.style.height;
-      const layoutResult = this.layoutAnnotationRail(rail) || {};
-      if (
-        editorView &&
-        (rail.style.height !== previousHeight ||
-          layoutResult.geometryChanged === true) &&
-        typeof editorView.requestMeasure === "function"
-      ) {
-        editorView.requestMeasure();
-        const nextEpoch = (Number(rail._vaLayoutEpoch) || 0) + 1;
-        rail._vaLayoutEpoch = nextEpoch;
-        // CodeMirror may need one frame to measure a changed block widget and
-        // another to write its final line positions. Four bounded passes cover
-        // that cycle plus a final calibration without creating a live loop.
-        scheduleEditorSettle(nextEpoch, 4);
-        return;
-      }
-      if (
-        editorView &&
-        epoch !== null &&
-        rail._vaLayoutEpoch === epoch &&
-        remainingFrames > 1
-      ) {
-        scheduleEditorSettle(epoch, remainingFrames - 1);
-      }
-    };
-    scheduleFrame(() => run());
+    const run = () => this.layoutAnnotationRail(rail);
+    if (view && typeof view.requestAnimationFrame === "function") {
+      view.requestAnimationFrame(run);
+    } else {
+      setTimeout(run, 0);
+    }
     const fonts = rail.ownerDocument.fonts;
     if (fonts && fonts.ready && typeof fonts.ready.then === "function") {
       fonts.ready.then(run).catch(() => {});
@@ -1070,7 +1003,10 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
     if (typeof ResizeObserverClass === "function") {
       let lastWidth = 0;
       const observer = new ResizeObserverClass((entries) => {
-        if (!rail.isConnected) return;
+        if (!rail.isConnected) {
+          observer.disconnect();
+          return;
+        }
         const width = entries[0] ? entries[0].contentRect.width : rail.getBoundingClientRect().width;
         if (Math.abs(width - lastWidth) < 0.5) return;
         lastWidth = width;
@@ -1107,143 +1043,11 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
     })[0];
   }
 
-  rotatedRectVerticalBoundsAtX(rect, angle, connectorX) {
-    if (
-      !rect ||
-      !Number.isFinite(connectorX) ||
-      !Number.isFinite(rect.left) ||
-      !Number.isFinite(rect.top)
-    ) {
-      return null;
-    }
-    const rectWidth = Number(rect.width) || Number(rect.right) - Number(rect.left);
-    const rectHeight = Number(rect.height) || Number(rect.bottom) - Number(rect.top);
-    if (!(rectWidth > 0) || !(rectHeight > 0)) return null;
-
-    const cos = Math.cos(angle);
-    const sin = Math.sin(angle);
-    const absCos = Math.abs(cos);
-    const absSin = Math.abs(sin);
-    const determinant = absCos * absCos - absSin * absSin;
-    if (Math.abs(determinant) < 0.05) {
-      if (connectorX < rect.left || connectorX > rect.right) return null;
-      return { top: rect.top, bottom: rect.bottom };
-    }
-
-    // Range rectangles are axis-aligned bounds after CSS transforms. Recover
-    // the line box's rotated quadrilateral so we can measure its boundary at
-    // the connector's actual x coordinate instead of using a far-away corner.
-    const boxWidth =
-      (rectWidth * absCos - rectHeight * absSin) / determinant;
-    const boxHeight =
-      (rectHeight * absCos - rectWidth * absSin) / determinant;
-    if (!(boxWidth > 0) || !(boxHeight > 0)) {
-      if (connectorX < rect.left || connectorX > rect.right) return null;
-      return { top: rect.top, bottom: rect.bottom };
-    }
-
-    const centerX = rect.left + rectWidth / 2;
-    const centerY = rect.top + rectHeight / 2;
-    const corners = [
-      [-boxWidth / 2, -boxHeight / 2],
-      [boxWidth / 2, -boxHeight / 2],
-      [boxWidth / 2, boxHeight / 2],
-      [-boxWidth / 2, boxHeight / 2]
-    ].map(([x, y]) => ({
-      x: centerX + x * cos - y * sin,
-      y: centerY + x * sin + y * cos
-    }));
-    const intersections = [];
-    for (let index = 0; index < corners.length; index += 1) {
-      const start = corners[index];
-      const end = corners[(index + 1) % corners.length];
-      const minX = Math.min(start.x, end.x) - 0.25;
-      const maxX = Math.max(start.x, end.x) + 0.25;
-      if (connectorX < minX || connectorX > maxX) continue;
-      const deltaX = end.x - start.x;
-      if (Math.abs(deltaX) < 0.001) {
-        if (Math.abs(connectorX - start.x) <= 0.25) {
-          intersections.push(start.y, end.y);
-        }
-        continue;
-      }
-      const ratio = (connectorX - start.x) / deltaX;
-      if (ratio >= -0.001 && ratio <= 1.001) {
-        intersections.push(start.y + (end.y - start.y) * ratio);
-      }
-    }
-    if (intersections.length < 2) return null;
-    return {
-      top: Math.min(...intersections),
-      bottom: Math.max(...intersections)
-    };
-  }
-
-  measureNoteBoundaryAtX(noteText, connectorX, isTop) {
-    if (!noteText) return null;
-    const doc = noteText.ownerDocument;
-    const view = doc && doc.defaultView;
-    let angle = 0;
-    try {
-      const transform =
-        view && typeof view.getComputedStyle === "function"
-          ? view.getComputedStyle(noteText).transform
-          : "";
-      const matrixMatch =
-        typeof transform === "string" &&
-        transform.match(/^matrix\(([^)]+)\)$/);
-      const matrix3dMatch =
-        typeof transform === "string" &&
-        transform.match(/^matrix3d\(([^)]+)\)$/);
-      const values = matrixMatch
-        ? matrixMatch[1].split(",").map(Number)
-        : matrix3dMatch
-          ? matrix3dMatch[1].split(",").map(Number)
-          : [];
-      if (values.length >= 2 && values.every(Number.isFinite)) {
-        angle = Math.atan2(values[1], values[0]);
-      }
-    } catch (error) {
-      // A partial test DOM may not expose computed styles.
-    }
-
-    let lineRects = [];
-    try {
-      if (doc && typeof doc.createRange === "function") {
-        const range = doc.createRange();
-        range.selectNodeContents(noteText);
-        lineRects = Array.from(range.getClientRects());
-        if (typeof range.detach === "function") range.detach();
-      }
-    } catch (error) {
-      // Fall back to the element rectangle below.
-    }
-    if (!lineRects.length && typeof noteText.getBoundingClientRect === "function") {
-      lineRects = [noteText.getBoundingClientRect()];
-    }
-
-    const connectorSamples = [connectorX - 2, connectorX, connectorX + 2];
-    const bounds = lineRects.flatMap((rect) =>
-      connectorSamples
-        .map((sampleX) =>
-          this.rotatedRectVerticalBoundsAtX(rect, angle, sampleX)
-        )
-        .filter(Boolean)
-    );
-    if (!bounds.length) return null;
-    return isTop
-      ? Math.max(...bounds.map((bound) => bound.bottom))
-      : Math.min(...bounds.map((bound) => bound.top));
-  }
-
   layoutAnnotationRail(rail) {
-    if (!rail.isConnected) return { geometryChanged: false };
+    if (!rail.isConnected) return;
     const railRect = rail.getBoundingClientRect();
-    if (!railRect.width) return { geometryChanged: false };
+    if (!railRect.width) return;
     const isTop = rail.dataset.vaPlacement !== "bottom";
-    const isEditor = rail.dataset.vaMode === "editor";
-    const usesLabelLayoutGap = isEditor && !isTop;
-    const edgeGap = 4;
     const entries = Array.from(rail.querySelectorAll(".va-rail-item")).map((item) => {
       let ratio = Number(item.dataset.vaAnchorRatio || 0.5);
       const itemRect = item.getBoundingClientRect();
@@ -1256,44 +1060,19 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
         desiredX = targetRect.left + targetRect.width / 2 - itemRect.left;
       }
       const marker = item.querySelector(".va-rail-note");
-      const markerRect = marker ? marker.getBoundingClientRect() : null;
-      const noteText = item.querySelector(".va-rail-note-text");
-      const noteTextRect = noteText ? noteText.getBoundingClientRect() : null;
-      const noteTextHeight = noteText
-        ? Math.max(
-            Number(noteText.offsetHeight) || 0,
-            noteTextRect ? noteTextRect.height : 0
-          )
-        : 0;
-      const labelLayoutGap = usesLabelLayoutGap
-        ? Math.max(0, Number(item.dataset.vaLabelLayoutGap) || 0)
-        : 0;
-      const topVisualOverflow =
-        isTop &&
-        markerRect &&
-        noteTextRect &&
-        Number.isFinite(markerRect.top) &&
-        Number.isFinite(noteTextRect.top)
-          ? Math.max(0, markerRect.top - noteTextRect.top)
-          : 0;
       const markerWidth = Math.min(
-        markerRect ? markerRect.width : 0,
+        marker ? marker.getBoundingClientRect().width : 0,
         itemRect.width
       );
       const markerHalf = markerWidth / 2;
       const markerX = Math.max(markerHalf, Math.min(itemRect.width - markerHalf, desiredX));
       return {
         item,
-        target,
-        noteText,
         markerX,
         arrowShift: desiredX - markerX,
         left: markerX - markerHalf,
         right: markerX + markerHalf,
-        textHeight: noteTextHeight,
-        labelLayoutGap,
-        topVisualOverflow,
-        height: Math.max(noteTextHeight + 38 + labelLayoutGap, 68)
+        height: Math.max(itemRect.height, 68)
       };
     });
 
@@ -1309,7 +1088,7 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
 
     const laneCount = Math.max(laneEnds.length, 1);
     const laneHeight = Math.max(72, ...entries.map((entry) => entry.height + 4));
-    const railHeight = laneCount * laneHeight + edgeGap * 2;
+    const railHeight = laneCount * laneHeight;
     rail.style.height = `${railHeight}px`;
     rail.style.minHeight = `${railHeight}px`;
 
@@ -1318,162 +1097,16 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
       const connectorExtra = isTop
         ? (laneCount - 1 - displayLane) * laneHeight
         : displayLane * laneHeight;
-      const arrowLength = isTop
-        ? Math.max(
-            38,
-            laneHeight - entry.textHeight + edgeGap + connectorExtra
-          )
-        : 38 + connectorExtra + edgeGap;
-      const connectorOffset = isTop ? 0 : -(connectorExtra + edgeGap);
-      entry.arrowLength = arrowLength;
-      entry.connectorOffset = connectorOffset;
       entry.item.dataset.vaLane = String(displayLane);
       entry.item.style.setProperty("--va-marker-x", `${entry.markerX}px`);
       entry.item.style.setProperty("--va-arrow-shift", `${entry.arrowShift}px`);
-      entry.item.style.setProperty("--va-arrow-length", `${arrowLength}px`);
+      entry.item.style.setProperty("--va-arrow-length", `${38 + connectorExtra}px`);
       entry.item.style.setProperty(
         "--va-connector-offset",
-        `${connectorOffset}px`
+        `${isTop ? 0 : -connectorExtra}px`
       );
-      entry.item.style.setProperty(
-        "--va-lane-y",
-        `${edgeGap + displayLane * laneHeight + entry.topVisualOverflow}px`
-      );
+      entry.item.style.setProperty("--va-lane-y", `${displayLane * laneHeight}px`);
     }
-
-    // Theme margins, list indentation, and CodeMirror block spacing all sit
-    // outside the rail itself. Measure the final rendered target after the
-    // rail height is committed, then extend only the target-facing end of the
-    // connector. This gives Reading and Editing view the same visible gap
-    // without moving the handwritten label or reducing its safety space.
-    // CodeMirror's inline boxes paint slightly closer to the connector than
-    // Reading view. A small editor-only optical allowance makes the visible
-    // gaps match while both modes keep the same target-aware geometry.
-    const targetGap = isEditor ? 7 : 5;
-    // CodeMirror needs the extra label-side allowance only for top rails.
-    // Applying it to a rotated bottom arrow clips another 2px from the
-    // label-facing shaft, making an otherwise clear upward connector look
-    // partially hidden. Bottom rails keep the same 6px label gap as Reading
-    // view while retaining the editor-specific target gap above.
-    const labelGap = isEditor && isTop ? 8 : 6;
-    const connectorCorrections = [];
-    let geometryChanged = false;
-    for (const entry of entries) {
-      const arrow = entry.item.querySelector(".va-rail-arrow");
-      if (!arrow) continue;
-      const arrowRect = arrow.getBoundingClientRect();
-      const connectorX = arrowRect.left + arrowRect.width / 2;
-      const noteBoundary = this.measureNoteBoundaryAtX(
-        entry.noteText,
-        connectorX,
-        isTop
-      );
-      const requestedLabelGap = Number.isFinite(noteBoundary)
-        ? isTop
-          ? noteBoundary + labelGap - arrowRect.top
-          : arrowRect.bottom + labelGap - noteBoundary
-        : labelGap;
-      let adjustedLength = entry.arrowLength;
-      let adjustedOffset = entry.connectorOffset;
-
-      if (entry.target) {
-        const targetRects = Array.from(entry.target.getClientRects());
-        const targetRect =
-          (isTop ? targetRects[0] : targetRects[targetRects.length - 1]) ||
-          entry.target.getBoundingClientRect();
-        if (
-          isTop &&
-          Number.isFinite(targetRect.top) &&
-          Number.isFinite(arrowRect.bottom)
-        ) {
-          const rawExtension = targetRect.top - targetGap - arrowRect.bottom;
-          const extension = Math.round(
-            Math.max(
-              38 - entry.arrowLength,
-              Math.min(MAX_CONNECTOR_EXTENSION, rawExtension)
-            ) * 2
-          ) / 2;
-          adjustedLength = entry.arrowLength + extension;
-        } else if (
-          !isTop &&
-          Number.isFinite(targetRect.bottom) &&
-          Number.isFinite(arrowRect.top)
-        ) {
-          const rawExtension = arrowRect.top - (targetRect.bottom + targetGap);
-          const extension = Math.round(
-            Math.max(
-              38 - entry.arrowLength,
-              Math.min(MAX_CONNECTOR_EXTENSION, rawExtension)
-            ) * 2
-          ) / 2;
-          adjustedLength = entry.arrowLength + extension;
-          adjustedOffset = entry.connectorOffset - extension;
-        }
-      }
-      let adjustedLabelGap = null;
-      let adjustedLabelLayoutGap = null;
-      if (usesLabelLayoutGap) {
-        const desiredLayoutGap = Number.isFinite(noteBoundary)
-          ? Math.round(
-              Math.max(
-                0,
-                Math.min(
-                  96,
-                  entry.labelLayoutGap +
-                    arrowRect.bottom +
-                    labelGap -
-                    noteBoundary
-                )
-              ) * 2
-            ) / 2
-          : labelGap;
-        adjustedLabelLayoutGap =
-          Math.abs(desiredLayoutGap - entry.labelLayoutGap) >= 0.5
-            ? desiredLayoutGap
-            : entry.labelLayoutGap;
-        if (adjustedLabelLayoutGap !== entry.labelLayoutGap) {
-          geometryChanged = true;
-        }
-      } else {
-        const maxLabelGap = Math.max(labelGap, adjustedLength - 8);
-        adjustedLabelGap =
-          Math.round(
-            Math.max(labelGap, Math.min(maxLabelGap, requestedLabelGap)) * 2
-          ) / 2;
-      }
-      connectorCorrections.push({
-        entry,
-        adjustedLength,
-        adjustedOffset,
-        adjustedLabelGap,
-        adjustedLabelLayoutGap
-      });
-    }
-    for (const correction of connectorCorrections) {
-      correction.entry.item.style.setProperty(
-        "--va-arrow-length",
-        `${correction.adjustedLength}px`
-      );
-      correction.entry.item.style.setProperty(
-        "--va-connector-offset",
-        `${correction.adjustedOffset}px`
-      );
-      if (correction.adjustedLabelLayoutGap !== null) {
-        correction.entry.item.dataset.vaLabelLayoutGap = String(
-          correction.adjustedLabelLayoutGap
-        );
-        correction.entry.item.style.setProperty(
-          "--va-label-layout-gap",
-          `${correction.adjustedLabelLayoutGap}px`
-        );
-      } else {
-        correction.entry.item.style.setProperty(
-          "--va-label-arrow-gap",
-          `${correction.adjustedLabelGap}px`
-        );
-      }
-    }
-    return { geometryChanged };
   }
 
   selectRenderedAnnotation(annotation, callout) {
@@ -1498,6 +1131,30 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
     });
   }
 
+  ensureSelectionDismissalHandlers(doc) {
+    if (
+      !doc ||
+      typeof doc.addEventListener !== "function" ||
+      this.selectionDismissalDocuments.has(doc)
+    ) {
+      return;
+    }
+    this.selectionDismissalDocuments.add(doc);
+    this.registerDomEvent(doc, "click", (event) => {
+      const target = event.target;
+      const isAnnotationControl =
+        target &&
+        typeof target.closest === "function" &&
+        target.closest(".va-annotation, .va-rail-item");
+      if (!isAnnotationControl) this.clearRenderedSelection(doc);
+    });
+    this.registerDomEvent(doc, "keydown", (event) => {
+      if (event.key === "Escape" || event.key === "Esc") {
+        this.clearRenderedSelection(doc);
+      }
+    });
+  }
+
   clearRenderedSelection(doc) {
     if (!doc || typeof doc.querySelectorAll !== "function") return;
     doc.querySelectorAll(".va-annotation.is-selected").forEach((node) => {
@@ -1513,13 +1170,13 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
     const menu = new Menu();
     menu.addItem((item) =>
       item
-        .setTitle("编辑批注")
+        .setTitle(this.t("actions.edit"))
         .setIcon("pencil")
         .onClick(() => this.editRenderedAnnotation(sourcePath, identity, selectionDoc))
     );
     menu.addItem((item) =>
       item
-        .setTitle("删除批注（保留正文）")
+        .setTitle(this.t("actions.removeKeepText"))
         .setIcon("eraser")
         .onClick(() => this.removeRenderedAnnotation(sourcePath, identity))
     );
@@ -1529,18 +1186,19 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
   async editRenderedAnnotation(sourcePath, identity, selectionDoc = null) {
     const file = this.app.vault.getAbstractFileByPath(sourcePath);
     if (!file) {
-      new Notice("找不到批注所在文档");
+      new Notice(this.t("notices.fileNotFound"));
       return;
     }
     const source = await this.app.vault.read(file);
     const annotation = findAnnotationByIdentity(source, identity);
     if (!annotation) {
-      new Notice("找不到所选批注，请重新打开文档后再试");
+      new Notice(this.t("notices.annotationNotFound"));
       return;
     }
 
     new AnnotationModal(
       this.app,
+      this,
       {
         editing: true,
         text: annotation.text,
@@ -1566,7 +1224,9 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
             currentSource.slice(0, current.start) + replacement + currentSource.slice(current.end)
           );
         });
-        new Notice(changed ? "视觉批注已更新" : "批注已发生变化，请重新选择");
+        new Notice(
+          this.t(changed ? "notices.updated" : "notices.annotationChanged")
+        );
       }
     ).open();
   }
@@ -1574,7 +1234,7 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
   async removeRenderedAnnotation(sourcePath, identity) {
     const file = this.app.vault.getAbstractFileByPath(sourcePath);
     if (!file) {
-      new Notice("找不到批注所在文档");
+      new Notice(this.t("notices.fileNotFound"));
       return;
     }
     let changed = false;
@@ -1584,6 +1244,10 @@ module.exports = class VisualAnnotationsPlugin extends Plugin {
       changed = true;
       return source.slice(0, annotation.start) + annotation.text + source.slice(annotation.end);
     });
-    new Notice(changed ? "批注已删除，正文已保留" : "批注已发生变化，请重新选择");
+    new Notice(
+      this.t(changed ? "notices.removed" : "notices.annotationChanged")
+    );
   }
 };
+
+/* nosourcemap */
