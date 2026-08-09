@@ -54,5 +54,6 @@ Tags 用于广义检索；Links 表达具体关系；Folders 以 PARA 为主。
 # 未整理
 - Library 对象不需要唯一的学科归属；Map 是观察同一批对象的不同视角，不是对象的户籍所在地。
 - Source 与 Library：如果你开始整理、解释、建立自己的知识体系，它才进入 Library，否则就是 Source
+- insight 里不是从书中得到的观点，而是要来源于我的生活，我自己的经历
 
 
