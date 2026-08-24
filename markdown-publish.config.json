@@ -1,0 +1,8 @@
+{
+  "siteName": "obsidian-new",
+  "siteLang": "zh",
+  "vaultDir": ".",
+  "buildMode": "full",
+  "baseHref": "/",
+  "out": "dist"
+}
