@@ -189,7 +189,7 @@ settings:
 
 body {
     /*───────── Fonts ──────────*/
-    --font-sans: -apple-system BlinkMacSystemFont, 'Segoe UI', 'Noto Sans',
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans',
         Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
     --font-mono: 'DM Mono', 'Fira Code', Courier, monospace;
 
@@ -241,9 +241,8 @@ body {
     --checklist-done-color: var(--text-muted);
     /* Code */
     --code-size: var(--font-smaller);
-    --code-background: var(--color-base-35);
+    --code-background: var(--color-base-10);
     --code-normal: var(--color-base-100);
-    --code-comment: var(--text-faint);
     --code-function: var(--color-orange);
     --code-important: var(--color-orange);
     --code-keyword: var(--color-red);
@@ -626,7 +625,7 @@ body {
     --toggle-border-width: 2px;
     --toggle-width: 40px;
     --toggle-radius: 18px;
-    --toggle-thumb-color: white;
+    --toggle-thumb-color: #ffffff;
     --toggle-thumb-radius: 18px;
     --toggle-thumb-height: 18px;
     --toggle-thumb-width: 18px;
@@ -669,7 +668,7 @@ body {
     --text-normal: var(--color-base-100);
     --text-muted: var(--color-base-70);
     --text-faint: var(--color-base-50);
-    --text-on-accent: black;
+    --text-on-accent: #000000;
     --text-error: var(--color-red);
     --text-success: var(--color-green);
     --text-selection: hsla(var(--color-accent-hsl), 0.2);
@@ -719,8 +718,6 @@ body {
     --color-base-30: #b7bdc8;
     /* borderColor-default */
     --color-base-35: #3d444d;
-    /* Code block background - darker like GitHub */
-    --code-background: #161b22;
     /* Table alternating row background */
     --table-row-alt-background: #151b23;
     /* bgColor-emphasis */
@@ -788,6 +785,8 @@ body {
     --shadow-l: none;
 
     /* Code and Headers */
+    --code-comment: #9198a1;
+    /* prettylights-syntax-comment */
     --inline-code-background: rgba(158, 167, 179, 0.4);
     --h-color-theme: var(--color-white);
     --h1-color-theme: var(--color-white);
@@ -867,12 +866,12 @@ body {
     --canvas-dot-pattern: #3d444d;
     --canvas-card-label-color: var(--color-base-70);
     /* RGB triplets required — Obsidian uses rgba(var(--canvas-color-N), alpha) */
-    --canvas-color-1: 255, 148, 146;    /* #ff9492 red   */
-    --canvas-color-2: 255, 166, 87;     /* #ffa657 orange */
-    --canvas-color-3: 240, 183, 47;     /* #f0b72f yellow */
-    --canvas-color-4: 43, 216, 83;      /* #2bd853 green  */
-    --canvas-color-5: 165, 214, 255;    /* #a5d6ff cyan   */
-    --canvas-color-6: 210, 168, 255;    /* #d2a8ff purple */
+    --canvas-color-1: rgb(255, 148, 146);    /* #ff9492 red   */
+    --canvas-color-2: rgb(255, 166, 87);     /* #ffa657 orange */
+    --canvas-color-3: rgb(240, 183, 47);     /* #f0b72f yellow */
+    --canvas-color-4: rgb(43, 216, 83);      /* #2bd853 green  */
+    --canvas-color-5: rgb(165, 214, 255);    /* #a5d6ff cyan   */
+    --canvas-color-6: rgb(210, 168, 255);    /* #d2a8ff purple */
 }
 
 /*
@@ -970,6 +969,8 @@ body {
     --shadow-l: none;
 
     /* Code and Headers */
+    --code-comment: #59636e;
+    /* prettylights-syntax-comment */
     --inline-code-background: rgba(175, 184, 193, 0.2);
     --h-color-theme: var(--color-base-100);
     --h1-color-theme: var(--color-base-100);
@@ -999,10 +1000,18 @@ body {
     /* Darker blue on hover */
     --link-external-color: #0969da;
     --link-external-color-hover: #0550ae;
-    --link-unresolved-color: #0969da;
+    --link-unresolved-color: #0550ae;
+    /* Faded below; #0969da at that opacity fails contrast */
+    --link-unresolved-opacity: 0.85;
     --text-accent: #0969da;
     /* Override text-accent for links */
     --text-accent-hover: #0550ae;
+
+    /* Tags - GitHub topic label colors */
+    --tag-background: #ddf4ff;
+    /* bgColor-accent-muted */
+    --tag-color-hover: #0550ae;
+    /* #0969da fails contrast on the hover background */
 
     /* Toggle switches - different colors for on/off states */
     --toggle-background-color-off: var(--interactive-normal);
@@ -1024,12 +1033,12 @@ body {
     --canvas-dot-pattern: #afb8c1;
     --canvas-card-label-color: var(--color-base-70);
     /* RGB triplets required — Obsidian uses rgba(var(--canvas-color-N), alpha) */
-    --canvas-color-1: 207, 34, 46;      /* #cf222e red   */
-    --canvas-color-2: 188, 76, 0;       /* #bc4c00 orange */
-    --canvas-color-3: 154, 103, 0;      /* #9a6700 yellow */
-    --canvas-color-4: 26, 127, 55;      /* #1a7f37 green  */
-    --canvas-color-5: 9, 105, 218;      /* #0969da cyan   */
-    --canvas-color-6: 130, 80, 223;     /* #8250df purple */
+    --canvas-color-1: rgb(207, 34, 46);      /* #cf222e red   */
+    --canvas-color-2: rgb(188, 76, 0);       /* #bc4c00 orange */
+    --canvas-color-3: rgb(154, 103, 0);      /* #9a6700 yellow */
+    --canvas-color-4: rgb(26, 127, 55);      /* #1a7f37 green  */
+    --canvas-color-5: rgb(9, 105, 218);      /* #0969da cyan   */
+    --canvas-color-6: rgb(130, 80, 223);     /* #8250df purple */
 }
 
 /*
@@ -1049,22 +1058,24 @@ body {
 
 /* Protanopia & Deuteranopia - Red-Green Colorblindness */
 body.colorblind_protan-deutan.theme-dark {
-    --color-red-rgb: 253, 172, 84;
-    --color-red: #fdac54;
-    --color-green-rgb: 165, 214, 255;
-    --color-green: #a3d6ff;
-    --color-orange: #fdac54;
+    /* dark-colorblind-high-contrast: danger, success, severe */
+    --color-red-rgb: 255, 183, 87;
+    --color-red: #ffb757;
+    --color-green-rgb: 173, 220, 255;
+    --color-green: #addcff;
+    --color-orange: #fe9a2d;
 
     --color-btn-primary-bg: #1f6feb;
     --color-btn-primary-hover-bg: #388bfd;
 }
 
 body.colorblind_protan-deutan.theme-light {
-    --color-red-rgb: 179, 89, 0;
-    --color-red: #b35900;
-    --color-green-rgb: 33, 139, 255;
-    --color-green: #218bff;
-    --color-orange: #dd7815;
+    /* light-colorblind: danger, success, severe */
+    --color-red-rgb: 188, 76, 0;
+    --color-red: #bc4c00;
+    --color-green-rgb: 9, 105, 218;
+    --color-green: #0969da;
+    --color-orange: #bc4c00;
 
     --color-btn-primary-bg: #218bff;
     --color-btn-primary-hover-bg: #0969da;
@@ -1072,9 +1083,12 @@ body.colorblind_protan-deutan.theme-light {
 
 /* Tritanopia - Blue-Yellow Colorblindness */
 body.colorblind_tritan.theme-dark {
-    --color-green-rgb: 165, 214, 255;
-    --color-green: #a5d6ff;
-    --color-orange: #ffa198;
+    /* dark-tritanopia-high-contrast: danger, success, severe */
+    --color-red-rgb: 255, 148, 146;
+    --color-red: #ff9492;
+    --color-green-rgb: 145, 203, 255;
+    --color-green: #91cbff;
+    --color-orange: #ff9492;
 
     --text-highlight-bg: rgba(255, 0, 0, 0.4);
     --text-highlight-bg-active: rgba(255, 50, 0, 0.4);
@@ -1084,9 +1098,12 @@ body.colorblind_tritan.theme-dark {
 }
 
 body.colorblind_tritan.theme-light {
-    --color-green-rgb: 12, 181, 79;
-    --color-green: #218bff;
-    --color-orange: #fa4549;
+    /* light-tritanopia: danger, success, severe */
+    --color-red-rgb: 209, 36, 47;
+    --color-red: #d1242f;
+    --color-green-rgb: 9, 105, 218;
+    --color-green: #0969da;
+    --color-orange: #cf222e;
 
     --text-highlight-bg: rgba(255, 0, 0, 0.4);
     --text-highlight-bg-active: rgba(255, 50, 0, 0.4);
@@ -1129,26 +1146,13 @@ body.colorblind_tritan.theme-light {
    BUTTONS
    ───────────────────────────────────────────────────────────────────────── */
 
-/* Base styles for all button types */
-button,
-input[type="button"],
-input[type="submit"],
-input[type="reset"] {
-    transition: 80ms cubic-bezier(0.33, 1, 0.68, 1);
-    border: 1px solid var(--background-modifier-border);
-    background-color: var(--interactive-normal);
-    color: var(--text-normal);
-}
-
-button:hover,
-input[type="button"]:hover,
-input[type="submit"]:hover,
-input[type="reset"]:hover {
-    cursor: var(--cursor-link);
-    background-color: var(--interactive-hover);
-    border-color: var(--background-modifier-border-hover);
-    box-shadow: 0 0 0 2px var(--background-modifier-border);
-}
+/* Default and secondary buttons are styled through Obsidian's own variables
+   (--interactive-normal / --interactive-hover for the fill, --input-shadow /
+   --input-shadow-hover for the border, set per theme above), not through
+   blanket `button` rules. Obsidian applies those variables with low-specificity
+   selectors that leave icon buttons (.clickable-icon) and plugin-styled buttons
+   alone; a theme-wide `button { ... }` rule would paint grey boxes and borders
+   onto every plugin's icon buttons. Only the green primary button is overridden. */
 
 /* Primary buttons (green) */
 button.mod-cta,
@@ -1162,23 +1166,6 @@ button.mod-cta:hover,
 input[type="submit"].mod-cta:hover {
     background-color: var(--color-btn-primary-hover-bg);
     border-color: var(--color-btn-primary-hover-bg);
-}
-
-/* Secondary buttons - explicit styling for non-cta buttons */
-button:not(.mod-cta):not(.mod-warning):not(.mod-destructive),
-input[type="button"]:not(.mod-cta),
-input[type="reset"]:not(.mod-cta) {
-    background-color: var(--interactive-normal);
-    color: var(--text-normal);
-    border: 1px solid var(--background-modifier-border);
-}
-
-button:not(.mod-cta):not(.mod-warning):not(.mod-destructive):hover,
-input[type="button"]:not(.mod-cta):hover,
-input[type="reset"]:not(.mod-cta):hover {
-    background-color: var(--interactive-hover);
-    border-color: var(--background-modifier-border-hover);
-    box-shadow: 0 0 0 2px var(--background-modifier-border);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -1199,17 +1186,38 @@ input[type="reset"]:not(.mod-cta):hover {
 }
 
 /* Selected/active navigation item - blue left border */
-.vertical-tab-nav-item.is-active {
-    border-left-color: var(--text-accent) !important;
-    background-color: var(--interactive-normal) !important;
+.vertical-tab-nav-item.is-active,
+body:not(.is-phone) .vertical-tab-nav-item.is-active {
+    border-left-color: var(--text-accent);
+    background-color: var(--interactive-normal);
     /* Darker background - same as buttons */
-    color: var(--text-normal) !important;
+    color: var(--text-normal);
     /* Keep text white */
 }
 
 /* Hover state for navigation items - lighter background */
-.vertical-tab-nav-item:hover {
-    background-color: var(--interactive-hover) !important;
+.vertical-tab-nav-item:hover,
+body:not(.is-phone) .vertical-tab-nav-item:hover {
+    background-color: var(--interactive-hover);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   SIDEBAR TREES - file-type badges and result counts
+
+   Obsidian draws these in --text-faint, which falls below 4.5:1 on selected
+   rows. GitHub's weakest text colour is fgColor-muted.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.theme-dark .nav-file-tag,
+.theme-dark .tree-item-flair {
+    color: var(--color-base-70);
+    /* fgColor-muted #b7bdc8 */
+}
+
+.theme-light .nav-file-tag,
+.theme-light .tree-item-flair {
+    color: var(--color-base-60);
+    /* fgColor-muted #59636e */
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -1218,30 +1226,23 @@ input[type="reset"]:not(.mod-cta):hover {
 
 /* Toggle switch off state - grey background */
 .checkbox-container {
-    background-color: var(--interactive-normal) !important;
+    background-color: var(--interactive-normal);
 }
 
 /* Toggle switch on state - blue background */
 .checkbox-container.is-enabled {
-    background-color: #71b7ff !important;
-    /* GitHub DHC blue - direct color */
-}
-
-/* Alternative approach using the input checked state */
-.checkbox-container:has(input[type="checkbox"]:checked) {
-    background-color: #71b7ff !important;
+    background-color: #71b7ff;
     /* GitHub DHC blue - direct color */
 }
 
 /* Keep the toggle thumb white */
 .checkbox-container::after {
-    background-color: white !important;
+    background-color: #ffffff;
 }
 
 /* Light theme - use darker blue for toggles */
-.theme-light .checkbox-container.is-enabled,
-.theme-light .checkbox-container:has(input[type="checkbox"]:checked) {
-    background-color: #0969da !important;
+.theme-light .checkbox-container.is-enabled {
+    background-color: #0969da;
     /* GitHub Light blue */
 }
 
@@ -1255,7 +1256,7 @@ input[type="reset"]:not(.mod-cta):hover {
     /* No grey border */
     border-left: 4px solid var(--callout-color);
     /* Thick colored left border */
-    background-color: var(--background-primary) !important;
+    background-color: var(--background-primary);
     padding: 11px 16px;
     /* Reduced from 16px to ~11px vertically (30% reduction) */
     margin: 11px 0;
@@ -1266,7 +1267,7 @@ input[type="reset"]:not(.mod-cta):hover {
 
 /* Title and icon use the callout color */
 .callout-title {
-    color: var(--callout-color) !important;
+    color: var(--callout-color);
     font-weight: var(--font-semibold);
     display: flex;
     align-items: center;
@@ -1276,48 +1277,85 @@ input[type="reset"]:not(.mod-cta):hover {
 }
 
 .callout-icon {
-    color: var(--callout-color) !important;
+    color: var(--callout-color);
 }
 
 /* Content text stays white */
 .callout-content {
-    color: var(--text-normal) !important;
+    color: var(--text-normal);
 }
 
 /* Specific callout types with BRIGHT GitHub colors */
-.callout[data-callout="note"],
-.callout[data-callout="info"] {
+.theme-dark .callout[data-callout="note"],
+.theme-dark .callout[data-callout="info"] {
     --callout-color: #71b7ff;
     /* Bright blue */
 }
 
-.callout[data-callout="tip"],
-.callout[data-callout="success"] {
+.theme-dark .callout[data-callout="tip"],
+.theme-dark .callout[data-callout="success"] {
     --callout-color: #2bd853;
     /* Bright green */
 }
 
-.callout[data-callout="important"] {
+.theme-dark .callout[data-callout="important"] {
     --callout-color: #d2a8ff;
     /* Bright purple */
 }
 
-.callout[data-callout="warning"] {
+.theme-dark .callout[data-callout="warning"] {
     --callout-color: #f0b72f;
     /* Bright orange/yellow */
 }
 
-.callout[data-callout="caution"],
-.callout[data-callout="danger"],
-.callout[data-callout="error"] {
+.theme-dark .callout[data-callout="caution"],
+.theme-dark .callout[data-callout="danger"],
+.theme-dark .callout[data-callout="error"] {
     --callout-color: #ff9492;
     /* Bright red */
+}
+
+/* GitHub Light Default alert colors */
+.theme-light .callout[data-callout="note"],
+.theme-light .callout[data-callout="info"] {
+    --callout-color: #0969da;
+    /* fgColor-accent */
+}
+
+.theme-light .callout[data-callout="tip"],
+.theme-light .callout[data-callout="success"] {
+    --callout-color: #1a7f37;
+    /* fgColor-success */
+}
+
+.theme-light .callout[data-callout="important"] {
+    --callout-color: #8250df;
+    /* fgColor-done */
+}
+
+.theme-light .callout[data-callout="warning"] {
+    --callout-color: #9a6700;
+    /* fgColor-attention */
+}
+
+.theme-light .callout[data-callout="caution"],
+.theme-light .callout[data-callout="danger"],
+.theme-light .callout[data-callout="error"] {
+    --callout-color: #d1242f;
+    /* fgColor-danger */
+}
+
+/* GitHub has no quote alert; Obsidian's grey fails contrast on white */
+.theme-light .callout[data-callout="quote"],
+.theme-light .callout[data-callout="cite"] {
+    --callout-color: #59636e;
+    /* fgColor-muted */
 }
 
 /* Legacy support for callout-on setting */
 body.callout-on .callout {
     border-left: 4px solid var(--callout-color);
-    background-color: var(--background-primary) !important;
+    background-color: var(--background-primary);
 }
 
 body.callout-on .callout-content p {
@@ -1335,6 +1373,35 @@ body.headers-one-color {
     --h4-color: var(--h-color-theme);
     --h5-color: var(--h-color-theme);
     --h6-color: var(--h-color-theme);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   NOTEBOOK NAVIGATOR PLUGIN
+
+   The plugin fades secondary text (dates, task counts, tags, folders,
+   properties, word counts) to 50% of --text-normal, which is below 4.5:1
+   on white. GitHub's weakest text colour is fgColor-muted.
+   ───────────────────────────────────────────────────────────────────────── */
+
+body.theme-light {
+    --nn-theme-file-date-color: var(--color-base-60);
+    --nn-theme-file-parent-color: var(--color-base-60);
+    --nn-theme-file-property-color: var(--color-base-60);
+    --nn-theme-file-tag-color: var(--color-base-60);
+    --nn-theme-file-word-count-color: var(--color-base-60);
+    /* fgColor-muted #59636e */
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   NOTICES
+
+   Obsidian draws notices near-black in both modes, so links on them keep
+   the dark theme's link blue in light mode too.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.theme-light .notice a {
+    color: #74b9ff;
+    /* Dark High Contrast fgColor-accent */
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -1664,8 +1731,12 @@ select:focus,
    MARKDOWN HEADERS - GitHub-style with underlines
    ───────────────────────────────────────────────────────────────────────── */
 
-h1,
-.cm-header-1 {
+/* h1/h2 border-bottom & padding-bottom intentionally NOT applied to
+   .cm-header-1/.cm-header-2 (the inline heading-token span inside a CM6
+   .cm-line): the containing .cm-line.HyperMD-header-1/2 rule below already
+   draws that border for edit mode. Applying it to both produced a visible
+   double underline. */
+h1 {
     display: block;
     padding-bottom: .3em;
     border-bottom: 1px solid var(--color-base-50);
@@ -1673,8 +1744,7 @@ h1,
     margin-bottom: 16px;
 }
 
-h2,
-.cm-header-2 {
+h2 {
     display: block;
     padding-bottom: .3em;
     border-bottom: 1px solid var(--color-base-50);
@@ -1714,23 +1784,19 @@ h6,
     margin-bottom: 16px;
 }
 
-/* Match GitHub spacing for editing mode */
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-header-1,
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-header-2,
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-header-3,
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-header-4,
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-header-5,
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-header-6 {
-    margin-top: 16px !important;
-    margin-bottom: 12px !important;
-}
+/* Match GitHub spacing for editing mode.
+   margin-top/bottom removed here: forcing margins on .cm-line via !important
+   changes the element's rendered box height/position independently of what
+   CodeMirror 6 has cached for line layout, which desyncs its coordinate-to-
+   position mapping and breaks click/arrow-key cursor placement on lines
+   below a heading (see #10). */
 
 /* Full-width borders for H1/H2 in editing mode */
 .markdown-source-view.mod-cm6 .cm-line.HyperMD-header-1,
 .markdown-source-view.mod-cm6 .cm-line.HyperMD-header-2 {
-    display: block !important;
-    padding-bottom: .3em !important;
-    border-bottom: 1px solid var(--color-base-50) !important;
+    display: block;
+    padding-bottom: .3em;
+    border-bottom: 1px solid var(--color-base-50);
 }
 
 /* Keep images inline with headings in editing mode */
@@ -1741,7 +1807,7 @@ h6,
 .markdown-source-view.mod-cm6 .cm-line.HyperMD-header-4,
 .markdown-source-view.mod-cm6 .cm-line.HyperMD-header-5,
 .markdown-source-view.mod-cm6 .cm-line.HyperMD-header-6 {
-    white-space: normal !important;
+    white-space: normal;
 }
 
 /* Target all child elements in headers - spans, images, formatting, etc. */
@@ -1752,8 +1818,8 @@ h6,
 .markdown-source-view.mod-cm6 .HyperMD-header-4>*,
 .markdown-source-view.mod-cm6 .HyperMD-header-5>*,
 .markdown-source-view.mod-cm6 .HyperMD-header-6>* {
-    display: inline !important;
-    vertical-align: middle !important;
+    display: inline;
+    vertical-align: middle;
 }
 
 /* Specifically target widget buffers in headers */
@@ -1764,11 +1830,11 @@ h6,
 .markdown-source-view.mod-cm6 .HyperMD-header-4 img.cm-widgetBuffer,
 .markdown-source-view.mod-cm6 .HyperMD-header-5 img.cm-widgetBuffer,
 .markdown-source-view.mod-cm6 .HyperMD-header-6 img.cm-widgetBuffer {
-    display: inline !important;
-    width: 0 !important;
-    height: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    display: inline;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
 }
 
 /* Target the actual images within headers */
@@ -1779,10 +1845,10 @@ h6,
 .markdown-source-view.mod-cm6 .HyperMD-header-4 img:not(.cm-widgetBuffer),
 .markdown-source-view.mod-cm6 .HyperMD-header-5 img:not(.cm-widgetBuffer),
 .markdown-source-view.mod-cm6 .HyperMD-header-6 img:not(.cm-widgetBuffer) {
-    display: inline !important;
-    vertical-align: middle !important;
-    max-height: 1.2em !important;
-    margin: 4px 2px 4px 8px !important;
+    display: inline;
+    vertical-align: middle;
+    max-height: 1.2em;
+    margin: 4px 2px 4px 8px;
 }
 
 .inline-title {
@@ -1790,9 +1856,9 @@ h6,
     padding-bottom: .3em;
     border-bottom: 1px solid var(--color-base-50);
     margin-top: 0;
-    margin-bottom: 16px !important;
-    margin-right: 0 !important;
-    min-width: 0 !important;
+    margin-bottom: 16px;
+    margin-right: 0;
+    min-width: 0;
     color: var(--text-normal);
     font-weight: 600;
     line-height: 1.125;
@@ -1815,7 +1881,6 @@ h6,
 
 table tbody tr {
     background-color: var(--background-primary);
-    background-color: var(--color-orange);
 }
 
 /*
@@ -1838,12 +1903,13 @@ background-color: var(--color-orange);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
-   LINKS - All links underlined except in headers
+   LINKS - All links underlined, headings included
    ───────────────────────────────────────────────────────────────────────── */
 
 /* All links underlined in reading mode */
 .markdown-rendered a,
 .markdown-preview-view a {
+    /* stylelint-disable-next-line declaration-no-important -- underline every link in reading view, whatever kind it is; Obsidian decorates internal, external, unresolved and footnote links with separate, more specific rules */
     text-decoration: underline !important;
 }
 
@@ -1853,32 +1919,8 @@ background-color: var(--color-orange);
 .markdown-source-view.mod-cm6 .cm-url,
 .markdown-source-view.mod-cm6 .cm-hmd-internal-link,
 .markdown-source-view.mod-cm6 a {
+    /* stylelint-disable-next-line declaration-no-important -- underline every link in live preview, whatever kind it is; Obsidian decorates internal, external, unresolved and footnote links with separate, more specific rules */
     text-decoration: underline !important;
-}
-
-/* Remove underline from links in headers (reading mode) */
-.markdown-rendered h1 a,
-.markdown-rendered h2 a,
-.markdown-rendered h3 a,
-.markdown-rendered h4 a,
-.markdown-rendered h5 a,
-.markdown-rendered h6 a,
-.markdown-preview-view h1 a,
-.markdown-preview-view h2 a,
-.markdown-preview-view h3 a,
-.markdown-preview-view h4 a,
-.markdown-preview-view h5 a,
-.markdown-preview-view h6 a {
-    text-decoration: none !important;
-}
-
-/* Remove underline from links in headers (editing mode) */
-.markdown-source-view.mod-cm6 .HyperMD-header .cm-link,
-.markdown-source-view.mod-cm6 .HyperMD-header .cm-underline,
-.markdown-source-view.mod-cm6 .HyperMD-header .cm-url,
-.markdown-source-view.mod-cm6 .HyperMD-header .cm-hmd-internal-link,
-.markdown-source-view.mod-cm6 .HyperMD-header a {
-    text-decoration: none !important;
 }
 
 /* Images - ensure proper spacing and display */
@@ -1926,8 +1968,10 @@ DOCUMENT CONTAINER - Full-width with side margins and border
 
 /* Scoped to markdown note views — canvas nodes manage their own width */
 .workspace-leaf-content[data-type="markdown"] .cm-content,
-.workspace-leaf-content[data-type="markdown"] .cm-line {
-    max-width: 100% !important;
+.workspace-leaf-content[data-type="markdown"] .cm-line,
+.workspace-leaf-content[data-type="markdown"] .markdown-source-view.mod-cm6.is-readable-line-width .cm-content,
+.workspace-leaf-content[data-type="markdown"] .markdown-source-view.mod-cm6.is-readable-line-width .cm-line {
+    max-width: 100%;
     width: 100%;
 }
 
@@ -1956,28 +2000,28 @@ svg.canvas-background circle {
 
 /* Colored card variants — border uses full color, background uses 10% alpha tint */
 .canvas-node[data-color="1"] .canvas-node-container {
-    border-color: rgb(var(--canvas-color-1));
-    background-color: rgba(var(--canvas-color-1), 0.1);
+    border-color: var(--canvas-color-1);
+    background-color: color-mix(in srgb, var(--canvas-color-1) 10%, transparent);
 }
 .canvas-node[data-color="2"] .canvas-node-container {
-    border-color: rgb(var(--canvas-color-2));
-    background-color: rgba(var(--canvas-color-2), 0.1);
+    border-color: var(--canvas-color-2);
+    background-color: color-mix(in srgb, var(--canvas-color-2) 10%, transparent);
 }
 .canvas-node[data-color="3"] .canvas-node-container {
-    border-color: rgb(var(--canvas-color-3));
-    background-color: rgba(var(--canvas-color-3), 0.1);
+    border-color: var(--canvas-color-3);
+    background-color: color-mix(in srgb, var(--canvas-color-3) 10%, transparent);
 }
 .canvas-node[data-color="4"] .canvas-node-container {
-    border-color: rgb(var(--canvas-color-4));
-    background-color: rgba(var(--canvas-color-4), 0.1);
+    border-color: var(--canvas-color-4);
+    background-color: color-mix(in srgb, var(--canvas-color-4) 10%, transparent);
 }
 .canvas-node[data-color="5"] .canvas-node-container {
-    border-color: rgb(var(--canvas-color-5));
-    background-color: rgba(var(--canvas-color-5), 0.1);
+    border-color: var(--canvas-color-5);
+    background-color: color-mix(in srgb, var(--canvas-color-5) 10%, transparent);
 }
 .canvas-node[data-color="6"] .canvas-node-container {
-    border-color: rgb(var(--canvas-color-6));
-    background-color: rgba(var(--canvas-color-6), 0.1);
+    border-color: var(--canvas-color-6);
+    background-color: color-mix(in srgb, var(--canvas-color-6) 10%, transparent);
 }
 
 /* Group containers */
@@ -2000,9 +2044,9 @@ svg.canvas-background circle {
 }
 
 /* Colored edges — parent <g> gets mod-canvas-color-N, child path is canvas-display-path */
-.mod-canvas-color-1 path.canvas-display-path { stroke: rgb(var(--canvas-color-1)); }
-.mod-canvas-color-2 path.canvas-display-path { stroke: rgb(var(--canvas-color-2)); }
-.mod-canvas-color-3 path.canvas-display-path { stroke: rgb(var(--canvas-color-3)); }
-.mod-canvas-color-4 path.canvas-display-path { stroke: rgb(var(--canvas-color-4)); }
-.mod-canvas-color-5 path.canvas-display-path { stroke: rgb(var(--canvas-color-5)); }
-.mod-canvas-color-6 path.canvas-display-path { stroke: rgb(var(--canvas-color-6)); }
+.mod-canvas-color-1 path.canvas-display-path { stroke: var(--canvas-color-1); }
+.mod-canvas-color-2 path.canvas-display-path { stroke: var(--canvas-color-2); }
+.mod-canvas-color-3 path.canvas-display-path { stroke: var(--canvas-color-3); }
+.mod-canvas-color-4 path.canvas-display-path { stroke: var(--canvas-color-4); }
+.mod-canvas-color-5 path.canvas-display-path { stroke: var(--canvas-color-5); }
+.mod-canvas-color-6 path.canvas-display-path { stroke: var(--canvas-color-6); }
