@@ -1,8 +1,3 @@
-# Folder
-
-# 分类
-Tags 用于广义检索；Links 表达具体关系；Folders 以 PARA 为主。
-
 # Ontology 本体字段
 
 | 字段              | 用途     | 示例            |
